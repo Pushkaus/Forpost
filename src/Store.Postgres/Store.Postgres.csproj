@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup> 
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" /> 
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Store\Store.csproj" />
+  </ItemGroup>
+</Project>

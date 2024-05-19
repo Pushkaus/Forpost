@@ -1,0 +1,14 @@
+<Project>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <IsPackable>False</IsPackable>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <CommonPrefix>Forpost</CommonPrefix>
+        <RootNamespace>$(CommonPrefix).$(MSBuildProjectName)</RootNamespace>
+    </PropertyGroup>
+</Project>
