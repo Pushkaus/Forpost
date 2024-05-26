@@ -1,39 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E4C73D73-5D04-4D21-8945-10A32D3DE1CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B223CD48-34D0-4E80-9690-97E65105DBDD}"
+	ProjectSection(SolutionItems) = preProject
+		TestConnectionDB.cs = TestConnectionDB.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{BB968C4C-EB95-4FAE-AABB-134D0E3B0AF9}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Packages.props = Directory.Packages.props
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "src\Business\Business.csproj", "{8E4884A9-06C8-4DAD-B630-7CDBD8CE91C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "src\Business\Business.csproj", "{8E4884A9-06C8-4DAD-B630-7CDBD8CE91C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "src\Store\Store.csproj", "{23D8BC9D-3391-417C-A312-407728E10A6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store", "src\Store\Store.csproj", "{23D8BC9D-3391-417C-A312-407728E10A6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Repositories", "src\Store.Repositories\Store.Repositories.csproj", "{CA77837B-D26D-4FE5-ADF3-862D80BEF62D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Repositories", "src\Store.Repositories\Store.Repositories.csproj", "{CA77837B-D26D-4FE5-ADF3-862D80BEF62D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Contracts", "src\Web.Contracts\Web.Contracts.csproj", "{E27B7490-059F-4075-B9A3-1C95E1C68095}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Contracts", "src\Web.Contracts\Web.Contracts.csproj", "{E27B7490-059F-4075-B9A3-1C95E1C68095}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Postgres", "src\Store.Postgres\Store.Postgres.csproj", "{B54B3EF5-292B-4659-9185-D14795872196}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Postgres", "src\Store.Postgres\Store.Postgres.csproj", "{B54B3EF5-292B-4659-9185-D14795872196}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Host", "src\Web.Host\Web.Host.csproj", "{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Host", "src\Web.Host\Web.Host.csproj", "{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{8E4884A9-06C8-4DAD-B630-7CDBD8CE91C7} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
-		{23D8BC9D-3391-417C-A312-407728E10A6C} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
-		{CA77837B-D26D-4FE5-ADF3-862D80BEF62D} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
-		{E27B7490-059F-4075-B9A3-1C95E1C68095} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
-		{B54B3EF5-292B-4659-9185-D14795872196} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
-		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8E4884A9-06C8-4DAD-B630-7CDBD8CE91C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -60,5 +58,19 @@ Global
 		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8E4884A9-06C8-4DAD-B630-7CDBD8CE91C7} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
+		{23D8BC9D-3391-417C-A312-407728E10A6C} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
+		{CA77837B-D26D-4FE5-ADF3-862D80BEF62D} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
+		{E27B7490-059F-4075-B9A3-1C95E1C68095} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
+		{B54B3EF5-292B-4659-9185-D14795872196} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
+		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38E6143B-C8A2-40AA-A6E8-E546A47A612B}
 	EndGlobalSection
 EndGlobal

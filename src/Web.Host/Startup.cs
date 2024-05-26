@@ -1,9 +1,12 @@
 using Forpost.Store.Postgres;
+using Forpost.Web.Contracts.Controllers;
+using Microsoft.OpenApi.Models;
 
 namespace Forpost.Web.Host;
 
 internal sealed class Startup
 {
+
     private readonly IConfiguration _configuration;
 
     public Startup(IConfiguration configuration)
@@ -11,22 +14,21 @@ internal sealed class Startup
         _configuration = configuration;
     }
 
-    public static void ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
-
         services.AddControllers();
-        services.AddPostgresDbContext();
+        services.AddPostgresDbContext(_configuration);
         services.AddAuthorization();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(options =>
+        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{typeof(OrderBlocksController).Assembly.GetName().Name}.xml")
+            ));
+        services.AddEndpointsApiExplorer();
+
     }
 
-
-    public static void Configure(IApplicationBuilder app, IHostEnvironment environment)
+    public void Configure(IApplicationBuilder app, IHostEnvironment environment, ILogger<Startup> logger)
     {
         app.UseRouting();
-        
-        app.UseEndpoints(options =>
-            options.MapControllers());
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
@@ -34,8 +36,8 @@ internal sealed class Startup
             c.RoutePrefix = string.Empty;
         });
 
-
+        app.UseEndpoints(options =>
+            options.MapControllers());
 
     }
-
 }

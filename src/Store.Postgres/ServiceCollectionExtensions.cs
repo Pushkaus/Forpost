@@ -6,19 +6,18 @@ namespace Forpost.Store.Postgres;
 
 public static class ServiceCollectionExtensions
 {
-    private const string ConnectionName = "DornContext";
-    
-    public static IServiceCollection AddPostgresDbContext(this IServiceCollection services)
+    private const string ConnectionName = "DBContext";
+
+    public static IServiceCollection AddPostgresDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<OrdersBlocks>((provider, builder) =>
+        services.AddDbContext<OrderBlockContext>((provider, builder) =>
         {
-            var connectionString = provider.GetRequiredService<IConfiguration>().GetConnectionString(ConnectionName)
+            var connectionString = configuration.GetConnectionString(ConnectionName)
                                    ?? throw new InvalidOperationException($"Не удалось получить строку подключения: {ConnectionName}");
 
-            builder.UseNpgsql(connectionString);
+            builder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
         });
 
         return services;
     }
 }
-

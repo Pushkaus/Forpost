@@ -1,9 +1,23 @@
-namespace Forpost.Web.Contracts.OrderBlock;
+using Swashbuckle.AspNetCore.Annotations;
 
-public class OrderBlockResponse
+namespace Forpost.Web.Contracts.OrderBlock
 {
-    public string Get(string id)
+    public class OrderBlockResponse
     {
-        return "govno";
+        public OrderBlockResponse(int Id, string? Klient, string? Account, string? Block)
+        {
+            this.Id = Id;
+            this.Klient = Klient;
+            this.Account = Account;
+            this.Block = Block;
+        }
+
+        /// <summary>
+        /// gavno
+        /// </summary>
+        public int Id { get; set; }
+        public string? Klient { get; set; }
+        public string? Account { get; set; }
+        public string? Block { get; set; }
     }
 }
