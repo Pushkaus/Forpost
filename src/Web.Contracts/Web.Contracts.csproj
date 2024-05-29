@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	
 <PropertyGroup>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Docker.DotNet" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -13,5 +15,7 @@
   </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj" />
+		<ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj" />
 	</ItemGroup>
+	
 </Project>

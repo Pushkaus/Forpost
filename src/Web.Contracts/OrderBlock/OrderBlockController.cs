@@ -1,43 +1,41 @@
-using Forpost.Store.Postgres;
 using Forpost.Web.Contracts.OrderBlock;
+
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Annotations;
+using Forpost.Store.Postgres;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Forpost.Web.Contracts.Controllers;
 
-[Route("api/order-blocks")]
+[Route("api/v1/order-blocks/")]
 [ApiController]
-public class OrderBlocksController : ControllerBase
+public sealed class OrderBlocksController : ControllerBase
 {
     private readonly OrderBlockContext _dbContext;
+
     public OrderBlocksController(OrderBlockContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<List<OrderBlockResponse>>> GetOrderBlocks()
+    [HttpGet(Name = "GetOrderByAccount")]
+    public async Task<ActionResult<List<OrderBlockResponse>>> GetOrderByAccount(string account)
     {
-        var randomRecords = _dbContext.OrderBlocks
-        .OrderBy(x => Guid.NewGuid())
-        .Take(3) // Изменяем количество записей на 3
-        .ToList();
 
-        var responses = new List<OrderBlockResponse>();
+        var orders = await _dbContext.OrderBlocks.Where(o => o.Account == account).ToListAsync();
 
-        // Преобразуем данные в OrderBlockResponse
-        foreach (var record in randomRecords)
+        var orderResponses = orders.Select(o => new OrderBlockResponse
         {
-            responses.Add(new OrderBlockResponse(
-                Id: record.Id, // Используем Id из объекта OrderBlock
-                Klient: record.Klient, // Используем Klient из объекта OrderBlock
-                Account: record.Account, // Используем Account из объекта OrderBlock
-                Block: record.Block 
-            ));
-        }
-        Console.Write(responses);
+            Id = o.Id,
+            Klient = o.Klient,
+            Account = o.Account,
+            Block = o.Block,
+            Deadline = o.Deadline,
+            Amount = o.Amount,
+        }).ToList();
 
-        return Ok(responses);
-    } 
+        return Ok(orderResponses);
+    }
+
 }

@@ -16,6 +16,15 @@ internal sealed class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.WithOrigins("http://localhost:3000");
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+            });
+        });
         services.AddControllers();
         services.AddPostgresDbContext(_configuration);
         services.AddAuthorization();
@@ -28,6 +37,7 @@ internal sealed class Startup
 
     public void Configure(IApplicationBuilder app, IHostEnvironment environment, ILogger<Startup> logger)
     {
+        app.UseCors();
         app.UseRouting();
         app.UseSwagger();
         app.UseSwaggerUI(c =>

@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>
@@ -6,4 +7,9 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj" />
+  </ItemGroup>
+	
 </Project>
