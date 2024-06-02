@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - ConnectionStrings__DBContext=Host=host.docker.internal;Port=5432;Database=postgres;Username=postgres;Password=8521
+  frontend:
+       build:
+         context: ./ForpostFrontend/react-intro
+         dockerfile: Dockerfile
+       ports:
+         - "3000:3000"
+       environment:
+         - CHOKIDAR_USEPOLLING=true
+         - REACT_APP_API_URL=http://host.docker.internal:8080
+         - NODE_OPTIONS=--openssl-legacy-provider
+       volumes:
+         - ./ForpostFrontend/react-intro:/app
+         - /app/node_modules
+       stdin_open: true
+       tty: true
