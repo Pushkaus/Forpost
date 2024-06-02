@@ -1,6 +1,5 @@
 using Forpost.Web.Contracts.OrderBlock;
-
-
+using Forpost.Business.Abstract.Services;
 using Microsoft.AspNetCore.Mvc;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
@@ -12,18 +11,18 @@ namespace Forpost.Web.Contracts.Controllers;
 [ApiController]
 public sealed class OrderBlocksController : ControllerBase
 {
-    private readonly OrderBlockContext _dbContext;
+    private readonly IOrderBlocksService _orderBlocksService;
 
-    public OrderBlocksController(OrderBlockContext dbContext)
+    public OrderBlocksController(IOrderBlocksService orderBlocksService)
     {
-        _dbContext = dbContext;
+        _orderBlocksService = orderBlocksService;
     }
 
     [HttpGet(Name = "GetOrderByAccount")]
-    public async Task<ActionResult<List<OrderBlockResponse>>> GetOrderByAccount(string account)
+    public async Task<ActionResult<List<OrderBlockResponse>>> GetOrderByAccount(string account, CancellationToken cancellationToken)
     {
 
-        var orders = await _dbContext.OrderBlocks.Where(o => o.Account == account).ToListAsync();
+        var orders = await _orderBlocksService.GetOrdersByAccountNumber(account, cancellationToken);
 
         var orderResponses = orders.Select(o => new OrderBlockResponse
         {

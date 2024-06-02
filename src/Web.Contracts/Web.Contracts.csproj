@@ -14,6 +14,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
   </ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\Business\Business.csproj" />
 		<ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj" />
 		<ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj" />
 	</ItemGroup>

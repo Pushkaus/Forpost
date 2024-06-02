@@ -1,6 +1,9 @@
+using Forpost.Business.Abstract.Services;
+using Forpost.Business.Services;
 using Forpost.Store.Postgres;
+using Forpost.Store.Repositories;
+using Forpost.Store.Repositories.Abstract.Repositories;
 using Forpost.Web.Contracts.Controllers;
-using Microsoft.OpenApi.Models;
 
 namespace Forpost.Web.Host;
 
@@ -16,6 +19,8 @@ internal sealed class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddTransient<IOrderBlocksRepository, OrderBlocksRepository>();
+        services.AddTransient<IOrderBlocksService, OrderBlocksService>();
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(policy =>

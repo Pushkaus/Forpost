@@ -1,10 +1,10 @@
 ﻿using Forpost.Store.Entities;
 
-namespace Forpost.Business.Abstract.Services
+
+namespace Forpost.Store.Repositories.Abstract.Repositories
 {
-    public interface IOrderBlocksService : IBusinessService
+    public interface IOrderBlocksRepository
     {
         public Task<List<OrderBlock>> GetOrdersByAccountNumber(string account, CancellationToken cancellationToken);
-
     }
 }

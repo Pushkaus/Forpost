@@ -1,17 +1,23 @@
 ﻿using Forpost.Business.Abstract.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Forpost.Store.Entities;
+using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services
 {
-    internal sealed class OrderBlocksService : IOrderBlocksService
+    public class OrderBlocksService : IOrderBlocksService
     {
-        public void GetOrder(int id, CancellationToken cancellationToken)
+        private readonly IOrderBlocksRepository _orderBlocksRepository;
+
+        public OrderBlocksService(IOrderBlocksRepository orderBlocksRepository)
         {
-            throw new NotImplementedException();
+            _orderBlocksRepository = orderBlocksRepository;
         }
-    }
+
+        public Task<List<OrderBlock>> GetOrdersByAccountNumber(string account, CancellationToken cancellationToken)
+        {
+            var result = _orderBlocksRepository.GetOrdersByAccountNumber(account, cancellationToken);
+            return result;
+        }
+    } 
 }
+
