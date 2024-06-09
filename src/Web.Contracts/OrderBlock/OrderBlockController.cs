@@ -1,8 +1,7 @@
 using Forpost.Web.Contracts.OrderBlock;
 using Forpost.Business.Abstract.Services;
 using Microsoft.AspNetCore.Mvc;
-using Forpost.Store.Postgres;
-using Microsoft.EntityFrameworkCore;
+
 
 
 namespace Forpost.Web.Contracts.Controllers;
@@ -18,7 +17,7 @@ public sealed class OrderBlocksController : ControllerBase
         _orderBlocksService = orderBlocksService;
     }
 
-    [HttpGet(Name = "GetOrderByAccount")]
+    [HttpGet("get-order-by-account")]
     public async Task<ActionResult<List<OrderBlockResponse>>> GetOrderByAccount(string account, CancellationToken cancellationToken)
     {
 
@@ -36,5 +35,4 @@ public sealed class OrderBlocksController : ControllerBase
 
         return Ok(orderResponses);
     }
-
 }

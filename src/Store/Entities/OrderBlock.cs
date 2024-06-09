@@ -11,16 +11,16 @@ public class OrderBlock
     public string? Amount {  get; set; }
     public string? SettingOption { get; set; }
 
-    public DateOnly? Deadline { get; set; }
-    public DateOnly? StartTask { get; set; }
+    public DateTime? Deadline { get; set; }
+    public DateTime? StartTask { get; set; }
 
-    public DateOnly? EndTask { get; set; }
-    public DateOnly? StartSetting { get; set; }
+    public DateTime? EndTask { get; set; }
+    public DateTime? StartSetting { get; set; }
 
-    public DateOnly? EndSetting { get; set; }
-    public DateOnly? StartProgon { get; set; }
+    public DateTime? EndSetting { get; set; }
+    public DateTime? StartProgon { get; set; }
 
-    public DateOnly? EndProgon { get; set; }
+    public DateTime? EndProgon { get; set; }
 
     public string? Status { get; set; }
 

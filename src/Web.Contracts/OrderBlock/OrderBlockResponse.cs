@@ -9,6 +9,6 @@ namespace Forpost.Web.Contracts.OrderBlock
         public string? Account { get; set; }
         public string? Block { get; set; }
         public string? Amount { get; set; }
-        public DateOnly? Deadline { get; set; }
+        public DateTime? Deadline { get; set; }
     }
 }
