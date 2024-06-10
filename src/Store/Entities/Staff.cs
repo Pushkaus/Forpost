@@ -23,4 +23,5 @@ public partial class Staff
     public string? LastUser { get; set; }
 
     public string? Manager { get; set; }
+    public string? Password { get; set; }
 }

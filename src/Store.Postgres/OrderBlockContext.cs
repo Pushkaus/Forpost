@@ -16,7 +16,7 @@ public sealed class OrderBlockContext : DbContext
 
     //public  DbSet<Specification> Specifications => Set<Specification>();
 
-    //public  DbSet<Staff> Staff => Set<Staff>();
+    public  DbSet<Staff> Staff => Set<Staff>();
     //public  DbSet<StaffRoleStaffView> StaffRoleStaffViews => Set<StaffRoleStaffView>();
 
     //public DbSet<Task> Tasks => Set<Task>();
