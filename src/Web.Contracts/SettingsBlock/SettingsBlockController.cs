@@ -1,6 +1,7 @@
 ﻿using Forpost.Business.Abstract.Services;
 using Forpost.Store.Entities;
 using Forpost.Web.Contracts.OrderBlock;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,6 +12,7 @@ namespace Forpost.Web.Contracts.SettingsBlock
     /// </summary>
     [Route("api/v1/settings-blocks/")]
     [ApiController]
+    [Authorize]
     public sealed class SettingsBlockController: ControllerBase
     {
         private readonly ISettingsBlocksService _settingsBlocksService;
@@ -81,6 +83,7 @@ namespace Forpost.Web.Contracts.SettingsBlock
         /// <param name="account"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        /// 
         [HttpGet("get-settings-block-by-account")]
         public async Task<ActionResult<List<SettingsBlockResponse>>> GetSettingsBlockByAccount(string account, CancellationToken cancellationToken)
         {

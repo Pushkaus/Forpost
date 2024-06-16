@@ -39,7 +39,10 @@ internal sealed class Startup
         services.AddPostgresDbContext(_configuration);
 
         // Регистрация авторизации
-        services.AddAuthorization();
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+        });
 
         // Конфигурация Swagger
         ConfigureSwagger(services);
@@ -57,10 +60,10 @@ internal sealed class Startup
             x.SaveToken = true;
             x.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false
+                ValidateIssuerSigningKey = true, // Валидация секретного ключа
+                IssuerSigningKey = new SymmetricSecurityKey(key), // Установка ключа безопастности
+                ValidateIssuer = false, // Строка, представляющая издателя
+                ValidateAudience = false // Установка потребителя токена
             };
         });
 
@@ -69,10 +72,13 @@ internal sealed class Startup
 
     private void RegisterServices(IServiceCollection services)
     {
+        //
         services.AddTransient<IOrderBlocksRepository, OrderBlocksRepository>();
         services.AddTransient<IOrderBlocksService, OrderBlocksService>();
+        // Настроенные блоки
         services.AddTransient<ISettingsBlocksService, SettingsBlocksService>();
         services.AddTransient<ISettingsBlocksRepository, SettingsBlocksRepository>();
+        // Аутентификация
         services.AddTransient<IAuthenticationRepository, AuthenticationRepository >();
         services.AddTransient<IAuthenticationService, AuthenticationService>();
     }
@@ -102,7 +108,7 @@ internal sealed class Startup
     }
 
 
-    public void Configure(IApplicationBuilder app, IHostEnvironment environment, ILogger<Startup> logger)
+    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, ILogger<Startup> logger)
     {
         app.UseCors();
         app.UseRouting();
@@ -117,6 +123,5 @@ internal sealed class Startup
 
         app.UseEndpoints(options =>
             options.MapControllers());
-
     }
 }

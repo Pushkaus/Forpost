@@ -1,13 +1,10 @@
 ﻿using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,9 +13,9 @@ namespace Forpost.Store.Repositories
 {
     public class AuthenticationRepository: IAuthenticationRepository
     {
-        private readonly OrderBlockContext _dbContext;
+        private readonly PostgresContext _dbContext;
         private readonly IConfiguration _configuration;
-        public AuthenticationRepository(OrderBlockContext dbContext, IConfiguration configuration)
+        public AuthenticationRepository(PostgresContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _configuration = configuration;
@@ -34,7 +31,7 @@ namespace Forpost.Store.Repositories
                 return new UnauthorizedResult();
 
             var token = GenerateJwtToken(dbUser);
-            return new OkObjectResult(new { Token = token });
+            return new OkObjectResult(new { token });
         }
 
 
@@ -46,7 +43,8 @@ namespace Forpost.Store.Repositories
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                new Claim(ClaimTypes.Name, user.Name)
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Role, user.Post)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

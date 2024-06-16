@@ -9,8 +9,8 @@ namespace Forpost.Store.Repositories
 {
     public class SettingsBlocksRepository: ISettingsBlocksRepository
     {
-        private readonly OrderBlockContext _dbContext;
-        public SettingsBlocksRepository(OrderBlockContext dbContext)
+        private readonly PostgresContext _dbContext;
+        public SettingsBlocksRepository(PostgresContext dbContext)
         {
             _dbContext = dbContext;
         }

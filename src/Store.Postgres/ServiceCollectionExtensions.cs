@@ -10,12 +10,12 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddPostgresDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<OrderBlockContext>((provider, builder) =>
+        services.AddDbContext<PostgresContext>((provider, builder) =>
         {
             var connectionString = configuration.GetConnectionString(ConnectionName)
                                    ?? throw new InvalidOperationException($"Не удалось получить строку подключения: {ConnectionName}");
 
-            builder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
+            builder.UseNpgsql(connectionString);
         });
 
         return services;

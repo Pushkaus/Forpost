@@ -7,14 +7,14 @@ namespace Forpost.Store.Repositories
 {
     public class OrderBlocksRepository : IOrderBlocksRepository
     {
-        private readonly OrderBlockContext _dbContext;
-        public OrderBlocksRepository(OrderBlockContext dbContext)
+        private readonly PostgresContext _dbContext;
+        public OrderBlocksRepository(PostgresContext dbContext)
         {
             _dbContext = dbContext;
         }
         public async Task<List<OrderBlock>> GetOrdersByAccountNumber(string account, CancellationToken cancellationToken)
         {
-            var orders = await _dbContext.OrderBlocks.Where(o => o.Account == account).ToListAsync();
+            var orders = await _dbContext.OrderBlocks.Where(o => o.Account == account).ToListAsync(cancellationToken);
             return orders;
         }
         
