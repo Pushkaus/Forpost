@@ -8,9 +8,9 @@ public static class ServiceCollectionExtensions
 {
     private const string ConnectionName = "DBContext";
 
-    public static IServiceCollection AddPostgresDbContext(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddForpostContextPostgres(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<PostgresContext>((provider, builder) =>
+        services.AddDbContext<ForpostContextPostgres>((provider, builder) =>
         {
             var connectionString = configuration.GetConnectionString(ConnectionName)
                                    ?? throw new InvalidOperationException($"Не удалось получить строку подключения: {ConnectionName}");
