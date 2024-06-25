@@ -9,9 +9,9 @@ public sealed class Invoice: IAuditableEntity
         
     }
 
-    public Invoice(Guid id, string number, string contragent, string comment, DateTimeOffset createdAt, Guid createdById, DateTimeOffset updatedAt, Guid updatedById, DateTimeOffset? deletedAt, Guid? deletedById)
+    public Invoice(Guid id, string number, string contragent, string comment, DateTimeOffset createdAt, Guid createdById, DateTimeOffset updatedAt, Guid updatedById)
     {
-        Id = id;
+        Id =  id;
         Number = number;
         Contragent = contragent;
         Comment = comment;
@@ -19,8 +19,6 @@ public sealed class Invoice: IAuditableEntity
         CreatedById = createdById;
         UpdatedAt = updatedAt;
         UpdatedById = updatedById;
-        DeletedAt = deletedAt;
-        DeletedById = deletedById;
     }
 
     public Guid Id { get; set; }

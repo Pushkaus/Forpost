@@ -22,47 +22,10 @@ namespace Forpost.Store.Postgres.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Forpost.Store.Entities.Assembly", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("StorageId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UpdatedById")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StorageId");
-
-                    b.ToTable("Assembly");
-                });
-
             modelBuilder.Entity("Forpost.Store.Entities.Employee", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -189,6 +152,9 @@ namespace Forpost.Store.Postgres.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("numeric");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -205,8 +171,54 @@ namespace Forpost.Store.Postgres.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("ProductCategoryId")
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedById")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Version")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("DeletedById");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.HasIndex("Name", "Version");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.ProductWork", b =>
+                {
+                    b.Property<Guid>("WorkTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -214,60 +226,17 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Property<Guid>("UpdatedById")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Id");
+                    b.HasKey("WorkTypeId", "ProductId");
 
-                    b.HasIndex("ProductCategoryId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Forpost.Store.Entities.ProductAssembly", b =>
-                {
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AssemblyId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ProductId", "AssemblyId");
-
-                    b.HasIndex("AssemblyId");
-
-                    b.ToTable("ProductAssemblies");
-                });
-
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ParentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("RootId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.HasIndex("RootId");
-
-                    b.ToTable("ProductCategories");
+                    b.ToTable("ProductWorks");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -285,24 +254,108 @@ namespace Forpost.Store.Postgres.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedById")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("ResponsibleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedById")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Storage");
+                    b.HasIndex("ResponsibleId");
+
+                    b.ToTable("Storages");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Assembly", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.StorageProduct", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Storage", "Storage")
-                        .WithMany("Assemblies")
-                        .HasForeignKey("StorageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
 
-                    b.Navigation("Storage");
+                    b.Property<Guid>("StorageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProductId", "StorageId");
+
+                    b.HasIndex("StorageId");
+
+                    b.HasIndex("ProductId", "StorageId")
+                        .IsUnique();
+
+                    b.ToTable("StorageProducts");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.SubProduct", b =>
+                {
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DaughterId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ParentId", "DaughterId");
+
+                    b.HasIndex("DaughterId");
+
+                    b.ToTable("SubProducts");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.WorkType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedById")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkTypes");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Employee", b =>
@@ -337,56 +390,100 @@ namespace Forpost.Store.Postgres.Migrations
 
             modelBuilder.Entity("Forpost.Store.Entities.Product", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.ProductCategory", "ProductCategory")
-                        .WithOne("Product")
-                        .HasForeignKey("Forpost.Store.Entities.Product", "ProductCategoryId")
+                    b.HasOne("Forpost.Store.Entities.Employee", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductCategory");
+                    b.HasOne("Forpost.Store.Entities.Employee", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedById");
+
+                    b.HasOne("Forpost.Store.Entities.Employee", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("UpdatedBy");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductAssembly", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductWork", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Assembly", "Assembly")
-                        .WithMany("ProductAssemblies")
-                        .HasForeignKey("AssemblyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Forpost.Store.Entities.Product", "Product")
-                        .WithMany("ProductAssemblies")
+                        .WithMany("ProductWorks")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Assembly");
+                    b.HasOne("Forpost.Store.Entities.WorkType", "WorkType")
+                        .WithMany("ProductWorks")
+                        .HasForeignKey("WorkTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("WorkType");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCategory", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Storage", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.ProductCategory", "ParentCategory")
-                        .WithMany("ChildCategories")
+                    b.HasOne("Forpost.Store.Entities.Employee", "Employee")
+                        .WithMany("Storages")
+                        .HasForeignKey("ResponsibleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.StorageProduct", b =>
+                {
+                    b.HasOne("Forpost.Store.Entities.Product", "Product")
+                        .WithMany("StorageProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Store.Entities.Storage", "Storage")
+                        .WithMany("StorageProducts")
+                        .HasForeignKey("StorageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Storage");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.SubProduct", b =>
+                {
+                    b.HasOne("Forpost.Store.Entities.Product", "DaughterProduct")
+                        .WithMany("DaughterSubProducts")
+                        .HasForeignKey("DaughterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Store.Entities.Product", "ParentProduct")
+                        .WithMany("ParentSubProducts")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Store.Entities.ProductCategory", "RootCategory")
-                        .WithMany("DescendantCategories")
-                        .HasForeignKey("RootId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("DaughterProduct");
 
-                    b.Navigation("ParentCategory");
-
-                    b.Navigation("RootCategory");
+                    b.Navigation("ParentProduct");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Assembly", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Employee", b =>
                 {
-                    b.Navigation("ProductAssemblies");
+                    b.Navigation("Storages");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Invoice", b =>
@@ -396,19 +493,15 @@ namespace Forpost.Store.Postgres.Migrations
 
             modelBuilder.Entity("Forpost.Store.Entities.Product", b =>
                 {
+                    b.Navigation("DaughterSubProducts");
+
                     b.Navigation("InvoiceProducts");
 
-                    b.Navigation("ProductAssemblies");
-                });
+                    b.Navigation("ParentSubProducts");
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCategory", b =>
-                {
-                    b.Navigation("ChildCategories");
+                    b.Navigation("ProductWorks");
 
-                    b.Navigation("DescendantCategories");
-
-                    b.Navigation("Product")
-                        .IsRequired();
+                    b.Navigation("StorageProducts");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Role", b =>
@@ -418,7 +511,12 @@ namespace Forpost.Store.Postgres.Migrations
 
             modelBuilder.Entity("Forpost.Store.Entities.Storage", b =>
                 {
-                    b.Navigation("Assemblies");
+                    b.Navigation("StorageProducts");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.WorkType", b =>
+                {
+                    b.Navigation("ProductWorks");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,7 @@ using Forpost.Business.Abstract.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Account;
+namespace Forpost.Web.Contracts;
 /// <summary>
 /// Контроллер для работы с сотрудниками
 /// </summary>

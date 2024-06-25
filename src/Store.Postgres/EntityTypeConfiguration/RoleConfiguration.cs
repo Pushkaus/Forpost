@@ -9,7 +9,7 @@ namespace Forpost.Store.Postgres.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.HasKey(entity => entity.Id);
-            builder.Property(entity => entity.Id).ValueGeneratedNever();
+            builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
             
         }
     }

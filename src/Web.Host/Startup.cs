@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Forpost.Store.Entities;
-using Forpost.Web.Contracts.Account;
+using Forpost.Web.Contracts;
 using Microsoft.AspNetCore.Identity;
 
 namespace Forpost.Web.Host;
@@ -75,9 +75,12 @@ internal sealed class Startup
     }
     private void RegisterServices(IServiceCollection services)
     {
-        //Аутентификация
         services.AddTransient<IAccountRepository, AccountRepository>();
         services.AddTransient<IAccountService, AccountService>();
+        services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+        services.AddTransient<IEmployeeService, EmployeeService>();
+        services.AddTransient<IInvoiceService, InvoiceService>();
+        services.AddTransient<IInvoiceRepository, InvoiceRepository>();
     }
     // Настройка CORS
     private void ConfigureCors(IServiceCollection services)
@@ -100,6 +103,8 @@ internal sealed class Startup
         {
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(AccountController).Assembly.GetName().Name}.xml"));
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{typeof(EmployeeController).Assembly.GetName().Name}.xml"));
             
         });
     }

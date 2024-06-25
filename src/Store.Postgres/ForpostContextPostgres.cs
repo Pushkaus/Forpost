@@ -13,8 +13,11 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<Invoice> Invoices => Set<Invoice>();
     public DbSet<InvoiceProduct> InvoiceProducts => Set<InvoiceProduct>();
     public DbSet<Product> Products => Set<Product>();
-    public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
-    public DbSet<ProductAssembly> ProductAssemblies => Set<ProductAssembly>();
+    public DbSet<ProductWork> ProductWorks => Set<ProductWork>();
+    public DbSet<Storage> Storages => Set<Storage>();
+    public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
+    public DbSet<SubProduct> SubProducts => Set<SubProduct>();
+    public DbSet<WorkType> WorkTypes => Set<WorkType>(); 
     
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,10 +28,12 @@ public sealed class ForpostContextPostgres : DbContext
         modelBuilder.ApplyConfiguration(new InvoiceConfiguration());
         modelBuilder.ApplyConfiguration(new InvoiceProductConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductAssemblyConfiguration());
-
-
+        modelBuilder.ApplyConfiguration(new ProductWorkConfiguration());
+        modelBuilder.ApplyConfiguration(new StorageConfiguration());
+        modelBuilder.ApplyConfiguration(new StorageProductConfiguration());
+        modelBuilder.ApplyConfiguration(new SubProductConfiguration());
+        modelBuilder.ApplyConfiguration(new WorkTypeConfiguration());
+        
         base.OnModelCreating(modelBuilder);
         
     }
