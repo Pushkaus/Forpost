@@ -21,7 +21,7 @@ public class InvoiceRepository: IInvoiceRepository
         {
             var invoice = new Invoice
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Number = number,
                 Contragent = contragent,
                 Comment = comment,

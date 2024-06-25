@@ -81,6 +81,8 @@ internal sealed class Startup
         services.AddTransient<IEmployeeService, EmployeeService>();
         services.AddTransient<IInvoiceService, InvoiceService>();
         services.AddTransient<IInvoiceRepository, InvoiceRepository>();
+        services.AddTransient<IRoleService, RoleService>();
+        services.AddTransient<IRoleRepository, RoleRepository>();
     }
     // Настройка CORS
     private void ConfigureCors(IServiceCollection services)
