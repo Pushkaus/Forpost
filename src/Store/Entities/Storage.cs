@@ -6,9 +6,10 @@ namespace Forpost.Store.Entities;
 public class Storage: IAuditableEntity
 {
     private Storage() {}
-    public Storage(string storageName, Guid userId)
+    public Storage(string storageName, Guid userId, Guid responsibleId)
     {
         Name = storageName;
+        ResponsibleId = responsibleId;
         CreatedAt = DateTimeOffset.UtcNow;
         CreatedById = userId;
         UpdatedAt = DateTimeOffset.UtcNow;

@@ -13,14 +13,15 @@ public class StorageRepository: IStorageRepository
     {
         _db = db;
     }
-    public async Task<IActionResult> CreateStorageAsync(string storageName, Guid userId, CancellationToken cancellationToken)
+    public async Task<string> CreateStorageAsync(string storageName, Guid userId, Guid responsibleId, CancellationToken cancellationToken)
     {
         try
         {
-            var storage = new Storage(storageName, userId);
+            responsibleId = userId;
+            var storage = new Storage(storageName, userId, responsibleId);
             await _db.Storages.AddAsync(storage, cancellationToken);
             await _db.SaveChangesAsync(cancellationToken);
-            return new OkResult();
+            return new string($"Создан новый склад {storageName}");
         }
         catch (Exception ex)
         {

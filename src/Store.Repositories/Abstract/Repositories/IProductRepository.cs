@@ -6,7 +6,7 @@ namespace Forpost.Store.Repositories.Abstract.Repositories;
 public interface IProductRepository
 {
     public Task<IList<Product>> GetProducts();
-
+    public Task<IList<Product>> GetAllProducts(CancellationToken cancellationToken);
     public Task<IActionResult> CreateProduct(Guid userId, string productName, string? version, decimal cost,
         CancellationToken cancellationToken);
 

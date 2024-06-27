@@ -4,5 +4,5 @@ namespace Forpost.Store.Repositories.Abstract.Repositories;
 
 public interface IStorageProductRepository
 {
-    public Task<IActionResult> AddProductOnStorage(Guid productId, Guid storageId, decimal quantity, string unitOfMeasure);
+    public Task<string> AddProductOnStorage(string productName, string storageName, decimal quantity, string unitOfMeasure);
 }

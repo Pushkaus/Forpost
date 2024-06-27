@@ -2,6 +2,7 @@ using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
@@ -16,6 +17,19 @@ public class ProductRepository: IProductRepository
     public Task<IList<Product>> GetProducts()
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<IList<Product>> GetAllProducts(CancellationToken cancellationToken)
+    {
+        try
+        {
+            var products = await _db.Products.ToListAsync(cancellationToken);
+            return products;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Произошла ошибка при получении списка продуков: {ex.Message}");
+        }
     }
 
     public async Task<IActionResult> CreateProduct(Guid userId, string productName, string? version, decimal cost, CancellationToken cancellationToken)

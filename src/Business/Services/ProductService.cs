@@ -18,6 +18,12 @@ public class ProductService: IProductService
         throw new NotImplementedException();
     }
 
+    public async Task<IList<Product>> GetAllProducts(CancellationToken cancellationToken)
+    {
+        var result = await _productRepository.GetAllProducts(cancellationToken);
+        return result;
+    }
+
     public async Task<IActionResult> CreateProduct(Guid userId, string productName, string? version, decimal cost,
         CancellationToken cancellationToken)
     {

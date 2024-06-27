@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+namespace Forpost.Business.Abstract.Services;
 
-namespace Forpost.Store.Repositories.Abstract.Repositories;
-
-public interface IStorageRepository
+public interface IStorageService
 {
     public Task<string> CreateStorageAsync(string storageName, Guid userId, Guid responsibleId, CancellationToken cancellationToken);
 }

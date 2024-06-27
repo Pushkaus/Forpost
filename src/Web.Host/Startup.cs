@@ -9,8 +9,11 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Forpost.Store.Entities;
+using Forpost.Store.Repositories.Models;
 using Forpost.Web.Contracts;
 using Forpost.Web.Contracts.Products;
+using Forpost.Web.Contracts.Storage;
+using Forpost.Web.Contracts.StorageProduct;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
@@ -108,6 +111,10 @@ internal sealed class Startup
         services.AddTransient<IRoleRepository, RoleRepository>();
         services.AddTransient<IProductService, ProductService>();
         services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddTransient<IStorageService, StorageService>();
+        services.AddTransient<IStorageRepository, StorageRepository>();
+        services.AddTransient<IStorageProductService, StorageProductService>();
+        services.AddTransient<IStorageProductRepository, StorageProductRepository>();
     }
     // Настройка CORS
     private void ConfigureCors(IServiceCollection services)
@@ -134,7 +141,10 @@ internal sealed class Startup
                 $"{typeof(EmployeeController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(ProductController).Assembly.GetName().Name}.xml"));
-            
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{typeof(StorageController).Assembly.GetName().Name}.xml"));
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{typeof(StorageProductController).Assembly.GetName().Name}.xml"));
         });
     }
 
