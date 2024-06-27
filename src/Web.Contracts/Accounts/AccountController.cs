@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Forpost.Business.Abstract.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace Forpost.Web.Contracts;
 /// Контроллер для работы с сотрудниками
 /// </summary>
 [ApiController]
-[Route("api/v1/account")]
+[Route("api/v1/accounts")]
 public class AccountController: ControllerBase
 {
     private readonly IAccountService _accountService;
@@ -24,9 +25,12 @@ public class AccountController: ControllerBase
     /// Регистрация сотрудника
     /// </summary>
     [HttpPut("register")]
-    public async Task<string> RegisterAsync(string firstName, string lastName, string? patronymic,
-        string post, string role, string? email, string phoneNumber, string password)
+    [Authorize]
+    public async Task<string> RegisterAsync(string firstName, string lastName, string? patronymic, string post, string role, string? email,
+        string phoneNumber, string password)
     {
+        var user = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var userId = Guid.Parse(user);
         var result = await _accountService.RegisterAsync(
             firstName, 
             lastName,
@@ -35,7 +39,8 @@ public class AccountController: ControllerBase
             role,
             email,
             phoneNumber,
-            password);
+            password,
+            userId);
         return result;
     }
 /// <summary>
@@ -45,7 +50,6 @@ public class AccountController: ControllerBase
     public async Task<IActionResult> LoginAsync(string firstName, string lastName, string password)
     {
         var result = await _accountService.LoginAsync(firstName, lastName, password);
-        
         return result;
     }
     

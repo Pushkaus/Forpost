@@ -1,19 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace Forpost.Store.Entities
 {
     public sealed class Role
     {
-        public Role(Guid id, string name)
+        public Role(string name)
         {
-            Id = new Guid();
             Name = name;
         }
-
-        public Role()
-        {
-        }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string Name { get; set; }
         // Навигационные свойства

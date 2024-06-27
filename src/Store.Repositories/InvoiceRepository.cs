@@ -15,30 +15,19 @@ public class InvoiceRepository: IInvoiceRepository
     {
         _db = db;
     }
-    public async Task<IActionResult> CreateInvoice(Guid userId, string number, string contragent, string comment, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateInvoice(Guid userId, string number, string contragent, string description, CancellationToken cancellationToken)
     {
         try
         {
-            var invoice = new Invoice
-            {
-                Id = Guid.NewGuid(),
-                Number = number,
-                Contragent = contragent,
-                Comment = comment,
-                CreatedAt = DateTimeOffset.UtcNow,
-                UpdatedAt = DateTimeOffset.UtcNow,
-                CreatedById = userId,
-                UpdatedById = userId
-            };
-                
-            await _db.Invoices.AddAsync(invoice); // Добавляем счет в контекст базы данных
+            var invoice = new Invoice(number, contragent, description, userId, userId);
+            await _db.Invoices.AddAsync(invoice, cancellationToken); // Добавляем счет в контекст базы данных
             await _db.SaveChangesAsync(cancellationToken); // Сохраняем изменения в базе данных
 
             return new OkResult(); // Возвращаем успешный результат
         }
         catch (Exception ex)
         {
-            throw new Exception($"Произошла ошибка при добавлении счета: {ex.Message}"); // Возвращаем статус код 500 в случае ошибки
+            throw new Exception($"Произошла ошибка при добавлении счета: {ex.Message}");
         }
     }
 
@@ -49,7 +38,7 @@ public class InvoiceRepository: IInvoiceRepository
             var invoices = await _db.Invoices
                 .Where(i => i.Number == invoiceNumber)
                 .ToListAsync(cancellationToken);
-
+            
             return invoices;
         }
         catch (Exception ex)

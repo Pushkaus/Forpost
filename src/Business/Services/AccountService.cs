@@ -20,11 +20,11 @@ public class AccountService: IAccountService
 
     }
 
-    public async Task<string> RegisterAsync(string firstName, string lastName, string? patronymic,
-        string post, string role, string? email, string phoneNumber, string password)
+    public async Task<string> RegisterAsync(string firstName, string lastName, string? patronymic, string post, string role, string? email,
+        string phoneNumber, string password, Guid userId)
     {
         var result = await _accountRepository.RegisterAsync(firstName, lastName, patronymic, post, role, email,
-            phoneNumber, password);
+            phoneNumber, password, userId);
         return result;
 
     }

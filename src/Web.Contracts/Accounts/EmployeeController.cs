@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Routing;
 namespace Forpost.Web.Contracts;
 
 [ApiController]
-[Route("api/v1/Employee")]
+[Route("api/v1/employees")]
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;

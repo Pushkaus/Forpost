@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Forpost.Store.Contracts;
 
 namespace Forpost.Store.Entities;

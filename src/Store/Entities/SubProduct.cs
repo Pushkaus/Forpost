@@ -7,8 +7,10 @@ public sealed class SubProduct
 
     // Идентификатор дочернего продукта
     public Guid DaughterId { get; set; }
-    
-    public int Count { get; set; }
+    // Единица измерения
+    public string UnitOfMeasure { get; set; }
+    // Количество
+    public float Quantity { get; set; }
 
     // Навигационные свойства
     public Product ParentProduct { get; set; }

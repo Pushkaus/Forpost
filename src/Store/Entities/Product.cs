@@ -1,11 +1,26 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Forpost.Store.Contracts;
 
 namespace Forpost.Store.Entities;
 
 public sealed class Product : IAuditableEntity
 {
+    public Product(string name, decimal cost, Guid createdById, Guid updatedById, string? version = null)
+    {
+        Name = name;
+        CategoryId = null;
+        Version = version;
+        Cost = cost;
+        CreatedAt = DateTimeOffset.UtcNow;
+        CreatedById = createdById;
+        UpdatedAt = DateTimeOffset.UtcNow;
+        UpdatedById = updatedById;
+        
+    }
+    
     public Guid Id { get; set; }
     public string Name { get; set; }
+    public Guid? CategoryId { get; set; }
     public string? Version { get; set; }
     public decimal Cost { get; set; }
     public DateTimeOffset CreatedAt { get; set; }

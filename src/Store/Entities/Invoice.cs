@@ -1,30 +1,27 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Forpost.Store.Contracts;
 
 namespace Forpost.Store.Entities;
 
 public sealed class Invoice: IAuditableEntity
 {
-    public Invoice()
+    
+    public Invoice(string number, string contragent, string description, Guid createdById, Guid updatedById)
     {
-        
-    }
-
-    public Invoice(Guid id, string number, string contragent, string comment, DateTimeOffset createdAt, Guid createdById, DateTimeOffset updatedAt, Guid updatedById)
-    {
-        Id =  id;
         Number = number;
         Contragent = contragent;
-        Comment = comment;
-        CreatedAt = createdAt;
+        Description = description;
+        CreatedAt = DateTimeOffset.UtcNow;
         CreatedById = createdById;
-        UpdatedAt = updatedAt;
+        UpdatedAt = DateTimeOffset.UtcNow;
         UpdatedById = updatedById;
     }
-
+    
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     public string Number { get; set; }
     public string Contragent { get; set; }
-    public string? Comment { get; set; }
+    public string? Description { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

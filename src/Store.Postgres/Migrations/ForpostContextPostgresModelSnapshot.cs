@@ -88,9 +88,6 @@ namespace Forpost.Store.Postgres.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("text");
-
                     b.Property<string>("Contragent")
                         .IsRequired()
                         .HasColumnType("text");
@@ -106,6 +103,9 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.Property<Guid?>("DeletedById")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Number")
                         .IsRequired()
@@ -150,6 +150,9 @@ namespace Forpost.Store.Postgres.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("Cost")
@@ -294,8 +297,12 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Property<Guid>("StorageId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                    b.Property<float>("Quantity")
+                        .HasColumnType("real");
+
+                    b.Property<string>("UnitOfMeasure")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("ProductId", "StorageId");
 
@@ -315,8 +322,12 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Property<Guid>("DaughterId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Count")
-                        .HasColumnType("integer");
+                    b.Property<float>("Quantity")
+                        .HasColumnType("real");
+
+                    b.Property<string>("UnitOfMeasure")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("ParentId", "DaughterId");
 

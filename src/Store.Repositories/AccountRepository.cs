@@ -4,6 +4,7 @@ using System.Text;
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ public class AccountRepository: IAccountRepository
             return new UnauthorizedResult();
         var roleEntity = role.Name;
         var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
-
+        
         string? token;
         if (passwordVerificationResult == PasswordVerificationResult.Success)
         {
@@ -49,26 +50,18 @@ public class AccountRepository: IAccountRepository
     }
 
     public async Task<string> RegisterAsync(string firstName, string lastName, string? patronymic, string post, string role, string? email,
-        string phoneNumber, string password)
+        string phoneNumber, string password, Guid userId)
     {
         if (await _db.Employees.AnyAsync(e => e.PhoneNumber == phoneNumber))
             return "Сотрудник с таким номером телефона уже зарегистрирован.";
+    
         var roleEntity = await _db.Roles.Where(r => r.Name == role).FirstOrDefaultAsync();
         if (roleEntity == null)
             return "Не удается определить роль сотрудника.";
-        var employee = new Employee
-        {
-            Id = Guid.NewGuid(),
-            FirstName = firstName,
-            LastName = lastName,
-            Patronymic = patronymic,
-            Post = post,
-            Email = email,
-            RoleId = roleEntity.Id,
-            PhoneNumber = phoneNumber,
-            CreatedAt = DateTimeOffset.UtcNow,
-            UpdatedAt = DateTimeOffset.UtcNow,
-        };
+
+        var employee = new Employee(firstName, lastName, patronymic, post, roleEntity.Id, email,
+            phoneNumber, userId);
+                                
         employee.PasswordHash = _passwordHasher.HashPassword(employee, password);
 
         await _db.Employees.AddAsync(employee);
@@ -87,6 +80,7 @@ public class AccountRepository: IAccountRepository
             {
                 new Claim(ClaimTypes.Name, user.FirstName),
                 new Claim(ClaimTypes.Surname, user.LastName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Role, roleName)
             }),
             Expires = DateTime.UtcNow.AddDays(7),

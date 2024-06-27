@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts;
 [ApiController]
-[Route("api/v1/invoice")]
+[Route("api/v1/invoices")]
 
 public class InvoiceController: ControllerBase
 {
