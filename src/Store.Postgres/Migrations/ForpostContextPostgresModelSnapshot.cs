@@ -297,8 +297,8 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Property<Guid>("StorageId")
                         .HasColumnType("uuid");
 
-                    b.Property<float>("Quantity")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("UnitOfMeasure")
                         .IsRequired()

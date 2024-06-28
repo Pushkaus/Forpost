@@ -22,20 +22,34 @@ public class ProductController: ControllerBase
     [HttpGet("get-all-products")]
     public async Task<IActionResult> GetAllProducts(CancellationToken cancellationToken)
     {
+        var user = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var userId = Guid.Parse(user);
         var result = await _productService.GetAllProducts(cancellationToken);
         return new OkObjectResult(result);
     }
     /// <summary>
     /// Создание продукта
     /// </summary>
+    public class CreateProductRequest
+    {
+        public string Name { get; set; }
+        public string? Version { get; set; }
+        public decimal Cost { get; set; }
+    }
+
     [HttpPut("create-product")]
-    public async Task<IActionResult> CreateProduct(string productName, string? version, decimal cost,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateProduct([FromBody] CreateProductRequest request, CancellationToken cancellationToken)
     {
         var user = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        if (user == null)
+        {
+            return Unauthorized("User claim not found");
+        }
+    
         var userId = Guid.Parse(user);
         Console.WriteLine(userId);
-        var result = await _productService.CreateProduct(userId, productName, version, cost, cancellationToken);
-        return new OkObjectResult(result);
+
+        var result = await _productService.CreateProduct(userId, request.Name, request.Version, request.Cost, cancellationToken);
+        return Ok(result);
     }
 }

@@ -15,6 +15,24 @@ public class StorageProductRepository: IStorageProductRepository
     {
         _db = db;
     }
+    
+    public async Task<IList<StorageProduct.StorageProductDto>> GetAllProductsOnStorage()
+    {
+        var storageProducts = await _db.StorageProducts
+            .Include(sp => sp.Product)
+            .Include(sp => sp.Storage)
+            .ToListAsync();
+
+        var result = storageProducts.Select(sp => new StorageProduct.StorageProductDto
+        {
+            ProductName = sp.Product.Name,
+            StorageName = sp.Storage.Name,
+            Quantity = sp.Quantity,
+            UnitOfMeasure = sp.UnitOfMeasure
+        }).ToList();
+
+        return result;
+    }
     public async Task<string> AddProductOnStorage(string productName, string storageName, decimal quantity, string unitOfMeasure)
     {
         var product = await _db.Products.FirstOrDefaultAsync(f => f.Name == productName);
