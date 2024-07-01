@@ -13,13 +13,25 @@ public class StorageProductController: ControllerBase
         _storageProductService = storageProductService;
     }
    
-    [HttpGet("get-all-products-on-storage")]
+    /// <summary>
+    /// Получить список всех продуктов
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
     public async Task<IActionResult> GetAllProductsOnStorage()
     {
         var result = await _storageProductService.GetAllProductsOnStorage();
         return Ok(result);
     }
-    [HttpPut("add-product-on-storage")]
+    /// <summary>
+    /// Добавить продукт на склад
+    /// </summary>
+    /// <param name="productName"></param>
+    /// <param name="storageName"></param>
+    /// <param name="quantity"></param>
+    /// <param name="unitOfMeasure"></param>
+    /// <returns></returns>
+    [HttpPut]
     public async Task<IActionResult> AddProductOnStorage(string productName, string storageName, decimal quantity,
         string unitOfMeasure)
     {

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Forpost.Web.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,14 +17,14 @@ public class StorageProductRepository: IStorageProductRepository
         _db = db;
     }
     
-    public async Task<IList<StorageProduct.StorageProductDto>> GetAllProductsOnStorage()
+    public async Task<IList<ProductOnStorage>> GetAllProductsOnStorage()
     {
         var storageProducts = await _db.StorageProducts
             .Include(sp => sp.Product)
             .Include(sp => sp.Storage)
             .ToListAsync();
 
-        var result = storageProducts.Select(sp => new StorageProduct.StorageProductDto
+        var result = storageProducts.Select(sp => new ProductOnStorage
         {
             ProductName = sp.Product.Name,
             StorageName = sp.Storage.Name,
@@ -38,14 +39,14 @@ public class StorageProductRepository: IStorageProductRepository
         var product = await _db.Products.FirstOrDefaultAsync(f => f.Name == productName);
         if (product == null)
         {
-            throw new InvalidOperationException($"Product with name {productName} does not exist.");
+            throw new InvalidOperationException($"Продукт с таким наименованием: {productName} не найден.");
         }
 
         // Получение склада
         var storage = await _db.Storages.FirstOrDefaultAsync(f => f.Name == storageName);
         if (storage == null)
         {
-            throw new InvalidOperationException($"Storage with name {storageName} does not exist.");
+            throw new InvalidOperationException($"Склад с таким наименованием {storageName} не найден.");
         }
 
         // Создание новой записи о продукте на складе

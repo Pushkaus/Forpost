@@ -12,4 +12,7 @@
     <ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj" />
     <ProjectReference Include="..\Store\Store.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
 </Project>

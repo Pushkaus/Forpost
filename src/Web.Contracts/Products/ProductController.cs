@@ -30,12 +30,7 @@ public class ProductController: ControllerBase
     /// <summary>
     /// Создание продукта
     /// </summary>
-    public class CreateProductRequest
-    {
-        public string Name { get; set; }
-        public string? Version { get; set; }
-        public decimal Cost { get; set; }
-    }
+    
 
     [HttpPut("create-product")]
     public async Task<IActionResult> CreateProduct([FromBody] CreateProductRequest request, CancellationToken cancellationToken)

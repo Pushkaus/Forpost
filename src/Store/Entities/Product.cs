@@ -17,7 +17,11 @@ public sealed class Product : IAuditableEntity
         UpdatedById = updatedById;
         
     }
-    
+
+    public Product()
+    {
+    }
+
     public Guid Id { get; set; }
     public string Name { get; set; }
     public Guid? CategoryId { get; set; }
@@ -34,7 +38,7 @@ public sealed class Product : IAuditableEntity
     public Employee CreatedBy { get; set; }
     public Employee UpdatedBy { get; set; }
     public Employee? DeletedBy { get; set; }
-    public ICollection<ProductWork> ProductWorks { get; set; }
+    public ICollection<ProductOperation> ProductWorks { get; set; }
     public ICollection<StorageProduct> StorageProducts { get; set; }
     
     // Навигационные свойства

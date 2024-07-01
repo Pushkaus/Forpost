@@ -17,7 +17,6 @@ public sealed class Invoice: IAuditableEntity
         UpdatedById = updatedById;
     }
     
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     public string Number { get; set; }
     public string Contragent { get; set; }

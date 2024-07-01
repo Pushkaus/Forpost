@@ -16,15 +16,14 @@ public class StorageController: ControllerBase
         _storageService = storageService;
     }
     [HttpPut("create-storage")]
-    public async Task<IActionResult> CreateStorageAsync(string storageName, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateStorageAsync(string storageName, Guid responsibleId, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(storageName))
         {
-            return BadRequest("Storage name cannot be null or empty.");
+            return BadRequest("Неправильное название склада");
         }
         var user = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         var userId = Guid.Parse(user);
-        var responsibleId = userId;
         // Вызов сервиса создания storage
         var result = await _storageService.CreateStorageAsync(storageName, userId, responsibleId, cancellationToken);
         return Ok(result);

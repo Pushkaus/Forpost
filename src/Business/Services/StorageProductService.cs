@@ -1,6 +1,7 @@
 using Forpost.Business.Abstract.Services;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Forpost.Web.Contracts;
 
 namespace Forpost.Business.Services;
 
@@ -18,7 +19,7 @@ public sealed class StorageProductService: IStorageProductService
         return result;
     }
 
-    public async Task<IList<StorageProduct.StorageProductDto>> GetAllProductsOnStorage()
+    public async Task<IList<ProductOnStorage>> GetAllProductsOnStorage()
     {
         var result = await _storageProductRepository.GetAllProductsOnStorage();
         return result;

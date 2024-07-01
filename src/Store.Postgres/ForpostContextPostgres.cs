@@ -13,11 +13,10 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<Invoice> Invoices => Set<Invoice>();
     public DbSet<InvoiceProduct> InvoiceProducts => Set<InvoiceProduct>();
     public DbSet<Product> Products => Set<Product>();
-    public DbSet<ProductWork> ProductWorks => Set<ProductWork>();
+    public DbSet<ProductOperation> ProductOperations => Set<ProductOperation>();
     public DbSet<Storage> Storages => Set<Storage>();
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
     public DbSet<SubProduct> SubProducts => Set<SubProduct>();
-    public DbSet<WorkType> WorkTypes => Set<WorkType>(); 
     
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,8 +31,6 @@ public sealed class ForpostContextPostgres : DbContext
         modelBuilder.ApplyConfiguration(new StorageConfiguration());
         modelBuilder.ApplyConfiguration(new StorageProductConfiguration());
         modelBuilder.ApplyConfiguration(new SubProductConfiguration());
-        modelBuilder.ApplyConfiguration(new WorkTypeConfiguration());
-        
         base.OnModelCreating(modelBuilder);
         
     }

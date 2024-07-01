@@ -10,7 +10,7 @@ public sealed class SubProduct
     // Единица измерения
     public string UnitOfMeasure { get; set; }
     // Количество
-    public float Quantity { get; set; }
+    public decimal Quantity { get; set; }
 
     // Навигационные свойства
     public Product ParentProduct { get; set; }

@@ -4,16 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public sealed class ProductWorkConfiguration: IEntityTypeConfiguration<ProductWork>
+public sealed class ProductWorkConfiguration: IEntityTypeConfiguration<ProductOperation>
 {
-    public void Configure(EntityTypeBuilder<ProductWork> builder)
+    public void Configure(EntityTypeBuilder<ProductOperation> builder)
     {
-        builder.HasKey(pw => new { pw.WorkTypeId, pw.ProductId }); // Композитный ключ
-
-        builder.HasOne(pw => pw.WorkType)
-            .WithMany(wt => wt.ProductWorks)
-            .HasForeignKey(pw => pw.WorkTypeId);
-
+        builder.HasKey(entity => entity.Id);
+        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
         builder.HasOne(pw => pw.Product)
             .WithMany(p => p.ProductWorks)
             .HasForeignKey(pw => pw.ProductId);

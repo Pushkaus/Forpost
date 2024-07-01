@@ -14,6 +14,7 @@ using Forpost.Web.Contracts;
 using Forpost.Web.Contracts.Products;
 using Forpost.Web.Contracts.Storage;
 using Forpost.Web.Contracts.StorageProduct;
+using Forpost.Web.Contracts.SubProduct;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
@@ -115,6 +116,8 @@ internal sealed class Startup
         services.AddTransient<IStorageRepository, StorageRepository>();
         services.AddTransient<IStorageProductService, StorageProductService>();
         services.AddTransient<IStorageProductRepository, StorageProductRepository>();
+        services.AddTransient<ISubProductRepository, SubProductRepository>();
+        services.AddTransient<ISubProductService, SubProductService>();
     }
     // Настройка CORS
     private void ConfigureCors(IServiceCollection services)
@@ -145,6 +148,8 @@ internal sealed class Startup
                 $"{typeof(StorageController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(StorageProductController).Assembly.GetName().Name}.xml"));
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{typeof(SubProductController).Assembly.GetName().Name}.xml"));
         });
     }
 
