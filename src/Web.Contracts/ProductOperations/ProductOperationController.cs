@@ -2,8 +2,6 @@ using System.Collections;
 using System.Security.Claims;
 using Forpost.Business.Abstract.Services;
 using Forpost.Store.Entities;
-using Forpost.Store.Repositories.Models.ProductOperation;
-using Forpost.Web.Contracts.Models.ProductOperations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.ProductOperations;
@@ -18,16 +16,17 @@ public class ProductOperationController: ControllerBase
         _productOperationService = productOperationService;
     }
     [HttpPut]
-    public async Task<string> AddOperationAsync(AddOperationDto operation)
+    public async Task<string> AddOperationAsync(string productName, string name, string? description,
+        decimal? operationTime,
+        decimal? cost)
     {
         var user = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         var userId = Guid.Parse(user);
-        var result = await _productOperationService.AddOperationAsync(userId, operation.ProductName, operation.Name,
-            operation.Description, operation.OperationTime, operation.Cost);
+        var result = await _productOperationService.AddOperationAsync(userId, productName, name, description, operationTime, cost);
         return result;
     }
     [HttpGet]
-    public async Task<IEnumerable<GerProductOperations>> GetAllOperationOnProduct([FromQuery] string productName)
+    public async Task<IEnumerable<ProductOperation>> GetAllOperationOnProduct(string productName)
     {
         var result = await _productOperationService.GetAllOperationOnProduct(productName);
         return result;
