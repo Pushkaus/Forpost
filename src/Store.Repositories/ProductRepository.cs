@@ -48,9 +48,15 @@ public class ProductRepository: IProductRepository
         }
     }
 
-    public Task<IActionResult> UpdateProduct(Product product)
+    public async Task<string> UpdateProduct(Guid userId, string productName, string newProductName, string? version, decimal cost,
+        CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var product = await _db.Products.FirstOrDefaultAsync(p => p.Name == productName, cancellationToken);
+        product.Name = newProductName;
+        product.Version = version;
+        product.Cost = cost;
+        await _db.SaveChangesAsync(cancellationToken);
+        return $"Продукт {productName} успешно обновлен";
     }
 
     public Task<IActionResult> DeleteProduct(Guid deleteProductId)

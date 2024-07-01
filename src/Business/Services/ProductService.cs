@@ -31,9 +31,11 @@ public class ProductService: IProductService
         return new OkObjectResult(result);
     }
 
-    public Task<IActionResult> UpdateProduct(Product product)
+    public async Task<string> UpdateProduct(Guid userId, string productName, string newProductName, string? version, decimal cost,
+        CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var result = await _productRepository.UpdateProduct(userId, productName, newProductName, version, cost, cancellationToken);
+        return result;
     }
 
     public Task<IActionResult> DeleteProduct(Guid deleteProductId)

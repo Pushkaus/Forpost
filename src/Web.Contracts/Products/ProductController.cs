@@ -47,4 +47,13 @@ public class ProductController: ControllerBase
         var result = await _productService.CreateProduct(userId, request.Name, request.Version, request.Cost, cancellationToken);
         return Ok(result);
     }
+
+    [HttpPost("update-product")]
+    public async Task<IActionResult> UpdateProduct(Guid userId, string productName, string newProductName, string? version, decimal cost,
+        CancellationToken cancellationToken)
+    {
+        var result =
+            await _productService.UpdateProduct(userId, productName, newProductName, version, cost, cancellationToken);
+        return Ok(result);
+    }
 }

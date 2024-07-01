@@ -1,3 +1,4 @@
+using System.Collections;
 using Forpost.Business.Abstract.Services;
 using Forpost.Store.Repositories.Abstract.Repositories;
 
@@ -15,5 +16,11 @@ public class SubProductService: ISubProductService
     {
        var result = await _subProductRepository.AddSubProduct(parentName, daughterName, unitOfMeasure, quantity);
        return result;
+    }
+
+    public async Task<IEnumerable> GetSubProductsByParent(string parentName)
+    {
+        var result = await _subProductRepository.GetSubProductsByParent(parentName);
+        return result;
     }
 }

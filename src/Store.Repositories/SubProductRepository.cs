@@ -1,3 +1,4 @@
+using System.Collections;
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
@@ -35,4 +36,22 @@ public class SubProductRepository: ISubProductRepository
             return $"Возникла ошибка: {ex} при добавлении СубПродукта";
         }
     }
+    public async Task<IEnumerable> GetSubProductsByParent(string parentName)
+    {
+        var parent = await _db.Products.FirstOrDefaultAsync(entity => entity.Name == parentName);
+        
+        var subProducts = await _db.SubProducts
+            .Where(subProduct => subProduct.ParentId == parent.Id)
+            .Include(subProduct => subProduct.DaughterProduct)  // Navigation property
+            .ToListAsync();
+
+        var result = subProducts.Select(subProduct => new
+        {
+            subProduct.DaughterProduct.Name,
+            subProduct.UnitOfMeasure,
+            subProduct.Quantity
+        });
+        return result;
+    }
+    
 }
