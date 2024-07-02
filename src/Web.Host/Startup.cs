@@ -11,6 +11,7 @@ using System.Text;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Models;
 using Forpost.Web.Contracts;
+using Forpost.Web.Contracts.ProductOperations;
 using Forpost.Web.Contracts.Products;
 using Forpost.Web.Contracts.Storage;
 using Forpost.Web.Contracts.StorageProduct;
@@ -118,6 +119,8 @@ internal sealed class Startup
         services.AddTransient<IStorageProductRepository, StorageProductRepository>();
         services.AddTransient<ISubProductRepository, SubProductRepository>();
         services.AddTransient<ISubProductService, SubProductService>();
+        services.AddTransient<IProductOperationRepository, ProductOperationRepository>();
+        services.AddTransient<IProductOperationService, ProductOperationService>();
     }
     // Настройка CORS
     private void ConfigureCors(IServiceCollection services)
@@ -150,6 +153,8 @@ internal sealed class Startup
                 $"{typeof(StorageProductController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(SubProductController).Assembly.GetName().Name}.xml"));
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{typeof(ProductOperationController).Assembly.GetName().Name}.xml"));
         });
     }
 
