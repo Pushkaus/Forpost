@@ -4,6 +4,7 @@
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" />
     <PackageReference Include="Docker.DotNet" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
@@ -22,6 +23,9 @@
 		<ProjectReference Include="..\Business\Business.csproj" />
 		<ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj" />
 		<ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Controllers\" />
 	</ItemGroup>
 	
 </Project>

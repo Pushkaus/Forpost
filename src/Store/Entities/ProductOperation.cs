@@ -2,7 +2,7 @@ using Forpost.Store.Contracts;
 
 namespace Forpost.Store.Entities;
 
-public sealed class ProductOperation: IAuditableEntity
+public sealed class ProductOperation: IAuditableEntity, IEntity
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }

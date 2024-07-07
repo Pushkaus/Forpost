@@ -38,26 +38,14 @@ public class ProductOperationRepository : IProductOperationRepository
         return "Операция над продуктом добавлена";
     }
 
-    public async Task<IEnumerable<GerProductOperations>> GetAllOperationOnProduct(string productName)
+    public async Task<IEnumerable<ProductOperation>> GetAllOperationOnProduct(string productName)
     {
         var operations = await _db.ProductOperations
             .Include(po => po.Product) // Предварительная загрузка связанного продукта
             .Where(po => po.Product.Name == productName)
             .ToListAsync();
 
-        var operationDtos = operations.Select(po => new GerProductOperations
-        {
-            Id = po.Id,
-            ProductId = po.ProductId,
-            Name = po.Name,
-            Description = po.Description,
-            OperationTime = po.OperationTime,
-            Cost = po.Cost,
-            ProductName = po.Product.Name // Заполнение поля с именем продукта
-        });
-
-        return operationDtos;
-
+        return operations;
     }
 
 }

@@ -1,6 +1,8 @@
+using Forpost.Store.Contracts;
+
 namespace Forpost.Store.Entities;
 
-public sealed class SubProduct
+public sealed class SubProduct: IEntity
 {
     // Идентификатор родительского продукта
     public Guid ParentId { get; set; }
@@ -15,4 +17,5 @@ public sealed class SubProduct
     // Навигационные свойства
     public Product ParentProduct { get; set; }
     public Product DaughterProduct { get; set; }
+    public Guid Id { get; set; }
 }

@@ -1,6 +1,8 @@
+using Forpost.Store.Contracts;
+
 namespace Forpost.Store.Entities;
 
-public class StorageProduct
+public class StorageProduct: IEntity
 {
     public StorageProduct(Guid productId, Guid storageId, string unitOfMeasure, decimal quantity)
     {
@@ -16,4 +18,5 @@ public class StorageProduct
     public decimal Quantity { get; set; }
     public Storage Storage { get; set; }
     public Product Product { get; set; }
+    public Guid Id { get; set; }
 }

@@ -5,5 +5,5 @@ namespace Forpost.Business.Abstract.Services;
 
 public interface IEmployeeService: IBusinessService
 {
-    public Task<List<Employee>> GetAllEmployeesAsync();
+    public Task<IReadOnlyList<Employee>> GetAllAsync();
 }

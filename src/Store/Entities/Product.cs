@@ -3,7 +3,7 @@ using Forpost.Store.Contracts;
 
 namespace Forpost.Store.Entities;
 
-public sealed class Product : IAuditableEntity
+public sealed class Product : IAuditableEntity, IEntity
 {
     public Product(string name, decimal cost, Guid createdById, Guid updatedById, string? version = null)
     {
@@ -26,7 +26,14 @@ public sealed class Product : IAuditableEntity
     public string Name { get; set; }
     public Guid? CategoryId { get; set; }
     public string? Version { get; set; }
-    public decimal Cost { get; set; }
+    public decimal? Cost { get; set; }
+    public decimal OperationsCost
+    {
+        get
+        {
+            return ProductWorks?.Sum(po => po.Cost ?? 0) ?? 0;
+        }
+    }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
@@ -34,10 +41,6 @@ public sealed class Product : IAuditableEntity
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
     public ICollection<InvoiceProduct> InvoiceProducts { get; set; }
-    
-    public Employee CreatedBy { get; set; }
-    public Employee UpdatedBy { get; set; }
-    public Employee? DeletedBy { get; set; }
     public ICollection<ProductOperation> ProductWorks { get; set; }
     public ICollection<StorageProduct> StorageProducts { get; set; }
     

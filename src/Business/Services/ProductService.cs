@@ -1,45 +1,46 @@
+using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
-using Microsoft.AspNetCore.Mvc;
+using Forpost.Store.Repositories.Models.Products;
 
 namespace Forpost.Business.Services;
 
-public class ProductService: IProductService
+public sealed class ProductService: IProductService
 {
     private readonly IProductRepository _productRepository;
+    private readonly IMapper _mapper;
 
-    public ProductService(IProductRepository productRepository)
+    public ProductService(IProductRepository productRepository, IMapper mapper)
     {
         _productRepository = productRepository;
+        _mapper = mapper;
     }
-    public Task<IList<Product>> GetProducts()
+    public async Task<IReadOnlyList<Product>> GetAll()
     {
-        throw new NotImplementedException();
-    }
-
-    public async Task<IList<Product>> GetAllProducts(CancellationToken cancellationToken)
-    {
-        var result = await _productRepository.GetAllProducts(cancellationToken);
-        return result;
+       return await _productRepository.GetAllAsync();
     }
 
-    public async Task<IActionResult> CreateProduct(Guid userId, string productName, string? version, decimal cost,
-        CancellationToken cancellationToken)
+    public async Task Add(ProductCreateModel model)
     {
-        var result = await _productRepository.CreateProduct(userId, productName, version, cost, cancellationToken);
-        return new OkObjectResult(result);
+        var product = _mapper.Map<Product>(model);
+        await _productRepository.AddAsync(product);
     }
 
-    public async Task<string> UpdateProduct(Guid userId, string productName, string newProductName, string? version, decimal cost,
-        CancellationToken cancellationToken)
+    public async Task<Product?> GetById(Guid id)
     {
-        var result = await _productRepository.UpdateProduct(userId, productName, newProductName, version, cost, cancellationToken);
-        return result;
+        var product = await _productRepository.GetByIdAsync(id);
+        return product;
     }
 
-    public Task<IActionResult> DeleteProduct(Guid deleteProductId)
+    public async Task Update(ProductUpdateModel model)
     {
-        throw new NotImplementedException();
+        var product = _mapper.Map<Product>(model);
+        await _productRepository.UpdateAsync(product);
+    }
+
+    public async Task Delete(Guid id)
+    {
+        await _productRepository.DeleteByIdAsync(id);
     }
 }

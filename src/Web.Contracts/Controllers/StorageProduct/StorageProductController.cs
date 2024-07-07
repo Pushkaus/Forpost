@@ -18,11 +18,6 @@ public class StorageProductController: ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetAllProductsOnStorage()
-    {
-        var result = await _storageProductService.GetAllProductsOnStorage();
-        return Ok(result);
-    }
     /// <summary>
     /// Добавить продукт на склад
     /// </summary>

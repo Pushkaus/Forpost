@@ -1,11 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Forpost.Store.Contracts;
 
 namespace Forpost.Store.Entities;
 
-public sealed class InvoiceProduct
+public sealed class InvoiceProduct: IEntity
 {
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
     public Guid Id { get; set; }
     public Guid InvoiceId { get; set; }
     public Invoice Invoice { get; set; } = null!;

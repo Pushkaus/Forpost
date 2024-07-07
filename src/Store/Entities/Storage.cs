@@ -3,7 +3,7 @@ using Forpost.Store.Contracts;
 
 namespace Forpost.Store.Entities;
 
-public class Storage: IAuditableEntity
+public class Storage: IAuditableEntity, IEntity
 {
     private Storage() {}
     public Storage(string storageName, Guid userId, Guid responsibleId)

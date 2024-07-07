@@ -14,9 +14,9 @@ public class EmployeeService: IEmployeeService
     {
         _employeeRepository = employeeRepository;
     }
-    public async Task<List<Employee>> GetAllEmployeesAsync()
+    public async Task<IReadOnlyList<Employee>> GetAllAsync()
     {
-       var employees = await _employeeRepository.GetAllEmployeesAsync();
+       var employees = await _employeeRepository.GetAllAsync();
        return employees;
     }
 }

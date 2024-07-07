@@ -18,10 +18,10 @@ public class EmployeeController : ControllerBase
     /// <summary>
     /// Получить список всех сотрудников
     /// </summary>
-    [HttpGet ("get-all-employee")]
-    public async Task<IActionResult> GetAllEmployeesAsync()
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync()
     {
-        var employees = await _employeeService.GetAllEmployeesAsync();
+        var employees = await _employeeService.GetAllAsync();
         return Ok(employees);
     }
 }

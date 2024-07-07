@@ -1,29 +1,47 @@
+using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.Models.Invoices;
 using Forpost.Store.Entities;
-using Forpost.Store.Repositories;
 using Forpost.Store.Repositories.Abstract.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Business.Services;
 
 public class InvoiceService: IInvoiceService
 {
     private readonly IInvoiceRepository _invoiceRepository;
+    private readonly IMapper _mapper;
 
-    public InvoiceService(IInvoiceRepository invoiceRepository)
+    public InvoiceService(IInvoiceRepository invoiceRepository, IMapper mapper)
     {
         _invoiceRepository = invoiceRepository;
+        _mapper = mapper;
     }
-    public async Task<List<Invoice>> GetInvoice(string invoiceNumber, CancellationToken cancellationToken)
+    public async Task<Invoice?> GetByNumber(string number)
     {
-        var invoices = await _invoiceRepository.GetInvoice(invoiceNumber, cancellationToken);
+        var invoice = await _invoiceRepository.GetByNumberAsync(number);
+        return invoice;
+    }
+
+    public async Task<IReadOnlyList<Invoice>> GetAll()
+    {
+        var invoices = await _invoiceRepository.GetAllAsync();
         return invoices;
     }
 
-    public async Task<IActionResult> CreateInvoice(Guid userId, string number, string contragent, string comment,
-        CancellationToken cancellationToken)
+    public async Task Create(InvoiceCreateModel model)
     {
-        var result = await _invoiceRepository.CreateInvoice(userId, number, contragent, comment, cancellationToken);
-        return new OkResult(); // Возвращаем успешный результат
+        var invoice = _mapper.Map<Invoice>(model);
+        await _invoiceRepository.AddAsync(invoice);
+    }
+
+    public async Task Update(InvoiceUpdateModel model)
+    {
+        var invoice = _mapper.Map<Invoice>(model);
+        await _invoiceRepository.UpdateAsync(invoice);
+    }
+
+    public async Task DeleteById(Guid id)
+    {
+        await _invoiceRepository.DeleteByIdAsync(id);
     }
 }

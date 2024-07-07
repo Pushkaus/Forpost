@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 
-public interface IEmployeeRepository
+public interface IEmployeeRepository: IRepository<Employee>
 {
-    public Task<List<Employee>> GetAllEmployeesAsync();
+    public Task<Employee?> GetAutorizedByUsername(string firstName, string lastName);
 }

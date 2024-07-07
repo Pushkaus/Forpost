@@ -3,8 +3,12 @@ using Forpost.Store.Contracts;
 
 namespace Forpost.Store.Entities;
 
-public sealed class Invoice: IAuditableEntity
+public sealed class Invoice: IAuditableEntity, IEntity
 {
+    public Invoice()
+    {
+        
+    }
     
     public Invoice(string number, string contragent, string description, Guid createdById, Guid updatedById)
     {

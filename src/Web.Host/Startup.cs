@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Forpost.Business;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Models;
 using Forpost.Web.Contracts;
@@ -16,6 +17,7 @@ using Forpost.Web.Contracts.Products;
 using Forpost.Web.Contracts.Storage;
 using Forpost.Web.Contracts.StorageProduct;
 using Forpost.Web.Contracts.SubProduct;
+using Forpost.Web.Host.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
@@ -47,7 +49,11 @@ internal sealed class Startup
 
         // Регистрация `IPasswordHasher<Employee>`
         services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
-
+        // Регистрация автомаппера
+        services.AddAutoMapper(WebAssemblyReference.Assembly);
+        services.AddAutoMapper(BusinessAssemblyReference.Assembly);
+        // Регистрация IHttpContextAccessor
+        services.AddHttpContextAccessor();
         // Конфигурация Swagger
         ConfigureSwagger(services);
 
@@ -103,24 +109,15 @@ internal sealed class Startup
     }
     private void RegisterServices(IServiceCollection services)
     {
-        services.AddTransient<IAccountRepository, AccountRepository>();
         services.AddTransient<IAccountService, AccountService>();
         services.AddTransient<IEmployeeRepository, EmployeeRepository>();
         services.AddTransient<IEmployeeService, EmployeeService>();
+        services.AddTransient<IRoleRepository, RoleRepository>();
         services.AddTransient<IInvoiceService, InvoiceService>();
         services.AddTransient<IInvoiceRepository, InvoiceRepository>();
-        services.AddTransient<IRoleService, RoleService>();
-        services.AddTransient<IRoleRepository, RoleRepository>();
-        services.AddTransient<IProductService, ProductService>();
         services.AddTransient<IProductRepository, ProductRepository>();
-        services.AddTransient<IStorageService, StorageService>();
-        services.AddTransient<IStorageRepository, StorageRepository>();
-        services.AddTransient<IStorageProductService, StorageProductService>();
-        services.AddTransient<IStorageProductRepository, StorageProductRepository>();
-        services.AddTransient<ISubProductRepository, SubProductRepository>();
-        services.AddTransient<ISubProductService, SubProductService>();
-        services.AddTransient<IProductOperationRepository, ProductOperationRepository>();
-        services.AddTransient<IProductOperationService, ProductOperationService>();
+        services.AddTransient<IProductService, ProductService>();
+        services.AddTransient<IdentityProviderService>();
     }
     // Настройка CORS
     private void ConfigureCors(IServiceCollection services)
@@ -173,5 +170,6 @@ internal sealed class Startup
 
         app.UseEndpoints(options =>
             options.MapControllers());
+        app.UseHttpsRedirection();
     }
 }

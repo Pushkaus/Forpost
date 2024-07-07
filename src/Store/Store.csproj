@@ -5,6 +5,7 @@
     <None Remove="Store\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" />
     <PackageReference Include="Docker.DotNet" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <PrivateAssets>all</PrivateAssets>

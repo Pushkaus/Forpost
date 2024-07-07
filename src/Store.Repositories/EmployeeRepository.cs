@@ -1,28 +1,23 @@
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
+using Forpost.Store.Repositories.Abstract;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-public class EmployeeRepository: IEmployeeRepository
+public sealed class EmployeeRepository: Repository<Employee>, IEmployeeRepository
 {
-    private readonly ForpostContextPostgres _db;
-
-    public EmployeeRepository(ForpostContextPostgres db)
+    public EmployeeRepository(ForpostContextPostgres db) : base(db)
     {
-        _db = db;
     }
-    public Task<List<Employee>> GetAllEmployeesAsync()
-    {
-        try
-        {
-            var employees = _db.Employees.ToListAsync();
-            return employees;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+
+    public async Task<Employee?> GetAutorizedByUsername(string firstName, string lastName)
+    { 
+        var user = await DbSet.Include(x => x.Role)
+            .FirstOrDefaultAsync(entity => entity.FirstName == firstName 
+                                           && entity.LastName == lastName);
+
+        return user;
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Forpost.Store.Entities;
 
-public sealed class Employee : IAuditableEntity
+public sealed class Employee : IAuditableEntity, IEntity
     {
         // Пустой конструктор
         public Employee() {}
