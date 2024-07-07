@@ -22,9 +22,5 @@ public sealed class ProductOperationService: IProductOperationService
         return result;
     }
 
-    public async Task<IEnumerable<GerProductOperations>> GetAllOperationOnProduct(string productName)
-    {
-        var result = await _productOperationRepository.GetAllOperationOnProduct(productName);
-        return result;
-    }
+    
 }
