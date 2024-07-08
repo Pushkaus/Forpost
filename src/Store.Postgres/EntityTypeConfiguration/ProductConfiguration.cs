@@ -14,7 +14,7 @@ internal sealed class ProductConfiguration: IEntityTypeConfiguration<Product>
         builder.HasMany(entity => entity.InvoiceProducts)
             .WithOne(entity => entity.Product)
             .HasForeignKey(entity => entity.ProductId);
-        builder.HasMany(p => p.ProductWorks)
+        builder.HasMany(p => p.ProductOperations)
             .WithOne(pw => pw.Product)
             .HasForeignKey(pw => pw.ProductId);
         // Связь один ко многим через ParentId

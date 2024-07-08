@@ -5,8 +5,7 @@ namespace Forpost.Business.Abstract.Services;
 
 public interface IRoleService: IBusinessService
 {
-    public Task<IActionResult> AddRoleAsync(string name, CancellationToken cancellationToken);
-    public Task<List<Role>> GetRolesAsync(CancellationToken cancellationToken);
-    public Task<IActionResult> UpdateRoleAsync(string newName, string oldName, CancellationToken cancellationToken);
-    public Task<IActionResult> DeleteRoleAsync(string newName, CancellationToken cancellationToken);
+    public Task Add(string name);
+    public Task<IReadOnlyList<Role>> GetAll();
+    
 }

@@ -11,7 +11,7 @@ public sealed class ProductWorkConfiguration: IEntityTypeConfiguration<ProductOp
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
         builder.HasOne(pw => pw.Product)
-            .WithMany(p => p.ProductWorks)
+            .WithMany(p => p.ProductOperations)
             .HasForeignKey(pw => pw.ProductId);
         
     }

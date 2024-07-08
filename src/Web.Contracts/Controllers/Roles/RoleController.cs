@@ -14,40 +14,23 @@ public class RoleController: ControllerBase
         _roleService = roleService;
     }
     /// <summary>
-    /// Добавить новую роль
+    /// Создать новую роль
     /// </summary>
-    [HttpPut("add-role")]
-    public async Task<IActionResult> AddRoleAsync(string name, CancellationToken cancellationToken)
+    [HttpPost]
+    public async Task<IActionResult> Create(string name)
     {
-        var result = await _roleService.AddRoleAsync(name, cancellationToken);
-        return new OkResult();
-    }
-
-    [HttpGet("get-roles")]
-    public async Task<IActionResult> GetRolesAsync(CancellationToken cancellationToken)
-    {
-        var result = await _roleService.GetRolesAsync(cancellationToken);
-        return new OkObjectResult(result);
+        await _roleService.Add(name);
+        return Ok();
     }
 
     /// <summary>
-    /// Удаление роли по имени
+    /// Получить все роли
     /// </summary>
-    [HttpDelete("delete-role")]
-    public async Task<IActionResult> DeleteRoleAsync(string newName, CancellationToken cancellationToken)
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
     {
-        var result = await _roleService.DeleteRoleAsync(newName, cancellationToken);
-        return new OkObjectResult(result);
+        var roles = await _roleService.GetAll();
+        return Ok(roles);
     }
-
-    /// <summary>
-    /// Обновление роли по имени
-    /// </summary>
-    [HttpPut("update-role")]
-    public async Task<IActionResult> UpdateRoleAsync(string newName,string oldName, CancellationToken cancellationToken)
-    {
-        var result = await _roleService.UpdateRoleAsync(newName, oldName, cancellationToken);
-        return new OkObjectResult(result);
-    }
-
 }

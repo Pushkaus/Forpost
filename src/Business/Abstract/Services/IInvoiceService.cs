@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Business.Abstract.Services;
 
-public interface IInvoiceService
+public interface IInvoiceService: IBusinessService
 {
     public Task<Invoice?> GetByNumber(string number);
     public Task<IReadOnlyList<Invoice>> GetAll();

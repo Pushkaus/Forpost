@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.Models.Products;
 using Forpost.Store.Repositories.Models.Products;
 using Microsoft.AspNetCore.Mvc;
 

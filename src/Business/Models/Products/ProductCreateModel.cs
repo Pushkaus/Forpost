@@ -1,4 +1,4 @@
-namespace Forpost.Store.Repositories.Models.Products;
+namespace Forpost.Business.Models.Products;
 
 public class ProductCreateModel
 {

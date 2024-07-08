@@ -7,45 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-public class ProductOperationRepository : IProductOperationRepository
+public class ProductOperationRepository : Repository<ProductOperation>, IProductOperationRepository
 {
-    private readonly ForpostContextPostgres _db;
-
-    public ProductOperationRepository(ForpostContextPostgres db)
+    public ProductOperationRepository(ForpostContextPostgres db) : base(db)
     {
-        _db = db;
     }
 
-    public async Task<string> AddOperationAsync(Guid userId, string productName, string name, string? description,
-        decimal? operationTime,
-        decimal? cost)
+    public async Task<IReadOnlyList<ProductOperation>> GetAllByProductId(Guid id)
     {
-        var product = await _db.Products.FirstOrDefaultAsync(p => p.Name == productName);
-        var operationOnProduct = new ProductOperation()
-        {
-            ProductId = product.Id,
-            Name = name,
-            Description = description,
-            OperationTime = operationTime,
-            Cost = cost,
-            CreatedAt = DateTimeOffset.UtcNow,
-            UpdatedAt = DateTimeOffset.UtcNow,
-            CreatedById = userId,
-            UpdatedById = userId
-        };
-        await _db.ProductOperations.AddAsync(operationOnProduct);
-        await _db.SaveChangesAsync();
-        return "Операция над продуктом добавлена";
+        return await DbSet.Where(entity => entity.ProductId == id).ToListAsync();
     }
-
-    public async Task<IEnumerable<ProductOperation>> GetAllOperationOnProduct(string productName)
-    {
-        var operations = await _db.ProductOperations
-            .Include(po => po.Product) // Предварительная загрузка связанного продукта
-            .Where(po => po.Product.Name == productName)
-            .ToListAsync();
-
-        return operations;
-    }
-
 }

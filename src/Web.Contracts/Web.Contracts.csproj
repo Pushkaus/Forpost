@@ -24,8 +24,5 @@
 		<ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj" />
 		<ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Controllers\" />
-	</ItemGroup>
 	
 </Project>

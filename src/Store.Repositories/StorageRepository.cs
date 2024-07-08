@@ -7,27 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-public class StorageRepository: IStorageRepository
+public class StorageRepository: Repository<Storage>, IStorageRepository
 {
-    private readonly ForpostContextPostgres _db;
-
-    public StorageRepository(ForpostContextPostgres db)
+    public StorageRepository(ForpostContextPostgres db) : base(db)
     {
-        _db = db;
-    }
-    public async Task<string> CreateStorageAsync(string storageName, Guid userId, Guid responsibleId, CancellationToken cancellationToken)
-    {
-        try
-        {
-            responsibleId = userId;
-            var storage = new Storage(storageName, userId, responsibleId);
-            await _db.Storages.AddAsync(storage, cancellationToken);
-            await _db.SaveChangesAsync(cancellationToken);
-            return new string($"Создан новый склад {storageName}");
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Произошла ошибка при добавлении склада: {ex.Message}");
-        }
     }
 }

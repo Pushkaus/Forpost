@@ -12,6 +12,7 @@ using Forpost.Business;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Models;
 using Forpost.Web.Contracts;
+using Forpost.Web.Contracts.Controllers.InvoiceProducts;
 using Forpost.Web.Contracts.ProductOperations;
 using Forpost.Web.Contracts.Products;
 using Forpost.Web.Contracts.Storage;
@@ -112,11 +113,18 @@ internal sealed class Startup
         services.AddTransient<IAccountService, AccountService>();
         services.AddTransient<IEmployeeRepository, EmployeeRepository>();
         services.AddTransient<IEmployeeService, EmployeeService>();
+        services.AddTransient<IRoleService, RoleService>();
         services.AddTransient<IRoleRepository, RoleRepository>();
         services.AddTransient<IInvoiceService, InvoiceService>();
         services.AddTransient<IInvoiceRepository, InvoiceRepository>();
         services.AddTransient<IProductRepository, ProductRepository>();
         services.AddTransient<IProductService, ProductService>();
+        services.AddTransient<IProductOperationService, ProductOperationService>();
+        services.AddTransient<IProductOperationRepository, ProductOperationRepository>();
+        services.AddTransient<IInvoiceProductRepository, InvoiceProductRepository>();
+        services.AddTransient<IInvoiceProductService, InvoiceProductService>();
+        services.AddTransient<IStorageRepository, StorageRepository>();
+        services.AddTransient<IStorageService, StorageService>();
         services.AddTransient<IdentityProviderService>();
     }
     // Настройка CORS
@@ -152,6 +160,8 @@ internal sealed class Startup
                 $"{typeof(SubProductController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(ProductOperationController).Assembly.GetName().Name}.xml"));
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{typeof(InvoiceProductController).Assembly.GetName().Name}.xml"));
         });
     }
 

@@ -1,5 +1,5 @@
+using Forpost.Business.Models.Products;
 using Forpost.Store.Entities;
-using Forpost.Store.Repositories.Models.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Business.Abstract.Services;

@@ -29,9 +29,5 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
         <PackageReference Include="Swashbuckle.AspNetCore" />
     </ItemGroup>
-    
-    <ItemGroup>
-      <Folder Include="Settings\" />
-    </ItemGroup>
 
 </Project>

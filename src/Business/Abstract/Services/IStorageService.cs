@@ -1,6 +1,10 @@
+using Forpost.Store.Entities;
+using Forpost.Web.Contracts.Models.Storages;
+
 namespace Forpost.Business.Abstract.Services;
 
 public interface IStorageService
 {
-    public Task<string> CreateStorageAsync(string storageName, Guid userId, Guid responsibleId, CancellationToken cancellationToken);
+    public Task Add(StorageCreateModel model);
+    public Task<IReadOnlyList<Storage>> GetAll();
 }

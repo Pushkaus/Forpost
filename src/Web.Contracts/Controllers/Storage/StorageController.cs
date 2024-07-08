@@ -1,5 +1,7 @@
 using System.Security.Claims;
+using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Web.Contracts.Models.Storages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,22 +12,34 @@ namespace Forpost.Web.Contracts.Storage;
 public class StorageController: ControllerBase
 {
     private readonly IStorageService _storageService;
+    private readonly IMapper _mapper;
 
-    public StorageController(IStorageService storageService)
+    public StorageController(IStorageService storageService, IMapper mapper)
     {
         _storageService = storageService;
+        _mapper = mapper;
     }
-    [HttpPut("create-storage")]
-    public async Task<IActionResult> CreateStorageAsync(string storageName, Guid responsibleId, CancellationToken cancellationToken)
+    /// <summary>
+    /// Создание нового склада
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IActionResult> Create([FromQuery] StorageCreateRequest request)
     {
-        if (string.IsNullOrWhiteSpace(storageName))
-        {
-            return BadRequest("Неправильное название склада");
-        }
-        var user = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        var userId = Guid.Parse(user);
-        // Вызов сервиса создания storage
-        var result = await _storageService.CreateStorageAsync(storageName, userId, responsibleId, cancellationToken);
-        return Ok(result);
+        var model = _mapper.Map<StorageCreateModel>(request);
+        await _storageService.Add(model);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Получить список всех складов
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var storages = await _storageService.GetAll();
+        return Ok(storages);
     }
 }
