@@ -22,4 +22,9 @@ public sealed class RoleService: IRoleService
     {
         return await _roleRepository.GetAllAsync();
     }
+
+    public async Task<Role?> GetById(Guid id)
+    {
+        return await _roleRepository.GetByIdAsync(id);
+    }
 }

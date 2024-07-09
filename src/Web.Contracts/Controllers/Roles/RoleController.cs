@@ -1,8 +1,7 @@
 using Forpost.Business.Abstract.Services;
-using Forpost.Store.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts;
+namespace Forpost.Web.Contracts.Controllers.Roles;
 [ApiController]
 [Route("api/v1/role")]
 public class RoleController: ControllerBase
@@ -32,5 +31,17 @@ public class RoleController: ControllerBase
     {
         var roles = await _roleService.GetAll();
         return Ok(roles);
+    }
+
+    /// <summary>
+    /// Получить роль по id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+       var role = await _roleService.GetById(id);
+       return Ok(role);
     }
 }

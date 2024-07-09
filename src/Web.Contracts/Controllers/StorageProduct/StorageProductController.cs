@@ -1,36 +1,45 @@
+using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.Models.StorageProduct;
+using Forpost.Web.Contracts.Models.StorageProduct;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.StorageProduct;
+namespace Forpost.Web.Contracts.Controllers.StorageProduct;
 [ApiController]
 [Route("api/v1/storage-products")]
 public class StorageProductController: ControllerBase
 {
     private readonly IStorageProductService _storageProductService;
+    private readonly IMapper _mapper;
 
-    public StorageProductController(IStorageProductService storageProductService)
+    public StorageProductController(IStorageProductService storageProductService, IMapper mapper)
     {
         _storageProductService = storageProductService;
+        _mapper = mapper;
     }
-   
+
     /// <summary>
     /// Получить список всех продуктов
     /// </summary>
     /// <returns></returns>
-    [HttpGet]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAllProducts(Guid id)
+    {
+        var storageProducts = await _storageProductService.GetAllProducts(id);
+        var response = _mapper.Map<IList<StorageProductResponse>>(storageProducts);
+        return Ok(response);
+    }
+
     /// <summary>
     /// Добавить продукт на склад
     /// </summary>
-    /// <param name="productName"></param>
-    /// <param name="storageName"></param>
-    /// <param name="quantity"></param>
-    /// <param name="unitOfMeasure"></param>
+    /// <param name="request"></param>
     /// <returns></returns>
-    [HttpPut]
-    public async Task<IActionResult> AddProductOnStorage(string productName, string storageName, decimal quantity,
-        string unitOfMeasure)
+    [HttpPost]
+    public async Task<IActionResult> Create([FromQuery] StorageProductCreateRequest request)
     {
-        var result = await _storageProductService.AddProductOnStorage(productName, storageName, quantity, unitOfMeasure);
-        return Ok(result);
+        var model = _mapper.Map<StorageProductCreateModel>(request);
+        await _storageProductService.Add(model);
+        return Ok();
     }
 }

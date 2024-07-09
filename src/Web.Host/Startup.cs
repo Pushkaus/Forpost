@@ -13,10 +13,10 @@ using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Models;
 using Forpost.Web.Contracts;
 using Forpost.Web.Contracts.Controllers.InvoiceProducts;
+using Forpost.Web.Contracts.Controllers.StorageProduct;
 using Forpost.Web.Contracts.ProductOperations;
 using Forpost.Web.Contracts.Products;
 using Forpost.Web.Contracts.Storage;
-using Forpost.Web.Contracts.StorageProduct;
 using Forpost.Web.Contracts.SubProduct;
 using Forpost.Web.Host.Settings;
 using Microsoft.AspNetCore.Identity;
@@ -125,6 +125,8 @@ internal sealed class Startup
         services.AddTransient<IInvoiceProductService, InvoiceProductService>();
         services.AddTransient<IStorageRepository, StorageRepository>();
         services.AddTransient<IStorageService, StorageService>();
+        services.AddTransient<IStorageProductService, StorageProductService>();
+        services.AddTransient<IStorageProductRepository, StorageProductRepository>();
         services.AddTransient<IdentityProviderService>();
     }
     // Настройка CORS

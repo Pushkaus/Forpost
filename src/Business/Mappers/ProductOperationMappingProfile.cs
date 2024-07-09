@@ -4,9 +4,9 @@ using Forpost.Store.Entities;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public class ProductOperationProfile: Profile
+public class ProductOperationMappingProfile: Profile
 {
-    public ProductOperationProfile()
+    public ProductOperationMappingProfile()
     {
         CreateMap<OperationCreateModel, ProductOperation>().ValidateMemberList(MemberList.Destination);
     }

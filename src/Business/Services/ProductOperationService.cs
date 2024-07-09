@@ -4,7 +4,6 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.ProductOperations;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
-using Forpost.Store.Repositories.Models.ProductOperation;
 
 namespace Forpost.Business.Services;
 

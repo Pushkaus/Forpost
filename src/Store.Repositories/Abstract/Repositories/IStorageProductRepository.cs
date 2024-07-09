@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 
-public interface IStorageProductRepository
+public interface IStorageProductRepository: ISubRepository<StorageProduct>
 {
-    public Task<string> AddProductOnStorage(string productName, string storageName, decimal quantity, string unitOfMeasure);
+    public Task<IReadOnlyList<StorageProduct>> GetAllById(Guid id);
+
 }

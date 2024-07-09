@@ -2,7 +2,6 @@ using System.Collections;
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
-using Forpost.Store.Repositories.Models.ProductOperation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;

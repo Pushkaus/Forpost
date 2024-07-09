@@ -7,5 +7,6 @@ public interface IRoleService: IBusinessService
 {
     public Task Add(string name);
     public Task<IReadOnlyList<Role>> GetAll();
+    public Task<Role?> GetById(Guid id);
     
 }
