@@ -6,7 +6,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
-public class SubProductService: ISubProductService
+internal sealed class SubProductService: ISubProductService
 {
     private readonly ISubProductRepository _subProductRepository;
     private readonly IMapper _mapper;

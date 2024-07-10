@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E4C73D73-5D04-4D21-8945-10A32D3DE1CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B223CD48-34D0-4E80-9690-97E65105DBDD}"
-	ProjectSection(SolutionItems) = preProject
-		TestConnectionDB.cs = TestConnectionDB.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{BB968C4C-EB95-4FAE-AABB-134D0E3B0AF9}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,6 +24,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Postgres", "src\Store.Postgres\Store.Postgres.csproj", "{B54B3EF5-292B-4659-9185-D14795872196}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Host", "src\Web.Host\Web.Host.csproj", "{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "src\Common\Common.csproj", "{1F217EB3-4FBF-45A9-93FE-AD35F2962182}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +57,10 @@ Global
 		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F217EB3-4FBF-45A9-93FE-AD35F2962182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F217EB3-4FBF-45A9-93FE-AD35F2962182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F217EB3-4FBF-45A9-93FE-AD35F2962182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F217EB3-4FBF-45A9-93FE-AD35F2962182}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +72,7 @@ Global
 		{E27B7490-059F-4075-B9A3-1C95E1C68095} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
 		{B54B3EF5-292B-4659-9185-D14795872196} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
 		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
+		{1F217EB3-4FBF-45A9-93FE-AD35F2962182} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38E6143B-C8A2-40AA-A6E8-E546A47A612B}

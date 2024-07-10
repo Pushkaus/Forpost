@@ -3,6 +3,7 @@ using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Accounts;
 using Forpost.Business.Services;
+using Forpost.Common.Utils;
 using Forpost.Web.Contracts.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,19 +17,19 @@ namespace Forpost.Web.Contracts;
 public class AccountController: ControllerBase
 {
     private readonly IAccountService _accountService;
-    private readonly IdentityProviderService _identityProviderService;
+    private readonly IIdentityProvider _identityProvider;
     private readonly IMapper _mapper;
 
     /// <summary>
     /// Регистрация сервиса Accountservice
     /// </summary>
     /// <param name="accountService"></param>
-    /// <param name="identityProviderService"></param>
+    /// <param name="identityProvider"></param>
     /// <param name="mapper"></param>
-    public AccountController(IAccountService accountService, IdentityProviderService identityProviderService, IMapper mapper)
+    public AccountController(IAccountService accountService, IIdentityProvider identityProvider, IMapper mapper)
     {
         _accountService = accountService;
-        _identityProviderService = identityProviderService;
+        _identityProvider = identityProvider;
         _mapper = mapper;
     }
 

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Forpost.Business;
+using Forpost.Common;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Models;
 using Forpost.Web.Contracts;
@@ -26,7 +27,6 @@ namespace Forpost.Web.Host;
 
 internal sealed class Startup
 {
-
     private readonly IConfiguration _configuration;
 
     public Startup(IConfiguration configuration)
@@ -37,8 +37,9 @@ internal sealed class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         // Регистрация сервисов
-        RegisterServices(services);
-
+        services.AddBusinessServices();
+        
+        services.AddIdentityProvider();
         // Регистрация политики CORS
         ConfigureCors(services);
 
@@ -107,29 +108,6 @@ internal sealed class Startup
             });
         });
 
-    }
-    private void RegisterServices(IServiceCollection services)
-    {
-        services.AddTransient<IAccountService, AccountService>();
-        services.AddTransient<IEmployeeRepository, EmployeeRepository>();
-        services.AddTransient<IEmployeeService, EmployeeService>();
-        services.AddTransient<IRoleService, RoleService>();
-        services.AddTransient<IRoleRepository, RoleRepository>();
-        services.AddTransient<IInvoiceService, InvoiceService>();
-        services.AddTransient<IInvoiceRepository, InvoiceRepository>();
-        services.AddTransient<IProductRepository, ProductRepository>();
-        services.AddTransient<IProductService, ProductService>();
-        services.AddTransient<IProductOperationService, ProductOperationService>();
-        services.AddTransient<IProductOperationRepository, ProductOperationRepository>();
-        services.AddTransient<IInvoiceProductRepository, InvoiceProductRepository>();
-        services.AddTransient<IInvoiceProductService, InvoiceProductService>();
-        services.AddTransient<IStorageRepository, StorageRepository>();
-        services.AddTransient<IStorageService, StorageService>();
-        services.AddTransient<IStorageProductService, StorageProductService>();
-        services.AddTransient<IStorageProductRepository, StorageProductRepository>();
-        services.AddTransient<ISubProductRepository, SubProductRepository>();
-        services.AddTransient<ISubProductService, SubProductService>();
-        services.AddTransient<IdentityProviderService>();
     }
     // Настройка CORS
     private void ConfigureCors(IServiceCollection services)

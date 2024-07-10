@@ -3,6 +3,7 @@ using Forpost.Store.Postgres.EntityTypeConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Forpost.Common.Utils;
 using Forpost.Store.Contracts;
 using Microsoft.AspNetCore.Http;
 
@@ -10,9 +11,11 @@ namespace Forpost.Store.Postgres;
 public  class ForpostContextPostgres : DbContext
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    public ForpostContextPostgres(DbContextOptions<ForpostContextPostgres> options, IHttpContextAccessor httpContextAccessor) : base(options)
+    private readonly IIdentityProvider _identityProvider;
+    public ForpostContextPostgres(DbContextOptions<ForpostContextPostgres> options, IHttpContextAccessor httpContextAccessor, IIdentityProvider identityProvider) : base(options)
     {
         _httpContextAccessor = httpContextAccessor;
+        _identityProvider = identityProvider;
     }
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Role> Roles => Set<Role>();
@@ -28,15 +31,6 @@ public  class ForpostContextPostgres : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ForpostContextPostgres).Assembly);
-        modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
-        modelBuilder.ApplyConfiguration(new RoleConfiguration());
-        modelBuilder.ApplyConfiguration(new InvoiceConfiguration());
-        modelBuilder.ApplyConfiguration(new InvoiceProductConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductWorkConfiguration());
-        modelBuilder.ApplyConfiguration(new StorageConfiguration());
-        modelBuilder.ApplyConfiguration(new StorageProductConfiguration());
-        modelBuilder.ApplyConfiguration(new SubProductConfiguration());
         base.OnModelCreating(modelBuilder);
         
     }
@@ -46,30 +40,27 @@ public  class ForpostContextPostgres : DbContext
 
         if (auditableEntries.Any())
         {
-            var userIdClaim = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            if (userIdClaim != null && Guid.TryParse(userIdClaim, out var userId))
+            var userId = _identityProvider.GetUserId();
+            foreach (var entry in auditableEntries)
             {
-                foreach (var entry in auditableEntries)
+                switch (entry.State)
                 {
-                    switch (entry.State)
-                    {
-                        case EntityState.Added:
-                            entry.Entity.CreatedAt = DateTimeOffset.UtcNow;
-                            entry.Entity.CreatedById = userId;
-                            entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
-                            entry.Entity.UpdatedById = userId;
-                            break;
-                        case EntityState.Modified:
-                            entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
-                            entry.Entity.UpdatedById = userId;
-                            break;
-                        case EntityState.Deleted:
-                            entry.Entity.DeletedAt = DateTimeOffset.UtcNow;
-                            entry.Entity.DeletedById = userId;
-                            entry.State = EntityState.Modified;
-                            break;
+                    case EntityState.Added:
+                        entry.Entity.CreatedAt = DateTimeOffset.UtcNow;
+                        entry.Entity.CreatedById = userId;
+                        entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
+                        entry.Entity.UpdatedById = userId;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
+                        entry.Entity.UpdatedById = userId;
+                        break;
+                    case EntityState.Deleted:
+                        entry.Entity.DeletedAt = DateTimeOffset.UtcNow;
+                        entry.Entity.DeletedById = userId;
+                        entry.State = EntityState.Modified;
+                        break;
                         
-                    }
                 }
             }
         }

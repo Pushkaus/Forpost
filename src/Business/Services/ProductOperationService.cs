@@ -7,7 +7,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
-public sealed class ProductOperationService: IProductOperationService
+internal sealed class ProductOperationService: IProductOperationService
 {
     private readonly IProductOperationRepository _productOperationRepository;
     private readonly IMapper _mapper;

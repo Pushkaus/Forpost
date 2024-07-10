@@ -4,7 +4,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
-public sealed class RoleService: IRoleService
+internal sealed class RoleService: IRoleService
 {
     private readonly IRoleRepository _roleRepository;
     public RoleService(IRoleRepository roleRepository)

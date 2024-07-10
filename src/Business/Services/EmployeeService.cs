@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Business.Services;
 
-public class EmployeeService: IEmployeeService
+internal sealed class EmployeeService: IEmployeeService
 {
     private readonly IEmployeeRepository _employeeRepository;
 

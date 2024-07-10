@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Forpost.Business.Services;
 
-public class AccountService: IAccountService
+internal sealed class AccountService: IAccountService
 {
     private readonly IEmployeeRepository _employeeRepository;
     private readonly IRoleRepository _roleRepository;
@@ -59,7 +59,7 @@ public class AccountService: IAccountService
     {
         var user = _mapper.Map<Employee>(model);
 
-        var role = await _roleRepository.GetByNameAsync(user.Role.Name);
+        var role = await _roleRepository.GetByNameAsync(model.Role);
 
         if (role != null) user.RoleId = role.Id;
 

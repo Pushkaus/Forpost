@@ -6,7 +6,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
-public class InvoiceProductService: IInvoiceProductService
+internal sealed class InvoiceProductService: IInvoiceProductService
 {
     private readonly IInvoiceProductRepository _invoiceProductRepository;
     private readonly IMapper _mapper;

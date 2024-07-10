@@ -1,13 +1,13 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace Forpost.Business.Services;
+namespace Forpost.Common.Utils;
 
-public class IdentityProviderService
+internal sealed class IdentityProvider: IIdentityProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public IdentityProviderService(IHttpContextAccessor httpContextAccessor)
+    public IdentityProvider(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }

@@ -6,7 +6,7 @@ using Forpost.Web.Contracts.Models.Storages;
 
 namespace Forpost.Business.Services;
 
-public class StorageService: IStorageService
+internal sealed class StorageService: IStorageService
 {
     private readonly IStorageRepository _storageRepository;
     private readonly IMapper _mapper;
