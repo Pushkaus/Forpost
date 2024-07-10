@@ -1,42 +1,42 @@
-using System.Collections;
+using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.Models.SubProducts;
+using Forpost.Web.Contracts.Models.SubProducts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.SubProduct;
+namespace Forpost.Web.Contracts.Controllers.SubProduct;
 [ApiController]
 [Route("api/v1/sub-product")]
 public class SubProductController: ControllerBase
 {
     private readonly ISubProductService _subProductService;
-
-    public SubProductController(ISubProductService subProductService)
+    private readonly IMapper _mapper;
+    public SubProductController(ISubProductService subProductService, IMapper mapper)
     {
         _subProductService = subProductService;
+        _mapper = mapper;
     }
 
     /// <summary>
     /// Добавление субпродукта
     /// </summary>
-    /// <param name="parentName"></param>
-    /// <param name="daughterName"></param>
-    /// <param name="unitOfMeasure"></param>
-    /// <param name="quantity"></param>
     /// <returns></returns>
-    [HttpPut]
-    public async Task<string> AddSubProduct(string parentName, string daughterName, string unitOfMeasure, decimal quantity)
+    [HttpPost]
+    public async Task<IActionResult> Create([FromQuery] SubProductCreateRequest request)
     {
-        var result = await _subProductService.AddSubProduct(parentName, daughterName, unitOfMeasure, quantity);
-        return result;
+        var model = _mapper.Map<SubProductCreateModel>(request);
+        await _subProductService.Add(model);
+        return Ok();
     }
     /// <summary>
     /// Получить субпродукты 
     /// </summary>
-    /// <param name="parentName"></param>
     /// <returns></returns>
-    [HttpGet]
-    public async Task<IEnumerable> GetSubProductsByParent(string parentName)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAllProducts(Guid id)
     {
-        var result = await _subProductService.GetSubProductsByParent(parentName);
-        return result;
+        var storageProducts = await _subProductService.GetAllProducts(id);
+        var response = _mapper.Map<IReadOnlyList<SubProductResponse>>(storageProducts);
+        return Ok(response);
     }
 }

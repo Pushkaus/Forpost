@@ -42,4 +42,5 @@ public class StorageProductController: ControllerBase
         await _storageProductService.Add(model);
         return Ok();
     }
+    
 }

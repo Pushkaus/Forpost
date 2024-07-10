@@ -3,9 +3,7 @@ using Forpost.Store.Entities;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 
-public interface ISubProductRepository
+public interface ISubProductRepository: ISubRepository<SubProduct>
 {
-    public Task<string> AddSubProduct(string parentName, string daughterName, string unitOfMeasure, decimal quantity);
-    public Task<IEnumerable> GetSubProductsByParent(string parentName);
-
+    public Task<IReadOnlyList<SubProduct>> GetAllById(Guid id);
 }
