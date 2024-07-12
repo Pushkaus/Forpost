@@ -1,4 +1,4 @@
-namespace Forpost.Store.Contracts;
+namespace Forpost.Common.EntityAnnotations;
 /// <summary>
 /// Маркерный интерфейс для сущности
 /// </summary>

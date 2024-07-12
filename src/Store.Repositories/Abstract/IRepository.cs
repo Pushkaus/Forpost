@@ -1,4 +1,4 @@
-using Forpost.Store.Contracts;
+using Forpost.Common.EntityAnnotations;
 
 namespace Forpost.Store.Repositories.Abstract;
 

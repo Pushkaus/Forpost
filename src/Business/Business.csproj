@@ -18,5 +18,9 @@
     <ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj" />
     <ProjectReference Include="..\Store\Store.csproj" />
   </ItemGroup>
-	
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(CommonPrefix).UnitTests" />
+  </ItemGroup>
+  
 </Project>

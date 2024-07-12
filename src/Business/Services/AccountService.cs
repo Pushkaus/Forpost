@@ -4,6 +4,8 @@ using System.Text;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Accounts;
+using Forpost.Common;
+using Forpost.Common.Exceptions;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -61,7 +63,11 @@ internal sealed class AccountService: IAccountService
 
         var role = await _roleRepository.GetByNameAsync(model.Role);
 
-        if (role != null) user.RoleId = role.Id;
+        if (role == null)
+        {
+            throw ForpostErrors.NotFound<Role, string>(x => x.Name, model.Role);
+        }
+        user.RoleId = role.Id;
 
         user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);
         

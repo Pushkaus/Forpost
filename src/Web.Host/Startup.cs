@@ -19,6 +19,7 @@ using Forpost.Web.Contracts.Controllers.StorageProduct;
 using Forpost.Web.Contracts.Controllers.SubProduct;
 using Forpost.Web.Contracts.ProductOperations;
 using Forpost.Web.Contracts.Products;
+using Forpost.Web.Host.Infrastructure;
 using Forpost.Web.Host.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
@@ -56,9 +57,10 @@ internal sealed class Startup
         services.AddAutoMapper(BusinessAssemblyReference.Assembly);
         // Регистрация IHttpContextAccessor
         services.AddHttpContextAccessor();
+        services.AddControllers(x => x.Filters.Add<ForpostExceptionFilter>());
         // Конфигурация Swagger
         ConfigureSwagger(services);
-
+        
         // Регистрация API Explorer
         services.AddEndpointsApiExplorer();
         var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);

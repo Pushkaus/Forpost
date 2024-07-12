@@ -31,7 +31,7 @@ public class InvoiceProductController: ControllerBase
     }
 
     /// <summary>
-    /// получение продуктов в счете
+    /// Получение продуктов по id счета
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

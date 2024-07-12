@@ -2,13 +2,13 @@ using System.Security.Claims;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Products;
+using Forpost.Common.Exceptions;
 using Forpost.Store.Repositories.Models.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Products;
 [ApiController]
 [Route("api/v1/products")]
-
 public class ProductController: ControllerBase
 {
     private readonly IProductService _productService;

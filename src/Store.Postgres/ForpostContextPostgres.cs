@@ -3,8 +3,8 @@ using Forpost.Store.Postgres.EntityTypeConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Forpost.Common.EntityAnnotations;
 using Forpost.Common.Utils;
-using Forpost.Store.Contracts;
 using Microsoft.AspNetCore.Http;
 
 namespace Forpost.Store.Postgres;

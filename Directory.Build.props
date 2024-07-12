@@ -10,5 +10,6 @@
     <PropertyGroup>
         <CommonPrefix>Forpost</CommonPrefix>
         <RootNamespace>$(CommonPrefix).$(MSBuildProjectName)</RootNamespace>
+        <AssemblyName>$(CommonPrefix).$(MSBuildProjectName)</AssemblyName>
     </PropertyGroup>
 </Project>
