@@ -29,4 +29,17 @@ public class InvoiceProductController: ControllerBase
         await _invoiceProductService.Add(model);
         return Ok();
     }
+
+    /// <summary>
+    /// получение продуктов в счете
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAllProductsById(Guid id)
+    {
+        var products = await _invoiceProductService.GetProductsById(id);
+        var model = _mapper.Map<List<InvoiceProductResponse>>(products);
+        return Ok(model);
+    }
 }

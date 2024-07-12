@@ -24,7 +24,12 @@ internal sealed class StorageProductService: IStorageProductService
     public async Task<IReadOnlyList<StorageProductModel>> GetAllProducts(Guid id)
     {
         var storageProducts = await _storageProductRepository.GetAllById(id);
-        var repsonse = _mapper.Map<IReadOnlyList<StorageProductModel>>(storageProducts);
-        return repsonse;
+        var response = _mapper.Map<IReadOnlyList<StorageProductModel>>(storageProducts);
+        return response;
+    }
+
+    public async Task<StorageProduct?> GetById(Guid id)
+    {
+        return await _storageProductRepository.GetById(id);
     }
 }

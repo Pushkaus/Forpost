@@ -1,11 +1,10 @@
-using System.Security.Claims;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Web.Contracts.Models.Storages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Storage;
+namespace Forpost.Web.Contracts.Controllers.Storage;
 [ApiController]
 [Route("api/v1/storages")]
 [Authorize]
@@ -25,7 +24,7 @@ public class StorageController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> Create([FromQuery] StorageCreateRequest request)
+    public async Task<IActionResult> Create([FromBody] StorageCreateRequest request)
     {
         var model = _mapper.Map<StorageCreateModel>(request);
         await _storageService.Add(model);

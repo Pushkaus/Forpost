@@ -9,5 +9,6 @@ public class InvoiceProductMappingProfile: Profile
     public InvoiceProductMappingProfile()
     {
         CreateMap<InvoiceProductRequest, InvoiceProductCreateModel>().ValidateMemberList(MemberList.Destination);
+        CreateMap<InvoiceProductModel, InvoiceProductResponse>().ValidateMemberList(MemberList.Destination);
     }
 }

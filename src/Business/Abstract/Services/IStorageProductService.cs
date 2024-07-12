@@ -8,4 +8,5 @@ public interface IStorageProductService: IBusinessService
 {
     public Task Add(StorageProductCreateModel model);
     public Task<IReadOnlyList<StorageProductModel>> GetAllProducts(Guid id);
+    public Task<StorageProduct?> GetById(Guid id);
 }

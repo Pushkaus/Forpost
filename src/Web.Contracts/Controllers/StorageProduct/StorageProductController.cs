@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.StorageProduct;
@@ -43,4 +44,15 @@ public class StorageProductController: ControllerBase
         return Ok();
     }
     
+    /// <summary>
+    /// Получение информации о продукте на складе
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpGet("product-{id}")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var storageProduct = await _storageProductService.GetById(id);
+        return Ok(storageProduct);
+    }
 }

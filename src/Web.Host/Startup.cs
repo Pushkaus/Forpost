@@ -14,11 +14,11 @@ using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Models;
 using Forpost.Web.Contracts;
 using Forpost.Web.Contracts.Controllers.InvoiceProducts;
+using Forpost.Web.Contracts.Controllers.Storage;
 using Forpost.Web.Contracts.Controllers.StorageProduct;
 using Forpost.Web.Contracts.Controllers.SubProduct;
 using Forpost.Web.Contracts.ProductOperations;
 using Forpost.Web.Contracts.Products;
-using Forpost.Web.Contracts.Storage;
 using Forpost.Web.Host.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
@@ -147,7 +147,7 @@ internal sealed class Startup
         });
     }
 
-    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, ILogger<Startup> logger)
+    public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider)
     {
         app.UseCors();
         app.UseRouting();

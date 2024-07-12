@@ -1,3 +1,5 @@
+using Serilog;
+
 namespace Forpost.Web.Host;
 
 internal sealed class Program
@@ -9,6 +11,7 @@ internal sealed class Program
             .Build()
             .RunAsync();
 
+        // Log.Logger = ConfigureLogger();
     }
 
     private static IHostBuilder CreateHostBuilder(string[] args, Action<IWebHostBuilder> webHostBuilderConfigurator)
@@ -19,4 +22,12 @@ internal sealed class Program
     private static IWebHostBuilder ConfigureWebHostBuilder(IWebHostBuilder webHostBuilder)
         => webHostBuilder
             .UseStartup<Startup>();
+
+    // static void ConfigureLogger()
+    // {
+    //     var configuration = new LoggerConfiguration()
+    //         .Enrich.WithProperty("Application", "Forpost");
+    // }
+    
 }
+

@@ -21,8 +21,11 @@ internal sealed class InvoiceProductService: IInvoiceProductService
         await _invoiceProductRepository.AddAsync(invoiceProduct);
     }
 
-    public Task<IReadOnlyList<InvoiceProduct?>> GetProductsById(Guid id)
+    public async Task<IReadOnlyList<InvoiceProductModel?>> GetProductsById(Guid id)
     {
-        return null;
+       var invoiceProducts = await _invoiceProductRepository.GetProductsById(id);
+       var response = _mapper.Map<IReadOnlyList<InvoiceProductModel>>(invoiceProducts);
+       return response;
+
     }
 }

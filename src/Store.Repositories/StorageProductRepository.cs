@@ -17,4 +17,10 @@ public class StorageProductRepository: SubRepository<StorageProduct>, IStoragePr
             .Include(sp => sp.Storage)
             .Where(entity => entity.StorageId == id).ToListAsync();
     }
+
+    public async Task<StorageProduct?> GetById(Guid id)
+    {
+        return await DbSet.Where(entity => entity.ProductId == id).FirstOrDefaultAsync();
+            
+    }
 }
