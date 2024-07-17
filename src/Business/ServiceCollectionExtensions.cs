@@ -29,6 +29,10 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IStorageProductRepository, StorageProductRepository>();
         services.AddTransient<ISubProductRepository, SubProductRepository>();
         services.AddTransient<ISubProductService, SubProductService>();
+        services.AddTransient<IContragentRepository, ContragentRepository>();
+        services.AddTransient<IContragentService, ContragentService>();
+        services.AddTransient<IFilesService, FilesService>();
+        services.AddTransient<IFilesRepository, FileRepository>();
         return services;
     }
     

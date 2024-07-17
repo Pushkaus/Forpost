@@ -25,12 +25,19 @@ internal sealed class ProductOperationService: IProductOperationService
         
     }
 
-    public async Task<IReadOnlyList<ProductOperation>> GetAll()
-    {
-        return await _productOperationRepository.GetAllAsync();
-    }
     public async Task<IReadOnlyList<ProductOperation>> GetAllByProductId(Guid id)
     {
         return await _productOperationRepository.GetAllByProductId(id);
+    }
+
+    public async Task Update(OperationCreateModel model)
+    {
+        var productOperation = _mapper.Map<ProductOperation>(model);
+        await _productOperationRepository.UpdateAsync(productOperation);
+    }
+
+    public async Task Delete(Guid id)
+    {
+        await _productOperationRepository.DeleteByIdAsync(id);
     }
 }

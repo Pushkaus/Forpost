@@ -6,6 +6,7 @@ namespace Forpost.Common;
 
 public static class ForpostErrors
 {
+    
     public static EntityNotFoundException NotFound<TEntity>(Guid id) where TEntity : IEntity
         => new EntityNotFoundException($"Сущность: {typeof(TEntity)} c id = {id} не найдена");
     
@@ -13,6 +14,4 @@ public static class ForpostErrors
         TProperty value)
         where TEntity: IEntity => 
         new($"Сущность '{typeof(TEntity).Name}' по {((MemberExpression)property.Body).Member.Name} = '{value}' не найдена");
-
-
 }

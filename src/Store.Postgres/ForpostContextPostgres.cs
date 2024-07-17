@@ -26,6 +26,8 @@ public  class ForpostContextPostgres : DbContext
     public DbSet<Storage> Storages => Set<Storage>();
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
     public DbSet<SubProduct> SubProducts => Set<SubProduct>();
+    public DbSet<Contragent> Contragents => Set<Contragent>();
+    public DbSet<FileEntity?> Files => Set<FileEntity>();
     
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -55,4 +55,16 @@ public class StorageProductController: ControllerBase
         var storageProduct = await _storageProductService.GetById(id);
         return Ok(storageProduct);
     }
+    /// <summary>
+    /// Обновление продукта на складе
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPut]
+    public async Task<IActionResult> Update([FromQuery] StorageProductCreateRequest request)
+    {
+        var model = _mapper.Map<StorageProductCreateModel>(request);
+        await _storageProductService.Update(model);
+        return Ok();
+    }
 }

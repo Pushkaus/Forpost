@@ -42,4 +42,17 @@ public class InvoiceProductController: ControllerBase
         var model = _mapper.Map<List<InvoiceProductResponse>>(products);
         return Ok(model);
     }
+
+    /// <summary>
+    /// Обновление продукта в счете
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPut]
+    public async Task<IActionResult> Update([FromQuery] InvoiceProductRequest request)
+    {
+        var model = _mapper.Map<InvoiceProductCreateModel>(request);
+        await _invoiceProductService.Update(model);
+        return Ok();
+    }
 }

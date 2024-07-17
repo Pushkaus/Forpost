@@ -44,4 +44,5 @@ public class ProductOperationController: ControllerBase
         var productOperations = await _productOperationService.GetAllByProductId(id);
         return Ok(productOperations);
     }
+    /// Дописать 
 }

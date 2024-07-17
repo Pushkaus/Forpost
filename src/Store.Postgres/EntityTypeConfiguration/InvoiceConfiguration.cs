@@ -13,5 +13,6 @@ internal class InvoiceConfiguration: IEntityTypeConfiguration<Invoice>
       builder.HasMany(entity => entity.InvoiceProducts)
          .WithOne(entity => entity.Invoice)
          .HasForeignKey(entity => entity.InvoiceId);
+      
    }
 }

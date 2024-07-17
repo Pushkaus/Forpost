@@ -7,6 +7,7 @@ namespace Forpost.Business.Abstract.Services;
 public interface IProductOperationService: IBusinessService
 {
     public Task Add(OperationCreateModel model);
-    public Task<IReadOnlyList<ProductOperation>> GetAll();
     public Task<IReadOnlyList<ProductOperation>> GetAllByProductId(Guid id);
+    public Task Update(OperationCreateModel model);
+    public Task Delete(Guid id);
 }

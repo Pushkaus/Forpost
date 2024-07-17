@@ -22,7 +22,7 @@ internal sealed class StorageService: IStorageService
         await _storageRepository.AddAsync(storage);
     }
 
-    public async Task<IReadOnlyList<Storage>> GetAll()
+    public async Task<IReadOnlyList<Storage?>> GetAll()
     {
         return await _storageRepository.GetAllAsync();
     }

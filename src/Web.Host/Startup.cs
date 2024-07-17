@@ -49,7 +49,6 @@ internal sealed class Startup
 
         // Регистрация базы данных
         services.AddForpostContextPostgres(_configuration);
-
         // Регистрация `IPasswordHasher<Employee>`
         services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
         // Регистрация автомаппера
@@ -60,7 +59,6 @@ internal sealed class Startup
         services.AddControllers(x => x.Filters.Add<ForpostExceptionFilter>());
         // Конфигурация Swagger
         ConfigureSwagger(services);
-        
         // Регистрация API Explorer
         services.AddEndpointsApiExplorer();
         var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
