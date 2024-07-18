@@ -1,10 +1,12 @@
 using Forpost.Business.Abstract.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Contragents;
 [ApiController]
 [Route("api/v1/contragents")]
-public class ContragentController: ControllerBase
+[Authorize]
+sealed public class ContragentController: ControllerBase
 {
     private readonly IContragentService _contragentService;
 

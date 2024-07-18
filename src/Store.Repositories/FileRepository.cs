@@ -11,7 +11,7 @@ public class FileRepository: Repository<FileEntity>, IFilesRepository
     {
     }
 
-    public async Task<IReadOnlyList<FileEntity?>> GetAllById(Guid id)
+    public async Task<IReadOnlyList<FileEntity>> GetAllByParentId(Guid id)
     {
         return await DbSet.Where(entity => entity.ParentId == id).ToListAsync();
     }

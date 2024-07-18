@@ -5,7 +5,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
-public class ContragentService: IContragentService
+internal sealed class ContragentService: IContragentService
 {
     private readonly IContragentRepository _contragentRepository;
 

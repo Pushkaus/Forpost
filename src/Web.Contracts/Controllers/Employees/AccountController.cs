@@ -14,7 +14,7 @@ namespace Forpost.Web.Contracts;
 /// </summary>
 [ApiController]
 [Route("api/v1/accounts")]
-public class AccountController: ControllerBase
+sealed public class AccountController: ControllerBase
 {
     private readonly IAccountService _accountService;
     private readonly IIdentityProvider _identityProvider;

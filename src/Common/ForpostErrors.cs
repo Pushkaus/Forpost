@@ -14,4 +14,18 @@ public static class ForpostErrors
         TProperty value)
         where TEntity: IEntity => 
         new($"Сущность '{typeof(TEntity).Name}' по {((MemberExpression)property.Body).Member.Name} = '{value}' не найдена");
+    /// <summary>
+    /// Убедиться, что сущность найдена, иначе бросать <see cref="EntityNotFoundException"/>
+    /// </summary>
+    /// <param name="entity">Сущность БД</param>
+    /// <param name="property">Указание на свойство, по которому производился поиск</param>
+    /// <param name="value">Значение, по которому производился поиск</param>
+    /// <exception cref="EntityNotFoundException">Сущность не найдена</exception>
+    public static void EnsureFoundBy<TEntity, TProperty>(this TEntity? entity,
+        Expression<Func<TEntity, TProperty>> property, TProperty value) where TEntity : IEntity
+    {
+        if (entity is null) throw ForpostErrors.NotFound(property, value);
+    }
+
+    
 }

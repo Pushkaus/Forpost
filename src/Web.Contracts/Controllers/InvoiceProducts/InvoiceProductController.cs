@@ -2,12 +2,14 @@ using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.InvoiceProducts;
 using Forpost.Web.Contracts.Models.InvoiceProducts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.InvoiceProducts;
 [ApiController]
 [Route("api/v1/invoice-products")]
-public class InvoiceProductController: ControllerBase
+[Authorize]
+sealed public class InvoiceProductController: ControllerBase
 {
     private readonly IInvoiceProductService _invoiceProductService;
     private readonly IMapper _mapper;
@@ -23,7 +25,7 @@ public class InvoiceProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> Create([FromQuery] InvoiceProductRequest request)
+    public async Task<IActionResult> Create([FromBody] InvoiceProductRequest request)
     {
         var model = _mapper.Map<InvoiceProductCreateModel>(request);
         await _invoiceProductService.Add(model);
@@ -49,7 +51,7 @@ public class InvoiceProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut]
-    public async Task<IActionResult> Update([FromQuery] InvoiceProductRequest request)
+    public async Task<IActionResult> Update([FromBody] InvoiceProductRequest request)
     {
         var model = _mapper.Map<InvoiceProductCreateModel>(request);
         await _invoiceProductService.Update(model);

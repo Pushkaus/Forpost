@@ -25,5 +25,5 @@ public class Storage: IAuditableEntity, IEntity
     public Guid UpdatedById { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
-    public ICollection<StorageProduct> StorageProducts { get; set; }
+    public IReadOnlyCollection<StorageProduct> StorageProducts { get; set; }
 }

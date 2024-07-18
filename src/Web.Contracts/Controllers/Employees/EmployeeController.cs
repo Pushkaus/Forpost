@@ -1,5 +1,6 @@
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -7,7 +8,8 @@ namespace Forpost.Web.Contracts;
 
 [ApiController]
 [Route("api/v1/employees")]
-public class EmployeeController : ControllerBase
+[Authorize]
+sealed public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
 

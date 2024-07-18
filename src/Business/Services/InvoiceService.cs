@@ -33,7 +33,7 @@ internal sealed class InvoiceService: IInvoiceService
         return invoices;
     }
 
-    public async Task Create(InvoiceCreateModel model)
+    public async Task Expose(InvoiceCreateModel model)
     {
         var invoice = _mapper.Map<Invoice>(model);
         await _invoiceRepository.AddAsync(invoice);
