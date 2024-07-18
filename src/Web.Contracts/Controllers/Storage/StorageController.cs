@@ -8,7 +8,7 @@ namespace Forpost.Web.Contracts.Controllers.Storage;
 [ApiController]
 [Route("api/v1/storages")]
 [Authorize]
-public class StorageController: ControllerBase
+sealed public class StorageController: ControllerBase
 {
     private readonly IStorageService _storageService;
     private readonly IMapper _mapper;

@@ -3,12 +3,14 @@ using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.StorageProduct;
 using Forpost.Web.Contracts.Models.StorageProduct;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.StorageProduct;
 [ApiController]
 [Route("api/v1/storage-products")]
-public class StorageProductController: ControllerBase
+[Authorize]
+sealed public class StorageProductController: ControllerBase
 {
     private readonly IStorageProductService _storageProductService;
     private readonly IMapper _mapper;
@@ -37,7 +39,7 @@ public class StorageProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> Create([FromQuery] StorageProductCreateRequest request)
+    public async Task<IActionResult> Create([FromBody] StorageProductCreateRequest request)
     {
         var model = _mapper.Map<StorageProductCreateModel>(request);
         await _storageProductService.Add(model);
@@ -61,7 +63,7 @@ public class StorageProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut]
-    public async Task<IActionResult> Update([FromQuery] StorageProductCreateRequest request)
+    public async Task<IActionResult> Update([FromBody] StorageProductCreateRequest request)
     {
         var model = _mapper.Map<StorageProductCreateModel>(request);
         await _storageProductService.Update(model);

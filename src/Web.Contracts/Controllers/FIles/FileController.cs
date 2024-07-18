@@ -1,34 +1,44 @@
+using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.Models.Files;
+using Forpost.Web.Contracts.Models.Files;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.FIles;
 [ApiController]
 [Route("api/v1/files")]
-public sealed class FileController: ControllerBase
+[Authorize]
+sealed public class FileController: ControllerBase
 {
     private readonly IFilesService _filesService;
-    public FileController(IFilesService filesService)
+
+    private readonly IMapper _mapper;
+    public FileController(IFilesService filesService, IMapper mapper)
     {
         _filesService = filesService;
+        _mapper = mapper;
     }    
     /// <summary>
     /// Добавление файлов к id 
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> UploadFile(Guid parentId, IFormFile file)
+    public async Task<IActionResult> UploadFile(UploadFileRequest request)
     {
-        if (file == null || file.Length == 0)
-            return BadRequest("No file uploaded.");
-
+        if (request.File.Length == 0)
+            return BadRequest();
+        
         byte[] content;
         using (var memoryStream = new MemoryStream())
         {
-            await file.CopyToAsync(memoryStream);
+            await request.File.CopyToAsync(memoryStream);
             content = memoryStream.ToArray();
         }
-        await _filesService.UploadFile(parentId, file.FileName, file.ContentType, content);
+        var model = _mapper.Map<UploadFileModel>(request);
+        model.Content = content;
+        await _filesService.UploadFile(model);
         return Ok();
     }
 
@@ -39,8 +49,9 @@ public sealed class FileController: ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> DownloadFile(Guid id)
     {
-        var (fileContent, contentType, fileName) = await _filesService.DownloadFile(id);
-        return Ok(File(fileContent, contentType, fileName));
+        var response = await _filesService.DownloadFile(id);
+        var downloadFile = _mapper.Map<DownloadFileResponse>(response);
+        return Ok(downloadFile);
     }
     /// <summary>
     /// Удаление файла из БД 

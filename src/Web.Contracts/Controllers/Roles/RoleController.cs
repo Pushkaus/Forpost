@@ -1,10 +1,12 @@
 using Forpost.Business.Abstract.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Roles;
 [ApiController]
 [Route("api/v1/role")]
-public class RoleController: ControllerBase
+[Authorize]
+sealed public class RoleController: ControllerBase
 {
     private readonly IRoleService _roleService;
 

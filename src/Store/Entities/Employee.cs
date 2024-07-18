@@ -75,7 +75,7 @@ public sealed class Employee : IAuditableEntity, IEntity
         public DateTimeOffset? DeletedAt { get; set; }
         public Guid? DeletedById { get; set; }
         
-        public ICollection<Storage> Storages { get; set; }
+        public IReadOnlyCollection<Storage> Storages { get; set; }
 
         // Навигационное свойство Role должно иметь публичный setter
         public Role Role { get; set; }

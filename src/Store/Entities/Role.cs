@@ -13,6 +13,6 @@ namespace Forpost.Store.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
         // Навигационные свойства
-        public ICollection<Employee> Employees { get; set; }
+        public IReadOnlyCollection<Employee> Employees { get; set; }
     }
 }

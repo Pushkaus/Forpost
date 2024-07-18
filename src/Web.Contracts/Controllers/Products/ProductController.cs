@@ -4,12 +4,14 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Products;
 using Forpost.Common.Exceptions;
 using Forpost.Store.Repositories.Models.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Products;
 [ApiController]
 [Route("api/v1/products")]
-public class ProductController: ControllerBase
+[Authorize]
+sealed public class ProductController: ControllerBase
 {
     private readonly IProductService _productService;
     private readonly IMapper _mapper;
@@ -48,7 +50,7 @@ public class ProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> Create([FromQuery] ProductCreateRequest request)
+    public async Task<IActionResult> Create([FromBody] ProductCreateRequest request)
     {
         var model = _mapper.Map<ProductCreateModel>(request);
         await _productService.Add(model);
@@ -61,7 +63,7 @@ public class ProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut]
-    public async Task<IActionResult> Update([FromQuery] ProductUpdateRequest request)
+    public async Task<IActionResult> Update([FromBody] ProductUpdateRequest request)
     {
        var model = _mapper.Map<ProductUpdateModel>(request);
        await _productService.Update(model);

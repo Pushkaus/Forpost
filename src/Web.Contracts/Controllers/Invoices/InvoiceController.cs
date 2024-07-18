@@ -4,14 +4,15 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Invoices;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts;
 [ApiController]
 [Route("api/v1/invoices")]
-
-public class InvoiceController: ControllerBase
+[Authorize]
+sealed public class InvoiceController: ControllerBase
 {
     private readonly IInvoiceService _invoiceService;
     private readonly IMapper _mapper;
@@ -45,10 +46,10 @@ public class InvoiceController: ControllerBase
     /// Создать счет
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> Create([FromQuery] InvoiceCreateRequest request)
+    public async Task<IActionResult> Expose([FromBody] InvoiceCreateRequest request)
     {
         var model = _mapper.Map<InvoiceCreateModel>(request);
-        await _invoiceService.Create(model);
+        await _invoiceService.Expose(model);
         return Ok();
     }
 
@@ -58,7 +59,7 @@ public class InvoiceController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut]
-    public async Task<IActionResult> Update([FromQuery] InvoiceUpdateRequest request)
+    public async Task<IActionResult> Update([FromBody] InvoiceUpdateRequest request)
     {
         var model = _mapper.Map<InvoiceUpdateModel>(request);
         await _invoiceService.Update(model);

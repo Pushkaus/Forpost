@@ -29,5 +29,10 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
         <PackageReference Include="Swashbuckle.AspNetCore" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Files\" />
+      <Folder Include="Files\dfe83ed8-4279-432b-87ca-181b41869746\" />
+    </ItemGroup>
 
 </Project>

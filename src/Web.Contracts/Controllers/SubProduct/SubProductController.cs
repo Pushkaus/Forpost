@@ -2,12 +2,14 @@ using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.SubProducts;
 using Forpost.Web.Contracts.Models.SubProducts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.SubProduct;
 [ApiController]
 [Route("api/v1/sub-product")]
-public class SubProductController: ControllerBase
+[Authorize]
+sealed public class SubProductController: ControllerBase
 {
     private readonly ISubProductService _subProductService;
     private readonly IMapper _mapper;
@@ -22,7 +24,7 @@ public class SubProductController: ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> Create([FromQuery] SubProductCreateRequest request)
+    public async Task<IActionResult> Create([FromBody] SubProductCreateRequest request)
     {
         var model = _mapper.Map<SubProductCreateModel>(request);
         await _subProductService.Add(model);

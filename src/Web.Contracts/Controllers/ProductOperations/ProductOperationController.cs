@@ -5,12 +5,14 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.ProductOperations;
 using Forpost.Store.Entities;
 using Forpost.Web.Contracts.Models.ProductOperations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.ProductOperations;
 [ApiController]
 [Route("api/v1/product-operation")]
-public class ProductOperationController: ControllerBase
+[Authorize]
+sealed public class ProductOperationController: ControllerBase
 {
     private readonly IProductOperationService _productOperationService;
     private readonly IMapper _mapper;
@@ -44,5 +46,5 @@ public class ProductOperationController: ControllerBase
         var productOperations = await _productOperationService.GetAllByProductId(id);
         return Ok(productOperations);
     }
-    /// Дописать 
+    ///TODO 
 }

@@ -10,5 +10,5 @@ public class Contragent: IEntity
     }
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public ICollection<Invoice> Invoices { get; set; }
+    public IReadOnlyCollection<Invoice> Invoices { get; set; }
 }

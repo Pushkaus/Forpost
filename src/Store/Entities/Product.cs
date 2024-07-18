@@ -34,11 +34,11 @@ public sealed class Product : IAuditableEntity, IEntity
     public Guid UpdatedById { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
-    public ICollection<InvoiceProduct> InvoiceProducts { get; set; }
-    public ICollection<ProductOperation> ProductOperations { get; set; }
-    public ICollection<StorageProduct> StorageProducts { get; set; }
+    public IReadOnlyCollection<InvoiceProduct> InvoiceProducts { get; set; }
+    public IReadOnlyCollection<ProductOperation> ProductOperations { get; set; }
+    public IReadOnlyCollection<StorageProduct> StorageProducts { get; set; }
     
     // Навигационные свойства
-    public ICollection<SubProduct> ParentSubProducts { get; set; }
-    public ICollection<SubProduct> DaughterSubProducts { get; set; }
+    public IReadOnlyCollection<SubProduct> ParentSubProducts { get; set; }
+    public IReadOnlyCollection<SubProduct> DaughterSubProducts { get; set; }
 }

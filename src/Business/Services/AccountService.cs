@@ -62,11 +62,9 @@ internal sealed class AccountService: IAccountService
         var user = _mapper.Map<Employee>(model);
 
         var role = await _roleRepository.GetByNameAsync(model.Role);
-
-        if (role == null)
-        {
-            throw ForpostErrors.NotFound<Role, string>(x => x.Name, model.Role);
-        }
+        
+        role.EnsureFoundBy(x => role.Name, model.Role);
+        
         user.RoleId = role.Id;
 
         user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);
