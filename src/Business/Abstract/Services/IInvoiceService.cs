@@ -1,6 +1,8 @@
+using Forpost.Business.Models.Files;
 using Forpost.Business.Models.Invoices;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Business.Abstract.Services;
@@ -12,4 +14,5 @@ public interface IInvoiceService: IBusinessService
     public Task Create(InvoiceCreateModel model);
     public Task Update(InvoiceUpdateModel model);
     public Task DeleteById(Guid id);
+    
 }

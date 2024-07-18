@@ -1,4 +1,4 @@
-using Forpost.Store.Contracts;
+using Forpost.Common.EntityAnnotations;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;

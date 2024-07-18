@@ -32,4 +32,10 @@ internal sealed class StorageProductService: IStorageProductService
     {
         return await _storageProductRepository.GetById(id);
     }
+
+    public async Task Update(StorageProductCreateModel model)
+    {
+        var storageProduct = _mapper.Map<StorageProduct>(model);
+        await _storageProductRepository.UpdateAsync(storageProduct);
+    }
 }

@@ -1,4 +1,5 @@
-using Forpost.Store.Contracts;
+using Forpost.Common.EntityAnnotations;
+using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : 
         await _db.SaveChangesAsync();
     }
 
-    public async Task<IReadOnlyList<TEntity>> GetAllAsync()
+    public async Task<IReadOnlyList<TEntity?>> GetAllAsync()
     {
         return await DbSet.ToListAsync();
     }

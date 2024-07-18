@@ -1,8 +1,11 @@
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.Models.Files;
 using Forpost.Business.Models.Invoices;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace Forpost.Business.Services;
 
@@ -11,10 +14,12 @@ internal sealed class InvoiceService: IInvoiceService
     private readonly IInvoiceRepository _invoiceRepository;
     private readonly IMapper _mapper;
 
-    public InvoiceService(IInvoiceRepository invoiceRepository, IMapper mapper)
+    private readonly IFilesRepository _filesRepository;
+    public InvoiceService(IInvoiceRepository invoiceRepository, IMapper mapper, IFilesRepository filesRepository)
     {
         _invoiceRepository = invoiceRepository;
         _mapper = mapper;
+        _filesRepository = filesRepository;
     }
     public async Task<Invoice?> GetByNumber(string number)
     {
@@ -44,4 +49,7 @@ internal sealed class InvoiceService: IInvoiceService
     {
         await _invoiceRepository.DeleteByIdAsync(id);
     }
+
+    
+
 }

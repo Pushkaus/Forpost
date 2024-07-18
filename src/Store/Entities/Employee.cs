@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Forpost.Store.Contracts;
+using Forpost.Common.EntityAnnotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace Forpost.Store.Entities;
 
 public sealed class Employee : IAuditableEntity, IEntity
-    {
+{
         // Пустой конструктор
         public Employee() {}
 

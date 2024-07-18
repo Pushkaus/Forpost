@@ -3,8 +3,8 @@ using Forpost.Store.Postgres.EntityTypeConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Security.Claims;
+using Forpost.Common.EntityAnnotations;
 using Forpost.Common.Utils;
-using Forpost.Store.Contracts;
 using Microsoft.AspNetCore.Http;
 
 namespace Forpost.Store.Postgres;
@@ -26,6 +26,8 @@ public  class ForpostContextPostgres : DbContext
     public DbSet<Storage> Storages => Set<Storage>();
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
     public DbSet<SubProduct> SubProducts => Set<SubProduct>();
+    public DbSet<Contragent> Contragents => Set<Contragent>();
+    public DbSet<FileEntity?> Files => Set<FileEntity>();
     
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

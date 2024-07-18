@@ -28,4 +28,10 @@ internal sealed class InvoiceProductService: IInvoiceProductService
        return response;
 
     }
+
+    public async Task Update(InvoiceProductCreateModel model)
+    {
+        var invoiceProduct = _mapper.Map<InvoiceProduct>(model);
+        await _invoiceProductRepository.UpdateAsync(invoiceProduct);
+    }
 }
