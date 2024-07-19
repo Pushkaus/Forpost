@@ -12,12 +12,12 @@ namespace Forpost.Web.Contracts.Controllers.FIles;
 [Authorize]
 sealed public class FileController: ControllerBase
 {
-    private readonly IFilesService _filesService;
+    private readonly IFileService _fileService;
 
     private readonly IMapper _mapper;
-    public FileController(IFilesService filesService, IMapper mapper)
+    public FileController(IFileService fileService, IMapper mapper)
     {
-        _filesService = filesService;
+        _fileService = fileService;
         _mapper = mapper;
     }    
     /// <summary>
@@ -38,7 +38,7 @@ sealed public class FileController: ControllerBase
         }
         var model = _mapper.Map<UploadFileModel>(request);
         model.Content = content;
-        await _filesService.UploadFile(model);
+        await _fileService.UploadFile(model);
         return Ok();
     }
 
@@ -49,7 +49,7 @@ sealed public class FileController: ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> DownloadFile(Guid id)
     {
-        var response = await _filesService.DownloadFile(id);
+        var response = await _fileService.DownloadFile(id);
         var downloadFile = _mapper.Map<DownloadFileResponse>(response);
         return Ok(downloadFile);
     }
@@ -61,7 +61,7 @@ sealed public class FileController: ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteFile(Guid id)
     {
-        await _filesService.DeleteFile(id);
+        await _fileService.DeleteFile(id);
         return Ok();
     }
     /// <summary>
@@ -72,7 +72,7 @@ sealed public class FileController: ControllerBase
     [HttpGet("get-all-files/{parentId}")]
     public async Task<IActionResult> GetAllFiles(Guid parentId)
     {
-        var files = await _filesService.GetAllFiles(parentId);
+        var files = await _fileService.GetAllFiles(parentId);
         return Ok(files);
     }
 

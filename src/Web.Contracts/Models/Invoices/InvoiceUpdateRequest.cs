@@ -9,5 +9,4 @@ public class InvoiceUpdateRequest
     public int? DaysShipment { get; set; }
     public int? PaymentPercentage { get; set; }
     public DateTimeOffset? DateShipment { get; set; }
-
 }
