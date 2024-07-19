@@ -8,13 +8,13 @@ using Forpost.Common;
 
 namespace Forpost.Business.Services
 {
-    internal sealed class FilesService : IFilesService
+    internal sealed class FileService : IFileService
     {
         private readonly IFilesRepository _filesRepository;
         private readonly IMapper _mapper;
         private readonly string? _uploadFilePath;
 
-        public FilesService(IFilesRepository filesRepository, IConfiguration configuration, IMapper mapper)
+        public FileService(IFilesRepository filesRepository, IConfiguration configuration, IMapper mapper)
         {
             _filesRepository = filesRepository;
             _mapper = mapper;
