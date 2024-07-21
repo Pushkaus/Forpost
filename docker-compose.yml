@@ -1,7 +1,17 @@
 version: '3'
 
-services:
+services:  
+  postgres:
+    container_name: 'postgres'
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 8521
+      POSTGRES_DB: postgres
   web:
+    depends_on:
+      - postgres
     build:
       context: .
       dockerfile: Dockerfile.web
