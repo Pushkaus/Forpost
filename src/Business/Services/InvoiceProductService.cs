@@ -1,5 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
+using Forpost.Business.Events.Products;
 using Forpost.Business.Models.InvoiceProducts;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
@@ -9,11 +11,14 @@ namespace Forpost.Business.Services;
 internal sealed class InvoiceProductService: IInvoiceProductService
 {
     private readonly IInvoiceProductRepository _invoiceProductRepository;
+    private readonly IDomainEventBus _eventBus;
     private readonly IMapper _mapper;
-    public InvoiceProductService(IInvoiceProductRepository invoiceProductRepository, IMapper mapper)
+    public InvoiceProductService(IInvoiceProductRepository invoiceProductRepository, 
+        IMapper mapper, IDomainEventBus eventBus)
     {
         _invoiceProductRepository = invoiceProductRepository;
         _mapper = mapper;
+        _eventBus = eventBus;
     }
     public async Task Add(InvoiceProductCreateModel model)
     {
@@ -23,6 +28,20 @@ internal sealed class InvoiceProductService: IInvoiceProductService
 
     public async Task<IReadOnlyList<InvoiceProductModel?>> GetProductsById(Guid id)
     {
+        await _eventBus.PublishAsync(new ProductInInvoiceAdded
+        {
+            InvoiceId = id,
+            ProductId = Guid.NewGuid(),
+            Quantity = 1000
+        });
+        
+        await _eventBus.PublishAsync(new ProductInInvoiceAdded2
+        {
+            InvoiceId = id,
+            ProductId = Guid.NewGuid(),
+            Quantity = 1000
+        });
+        
        var invoiceProducts = await _invoiceProductRepository.GetProductsById(id);
        var response = _mapper.Map<IReadOnlyList<InvoiceProductModel>>(invoiceProducts);
        return response;
