@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-public sealed class EmployeeRepository: Repository<Employee>, IEmployeeRepository
+internal sealed class EmployeeRepository: Repository<Employee>, IEmployeeRepository
 {
     public EmployeeRepository(ForpostContextPostgres db) : base(db)
     {

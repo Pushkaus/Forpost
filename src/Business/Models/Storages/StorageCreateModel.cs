@@ -1,4 +1,4 @@
-namespace Forpost.Web.Contracts.Models.Storages;
+namespace Forpost.Business.Models.Storages;
 
 public class StorageCreateModel
 {

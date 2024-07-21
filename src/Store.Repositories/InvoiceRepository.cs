@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-public class InvoiceRepository: Repository<Invoice>, IInvoiceRepository
+internal sealed  class InvoiceRepository: Repository<Invoice>, IInvoiceRepository
 {
     public InvoiceRepository(ForpostContextPostgres db) : base(db)
     {

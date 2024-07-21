@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Forpost.Business;
+namespace Forpost.Business.Settings;
 
 /// <summary>
 /// Класс предоставляющий ссылку на сборку, в которой он находится

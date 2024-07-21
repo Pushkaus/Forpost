@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IEntity
+internal abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IEntity
 {
     private readonly ForpostContextPostgres _db;
     protected readonly DbSet<TEntity> DbSet;

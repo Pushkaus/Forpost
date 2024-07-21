@@ -1,14 +1,12 @@
-using System.Security.Claims;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Accounts;
-using Forpost.Business.Services;
 using Forpost.Common.Utils;
 using Forpost.Web.Contracts.Models.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts;
+namespace Forpost.Web.Contracts.Controllers.Employees;
 /// <summary>
 /// Контроллер для работы с сотрудниками
 /// </summary>

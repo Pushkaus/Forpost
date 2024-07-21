@@ -1,7 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Products;
-using Forpost.Store.Repositories.Models.Products;
+using Forpost.Web.Contracts.Models.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,4 +1,4 @@
-namespace Forpost.Store.Repositories.Models.Products;
+namespace Forpost.Web.Contracts.Models.Products;
 
 public class ProductCreateRequest
 {

@@ -1,5 +1,5 @@
+using Forpost.Business.Models.Storages;
 using Forpost.Store.Entities;
-using Forpost.Web.Contracts.Models.Storages;
 
 namespace Forpost.Business.Abstract.Services;
 

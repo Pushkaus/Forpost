@@ -1,8 +1,8 @@
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.Models.Storages;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
-using Forpost.Web.Contracts.Models.Storages;
 
 namespace Forpost.Business.Services;
 
