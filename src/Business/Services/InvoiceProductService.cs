@@ -34,4 +34,9 @@ internal sealed class InvoiceProductService: IInvoiceProductService
         var invoiceProduct = _mapper.Map<InvoiceProduct>(model);
         await _invoiceProductRepository.UpdateAsync(invoiceProduct);
     }
+
+    public async Task DeleteByProductId(Guid id)
+    {
+        await _invoiceProductRepository.DeleteByProductId(id);
+    }
 }

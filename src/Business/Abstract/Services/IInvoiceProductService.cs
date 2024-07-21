@@ -8,4 +8,5 @@ public interface IInvoiceProductService: IBusinessService
     public Task Add(InvoiceProductCreateModel model);
     public Task<IReadOnlyList<InvoiceProductModel?>> GetProductsById(Guid id);
     public Task Update(InvoiceProductCreateModel model);
+    public Task DeleteByProductId(Guid id);
 }

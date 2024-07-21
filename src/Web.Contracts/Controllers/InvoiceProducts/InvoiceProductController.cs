@@ -57,4 +57,16 @@ sealed public class InvoiceProductController: ControllerBase
         await _invoiceProductService.Update(model);
         return Ok();
     }
+
+    /// <summary>
+    /// Удаление продукта из счета
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _invoiceProductService.DeleteByProductId(id);
+        return Ok();
+    }
 }

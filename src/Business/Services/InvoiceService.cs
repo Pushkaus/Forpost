@@ -4,22 +4,26 @@ using Forpost.Business.Models.Files;
 using Forpost.Business.Models.Invoices;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 
 namespace Forpost.Business.Services;
 
+public class InvoiceModel
+{
+    public string Name { get; set; } = null!;
+}
 internal sealed class InvoiceService: IInvoiceService
 {
     private readonly IInvoiceRepository _invoiceRepository;
     private readonly IMapper _mapper;
 
-    private readonly IFilesRepository _filesRepository;
-    public InvoiceService(IInvoiceRepository invoiceRepository, IMapper mapper, IFilesRepository filesRepository)
+
+    public InvoiceService(IInvoiceRepository invoiceRepository, IMapper mapper)
     {
         _invoiceRepository = invoiceRepository;
         _mapper = mapper;
-        _filesRepository = filesRepository;
     }
     public async Task<Invoice?> GetByNumber(string number)
     {
@@ -49,7 +53,5 @@ internal sealed class InvoiceService: IInvoiceService
     {
         await _invoiceRepository.DeleteByIdAsync(id);
     }
-
     
-
 }

@@ -58,7 +58,7 @@ sealed public class InvoiceController: ControllerBase
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    [HttpPut]
+    [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromBody] InvoiceUpdateRequest request)
     {
         var model = _mapper.Map<InvoiceUpdateModel>(request);
