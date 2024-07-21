@@ -14,7 +14,7 @@ services:
       - postgres
     build:
       context: .
-      dockerfile: Dockerfile.web
+      dockerfile: Web.Dockerfile
     ports:
       - "8080:8080"
       - "8081:8081"
