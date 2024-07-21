@@ -1,4 +1,5 @@
 using Forpost.Business.Abstract;
+using Forpost.Business.EventHanding;
 using Forpost.Common;
 using Forpost.Store.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,15 @@ public static class ServiceCollectionExtensions
         services.AddAllTypesAssignableMarkerInterfaceTo<IBusinessService>(ServiceLifetime.Transient);
 
         services.AddRepositories();
+        services.AddDomainEventBus();
         return services;
     }
     
+    private static IServiceCollection AddDomainEventBus(this IServiceCollection services)
+    {
+        services.AddTransient<IDomainEventBus, InMemoryDomainEventBus>();
+        services.AddAllTypesAssignableMarkerInterfaceTo<IDomainEventHandler>(ServiceLifetime.Transient);
+        
+        return services;
+    }
 }
