@@ -1,13 +1,11 @@
-using System.Security.Claims;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Products;
-using Forpost.Common.Exceptions;
 using Forpost.Store.Repositories.Models.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Products;
+namespace Forpost.Web.Contracts.Controllers.Products;
 [ApiController]
 [Route("api/v1/products")]
 [Authorize]
