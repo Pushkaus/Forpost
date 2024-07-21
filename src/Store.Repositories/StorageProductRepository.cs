@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-public class StorageProductRepository: SubRepository<StorageProduct>, IStorageProductRepository
+internal sealed class StorageProductRepository: SubRepository<StorageProduct>, IStorageProductRepository
 {
     public StorageProductRepository(ForpostContextPostgres db) : base(db)
     {

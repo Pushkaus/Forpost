@@ -5,7 +5,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Store.Repositories;
 
-public class ContragentRepository: Repository<Contragent>, IContragentRepository
+internal sealed class ContragentRepository: Repository<Contragent>, IContragentRepository
 {
     public ContragentRepository(ForpostContextPostgres db) : base(db)
     {

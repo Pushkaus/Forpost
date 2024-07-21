@@ -1,9 +1,9 @@
 using Forpost.Common.EntityAnnotations;
-using Forpost.Store.Entities;
+using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Store.Repositories.Abstract;
 
-public interface IRepository<TEntity> where TEntity : class, IEntity
+public interface IRepository<TEntity>: IRepository where TEntity : class, IEntity
 {
     public Task AddAsync(TEntity entity);
     public Task<IReadOnlyList<TEntity>> GetAllAsync();

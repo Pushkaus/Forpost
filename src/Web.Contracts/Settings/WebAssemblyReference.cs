@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Forpost.Web.Host.Settings;
+namespace Forpost.Web.Contracts.Settings;
 
 /// <summary>
 /// Класс предоставляющий ссылку на сборку, в которой он находится

@@ -1,26 +1,20 @@
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Services;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories;
-using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Forpost.Business;
+using Forpost.Business.Settings;
 using Forpost.Common;
 using Forpost.Store.Entities;
-using Forpost.Store.Repositories.Models;
-using Forpost.Web.Contracts;
+using Forpost.Web.Contracts.Controllers.Employees;
 using Forpost.Web.Contracts.Controllers.InvoiceProducts;
+using Forpost.Web.Contracts.Controllers.ProductOperations;
 using Forpost.Web.Contracts.Controllers.Products;
 using Forpost.Web.Contracts.Controllers.Storage;
 using Forpost.Web.Contracts.Controllers.StorageProduct;
 using Forpost.Web.Contracts.Controllers.SubProduct;
-using Forpost.Web.Contracts.ProductOperations;
+using Forpost.Web.Contracts.Settings;
 using Forpost.Web.Host.Infrastructure;
-using Forpost.Web.Host.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
@@ -37,29 +31,26 @@ internal sealed class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        // Регистрация сервисов
         services.AddBusinessServices();
         
         services.AddIdentityProvider();
-        // Регистрация политики CORS
+        
         ConfigureCors(services);
-
-        // Регистрация контроллеров
+        
         services.AddControllers();
 
-        // Регистрация базы данных
+
         services.AddForpostContextPostgres(_configuration);
-        // Регистрация `IPasswordHasher<Employee>`
         services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
-        // Регистрация автомаппера
+        
         services.AddAutoMapper(WebAssemblyReference.Assembly);
         services.AddAutoMapper(BusinessAssemblyReference.Assembly);
-        // Регистрация IHttpContextAccessor
+        
         services.AddHttpContextAccessor();
         services.AddControllers(x => x.Filters.Add<ForpostExceptionFilter>());
-        // Конфигурация Swagger
+        
         ConfigureSwagger(services);
-        // Регистрация API Explorer
+        
         services.AddEndpointsApiExplorer();
         var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
         services.AddAuthentication(x =>
@@ -72,17 +63,16 @@ internal sealed class Startup
             x.SaveToken = true;
             x.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true, // Валидация секретного ключа
-                IssuerSigningKey = new SymmetricSecurityKey(key), // Установка ключа безопастности
-                ValidateIssuer = false, // Строка, представляющая издателя
-                ValidateAudience = false // Установка потребителя токена
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false, 
+                ValidateAudience = false 
             };
         });
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 
-            // Настройка схемы безопасности
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
@@ -109,7 +99,7 @@ internal sealed class Startup
         });
 
     }
-    // Настройка CORS
+    
     private void ConfigureCors(IServiceCollection services)
     {
         services.AddCors(options =>

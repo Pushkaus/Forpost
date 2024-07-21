@@ -1,7 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Models.Products;
 using Forpost.Store.Entities;
-using Forpost.Store.Repositories.Models.Products;
+using Forpost.Web.Contracts.Models.Products;
 
 namespace Forpost.Web.Contracts.Mappers;
 

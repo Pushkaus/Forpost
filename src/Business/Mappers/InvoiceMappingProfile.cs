@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Business.Models.Invoices;
 using Forpost.Store.Entities;
 
-namespace Forpost.Web.Contracts.Mappers;
+namespace Forpost.Business.Mappers;
 
 public sealed class InvoiceMappingProfile: Profile
 {

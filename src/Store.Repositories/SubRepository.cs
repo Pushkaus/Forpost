@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-public class SubRepository<TEntity>: Repository<TEntity>, ISubRepository<TEntity> where TEntity : class, IEntity
+internal class SubRepository<TEntity>: Repository<TEntity>, ISubRepository<TEntity> where TEntity : class, IEntity
 {
     public SubRepository(ForpostContextPostgres db) : base(db)
     {

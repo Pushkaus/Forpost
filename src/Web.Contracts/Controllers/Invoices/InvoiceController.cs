@@ -1,14 +1,11 @@
-using System.Net;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Invoices;
-using Forpost.Store.Entities;
-using Forpost.Store.Repositories;
+using Forpost.Web.Contracts.Models.Invoices;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts;
+namespace Forpost.Web.Contracts.Controllers.Invoices;
 [ApiController]
 [Route("api/v1/invoices")]
 [Authorize]

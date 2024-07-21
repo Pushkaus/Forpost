@@ -1,4 +1,4 @@
-namespace Forpost.Store.Repositories;
+namespace Forpost.Web.Contracts.Models.Invoices;
 
 public class InvoiceUpdateRequest
 {
