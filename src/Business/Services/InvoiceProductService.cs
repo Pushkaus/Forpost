@@ -23,25 +23,31 @@ internal sealed class InvoiceProductService: IInvoiceProductService
     public async Task Add(InvoiceProductCreateModel model)
     {
         var invoiceProduct = _mapper.Map<InvoiceProduct>(model);
+        await _eventBus.PublishAsync(new ProductInInvoiceAdded()
+        {
+            InvoiceId = invoiceProduct.InvoiceId,
+            ProductId = invoiceProduct.ProductId,
+            Quantity = invoiceProduct.Quantity
+        });
         await _invoiceProductRepository.AddAsync(invoiceProduct);
     }
 
     public async Task<IReadOnlyList<InvoiceProductModel?>> GetProductsById(Guid id)
     {
-        await _eventBus.PublishAsync(new ProductInInvoiceAdded
-        {
-            InvoiceId = id,
-            ProductId = Guid.NewGuid(),
-            Quantity = 1000
-        });
-        
-        await _eventBus.PublishAsync(new ProductInInvoiceAdded2
-        {
-            InvoiceId = id,
-            ProductId = Guid.NewGuid(),
-            Quantity = 1000
-        });
-        
+        // await _eventBus.PublishAsync(new ProductInInvoiceAdded
+        // {
+        //     InvoiceId = id,
+        //     ProductId = Guid.NewGuid(),
+        //     Quantity = 1000
+        // });
+        //
+        // await _eventBus.PublishAsync(new ProductInInvoiceAdded2
+        // {
+        //     InvoiceId = id,
+        //     ProductId = Guid.NewGuid(),
+        //     Quantity = 1000
+        // });
+        //
        var invoiceProducts = await _invoiceProductRepository.GetProductsById(id);
        var response = _mapper.Map<IReadOnlyList<InvoiceProductModel>>(invoiceProducts);
        return response;

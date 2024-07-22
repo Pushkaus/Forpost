@@ -22,7 +22,7 @@ internal abstract class Repository<TEntity>: IRepository<TEntity> where TEntity 
         await _db.SaveChangesAsync();
     }
 
-    public async Task<IReadOnlyList<TEntity?>> GetAllAsync()
+    public async Task<IReadOnlyList<TEntity>> GetAllAsync()
     {
         return await DbSet.ToListAsync();
     }

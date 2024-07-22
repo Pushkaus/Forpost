@@ -38,4 +38,11 @@ internal sealed class StorageProductService: IStorageProductService
         var storageProduct = _mapper.Map<StorageProduct>(model);
         await _storageProductRepository.UpdateAsync(storageProduct);
     }
+
+    public async Task WriteOff(Guid productId, int quantity)
+    {
+        var storageProduct = await _storageProductRepository.GetById(productId);
+        if (storageProduct != null) storageProduct.Quantity = storageProduct.Quantity - quantity;
+        if (storageProduct != null) await _storageProductRepository.UpdateAsync(storageProduct);
+    }
 }

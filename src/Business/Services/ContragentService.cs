@@ -20,7 +20,7 @@ internal sealed class ContragentService: IContragentService
         await _contragentRepository.AddAsync(contragent);
     }
 
-    public async Task<IReadOnlyList<Contragent?>> GetAll()
+    public async Task<IReadOnlyList<Contragent>> GetAll()
     {
         var contragents = await _contragentRepository.GetAllAsync();
         

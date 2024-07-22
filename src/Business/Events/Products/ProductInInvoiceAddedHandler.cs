@@ -1,37 +1,27 @@
 using System.Diagnostics;
+using Forpost.Business.Abstract.Services;
 using Forpost.Business.EventHanding;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Events.Products;
 
-internal sealed class ProductInInvoiceAddedHandler : IDomainEventHandler<ProductInInvoiceAdded>, 
-    IDomainEventHandler<ProductInInvoiceAdded2>
+internal sealed class ProductInInvoiceAddedHandler : IDomainEventHandler<ProductInInvoiceAdded>
 {
-    private readonly IEmployeeRepository _employeeRepository;
     private readonly ILogger<ProductInInvoiceAddedHandler> _logger;
+    private readonly IStorageProductService _storageProductService;
 
-    public ProductInInvoiceAddedHandler(IEmployeeRepository employeeRepository,
-        ILogger<ProductInInvoiceAddedHandler> logger)
+    public ProductInInvoiceAddedHandler(
+        ILogger<ProductInInvoiceAddedHandler> logger, IStorageProductService storageProductService)
     {
-        _employeeRepository = employeeRepository;
         _logger = logger;
+        _storageProductService = storageProductService;
     }
     
     public async Task HandleAsync(ProductInInvoiceAdded domainEvent, CancellationToken cancellationToken = default)
     {
-        var employees = await _employeeRepository.GetAllAsync();
-
-        foreach (var employee in employees)
-        {
-            Debug.WriteLine($"{employee.LastName} найден");
-        }
+        await _storageProductService.WriteOff(domainEvent.ProductId, domainEvent.Quantity);
+        Debug.WriteLine($"Произошлоа списание со склада в количестве {domainEvent.Quantity}");
     }
     
-    public async Task HandleAsync(ProductInInvoiceAdded2 domainEvent, CancellationToken cancellationToken = default)
-    {
-        Debug.WriteLine($"Я из {nameof(ProductInInvoiceAddedHandler)}");
-
-        await Task.CompletedTask;
-    }
 }

@@ -54,6 +54,8 @@ public  class ForpostContextPostgres : DbContext
                         entry.Entity.UpdatedById = userId;
                         break;
                     case EntityState.Modified:
+                        entry.Property(e => e.CreatedAt).IsModified = false;
+                        entry.Property(e => e.CreatedById).IsModified = false;
                         entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
                         entry.Entity.UpdatedById = userId;
                         break;
