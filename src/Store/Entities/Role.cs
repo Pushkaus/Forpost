@@ -6,6 +6,10 @@ namespace Forpost.Store.Entities
 {
     public sealed class Role: IEntity
     {
+        public Role()
+        {
+            
+        }
         public Role(string name)
         {
             Name = name;

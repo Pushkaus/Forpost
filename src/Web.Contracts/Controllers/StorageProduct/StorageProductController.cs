@@ -4,6 +4,7 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.StorageProduct;
 using Forpost.Web.Contracts.Models.StorageProduct;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.StorageProduct;
@@ -26,6 +27,7 @@ sealed public class StorageProductController: ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<StorageProductResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllProducts(Guid id)
     {
         var storageProducts = await _storageProductService.GetAllProducts(id);
@@ -39,6 +41,7 @@ sealed public class StorageProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Create([FromBody] StorageProductCreateRequest request)
     {
         var model = _mapper.Map<StorageProductCreateModel>(request);
@@ -52,6 +55,7 @@ sealed public class StorageProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpGet("product-{id}")]
+    [ProducesResponseType(typeof(StorageProductResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
     {
         var storageProduct = await _storageProductService.GetById(id);
@@ -63,6 +67,7 @@ sealed public class StorageProductController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update([FromBody] StorageProductCreateRequest request)
     {
         var model = _mapper.Map<StorageProductCreateModel>(request);

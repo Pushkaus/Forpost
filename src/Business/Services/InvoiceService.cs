@@ -3,6 +3,7 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Files;
 using Forpost.Business.Models.Invoices;
 using Forpost.Store.Entities;
+using Forpost.Store.Enums;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,14 @@ internal sealed class InvoiceService: IInvoiceService
     {
         var invoice = _mapper.Map<Invoice>(model);
         await _invoiceRepository.AddAsync(invoice);
+    }
+
+    public async Task Closing(InvoiceUpdateModel model)
+    {
+        model.Status = Status.Completed;
+        model.DateShipment = DateTimeOffset.UtcNow;
+        var invoice = _mapper.Map<Invoice>(model);
+        await _invoiceRepository.UpdateAsync(invoice);
     }
 
     public async Task Update(InvoiceUpdateModel model)

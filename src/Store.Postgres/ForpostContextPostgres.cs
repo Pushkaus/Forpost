@@ -22,13 +22,15 @@ public  class ForpostContextPostgres : DbContext
     public DbSet<Invoice> Invoices => Set<Invoice>();
     public DbSet<InvoiceProduct> InvoiceProducts => Set<InvoiceProduct>();
     public DbSet<Product> Products => Set<Product>();
-    public DbSet<ProductOperation> ProductOperations => Set<ProductOperation>();
     public DbSet<Storage> Storages => Set<Storage>();
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
-    public DbSet<SubProduct> SubProducts => Set<SubProduct>();
+    public DbSet<Component> Components => Set<Component>();
     public DbSet<Contragent> Contragents => Set<Contragent>();
     public DbSet<FileEntity> Files => Set<FileEntity>();
-    
+    public DbSet<Category> Categories => Set<Category>();
+    public DbSet<Issue> Issues => Set<Issue>();
+    public DbSet<IssueOperation> IssueOperations => Set<IssueOperation>();
+    public DbSet<Operation> Operations => Set<Operation>();
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Forpost.Store.Postgres;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -6,17 +7,18 @@ using Forpost.Business;
 using Forpost.Business.Settings;
 using Forpost.Common;
 using Forpost.Store.Entities;
+using Forpost.Web.Contracts.Controllers.Component;
 using Forpost.Web.Contracts.Controllers.Employees;
 using Forpost.Web.Contracts.Controllers.InvoiceProducts;
-using Forpost.Web.Contracts.Controllers.ProductOperations;
 using Forpost.Web.Contracts.Controllers.Products;
 using Forpost.Web.Contracts.Controllers.Storage;
 using Forpost.Web.Contracts.Controllers.StorageProduct;
-using Forpost.Web.Contracts.Controllers.SubProduct;
 using Forpost.Web.Contracts.Settings;
 using Forpost.Web.Host.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Forpost.Web.Host;
 
@@ -41,6 +43,7 @@ internal sealed class Startup
 
 
         services.AddForpostContextPostgres(_configuration);
+        
         services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
         
         services.AddAutoMapper(WebAssemblyReference.Assembly);
@@ -75,9 +78,11 @@ internal sealed class Startup
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                In = ParameterLocation.Header,
-                Description = "Please enter JWT with Bearer into field",
+                Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
                 Name = "Authorization",
+                In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer"
             });
@@ -97,7 +102,6 @@ internal sealed class Startup
                 }
             });
         });
-
     }
     
     private void ConfigureCors(IServiceCollection services)
@@ -110,6 +114,15 @@ internal sealed class Startup
                       .AllowAnyHeader()
                       .AllowAnyMethod()
                       .AllowCredentials();
+                policy.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                policy.WithOrigins("http://localhost:5173")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                
             });
         });
     }
@@ -118,6 +131,16 @@ internal sealed class Startup
     {
         services.AddSwaggerGen(options =>
         {
+            options.CustomOperationIds(apiDesc =>
+            {
+                var controllerName = "";
+                if (apiDesc.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor)
+                {
+                    controllerName = controllerActionDescriptor.ControllerName;
+                }
+
+                return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo) ? $"{controllerName}{methodInfo.Name}" : null;
+            });
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(AccountController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
@@ -129,12 +152,12 @@ internal sealed class Startup
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(StorageProductController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(SubProductController).Assembly.GetName().Name}.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(ProductOperationController).Assembly.GetName().Name}.xml"));
+                $"{typeof(ComponentController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(InvoiceProductController).Assembly.GetName().Name}.xml"));
+            
         });
+        
     }
 
     public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider)
@@ -146,6 +169,7 @@ internal sealed class Startup
         {
             c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             c.RoutePrefix = string.Empty;
+            
         });
         app.UseAuthentication();
         app.UseAuthorization();

@@ -10,7 +10,12 @@ namespace Forpost.Store.Postgres.EntityTypeConfiguration
         {
             builder.HasKey(entity => entity.Id);
             builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
-            
+            builder.HasData(new Role()
+                {
+                    Id = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),
+                    Name = "Admin"
+                }
+            );
         }
     }
 }

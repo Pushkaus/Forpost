@@ -44,7 +44,6 @@ internal sealed class AccountService: IAccountService
         {
             throw new UnauthorizedAccessException("Неверное имя пользователя или пароль.");
         }
-
         var verificationResult = _passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, model.password);
 
         if (verificationResult == PasswordVerificationResult.Failed)
@@ -66,7 +65,8 @@ internal sealed class AccountService: IAccountService
         role.EnsureFoundBy(x => role.Name, model.Role);
         
         user.RoleId = role.Id;
-
+        
+        // Хэширование пароля
         user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);
         
         await _employeeRepository.AddAsync(user);

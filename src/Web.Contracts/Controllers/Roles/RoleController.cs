@@ -1,5 +1,7 @@
 using Forpost.Business.Abstract.Services;
+using Forpost.Web.Contracts.Models.Roles;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Roles;
@@ -18,6 +20,7 @@ sealed public class RoleController: ControllerBase
     /// Создать новую роль
     /// </summary>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Create(string name)
     {
         await _roleService.Add(name);
@@ -29,6 +32,7 @@ sealed public class RoleController: ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [ProducesResponseType(typeof(IReadOnlyCollection<RoleResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()
     {
         var roles = await _roleService.GetAll();
@@ -41,6 +45,7 @@ sealed public class RoleController: ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
     {
        var role = await _roleService.GetById(id);

@@ -15,19 +15,15 @@ public sealed class Product : IAuditableEntity, IEntity
         CreatedById = createdById;
         UpdatedAt = DateTimeOffset.UtcNow;
         UpdatedById = updatedById;
-        
     }
 
-    public Product()
-    {
-    }
+    public Product() {}
 
     public Guid Id { get; set; }
     public string Name { get; set; }
     public Guid? CategoryId { get; set; }
     public string? Version { get; set; }
     public decimal? Cost { get; set; }
-    public decimal? OperationsCost => ProductOperations?.Sum(po => po.Cost) ?? 0;
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
@@ -35,10 +31,8 @@ public sealed class Product : IAuditableEntity, IEntity
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
     public IReadOnlyCollection<InvoiceProduct> InvoiceProducts { get; set; }
-    public IReadOnlyCollection<ProductOperation> ProductOperations { get; set; }
     public IReadOnlyCollection<StorageProduct> StorageProducts { get; set; }
-    
-    // Навигационные свойства
-    public IReadOnlyCollection<SubProduct> ParentSubProducts { get; set; }
-    public IReadOnlyCollection<SubProduct> DaughterSubProducts { get; set; }
+
+    public ICollection<Component> ParentSubProducts { get; set; }
+    public ICollection<Component> DaughterSubProducts { get; set; }
 }

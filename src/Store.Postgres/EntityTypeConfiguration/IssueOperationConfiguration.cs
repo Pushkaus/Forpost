@@ -4,15 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public sealed class ProductWorkConfiguration: IEntityTypeConfiguration<ProductOperation>
+public class IssueOperationConfiguration: IEntityTypeConfiguration<IssueOperation>
 {
-    public void Configure(EntityTypeBuilder<ProductOperation> builder)
+    public void Configure(EntityTypeBuilder<IssueOperation> builder)
     {
         builder.HasKey(entity => entity.Id);
         builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
-        builder.HasOne(pw => pw.Product)
-            .WithMany(p => p.ProductOperations)
-            .HasForeignKey(pw => pw.ProductId);
         
-    }
+    }   
 }

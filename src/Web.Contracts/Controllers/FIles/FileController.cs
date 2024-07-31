@@ -25,6 +25,7 @@ sealed public class FileController: ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> UploadFile(UploadFileRequest request)
     {
         if (request.File.Length == 0)
@@ -46,7 +47,9 @@ sealed public class FileController: ControllerBase
     /// Скачивание файла с сервера
     /// </summary>
     /// <returns></returns>
+    /// 
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(DownloadFileResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> DownloadFile(Guid id)
     {
         var response = await _fileService.DownloadFile(id);
@@ -59,6 +62,8 @@ sealed public class FileController: ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(DownloadFileResponse), StatusCodes.Status200OK)]
+
     public async Task<IActionResult> DeleteFile(Guid id)
     {
         await _fileService.DeleteFile(id);
@@ -70,6 +75,7 @@ sealed public class FileController: ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("get-all-files/{parentId}")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<FileResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllFiles(Guid parentId)
     {
         var files = await _fileService.GetAllFiles(parentId);

@@ -3,6 +3,7 @@ using System;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forpost.Store.Postgres.Migrations
 {
     [DbContext(typeof(ForpostContextPostgres))]
-    partial class ForpostContextPostgresModelSnapshot : ModelSnapshot
+    [Migration("20240730120923_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,23 +143,6 @@ namespace Forpost.Store.Postgres.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("04ebde8e-bd0a-4c6a-9eec-f2339e5a6914"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 7, 30, 13, 33, 8, 213, DateTimeKind.Unspecified).AddTicks(3642), new TimeSpan(0, 0, 0, 0, 0)),
-                            CreatedById = new Guid("04ebde8e-bd0a-4c6a-9eec-f2339e5a6914"),
-                            Email = "default@employee.com",
-                            FirstName = "test",
-                            LastName = "test",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIzGnyIIuCDvtUtAK2dLpRAe+mZfyNM+r2NxHExPMqMWvEREaT3Y5IbpmJ2dq6vduw==",
-                            PhoneNumber = "1234567890",
-                            Post = "Administrator",
-                            RoleId = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2024, 7, 30, 13, 33, 8, 213, DateTimeKind.Unspecified).AddTicks(3649), new TimeSpan(0, 0, 0, 0, 0)),
-                            UpdatedById = new Guid("04ebde8e-bd0a-4c6a-9eec-f2339e5a6914")
-                        });
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.FileEntity", b =>
@@ -223,9 +209,6 @@ namespace Forpost.Store.Postgres.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<int>("PaymentPercentage")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
@@ -301,9 +284,6 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -406,13 +386,6 @@ namespace Forpost.Store.Postgres.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),
-                            Name = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Storage", b =>

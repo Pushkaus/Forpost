@@ -12,6 +12,25 @@ namespace Forpost.Store.Postgres.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    ParentId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_Categories_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Contragents",
                 columns: table => new
                 {
@@ -36,6 +55,55 @@ namespace Forpost.Store.Postgres.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Files", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IssueOperations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    IssueId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                    OperationId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IssueOperations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Issues",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    ExecutorId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DateCompletion = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    Duration = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    Cost = table.Column<decimal>(type: "numeric", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    DeletedById = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Issues", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Operations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Operations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,35 +170,7 @@ namespace Forpost.Store.Postgres.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductOperations",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    OperationTime = table.Column<decimal>(type: "numeric", nullable: true),
-                    Cost = table.Column<decimal>(type: "numeric", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UpdatedById = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedById = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductOperations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductOperations_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubProducts",
+                name: "Components",
                 columns: table => new
                 {
                     ParentId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -141,19 +181,19 @@ namespace Forpost.Store.Postgres.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubProducts", x => new { x.ParentId, x.DaughterId });
+                    table.PrimaryKey("PK_Components", x => new { x.ParentId, x.DaughterId });
                     table.ForeignKey(
-                        name: "FK_SubProducts_Products_DaughterId",
+                        name: "FK_Components_Products_DaughterId",
                         column: x => x.DaughterId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_SubProducts_Products_ParentId",
+                        name: "FK_Components_Products_ParentId",
                         column: x => x.ParentId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -266,6 +306,16 @@ namespace Forpost.Store.Postgres.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_ParentId",
+                table: "Categories",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Components_DaughterId",
+                table: "Components",
+                column: "DaughterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employees_RoleId",
                 table: "Employees",
                 column: "RoleId");
@@ -286,16 +336,6 @@ namespace Forpost.Store.Postgres.Migrations
                 column: "ContragentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductOperations_ProductId",
-                table: "ProductOperations",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_Name_Version",
-                table: "Products",
-                columns: new[] { "Name", "Version" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StorageProducts_ProductId_StorageId",
                 table: "StorageProducts",
                 columns: new[] { "ProductId", "StorageId" },
@@ -310,16 +350,17 @@ namespace Forpost.Store.Postgres.Migrations
                 name: "IX_Storages_ResponsibleId",
                 table: "Storages",
                 column: "ResponsibleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubProducts_DaughterId",
-                table: "SubProducts",
-                column: "DaughterId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Components");
+
             migrationBuilder.DropTable(
                 name: "Files");
 
@@ -327,22 +368,25 @@ namespace Forpost.Store.Postgres.Migrations
                 name: "InvoiceProducts");
 
             migrationBuilder.DropTable(
-                name: "ProductOperations");
+                name: "IssueOperations");
+
+            migrationBuilder.DropTable(
+                name: "Issues");
+
+            migrationBuilder.DropTable(
+                name: "Operations");
 
             migrationBuilder.DropTable(
                 name: "StorageProducts");
 
             migrationBuilder.DropTable(
-                name: "SubProducts");
-
-            migrationBuilder.DropTable(
                 name: "Invoices");
 
             migrationBuilder.DropTable(
-                name: "Storages");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Storages");
 
             migrationBuilder.DropTable(
                 name: "Contragents");

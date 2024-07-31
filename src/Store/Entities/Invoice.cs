@@ -1,5 +1,5 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using Forpost.Common.EntityAnnotations;
+using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
 
@@ -10,7 +10,7 @@ public sealed class Invoice: IAuditableEntity, IEntity
         
     }
     
-    public Invoice(string number, Guid contragentId, string description, Guid createdById, Guid updatedById, int paymentPercentage, int daysShipment)
+    public Invoice(string number, Guid contragentId, string description, Guid createdById, Guid updatedById, int paymentPercentage, int daysShipment, Status status)
     {
         Number = number;
         ContragentId = contragentId;
@@ -19,6 +19,7 @@ public sealed class Invoice: IAuditableEntity, IEntity
         CreatedById = createdById;
         UpdatedAt = DateTimeOffset.UtcNow;
         UpdatedById = updatedById;
+        Status = status;
         PaymentPercentage = paymentPercentage;
         DaysShipment = daysShipment;
     }
@@ -29,6 +30,7 @@ public sealed class Invoice: IAuditableEntity, IEntity
     public string? Description { get; set; }
     public int PaymentPercentage { get; set; }
     public int DaysShipment { get; set; }
+    public Status Status { get; set; }
     public DateTimeOffset? DateShipment { get; set; }
     public Guid? PaymentId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }

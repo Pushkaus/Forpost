@@ -8,8 +8,8 @@ public class SubProductMappingProfile: Profile
 {
     public SubProductMappingProfile()
     {
-        CreateMap<SubProductCreateModel, SubProduct>().ValidateMemberList(MemberList.Destination);
-        CreateMap<SubProduct, SubProductModel>()
+        CreateMap<SubProductCreateModel, Component>().ValidateMemberList(MemberList.Destination);
+        CreateMap<Component, SubProductModel>()
             .ForMember(dest => dest.DaughterName, opt => opt.MapFrom(src => src.DaughterProduct.Name))
             .ValidateMemberList(MemberList.Destination);
     }

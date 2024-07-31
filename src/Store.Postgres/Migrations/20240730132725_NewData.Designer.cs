@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forpost.Store.Postgres.Migrations
 {
     [DbContext(typeof(ForpostContextPostgres))]
-    [Migration("20240721160539_Initial")]
-    partial class Initial
+    [Migration("20240730132725_NewData")]
+    partial class NewData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,51 @@ namespace Forpost.Store.Postgres.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Forpost.Store.Entities.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.Component", b =>
+                {
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("DaughterId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("UnitOfMeasure")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ParentId", "DaughterId");
+
+                    b.HasIndex("DaughterId");
+
+                    b.ToTable("Components");
+                });
 
             modelBuilder.Entity("Forpost.Store.Entities.Contragent", b =>
                 {
@@ -98,6 +143,23 @@ namespace Forpost.Store.Postgres.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0fc1dcc2-c76e-487e-982a-e6f0acc3a4ed"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2024, 7, 30, 13, 27, 24, 730, DateTimeKind.Unspecified).AddTicks(8980), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedById = new Guid("0fc1dcc2-c76e-487e-982a-e6f0acc3a4ed"),
+                            Email = "default@employee.com",
+                            FirstName = "test",
+                            LastName = "test",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJU5xqBZACXc0dh+NuUuY9bqe8qfaWdT9kCXz7jkGxJ/jIaQS4mXppXVadasC89C4Q==",
+                            PhoneNumber = "1234567890",
+                            Post = "Administrator",
+                            RoleId = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2024, 7, 30, 13, 27, 24, 730, DateTimeKind.Unspecified).AddTicks(8989), new TimeSpan(0, 0, 0, 0, 0)),
+                            UpdatedById = new Guid("0fc1dcc2-c76e-487e-982a-e6f0acc3a4ed")
+                        });
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.FileEntity", b =>
@@ -203,6 +265,89 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("InvoiceProducts");
                 });
 
+            modelBuilder.Entity("Forpost.Store.Entities.Issue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DateCompletion")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("interval");
+
+                    b.Property<Guid>("ExecutorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedById")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Issues");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.IssueOperation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("IssueId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("OperationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IssueOperations");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.Operation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Operations");
+                });
+
             modelBuilder.Entity("Forpost.Store.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -242,56 +387,7 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name", "Version");
-
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Forpost.Store.Entities.ProductOperation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal?>("Cost")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("OperationTime")
-                        .HasColumnType("numeric");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UpdatedById")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductOperations");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Role", b =>
@@ -307,6 +403,13 @@ namespace Forpost.Store.Postgres.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Storage", b =>
@@ -375,29 +478,33 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("StorageProducts");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.SubProduct", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Category", b =>
                 {
-                    b.Property<Guid>("ParentId")
-                        .HasColumnType("uuid");
+                    b.HasOne("Forpost.Store.Entities.Category", "ParentCategory")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Property<Guid>("DaughterId")
-                        .HasColumnType("uuid");
+                    b.Navigation("ParentCategory");
+                });
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+            modelBuilder.Entity("Forpost.Store.Entities.Component", b =>
+                {
+                    b.HasOne("Forpost.Store.Entities.Product", "DaughterProduct")
+                        .WithMany("DaughterSubProducts")
+                        .HasForeignKey("DaughterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("numeric");
+                    b.HasOne("Forpost.Store.Entities.Product", "ParentProduct")
+                        .WithMany("ParentSubProducts")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Property<string>("UnitOfMeasure")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Navigation("DaughterProduct");
 
-                    b.HasKey("ParentId", "DaughterId");
-
-                    b.HasIndex("DaughterId");
-
-                    b.ToTable("SubProducts");
+                    b.Navigation("ParentProduct");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Employee", b =>
@@ -441,17 +548,6 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductOperation", b =>
-                {
-                    b.HasOne("Forpost.Store.Entities.Product", "Product")
-                        .WithMany("ProductOperations")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Forpost.Store.Entities.Storage", b =>
                 {
                     b.HasOne("Forpost.Store.Entities.Employee", "Employee")
@@ -482,23 +578,9 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Navigation("Storage");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.SubProduct", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Category", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Product", "DaughterProduct")
-                        .WithMany("DaughterSubProducts")
-                        .HasForeignKey("DaughterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Forpost.Store.Entities.Product", "ParentProduct")
-                        .WithMany("ParentSubProducts")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DaughterProduct");
-
-                    b.Navigation("ParentProduct");
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Contragent", b =>
@@ -523,8 +605,6 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Navigation("InvoiceProducts");
 
                     b.Navigation("ParentSubProducts");
-
-                    b.Navigation("ProductOperations");
 
                     b.Navigation("StorageProducts");
                 });

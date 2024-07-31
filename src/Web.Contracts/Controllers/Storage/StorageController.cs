@@ -1,8 +1,10 @@
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Storages;
+using Forpost.Web.Contracts.Models.StorageProduct;
 using Forpost.Web.Contracts.Models.Storages;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Storage;
@@ -25,6 +27,7 @@ sealed public class StorageController: ControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Create([FromBody] StorageCreateRequest request)
     {
         var model = _mapper.Map<StorageCreateModel>(request);
@@ -37,6 +40,7 @@ sealed public class StorageController: ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [ProducesResponseType(typeof(StorageReponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()
     {
         var storages = await _storageService.GetAll();

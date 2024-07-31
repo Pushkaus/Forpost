@@ -1,9 +1,6 @@
+namespace Forpost.Web.Contracts.Models.ProductOperations;
 
-using Forpost.Common.EntityAnnotations;
-
-namespace Forpost.Store.Entities;
-
-public sealed class ProductOperation: IAuditableEntity, IEntity
+public class ProductOperationResponse
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
@@ -17,5 +14,4 @@ public sealed class ProductOperation: IAuditableEntity, IEntity
     public Guid UpdatedById { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
-    public Product Product { get; set; }
 }

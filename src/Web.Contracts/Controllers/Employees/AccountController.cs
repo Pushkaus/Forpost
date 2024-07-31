@@ -1,9 +1,12 @@
+using System.IdentityModel.Tokens.Jwt;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Accounts;
 using Forpost.Common.Utils;
 using Forpost.Web.Contracts.Models.Accounts;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Employees;
@@ -36,6 +39,7 @@ sealed public class AccountController: ControllerBase
     /// </summary>
     [HttpPost]
     [Authorize]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> RegisterAsync([FromQuery] RegisterUserRequest request)
     {
         var model = _mapper.Map<RegisterUserModel>(request);
@@ -45,7 +49,10 @@ sealed public class AccountController: ControllerBase
     /// <summary>
     /// Логин сотрудника
     /// </summary>
+    /// 
     [HttpPost("login")]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     public async Task<string> LoginAsync([FromQuery] LoginUserRequest request)
     {
         var model = _mapper.Map<LoginUserModel>(request);

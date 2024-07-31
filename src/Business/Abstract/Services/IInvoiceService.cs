@@ -12,6 +12,8 @@ public interface IInvoiceService: IBusinessService
     public Task<Invoice?> GetByNumber(string number);
     public Task<IReadOnlyList<Invoice>> GetAll();
     public Task Expose(InvoiceCreateModel model);
+    public Task Closing(InvoiceUpdateModel model);
+
     public Task Update(InvoiceUpdateModel model);
     public Task DeleteById(Guid id);
     
