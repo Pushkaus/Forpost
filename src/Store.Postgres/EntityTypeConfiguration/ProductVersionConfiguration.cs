@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public class IssueConfiguration: IEntityTypeConfiguration<Issue>
+public class ProductVersionConfiguration:IEntityTypeConfiguration<ProductVersion>
 {
-    public void Configure(EntityTypeBuilder<Issue> builder)
+    public void Configure(EntityTypeBuilder<ProductVersion> builder)
     {
         builder.ConfigureBaseEntity();
-
+        
+        
     }
 }

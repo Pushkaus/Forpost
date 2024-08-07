@@ -5,7 +5,7 @@ namespace Forpost.Store.Repositories.Abstract;
 
 public interface IRepository<TEntity>: IRepository where TEntity : class, IEntity
 {
-    public Task AddAsync(TEntity entity);
+    public Task<Guid> AddAsync(TEntity entity);
     public Task<IReadOnlyList<TEntity>> GetAllAsync();
     public Task<TEntity?> GetByIdAsync(Guid id);
     public Task UpdateAsync(TEntity entity);

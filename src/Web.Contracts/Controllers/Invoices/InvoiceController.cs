@@ -51,12 +51,12 @@ sealed public class InvoiceController: ControllerBase
     public async Task<IActionResult> Expose([FromBody] InvoiceCreateRequest request)
     {
         var model = _mapper.Map<InvoiceCreateModel>(request);
-        await _invoiceService.Expose(model);
-        return Ok();
+        var id = await _invoiceService.Expose(model);
+        return Ok(id);
     }
 
     /// <summary>
-    /// Закрытие счета, смена статуса и выставления даты отгрузки
+    /// Закрытие счета, смена статуса и выставление даты отгрузки
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>

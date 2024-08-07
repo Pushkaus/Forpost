@@ -15,10 +15,10 @@ internal sealed class StorageProductService: IStorageProductService
         _storageProductRepository = storageProductRepository;
         _mapper = mapper;
     }
-    public async Task Add(StorageProductCreateModel model)
+    public async Task<Guid> Add(StorageProductCreateModel model)
     {
         var storageProduct = _mapper.Map<StorageProduct>(model);
-        await _storageProductRepository.AddAsync(storageProduct);
+        return await _storageProductRepository.AddAsync(storageProduct);
     }
 
     public async Task<IReadOnlyList<StorageProductModel>> GetAllProducts(Guid id)

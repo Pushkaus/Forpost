@@ -8,7 +8,7 @@ public class OperationConfiguration: IEntityTypeConfiguration<Operation>
 {
     public void Configure(EntityTypeBuilder<Operation> builder)
     {
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
+        builder.ConfigureBaseEntity();
+
     }
 }

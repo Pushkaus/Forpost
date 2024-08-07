@@ -39,8 +39,8 @@ sealed public class FileController: ControllerBase
         }
         var model = _mapper.Map<UploadFileModel>(request);
         model.Content = content;
-        await _fileService.UploadFile(model);
-        return Ok();
+        var id = await _fileService.UploadFile(model);
+        return Ok(id);
     }
 
     /// <summary>

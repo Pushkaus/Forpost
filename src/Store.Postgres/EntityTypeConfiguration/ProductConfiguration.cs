@@ -8,12 +8,7 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
-        
-        builder.HasMany(entity => entity.InvoiceProducts)
-            .WithOne(entity => entity.Product)
-            .HasForeignKey(entity => entity.ProductId);
+        builder.ConfigureBaseEntity();
         
         builder.HasMany(p => p.ParentSubProducts)
             .WithOne(sub => sub.ParentProduct)
@@ -24,5 +19,15 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
             .WithOne(sub => sub.DaughterProduct)
             .HasForeignKey(sub => sub.DaughterId)
             .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasMany(entity => entity.InvoiceProducts)
+            .WithOne(entity => entity.Product)
+            .HasForeignKey(entity => entity.ProductId);
+        
+        builder.HasMany(entity => entity.Version)
+            .WithOne(entity => entity.Product)
+            .HasForeignKey(entity => entity.ProductId);
+        
+        
     }
 }

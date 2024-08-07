@@ -38,10 +38,11 @@ internal sealed class InvoiceService: IInvoiceService
         return invoices;
     }
 
-    public async Task Expose(InvoiceCreateModel model)
+    public async Task<Guid> Expose(InvoiceCreateModel model)
     {
         var invoice = _mapper.Map<Invoice>(model);
-        await _invoiceRepository.AddAsync(invoice);
+        invoice.Status = Status.Pending; // Заводя счет, выставляется статус - ожидаемый
+        return await _invoiceRepository.AddAsync(invoice);
     }
 
     public async Task Closing(InvoiceUpdateModel model)

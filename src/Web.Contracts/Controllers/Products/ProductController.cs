@@ -55,8 +55,8 @@ sealed public class ProductController: ControllerBase
     public async Task<IActionResult> Create([FromBody] ProductCreateRequest request)
     {
         var model = _mapper.Map<ProductCreateModel>(request);
-        await _productService.Add(model);
-        return Ok();
+        var id = await _productService.Add(model);
+        return Ok(id);
     }
 
     /// <summary>

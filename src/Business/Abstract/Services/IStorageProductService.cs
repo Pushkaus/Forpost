@@ -5,7 +5,7 @@ namespace Forpost.Business.Abstract.Services;
 
 public interface IStorageProductService: IBusinessService
 {
-    public Task Add(StorageProductCreateModel model);
+    public Task<Guid> Add(StorageProductCreateModel model);
     public Task<IReadOnlyList<StorageProductModel>> GetAllProducts(Guid id);
     public Task<StorageProduct?> GetById(Guid id);
     public Task Update(StorageProductCreateModel model);

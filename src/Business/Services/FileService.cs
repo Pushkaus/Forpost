@@ -21,7 +21,7 @@ internal sealed class FileService : IFileService
         _uploadFilePath = configuration.GetValue<string>("FileStorage:UploadFilePath");
     }
 
-    public async Task UploadFile(UploadFileModel model)
+    public async Task<Guid> UploadFile(UploadFileModel model)
     {
         // ParentId - это любой ID из БД, к которому нужно привязать файл.
         // Путь к файлу Files/ParentId/FileName
@@ -40,7 +40,7 @@ internal sealed class FileService : IFileService
         var fileEntity = _mapper.Map<FileEntity>(model);
         fileEntity.FilePath = fullPath;
             
-        await _filesRepository.AddAsync(fileEntity);
+        return await _filesRepository.AddAsync(fileEntity);
     }
 
     public async Task<DownloadFileModel?> DownloadFile(Guid id)
