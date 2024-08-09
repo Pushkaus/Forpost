@@ -8,9 +8,8 @@ namespace Forpost.Store.Postgres.EntityTypeConfiguration
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasKey(c => c.Id);
-            builder.Property(c => c.Id).ValueGeneratedOnAdd();
-
+            builder.ConfigureBaseEntity();
+            
             builder.HasMany(c => c.SubCategories)
                 .WithOne(c => c.ParentCategory)
                 .HasForeignKey(c => c.ParentId)

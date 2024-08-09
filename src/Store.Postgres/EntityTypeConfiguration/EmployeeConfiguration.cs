@@ -9,8 +9,8 @@ namespace Forpost.Store.Postgres.EntityTypeConfiguration
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            builder.HasKey(entity => entity.Id);
-            builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
+            builder.ConfigureBaseEntity();
+
             builder.HasOne(e => e.Role)
                 .WithMany(r => r.Employees)
                 .HasForeignKey(e => e.RoleId);

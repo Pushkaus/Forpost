@@ -3,7 +3,7 @@ using Forpost.Common.EntityAnnotations;
 
 namespace Forpost.Store.Entities;
 
-public sealed class InvoiceProduct: IEntity
+sealed public class InvoiceProduct: IEntity
 {
     public Guid Id { get; set; }
     public Guid InvoiceId { get; set; }

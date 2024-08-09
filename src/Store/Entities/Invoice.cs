@@ -10,20 +10,6 @@ public sealed class Invoice: IAuditableEntity, IEntity
         
     }
     
-    public Invoice(string number, Guid contragentId, string description, Guid createdById, Guid updatedById, int paymentPercentage, int daysShipment, Status status)
-    {
-        Number = number;
-        ContragentId = contragentId;
-        Description = description;
-        CreatedAt = DateTimeOffset.UtcNow;
-        CreatedById = createdById;
-        UpdatedAt = DateTimeOffset.UtcNow;
-        UpdatedById = updatedById;
-        Status = status;
-        PaymentPercentage = paymentPercentage;
-        DaysShipment = daysShipment;
-    }
-    
     public Guid Id { get; set; }
     public string Number { get; set; }
     public Guid ContragentId { get; set; }

@@ -9,7 +9,7 @@ public class FileEntityConfiguration: IEntityTypeConfiguration<FileEntity>
 {
     public void Configure(EntityTypeBuilder<FileEntity> builder)
     {
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
+        builder.ConfigureBaseEntity();
+
     }
 }

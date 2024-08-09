@@ -20,10 +20,10 @@ internal sealed class ProductService: IProductService
         return await _productRepository.GetAllAsync();
     }
 
-    public async Task Add(ProductCreateModel model)
+    public async Task<Guid> Add(ProductCreateModel model)
     {
         var product = _mapper.Map<Product>(model);
-        await _productRepository.AddAsync(product);
+        return await _productRepository.AddAsync(product);
     }
 
     public async Task<Product?> GetById(Guid id)

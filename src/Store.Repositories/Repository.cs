@@ -16,10 +16,12 @@ internal abstract class Repository<TEntity>: IRepository<TEntity> where TEntity 
         _db = db;
         DbSet = db.Set<TEntity>();
     }
-    public async Task AddAsync(TEntity entity)
+    public async Task<Guid> AddAsync(TEntity entity)
     {
         await _db.AddAsync(entity);
         await _db.SaveChangesAsync();
+        var id = entity.Id;
+        return id;
     }
 
     public async Task<IReadOnlyList<TEntity>> GetAllAsync()

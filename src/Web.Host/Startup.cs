@@ -15,9 +15,13 @@ using Forpost.Web.Contracts.Controllers.Storage;
 using Forpost.Web.Contracts.Controllers.StorageProduct;
 using Forpost.Web.Contracts.Settings;
 using Forpost.Web.Host.Infrastructure;
+using Forpost.Web.Host.Middlewares;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Forpost.Web.Host;
@@ -40,8 +44,8 @@ internal sealed class Startup
         ConfigureCors(services);
         
         services.AddControllers();
-
-
+        services.AddSerilog();
+        ConfigureOpenTelemetry(services);
         services.AddForpostContextPostgres(_configuration);
         
         services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
@@ -103,7 +107,18 @@ internal sealed class Startup
             });
         });
     }
-    
+    private void ConfigureOpenTelemetry(IServiceCollection services)
+    {
+        var resourceBuilder = ResourceBuilder.CreateDefault()
+            .AddService("YourServiceName", serviceVersion: "1.0.0");
+
+        services.AddOpenTelemetry()
+            .WithTracing(builder => builder
+                .SetResourceBuilder(resourceBuilder)
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddConsoleExporter());
+    }
     private void ConfigureCors(IServiceCollection services)
     {
         services.AddCors(options =>
@@ -164,6 +179,10 @@ internal sealed class Startup
     {
         app.UseCors();
         app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.UseHttpRequestLoggingWithEmployeeId();
+        app.UseHttpsRedirection();
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
@@ -171,9 +190,6 @@ internal sealed class Startup
             c.RoutePrefix = string.Empty;
             
         });
-        app.UseAuthentication();
-        app.UseAuthorization();
-
         app.UseEndpoints(options =>
             options.MapControllers());
         app.UseHttpsRedirection();
