@@ -29,7 +29,7 @@ public  class ForpostContextPostgres : DbContext
     public DbSet<FileEntity> Files => Set<FileEntity>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Issue> Issues => Set<Issue>();
-    public DbSet<ManufacturingProcess> TechnologicalProcesses => Set<ManufacturingProcess>();
+    public DbSet<TechnologicalCard> TechnologicalProcesses => Set<TechnologicalCard>();
     public DbSet<Operation> Operations => Set<Operation>();
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -12,5 +12,5 @@ public class ProductDetails: IEntity
     /// </summary>
     public int SerialNumber { get; set; }
     public Product Product { get; set; }
-    public ManufacturingProcessDetails ManufacturingProcessDetails { get; set; }
+    public ManufacturingProcess ManufacturingProcess { get; set; }
 }

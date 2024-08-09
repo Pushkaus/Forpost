@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Forpost.ManufacturingProcess.Tests
 {
-    public class ManufacturingProcessTests
+    public class TechnologicalCardTests
     {
         [Fact]
         public void ViewListIssuesInTheManufacturingProcess()
