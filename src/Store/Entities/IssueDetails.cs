@@ -17,19 +17,23 @@ public class IssueDetails: IEntity, IAuditableEntity
     /// Ответственный над исполнителем
     /// </summary>
     public Guid ResponsibleId { get; set; }
-    public Status Status { get; set; }
     /// <summary>
-    /// Целевое количество
+    /// Комментарий по работе
     /// </summary>
-    public int TargetQuantity { get; set; }
+    public string? Description { get; set; }
     /// <summary>
     /// Текущее количество
     /// </summary>
     public int CurrentQuantity { get; set; }
     /// <summary>
-    /// Единица измерения
+    /// Дата начала выполнения задачи
     /// </summary>
-    public UnitOfMeassure UnitOfMeassure { get; set; }
+    public DateTimeOffset StartTime { get; set; }
+    /// <summary>
+    /// Дата завершения выполнения задачи
+    /// </summary>
+    public DateTimeOffset EndTime { get; set; }
+    public Status Status { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

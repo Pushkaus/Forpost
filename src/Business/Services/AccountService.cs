@@ -12,7 +12,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using ILogger = Serilog.ILogger;
 
 namespace Forpost.Business.Services;
 
@@ -24,13 +26,16 @@ internal sealed class AccountService: IAccountService
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
 
-    public AccountService(IEmployeeRepository employeeRepository, IRoleRepository roleRepository, IPasswordHasher<Employee> passwordHasher, IConfiguration configuration, IMapper mapper)
+    private readonly ILogger<Employee> _logger;
+
+    public AccountService(IEmployeeRepository employeeRepository, IRoleRepository roleRepository, IPasswordHasher<Employee> passwordHasher, IConfiguration configuration, IMapper mapper, ILogger<Employee> logger)
     {
         _employeeRepository = employeeRepository;
         _roleRepository = roleRepository;
         _passwordHasher = passwordHasher;
         _configuration = configuration;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<string> LoginAsync(LoginUserModel model)
@@ -50,7 +55,7 @@ internal sealed class AccountService: IAccountService
         {
             throw new UnauthorizedAccessException("Неверное имя пользователя или пароль.");
         }
-
+        _logger.LogInformation("Авторизовался {employee}", employee.LastName);
         var token = GenerateJwtToken(employee);
         return token;
 
