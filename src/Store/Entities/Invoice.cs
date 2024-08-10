@@ -25,7 +25,4 @@ public sealed class Invoice: IAuditableEntity, IEntity
     public Guid UpdatedById { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
-    public Contragent Contragent { get; set; }
-    public IReadOnlyCollection<InvoiceProduct> InvoiceProducts { get; set; }
-    
 }

@@ -8,7 +8,7 @@ public sealed class Issue: IEntity
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Номер задачи 
+    /// Номер задачи в очереди
     /// </summary>
     public string Number { get; set; } = null!;
     public string Name { get; set; } = null!;
@@ -16,6 +16,9 @@ public sealed class Issue: IEntity
     /// Описание задачи
     /// </summary>
     public string? Description { get; set; }
+    /// <summary>
+    /// Длительность задачи
+    /// </summary>
     public TimeSpan Duration { get; set; }
     /// <summary>
     /// Стоимость задачи, 
@@ -29,7 +32,5 @@ public sealed class Issue: IEntity
     /// Единица измерения
     /// </summary>
     public UnitOfMeassure UnitOfMeassure { get; set; }
-
-    public Operation Operation { get; set; } = null!;
-    public IssueDetails Details { get; set; } 
+    public Guid OperationId { get; set; }
 }

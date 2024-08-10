@@ -12,11 +12,6 @@ namespace Forpost.Store.Entities
         public string Number { get; set; }
         public string? Description { get; set; }
         public Guid ProductId { get; set; }
-        /// <summary>
-        /// Список необходимых продуктов для реализации тех.карты
-        /// </summary>
-        public IReadOnlyCollection<Product> Products { get; set; }
-        public IReadOnlyCollection<Issue> Issues { get; set; }
     }
 }
 

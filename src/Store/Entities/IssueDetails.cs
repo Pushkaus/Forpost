@@ -40,6 +40,4 @@ public class IssueDetails: IEntity, IAuditableEntity
     public Guid UpdatedById { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
-    public Issue Issue { get; set; }
-    public Employee Employee { get; set; }
 }
