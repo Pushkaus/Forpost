@@ -9,6 +9,13 @@ public class IssueConfiguration: IEntityTypeConfiguration<Issue>
     public void Configure(EntityTypeBuilder<Issue> builder)
     {
         builder.ConfigureBaseEntity();
+        
+        builder.HasOne<Operation>()
+            .WithOne()
+            .HasForeignKey<Issue>(entity => entity.OperationId);
 
+        builder.HasOne<Product>()
+            .WithMany()
+            .HasForeignKey(entity => entity.ProductId);
     }
 }

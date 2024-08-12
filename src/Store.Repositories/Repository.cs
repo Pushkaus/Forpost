@@ -8,7 +8,7 @@ namespace Forpost.Store.Repositories;
 
 internal abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IEntity
 {
-    private readonly ForpostContextPostgres _db;
+    protected readonly ForpostContextPostgres _db;
     protected readonly DbSet<TEntity> DbSet;
     
     public Repository(ForpostContextPostgres db)

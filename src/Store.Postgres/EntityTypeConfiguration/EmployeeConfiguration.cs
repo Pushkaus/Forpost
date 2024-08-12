@@ -10,10 +10,10 @@ namespace Forpost.Store.Postgres.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.ConfigureBaseEntity();
+            builder.HasOne<Role>()
+                .WithMany()
+                .HasForeignKey(key => key.RoleId);
 
-            builder.HasOne(e => e.Role)
-                .WithMany(r => r.Employees)
-                .HasForeignKey(e => e.RoleId);
             
             var hasher = new PasswordHasher<Employee>();
             var userId = Guid.NewGuid();

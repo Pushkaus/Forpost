@@ -9,18 +9,16 @@ public sealed class StorageProductConfiguration: IEntityTypeConfiguration<Storag
     public void Configure(EntityTypeBuilder<StorageProduct> builder)
     {
         builder.HasKey(sp => new { sp.ProductId, sp.StorageId });
-
-        // Настройка связи многие к одному
-        builder.HasOne(sp => sp.Storage)
-            .WithMany(s => s.StorageProducts)
-            .HasForeignKey(sp => sp.StorageId)
-            .OnDelete(DeleteBehavior.Cascade); // Обновлено
-
-        // Настройка связи многие к одному
-        builder.HasOne(sp => sp.Product)
-            .WithMany(p => p.StorageProducts)
-            .HasForeignKey(sp => sp.ProductId)
-            .OnDelete(DeleteBehavior.Cascade); // Обновлено
+        
+        builder.HasOne<Storage>()
+            .WithMany()
+            .HasForeignKey(key => key.StorageId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasOne<Product>()
+            .WithMany()
+            .HasForeignKey(key => key.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         // Индекс для оптимизации запросов
         builder.HasIndex(sp => new { sp.ProductId, sp.StorageId }).IsUnique();

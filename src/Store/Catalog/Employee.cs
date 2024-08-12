@@ -74,5 +74,4 @@ public sealed class Employee : IAuditableEntity, IEntity
         public Guid UpdatedById { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
         public Guid? DeletedById { get; set; }
-        public IReadOnlyCollection<Storage> Storages { get; set; }
     }

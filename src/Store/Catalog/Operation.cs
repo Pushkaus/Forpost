@@ -2,7 +2,7 @@ using Forpost.Common.EntityAnnotations;
 
 namespace Forpost.Store.Entities;
 
-public class Operation: IEntity
+public sealed class Operation: IEntity
 {
     public Operation()
     {

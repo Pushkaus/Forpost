@@ -4,14 +4,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public class ProductVersionConfiguration:IEntityTypeConfiguration<ProductVersion>
+internal sealed class ProductDetailsConfiguration: IEntityTypeConfiguration<ProductDetails>
 {
-    public void Configure(EntityTypeBuilder<ProductVersion> builder)
+    public void Configure(EntityTypeBuilder<ProductDetails> builder)
     {
         builder.ConfigureBaseEntity();
+        
         builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);
-
+        
+        builder.HasOne<ManufacturingProcess>()
+            .WithOne()
+            .HasForeignKey<ProductDetails>(key => key.ManufacturingProcessId);
     }
 }

@@ -1,23 +1,18 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Forpost.Common.EntityAnnotations;
-using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
 
-public sealed class Invoice: IAuditableEntity, IEntity
+public class Storage: IAuditableEntity, IEntity
 {
-    public Invoice()
-    {
-        
-    }
-    
+    private Storage() {}
     public Guid Id { get; set; }
-    public string Number { get; set; }
-    public Guid ContragentId { get; set; }
+    public string Name { get; set; }
     public string? Description { get; set; }
-    public int PaymentPercentage { get; set; }
-    public int DaysShipment { get; set; }
-    public Status Status { get; set; }
-    public DateTimeOffset? DateShipment { get; set; }
+    /// <summary>
+    /// Ответственный за склад
+    /// </summary>
+    public Guid ResponsibleId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

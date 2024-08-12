@@ -9,9 +9,5 @@ sealed public class ContragentConfiguration: IEntityTypeConfiguration<Contragent
     public void Configure(EntityTypeBuilder<Contragent> builder)
     {
         builder.ConfigureBaseEntity();
-
-        builder.HasMany<Invoice>(entity => entity.Invoices)
-            .WithOne(entity => entity.Contragent)
-            .HasForeignKey(entity => entity.ContragentId);
     }
 }

@@ -2,7 +2,7 @@ using Forpost.Common.EntityAnnotations;
 
 namespace Forpost.Store.Entities;
 
-public class Contragent: IEntity
+public sealed class Contragent: IEntity
 {
     public Contragent(string name)
     {

@@ -8,7 +8,15 @@ namespace Forpost.Store.Entities;
 public class IssueDetails: IEntity, IAuditableEntity
 {
     public Guid Id { get; set; }
+    /// <summary>
+    /// Ссылка на производственный процесс этой задачи
+    /// </summary>
+    public Guid ManufacturingProcessId { get; set; }
     public Guid IssueId { get; set; }
+    /// <summary>
+    /// Номер задачи в очереди
+    /// </summary>
+    public string Number { get; set; } = null!;
     /// <summary>
     /// Исполнитель задачи
     /// </summary>

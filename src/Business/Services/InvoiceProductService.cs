@@ -5,6 +5,7 @@ using Forpost.Business.Events.Products;
 using Forpost.Business.Models.InvoiceProducts;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using InvoiceProduct = Forpost.Store.Entities.InvoiceProduct;
 
 namespace Forpost.Business.Services;
 
@@ -32,7 +33,7 @@ internal sealed class InvoiceProductService: IInvoiceProductService
         await _invoiceProductRepository.AddAsync(invoiceProduct);
     }
 
-    public async Task<IReadOnlyList<InvoiceProductModel?>> GetProductsById(Guid id)
+    public async Task<IReadOnlyList<InvoiceProductModel?>> GetProductsByInvoiceId(Guid id)
     {
         // await _eventBus.PublishAsync(new ProductInInvoiceAdded
         // {
@@ -48,7 +49,7 @@ internal sealed class InvoiceProductService: IInvoiceProductService
         //     Quantity = 1000
         // });
         //
-       var invoiceProducts = await _invoiceProductRepository.GetProductsById(id);
+       var invoiceProducts = await _invoiceProductRepository.GetProductsByInvoiceId(id);
        var response = _mapper.Map<IReadOnlyList<InvoiceProductModel>>(invoiceProducts);
        return response;
 

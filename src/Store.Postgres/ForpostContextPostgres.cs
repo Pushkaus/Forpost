@@ -24,7 +24,6 @@ public  class ForpostContextPostgres : DbContext
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Storage> Storages => Set<Storage>();
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
-    public DbSet<Component> Components => Set<Component>();
     public DbSet<Contragent> Contragents => Set<Contragent>();
     public DbSet<FileEntity> Files => Set<FileEntity>();
     public DbSet<Category> Categories => Set<Category>();

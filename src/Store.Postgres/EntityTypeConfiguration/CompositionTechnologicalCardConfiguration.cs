@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class InvoiceProductConfiguration: IEntityTypeConfiguration<InvoiceProduct>
+internal sealed class CompositionTechnologicalCardConfiguration: IEntityTypeConfiguration<CompositionTechnologicalCard>
 {
-    public void Configure(EntityTypeBuilder<InvoiceProduct> builder)
+    public void Configure(EntityTypeBuilder<CompositionTechnologicalCard> builder)
     {
         builder.ConfigureBaseEntity();
         
-        builder.HasOne<Invoice>()
-            .WithMany()
-            .HasForeignKey(key => key.InvoiceId);
+        builder.HasOne<TechnologicalCard>()
+            .WithOne()
+            .HasForeignKey<CompositionTechnologicalCard>(key => key.TechnologicalCardId);
         
         builder.HasOne<Product>()
             .WithMany()

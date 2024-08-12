@@ -1,3 +1,4 @@
+using Forpost.Business.Models.InvoiceProducts;
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
@@ -7,16 +8,38 @@ namespace Forpost.Store.Repositories;
 
 internal sealed  class InvoiceProductRepository: Repository<InvoiceProduct>, IInvoiceProductRepository
 {
-    private readonly ForpostContextPostgres _db;
     public InvoiceProductRepository(ForpostContextPostgres db) : base(db)
     {
-        _db = db;
     }
 
-    public async Task<IReadOnlyList<InvoiceProduct?>> GetProductsById(Guid id)
+    public async Task<IReadOnlyList<InvoiceWithProducts>> GetProductsByInvoiceId(Guid id)
     {
-        return await DbSet.Include(x => x.Product)
-            .Include(x => x.Invoice).Where(entity => entity.InvoiceId == id).ToListAsync();
+        var result = await DbSet
+            .Where(entity => entity.InvoiceId == id)
+            .Join(
+                _db.Products,
+                entity => entity.ProductId,
+                product => product.Id,
+                (entity, product) => new
+                {
+                    Entity = entity,
+                    Product = product
+                }
+            )
+            .Join(
+                _db.Invoices,
+                combined => combined.Entity.InvoiceId, 
+                invoice => invoice.Id, 
+                (combined, invoice) => new InvoiceWithProducts
+                {
+                    ProductId = combined.Entity.Id,
+                    Name= combined.Product.Name,
+                    InvoiceId = combined.Entity.InvoiceId,
+                    Quantity = combined.Entity.Quantity,
+                }
+            )
+            .ToListAsync();
+        return result;
     }
 
     public async Task DeleteByProductId(Guid id)

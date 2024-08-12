@@ -9,9 +9,8 @@ internal sealed class StorageConfiguration: IEntityTypeConfiguration<Storage>
     public void Configure(EntityTypeBuilder<Storage> builder)
     {
         builder.ConfigureBaseEntity();
-
-        builder.HasOne(entity => entity.Employee)
-            .WithMany(entity => entity.Storages)
-            .HasForeignKey(entity => entity.ResponsibleId);
+        builder.HasOne<Employee>()
+            .WithOne()
+            .HasForeignKey<Storage>(key => key.ResponsibleId);
     }
 }

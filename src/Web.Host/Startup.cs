@@ -7,7 +7,7 @@ using Forpost.Business;
 using Forpost.Business.Settings;
 using Forpost.Common;
 using Forpost.Store.Entities;
-using Forpost.Web.Contracts.Controllers.Component;
+using Forpost.Store.Repositories.Models.Employee;
 using Forpost.Web.Contracts.Controllers.Employees;
 using Forpost.Web.Contracts.Controllers.InvoiceProducts;
 using Forpost.Web.Contracts.Controllers.Products;
@@ -48,7 +48,7 @@ internal sealed class Startup
         ConfigureOpenTelemetry(services);
         services.AddForpostContextPostgres(_configuration);
         
-        services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
+        services.AddScoped<IPasswordHasher<EmployeeWithRole>, PasswordHasher<EmployeeWithRole>>();
         
         services.AddAutoMapper(WebAssemblyReference.Assembly);
         services.AddAutoMapper(BusinessAssemblyReference.Assembly);
@@ -166,8 +166,6 @@ internal sealed class Startup
                 $"{typeof(StorageController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(StorageProductController).Assembly.GetName().Name}.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(ComponentController).Assembly.GetName().Name}.xml"));
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
                 $"{typeof(InvoiceProductController).Assembly.GetName().Name}.xml"));
             

@@ -10,9 +10,8 @@ internal class InvoiceConfiguration: IEntityTypeConfiguration<Invoice>
    {
       builder.ConfigureBaseEntity();
 
-      builder.HasMany(entity => entity.InvoiceProducts)
-         .WithOne(entity => entity.Invoice)
-         .HasForeignKey(entity => entity.InvoiceId);
-      
+      builder.HasOne<Contragent>()
+         .WithMany()
+         .HasForeignKey(key => key.ContragentId);
    }
 }

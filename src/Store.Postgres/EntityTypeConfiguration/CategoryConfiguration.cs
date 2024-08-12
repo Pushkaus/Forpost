@@ -10,10 +10,6 @@ namespace Forpost.Store.Postgres.EntityTypeConfiguration
         {
             builder.ConfigureBaseEntity();
             
-            builder.HasMany(c => c.SubCategories)
-                .WithOne(c => c.ParentCategory)
-                .HasForeignKey(c => c.ParentId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

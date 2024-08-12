@@ -43,7 +43,7 @@ sealed public class InvoiceProductController: ControllerBase
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceProductResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllProductsById(Guid id)
     {
-        var products = await _invoiceProductService.GetProductsById(id);
+        var products = await _invoiceProductService.GetProductsByInvoiceId(id);
         var model = _mapper.Map<List<InvoiceProductResponse>>(products);
         return Ok(model);
     }

@@ -9,7 +9,7 @@ namespace Forpost.Store.Postgres.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.ConfigureBaseEntity();
-
+            
             builder.HasData(new Role()
                 {
                     Id = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),

@@ -9,6 +9,5 @@ public class OperationConfiguration: IEntityTypeConfiguration<Operation>
     public void Configure(EntityTypeBuilder<Operation> builder)
     {
         builder.ConfigureBaseEntity();
-
     }
 }

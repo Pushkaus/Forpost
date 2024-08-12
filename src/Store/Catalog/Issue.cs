@@ -6,11 +6,11 @@ namespace Forpost.Store.Entities;
 public sealed class Issue: IEntity
 {
     public Guid Id { get; set; }
-
+    public Guid ProductId { get; set; }
     /// <summary>
-    /// Номер задачи в очереди
+    /// Операция в задаче (пайка/сборка/мойка и тд)
     /// </summary>
-    public string Number { get; set; } = null!;
+    public Guid OperationId { get; set; }
     public string Name { get; set; } = null!;
     /// <summary>
     /// Описание задачи
@@ -25,12 +25,7 @@ public sealed class Issue: IEntity
     /// </summary>
     public decimal Cost { get; set; }
     /// <summary>
-    /// Целевое количество
-    /// </summary>
-    public int TargetQuantity { get; set; }
-    /// <summary>
     /// Единица измерения
     /// </summary>
     public UnitOfMeassure UnitOfMeassure { get; set; }
-    public Guid OperationId { get; set; }
 }

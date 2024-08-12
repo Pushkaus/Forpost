@@ -16,7 +16,5 @@ namespace Forpost.Store.Entities
         }
         public Guid Id { get; set; }
         public string Name { get; set; }
-        // Навигационные свойства
-        public IReadOnlyCollection<Employee> Employees { get; set; }
     }
 }
