@@ -15,7 +15,8 @@ internal sealed class EmployeeRepository: Repository<Employee>, IEmployeeReposit
         
     }
 
-    public async Task<EmployeeWithRole?> GetAutorizedByUsername(string firstName, string lastName)
+    public async Task<EmployeeWithRole?> 
+        GetAutorizedByUsernameAsync(string firstName, string lastName, CancellationToken cancellationToken)
     {
         var userWithRole = await DbSet
             .Join(

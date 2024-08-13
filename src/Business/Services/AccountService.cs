@@ -44,12 +44,12 @@ internal sealed class AccountService: IAccountService
         _logger = logger;
     }
 
-    public async Task<string> LoginAsync(LoginUserModel model)
+    public async Task<string> LoginAsync(LoginUserModel model, CancellationToken cancellationToken)
     {
         var user = _mapper.Map<EmployeeWithRole>(model);
 
         // При добавлении нового пользователя его пароль хэшируется с добавлением соли
-        var employee = await _employeeRepository.GetAutorizedByUsername(user.FirstName, user.LastName);
+        var employee = await _employeeRepository.GetAutorizedByUsernameAsync(user.FirstName, user.LastName, cancellationToken);
 
         if (employee == null)
         {
@@ -67,11 +67,11 @@ internal sealed class AccountService: IAccountService
 
     }
 
-    public async Task RegisterAsync(RegisterUserModel model)
+    public async Task RegisterAsync(RegisterUserModel model, CancellationToken cancellationToken)
     {
         var user = _mapper.Map<Employee>(model);
 
-        var role = await _roleRepository.GetByNameAsync(model.Role);
+        var role = await _roleRepository.GetByNameAsync(model.Role, cancellationToken);
         
         role.EnsureFoundBy(x => role.Name, model.Role);
         

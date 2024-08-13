@@ -12,7 +12,8 @@ internal sealed  class InvoiceProductRepository: Repository<InvoiceProduct>, IIn
     {
     }
 
-    public async Task<IReadOnlyList<InvoiceWithProducts>> GetProductsByInvoiceId(Guid id)
+    public async Task<IReadOnlyList<InvoiceWithProducts>> 
+        GetProductsByInvoiceIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await DbSet
             .Where(entity => entity.InvoiceId == id)
@@ -38,14 +39,14 @@ internal sealed  class InvoiceProductRepository: Repository<InvoiceProduct>, IIn
                     Quantity = combined.Entity.Quantity,
                 }
             )
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
         return result;
     }
 
-    public async Task DeleteByProductId(Guid id)
+    public async Task DeleteByProductIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var product = await DbSet.FirstAsync(entity => entity.ProductId == id);
         DbSet.Entry(product).State = EntityState.Deleted;
-        await _db.SaveChangesAsync();
+        await _db.SaveChangesAsync(cancellationToken);
     }
 }

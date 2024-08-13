@@ -21,9 +21,9 @@ sealed public class RoleController: ControllerBase
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Create(string name)
+    public async Task<IActionResult> CreateAsync(string name, CancellationToken cancellationToken)
     {
-        await _roleService.Add(name);
+        await _roleService.AddAsync(name, cancellationToken);
         return Ok();
     }
 
@@ -33,9 +33,9 @@ sealed public class RoleController: ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<RoleResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var roles = await _roleService.GetAll();
+        var roles = await _roleService.GetAllAsync(cancellationToken);
         return Ok(roles);
     }
 
@@ -46,9 +46,9 @@ sealed public class RoleController: ControllerBase
     /// <returns></returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-       var role = await _roleService.GetById(id);
+       var role = await _roleService.GetByIdAsync(id, cancellationToken);
        return Ok(role);
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using ILogger = Serilog.ILogger;
@@ -13,6 +14,7 @@ internal sealed class Program
         await CreateHostBuilder(args, b => ConfigureWebHostBuilder(b))
             .Build()
             .RunAsync();
+        
     }
 
     private static IHostBuilder CreateHostBuilder(string[] args, Action<IWebHostBuilder> webHostBuilderConfigurator)

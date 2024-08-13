@@ -11,6 +11,6 @@ internal sealed class RoleRepository: Repository<Role>, IRoleRepository
     {
     }
     
-    public async Task<Role?> GetByNameAsync(string name) 
-        => await DbSet.FirstOrDefaultAsync(sp => sp.Name == name);
+    public async Task<Role?> GetByNameAsync(string name, CancellationToken cancellationToken) 
+        => await DbSet.FirstOrDefaultAsync(sp => sp.Name == name, cancellationToken);
 }

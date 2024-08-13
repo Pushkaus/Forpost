@@ -14,22 +14,22 @@ internal sealed class ContragentService: IContragentService
         _contragentRepository = contragentRepository;
     }
 
-    public async Task Add(string name)
+    public async Task AddAsync(string name, CancellationToken cancellationToken)
     {
         var contragent = new Contragent(name);
-        await _contragentRepository.AddAsync(contragent);
+        await _contragentRepository.AddAsync(contragent, cancellationToken);
     }
 
-    public async Task<IReadOnlyList<Contragent>> GetAll()
+    public async Task<IReadOnlyList<Contragent>> GetAllAsync(CancellationToken cancellationToken)
     {
-        var contragents = await _contragentRepository.GetAllAsync();
+        var contragents = await _contragentRepository.GetAllAsync(cancellationToken);
         
         return contragents;
     }
 
-    public async Task<Contragent?> GetById(Guid id)
+    public async Task<Contragent?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var contragent = await _contragentRepository.GetByIdAsync(id);
+        var contragent = await _contragentRepository.GetByIdAsync(id, cancellationToken);
         if (contragent == null)
         {
             throw ForpostErrors.NotFound<Contragent>(id);

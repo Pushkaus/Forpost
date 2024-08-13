@@ -28,9 +28,9 @@ sealed public class StorageProductController: ControllerBase
     /// <returns></returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<StorageProductResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllProducts(Guid id)
+    public async Task<IActionResult> GetAllProductsAsync(Guid id, CancellationToken cancellationToken)
     {
-        var storageProducts = await _storageProductService.GetAllProducts(id);
+        var storageProducts = await _storageProductService.GetAllProductsAsync(id, cancellationToken);
         var response = _mapper.Map<IList<StorageProductResponse>>(storageProducts);
         return Ok(response);
     }
@@ -42,10 +42,11 @@ sealed public class StorageProductController: ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Create([FromBody] StorageProductCreateRequest request)
+    public async Task<IActionResult>
+        CreateAsync([FromBody] StorageProductCreateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<StorageProductCreateModel>(request);
-        await _storageProductService.Add(model);
+        await _storageProductService.AddAsync(model, cancellationToken);
         return Ok();
     }
     
@@ -56,9 +57,9 @@ sealed public class StorageProductController: ControllerBase
     /// <returns></returns>
     [HttpGet("product-{id}")]
     [ProducesResponseType(typeof(StorageProductResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var storageProduct = await _storageProductService.GetById(id);
+        var storageProduct = await _storageProductService.GetByIdAsync(id, cancellationToken);
         return Ok(storageProduct);
     }
     /// <summary>
@@ -68,10 +69,11 @@ sealed public class StorageProductController: ControllerBase
     /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Update([FromBody] StorageProductCreateRequest request)
+    public async Task<IActionResult>
+        UpdateAsync([FromBody] StorageProductCreateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<StorageProductCreateModel>(request);
-        await _storageProductService.Update(model);
+        await _storageProductService.UpdateAsync(model, cancellationToken);
         return Ok();
     }
 }

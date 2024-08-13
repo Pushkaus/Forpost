@@ -22,9 +22,9 @@ sealed public class EmployeeController : ControllerBase
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllAsync()
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var employees = await _employeeService.GetAllAsync();
+        var employees = await _employeeService.GetAllAsync(cancellationToken);
         return Ok(employees);
     }
 }

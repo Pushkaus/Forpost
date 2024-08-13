@@ -9,12 +9,11 @@ namespace Forpost.Business.Abstract.Services;
 
 public interface IInvoiceService: IBusinessService
 {
-    public Task<Invoice?> GetByNumber(string number);
-    public Task<IReadOnlyList<Invoice>> GetAll();
-    public Task<Guid> Expose(InvoiceCreateModel model);
-    public Task Closing(InvoiceUpdateModel model);
-
-    public Task Update(InvoiceUpdateModel model);
-    public Task DeleteById(Guid id);
+    public Task<Invoice?> GetByNumberAsync(string number, CancellationToken cancellationToken);
+    public Task<IReadOnlyList<Invoice>> GetAllAsync(CancellationToken cancellationToken);
+    public Task<Guid> ExposeAsync(InvoiceCreateModel model, CancellationToken cancellationToken);
+    public Task ClosingAsync(InvoiceUpdateModel model, CancellationToken cancellationToken);
+    public Task UpdateAsync(InvoiceUpdateModel model, CancellationToken cancellationToken);
+    public Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken);
     
 }

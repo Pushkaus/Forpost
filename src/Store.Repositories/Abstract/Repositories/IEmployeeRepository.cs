@@ -6,5 +6,6 @@ namespace Forpost.Store.Repositories.Abstract.Repositories;
 
 public interface IEmployeeRepository: IRepository<Employee>
 {
-    public Task<EmployeeWithRole?> GetAutorizedByUsername(string firstName, string lastName);
+    public Task<EmployeeWithRole?> 
+        GetAutorizedByUsernameAsync(string firstName, string lastName, CancellationToken cancellationToken);
 }

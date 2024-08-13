@@ -12,7 +12,8 @@ internal sealed class StorageProductRepository: Repository<StorageProduct>, ISto
     {
     }
 
-    public async Task<IReadOnlyList<ProductsOnStorage>> GetAllByStorageId(Guid id)
+    public async Task<IReadOnlyList<ProductsOnStorage>> 
+        GetAllByStorageIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await DbSet
             .Join(
@@ -35,14 +36,14 @@ internal sealed class StorageProductRepository: Repository<StorageProduct>, ISto
                     StorageName = storage.Name 
                 }
             )
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         return result;
     }
 
-    public async Task<StorageProduct?> GetById(Guid id)
+    public async Task<StorageProduct?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await DbSet.Where(entity => entity.ProductId == id).FirstOrDefaultAsync();
+        return await DbSet.Where(entity => entity.ProductId == id).FirstOrDefaultAsync(cancellationToken);
             
     }
 }

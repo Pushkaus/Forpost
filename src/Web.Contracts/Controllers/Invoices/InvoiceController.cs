@@ -25,9 +25,9 @@ sealed public class InvoiceController: ControllerBase
     /// </summary>
     [HttpGet("{number}")]
     [ProducesResponseType(typeof(InvoiceResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetByNumber(string number)
+    public async Task<IActionResult> GetByNumberAsync(string number, CancellationToken cancellationToken)
     {
-        var invoice = await _invoiceService.GetByNumber(number);
+        var invoice = await _invoiceService.GetByNumberAsync(number, cancellationToken);
         return Ok(invoice);
     }
 
@@ -37,9 +37,9 @@ sealed public class InvoiceController: ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var invoices = await _invoiceService.GetAll();
+        var invoices = await _invoiceService.GetAllAsync(cancellationToken);
         return Ok(invoices);
     }
 
@@ -48,10 +48,11 @@ sealed public class InvoiceController: ControllerBase
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> Expose([FromBody] InvoiceCreateRequest request)
+    public async Task<IActionResult> 
+        ExposeAsync([FromBody] InvoiceCreateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceCreateModel>(request);
-        var id = await _invoiceService.Expose(model);
+        var id = await _invoiceService.ExposeAsync(model, cancellationToken);
         return Ok(id);
     }
 
@@ -62,10 +63,11 @@ sealed public class InvoiceController: ControllerBase
     /// <returns></returns>
     [HttpPut("close/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Closing([FromBody] InvoiceUpdateRequest request)
+    public async Task<IActionResult> 
+        ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceUpdateModel>(request);
-        await _invoiceService.Closing(model);
+        await _invoiceService.ClosingAsync(model, cancellationToken);
         return Ok();
     }
     /// <summary>
@@ -75,10 +77,11 @@ sealed public class InvoiceController: ControllerBase
     /// <returns></returns>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Update([FromBody] InvoiceUpdateRequest request)
+    public async Task<IActionResult> 
+        UpdateAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceUpdateModel>(request);
-        await _invoiceService.Update(model);
+        await _invoiceService.UpdateAsync(model, cancellationToken);
         return Ok();
     }
 
@@ -90,9 +93,9 @@ sealed public class InvoiceController: ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
 
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _invoiceService.DeleteById(id);
+        await _invoiceService.DeleteByIdAsync(id, cancellationToken);
         return Ok();
     }
     
