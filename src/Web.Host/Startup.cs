@@ -47,7 +47,7 @@ internal sealed class Startup
         services.AddSerilog();
         ConfigureOpenTelemetry(services);
         services.AddForpostContextPostgres(_configuration);
-        
+
         services.AddScoped<IPasswordHasher<EmployeeWithRole>, PasswordHasher<EmployeeWithRole>>();
         
         services.AddAutoMapper(WebAssemblyReference.Assembly);
