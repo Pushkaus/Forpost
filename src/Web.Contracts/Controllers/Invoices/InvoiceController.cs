@@ -67,7 +67,7 @@ sealed public class InvoiceController: ControllerBase
         ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceUpdateModel>(request);
-        await _invoiceService.ClosingAsync(model, cancellationToken);
+        await _invoiceService.CloseAsync(model, cancellationToken);
         return Ok();
     }
     /// <summary>

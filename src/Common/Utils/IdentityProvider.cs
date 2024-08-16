@@ -17,7 +17,7 @@ internal sealed class IdentityProvider: IIdentityProvider
         var user = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         if (user == null)
         {
-            return Guid.Empty;
+            throw new UnauthorizedAccessException("User not found.");
         }
         return Guid.Parse(user);
     }

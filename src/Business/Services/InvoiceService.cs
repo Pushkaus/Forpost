@@ -45,7 +45,7 @@ internal sealed class InvoiceService: IInvoiceService
         return await _invoiceRepository.AddAsync(invoice, cancellationToken);
     }
 
-    public async Task ClosingAsync(InvoiceUpdateModel model, CancellationToken cancellationToken)
+    public async Task CloseAsync(InvoiceUpdateModel model, CancellationToken cancellationToken)
     {
         model.Status = Status.Completed;
         model.DateShipment = DateTimeOffset.UtcNow;

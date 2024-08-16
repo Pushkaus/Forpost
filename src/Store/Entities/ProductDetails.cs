@@ -11,13 +11,13 @@ public class ProductDetails: IEntity
     /// <summary>
     /// Серийный номер продукта
     /// </summary>
-    public int SerialNumber { get; set; }
+    public string SerialNumber { get; set; } = null!;
     /// <summary>
     /// Вариант настройки
     /// </summary>
-    public SettingOption SettingOption { get; set; }
+    public SettingOption? SettingOption { get; set; }
     /// <summary>
     /// Номер счета, в который уйдет продукт
     /// </summary>
-    public Guid InvoiceId { get; set; }
+    public Guid? InvoiceId { get; set; }
 }

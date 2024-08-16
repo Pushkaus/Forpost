@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.StorageProduct;
+using Forpost.Common;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
 
@@ -43,7 +44,10 @@ internal sealed class StorageProductService: IStorageProductService
     public async Task WriteOffAsync(Guid productId, int quantity, CancellationToken cancellationToken)
     {
         var storageProduct = await _storageProductRepository.GetByIdAsync(productId, cancellationToken);
-        if (storageProduct != null) storageProduct.Quantity = storageProduct.Quantity - quantity;
-        if (storageProduct != null) await _storageProductRepository.UpdateAsync(storageProduct, cancellationToken);
+        
+        storageProduct.EnsureFoundBy(x=>x.Id, productId);
+        storageProduct.Quantity -= quantity;
+        
+        await _storageProductRepository.UpdateAsync(storageProduct, cancellationToken);
     }
 }
