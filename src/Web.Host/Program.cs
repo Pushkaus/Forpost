@@ -10,32 +10,34 @@ internal sealed class Program
 {
     public static async Task Main(string[] args)
     {
-        ConfigureLogger();
+        var host = CreateHostBuilder(args, b => ConfigureWebHostBuilder(b))
+            .Build();
+
+        var configuration = host.Services.GetRequiredService<IConfiguration>();
+
+        ConfigureLogger(configuration);
+
         Log.Information("Сервис запущен");
 
-        var host =  CreateHostBuilder(args, b => ConfigureWebHostBuilder(b))
-            .Build();
         await Task.Delay(1000);
-        
+
         using (var scope = host.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
             try
             {
                 var context = services.GetRequiredService<ForpostContextPostgres>();
-                await context.Database.MigrateAsync(); // Выполнение миграций
-                await StartMirgation.StartMigrationWithTestData(context); // Генерация тестовых данных
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                await context.Database.MigrateAsync();
+                await Mirgation.StartMigrationWithFirstUser(context, logger);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при выполнении стартовой миграции: {0}", ex);
+                Log.Error($"Ошибка при выполнении стартовой миграции: {ex}", ex);
             }
         }
-        
+
         await host.RunAsync();
-
-
-        
     }
 
     private static IHostBuilder CreateHostBuilder(string[] args, Action<IWebHostBuilder> webHostBuilderConfigurator)
@@ -47,17 +49,15 @@ internal sealed class Program
     private static IWebHostBuilder ConfigureWebHostBuilder(IWebHostBuilder webHostBuilder)
         => webHostBuilder
             .UseStartup<Startup>();
-    
-    private static void ConfigureLogger()
+
+    private static void ConfigureLogger(IConfiguration configuration)
     {
+        var serverUrl = configuration["Serilog:WriteTo:0:Args:serverUrl"];
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
             .Enrich.FromLogContext()
-            .WriteTo.Seq("http://localhost:5341") // URL для Seq
+            .WriteTo.Seq(serverUrl)
             .CreateBootstrapLogger();
     }
-
-    
 }
-

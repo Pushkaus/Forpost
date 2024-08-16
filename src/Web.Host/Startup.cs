@@ -17,6 +17,7 @@ using Forpost.Web.Contracts.Settings;
 using Forpost.Web.Host.Infrastructure;
 using Forpost.Web.Host.Middlewares;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using OpenTelemetry.Resources;
@@ -156,23 +157,9 @@ internal sealed class Startup
 
                 return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo) ? $"{controllerName}{methodInfo.Name}" : null;
             });
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(AccountController).Assembly.GetName().Name}.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(EmployeeController).Assembly.GetName().Name}.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(ProductController).Assembly.GetName().Name}.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(StorageController).Assembly.GetName().Name}.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(StorageProductController).Assembly.GetName().Name}.xml"));
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
-                $"{typeof(InvoiceProductController).Assembly.GetName().Name}.xml"));
-            
+            options.AddIncludeXmlComments();
         });
-        
     }
-
     public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider)
     {
         app.UseCors();
