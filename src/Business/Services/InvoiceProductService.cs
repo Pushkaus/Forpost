@@ -5,6 +5,7 @@ using Forpost.Business.Events.Products;
 using Forpost.Business.Models.InvoiceProducts;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using InvoiceProduct = Forpost.Store.Entities.InvoiceProduct;
 
 namespace Forpost.Business.Services;
 
@@ -20,7 +21,7 @@ internal sealed class InvoiceProductService: IInvoiceProductService
         _mapper = mapper;
         _eventBus = eventBus;
     }
-    public async Task Add(InvoiceProductCreateModel model)
+    public async Task AddAsync(InvoiceProductCreateModel model, CancellationToken cancellationToken)
     {
         var invoiceProduct = _mapper.Map<InvoiceProduct>(model);
         await _eventBus.PublishAsync(new ProductInInvoiceAdded()
@@ -29,10 +30,11 @@ internal sealed class InvoiceProductService: IInvoiceProductService
             ProductId = invoiceProduct.ProductId,
             Quantity = invoiceProduct.Quantity
         });
-        await _invoiceProductRepository.AddAsync(invoiceProduct);
+        await _invoiceProductRepository.AddAsync(invoiceProduct, cancellationToken);
     }
 
-    public async Task<IReadOnlyList<InvoiceProductModel?>> GetProductsById(Guid id)
+    public async Task<IReadOnlyList<InvoiceProductModel?>> 
+        GetProductsByInvoiceIdAsync(Guid id, CancellationToken cancellationToken)
     {
         // await _eventBus.PublishAsync(new ProductInInvoiceAdded
         // {
@@ -48,20 +50,20 @@ internal sealed class InvoiceProductService: IInvoiceProductService
         //     Quantity = 1000
         // });
         //
-       var invoiceProducts = await _invoiceProductRepository.GetProductsById(id);
+       var invoiceProducts = await _invoiceProductRepository.GetProductsByInvoiceIdAsync(id, cancellationToken);
        var response = _mapper.Map<IReadOnlyList<InvoiceProductModel>>(invoiceProducts);
        return response;
 
     }
 
-    public async Task Update(InvoiceProductCreateModel model)
+    public async Task UpdateAsync(InvoiceProductCreateModel model, CancellationToken cancellationToken)
     {
         var invoiceProduct = _mapper.Map<InvoiceProduct>(model);
-        await _invoiceProductRepository.UpdateAsync(invoiceProduct);
+        await _invoiceProductRepository.UpdateAsync(invoiceProduct, cancellationToken);
     }
 
-    public async Task DeleteByProductId(Guid id)
+    public async Task DeleteByProductIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _invoiceProductRepository.DeleteByProductId(id);
+        await _invoiceProductRepository.DeleteByProductIdAsync(id, cancellationToken);
     }
 }

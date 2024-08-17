@@ -17,7 +17,5 @@ public class StorageProduct: IEntity
     public Guid ProductId { get; set; }
     public string UnitOfMeasure { get; set; }
     public decimal Quantity { get; set; }
-    public Storage Storage { get; set; }
-    public Product Product { get; set; }
     public Guid Id { get; set; }
 }

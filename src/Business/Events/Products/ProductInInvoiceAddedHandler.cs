@@ -20,7 +20,7 @@ internal sealed class ProductInInvoiceAddedHandler : IDomainEventHandler<Product
     
     public async Task HandleAsync(ProductInInvoiceAdded domainEvent, CancellationToken cancellationToken = default)
     {
-        await _storageProductService.WriteOff(domainEvent.ProductId, domainEvent.Quantity);
+        await _storageProductService.WriteOffAsync(domainEvent.ProductId, domainEvent.Quantity, cancellationToken);
         Debug.WriteLine($"Произошлоа списание со склада в количестве {domainEvent.Quantity}");
     }
     

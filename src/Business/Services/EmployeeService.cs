@@ -14,9 +14,9 @@ internal sealed class EmployeeService: IEmployeeService
     {
         _employeeRepository = employeeRepository;
     }
-    public async Task<IReadOnlyList<Employee>> GetAllAsync()
+    public async Task<IReadOnlyList<Employee>> GetAllAsync(CancellationToken cancellationToken)
     {
-       var employees = await _employeeRepository.GetAllAsync();
+       var employees = await _employeeRepository.GetAllAsync(cancellationToken);
        return employees;
     }
 }

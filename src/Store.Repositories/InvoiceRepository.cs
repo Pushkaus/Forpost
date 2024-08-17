@@ -11,8 +11,8 @@ internal sealed  class InvoiceRepository: Repository<Invoice>, IInvoiceRepositor
     {
     }
 
-    public async Task<Invoice?> GetByNumberAsync(string number) 
-        => await DbSet.FirstOrDefaultAsync(entity => entity.Number == number);
+    public async Task<Invoice?> GetByNumberAsync(string number, CancellationToken cancellationToken) 
+        => await DbSet.FirstOrDefaultAsync(entity => entity.Number == number, cancellationToken);
 
     
 }

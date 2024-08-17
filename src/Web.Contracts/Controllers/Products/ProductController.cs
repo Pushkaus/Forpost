@@ -26,9 +26,9 @@ sealed public class ProductController: ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ProductResponse>), 200)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var products = await _productService.GetAll();
+        var products = await _productService.GetAllAsync(cancellationToken);
         return Ok(products);
     }
 
@@ -39,9 +39,9 @@ sealed public class ProductController: ControllerBase
     /// <returns></returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var product = await _productService.GetById(id);
+        var product = await _productService.GetByIdAsync(id, cancellationToken);
         return Ok(product);
     }
 
@@ -52,11 +52,12 @@ sealed public class ProductController: ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Create([FromBody] ProductCreateRequest request)
+    public async Task<IActionResult>
+        CreateAsync([FromBody] ProductCreateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<ProductCreateModel>(request);
-        await _productService.Add(model);
-        return Ok();
+        var id = await _productService.AddAsync(model, cancellationToken);
+        return Ok(id);
     }
 
     /// <summary>
@@ -66,10 +67,11 @@ sealed public class ProductController: ControllerBase
     /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Update([FromBody] ProductUpdateRequest request)
+    public async Task<IActionResult> 
+        UpdateAsync([FromBody] ProductUpdateRequest request, CancellationToken cancellationToken)
     {
        var model = _mapper.Map<ProductUpdateModel>(request);
-       await _productService.Update(model);
+       await _productService.UpdateAsync(model, cancellationToken);
        return Ok();
     }
 
@@ -80,9 +82,9 @@ sealed public class ProductController: ControllerBase
     /// <returns></returns>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _productService.Delete(id);
+        await _productService.DeleteAsync(id, cancellationToken);
         return Ok();
     }
 }

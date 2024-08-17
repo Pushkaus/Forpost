@@ -21,7 +21,7 @@ internal sealed class FileService : IFileService
         _uploadFilePath = configuration.GetValue<string>("FileStorage:UploadFilePath");
     }
 
-    public async Task UploadFile(UploadFileModel model)
+    public async Task<Guid> UploadFileAsync(UploadFileModel model, CancellationToken cancellationToken)
     {
         // ParentId - это любой ID из БД, к которому нужно привязать файл.
         // Путь к файлу Files/ParentId/FileName
@@ -40,12 +40,12 @@ internal sealed class FileService : IFileService
         var fileEntity = _mapper.Map<FileEntity>(model);
         fileEntity.FilePath = fullPath;
             
-        await _filesRepository.AddAsync(fileEntity);
+        return await _filesRepository.AddAsync(fileEntity, cancellationToken);
     }
 
-    public async Task<DownloadFileModel?> DownloadFile(Guid id)
+    public async Task<DownloadFileModel?> DownloadFileAsync(Guid id, CancellationToken cancellationToken)
     {
-        var file = await _filesRepository.GetByIdAsync(id);
+        var file = await _filesRepository.GetByIdAsync(id, cancellationToken);
         file.EnsureFoundBy(x => x.Id, id);
             
         var fullPath = Path.Combine(file.FilePath);
@@ -56,13 +56,13 @@ internal sealed class FileService : IFileService
         return downloadFile;
     }
 
-    public async Task DeleteFile(Guid id)
+    public async Task DeleteFileAsync(Guid id, CancellationToken cancellationToken)
     {
-        var file = await _filesRepository.GetByIdAsync(id);
+        var file = await _filesRepository.GetByIdAsync(id, cancellationToken);
         file.EnsureFoundBy(x => x.Id, id);
 
         var fullPath = Path.Combine(file.FilePath);
-        await _filesRepository.DeleteByIdAsync(id);
+        await _filesRepository.DeleteByIdAsync(id, cancellationToken);
 
         if (File.Exists(fullPath))
         {
@@ -70,8 +70,8 @@ internal sealed class FileService : IFileService
         }
     }
 
-    public async Task<IReadOnlyList<FileEntity>> GetAllFiles(Guid parentId)
+    public async Task<IReadOnlyList<FileEntity>> GetAllFilesAsync(Guid parentId, CancellationToken cancellationToken)
     {
-        return await _filesRepository.GetAllByParentId(parentId);
+        return await _filesRepository.GetAllByParentIdAsync(parentId, cancellationToken);
     }
 }

@@ -16,14 +16,14 @@ internal sealed class StorageService: IStorageService
         _mapper = mapper;
     }
 
-    public async Task Add(StorageCreateModel model)
+    public async Task AddAsync(StorageCreateModel model, CancellationToken cancellationToken)
     {
         var storage = _mapper.Map<Storage>(model);
-        await _storageRepository.AddAsync(storage);
+        await _storageRepository.AddAsync(storage, cancellationToken);
     }
 
-    public async Task<IReadOnlyList<Storage?>> GetAll()
+    public async Task<IReadOnlyList<Storage?>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _storageRepository.GetAllAsync();
+        return await _storageRepository.GetAllAsync(cancellationToken);
     }
 }

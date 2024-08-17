@@ -8,15 +8,14 @@ internal sealed class InvoiceProductConfiguration: IEntityTypeConfiguration<Invo
 {
     public void Configure(EntityTypeBuilder<InvoiceProduct> builder)
     {
-        builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
-        builder.HasOne(entity => entity.Invoice)
-            .WithMany(entity => entity.InvoiceProducts)
-            .HasForeignKey(entity => entity.InvoiceId);
+        builder.ConfigureBaseEntity();
         
-        builder.HasOne(entity => entity.Product)
-            .WithMany(entity => entity.InvoiceProducts)
-            .HasForeignKey(entity => entity.ProductId);
-            
+        builder.HasOne<Invoice>()
+            .WithMany()
+            .HasForeignKey(key => key.InvoiceId);
+        
+        builder.HasOne<Product>()
+            .WithMany()
+            .HasForeignKey(key => key.ProductId);
     }
 }

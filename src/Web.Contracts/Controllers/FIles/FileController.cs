@@ -26,7 +26,7 @@ sealed public class FileController: ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> UploadFile(UploadFileRequest request)
+    public async Task<IActionResult> UploadFileAsync(UploadFileRequest request, CancellationToken cancellationToken)
     {
         if (request.File.Length == 0)
             return BadRequest();
@@ -39,8 +39,8 @@ sealed public class FileController: ControllerBase
         }
         var model = _mapper.Map<UploadFileModel>(request);
         model.Content = content;
-        await _fileService.UploadFile(model);
-        return Ok();
+        var id = await _fileService.UploadFileAsync(model, cancellationToken);
+        return Ok(id);
     }
 
     /// <summary>
@@ -50,9 +50,9 @@ sealed public class FileController: ControllerBase
     /// 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(DownloadFileResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> DownloadFile(Guid id)
+    public async Task<IActionResult> DownloadFileAsync(Guid id, CancellationToken cancellationToken)
     {
-        var response = await _fileService.DownloadFile(id);
+        var response = await _fileService.DownloadFileAsync(id, cancellationToken);
         var downloadFile = _mapper.Map<DownloadFileResponse>(response);
         return Ok(downloadFile);
     }
@@ -64,9 +64,9 @@ sealed public class FileController: ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(DownloadFileResponse), StatusCodes.Status200OK)]
 
-    public async Task<IActionResult> DeleteFile(Guid id)
+    public async Task<IActionResult> DeleteFileAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _fileService.DeleteFile(id);
+        await _fileService.DeleteFileAsync(id, cancellationToken);
         return Ok();
     }
     /// <summary>
@@ -76,9 +76,9 @@ sealed public class FileController: ControllerBase
     /// <returns></returns>
     [HttpGet("get-all-files/{parentId}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<FileResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllFiles(Guid parentId)
+    public async Task<IActionResult> GetAllFilesAsync(Guid parentId, CancellationToken cancellationToken)
     {
-        var files = await _fileService.GetAllFiles(parentId);
+        var files = await _fileService.GetAllFilesAsync(parentId, cancellationToken);
         return Ok(files);
     }
 

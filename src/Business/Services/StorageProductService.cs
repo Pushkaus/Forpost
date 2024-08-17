@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.StorageProduct;
+using Forpost.Common;
 using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract.Repositories;
 
@@ -15,34 +16,38 @@ internal sealed class StorageProductService: IStorageProductService
         _storageProductRepository = storageProductRepository;
         _mapper = mapper;
     }
-    public async Task Add(StorageProductCreateModel model)
+    public async Task<Guid> AddAsync(StorageProductCreateModel model, CancellationToken cancellationToken)
     {
         var storageProduct = _mapper.Map<StorageProduct>(model);
-        await _storageProductRepository.AddAsync(storageProduct);
+        return await _storageProductRepository.AddAsync(storageProduct, cancellationToken);
     }
 
-    public async Task<IReadOnlyList<StorageProductModel>> GetAllProducts(Guid id)
+    public async Task<IReadOnlyList<StorageProductModel>> 
+        GetAllProductsAsync(Guid id, CancellationToken cancellationToken)
     {
-        var storageProducts = await _storageProductRepository.GetAllById(id);
+        var storageProducts = await _storageProductRepository.GetAllByStorageIdAsync(id, cancellationToken);
         var response = _mapper.Map<IReadOnlyList<StorageProductModel>>(storageProducts);
         return response;
     }
 
-    public async Task<StorageProduct?> GetById(Guid id)
+    public async Task<StorageProduct?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _storageProductRepository.GetById(id);
+        return await _storageProductRepository.GetByIdAsync(id, cancellationToken);
     }
 
-    public async Task Update(StorageProductCreateModel model)
+    public async Task UpdateAsync(StorageProductCreateModel model, CancellationToken cancellationToken)
     {
         var storageProduct = _mapper.Map<StorageProduct>(model);
-        await _storageProductRepository.UpdateAsync(storageProduct);
+        await _storageProductRepository.UpdateAsync(storageProduct, cancellationToken);
     }
 
-    public async Task WriteOff(Guid productId, int quantity)
+    public async Task WriteOffAsync(Guid productId, int quantity, CancellationToken cancellationToken)
     {
-        var storageProduct = await _storageProductRepository.GetById(productId);
-        if (storageProduct != null) storageProduct.Quantity = storageProduct.Quantity - quantity;
-        if (storageProduct != null) await _storageProductRepository.UpdateAsync(storageProduct);
+        var storageProduct = await _storageProductRepository.GetByIdAsync(productId, cancellationToken);
+        
+        storageProduct.EnsureFoundBy(x=>x.Id, productId);
+        storageProduct.Quantity -= quantity;
+        
+        await _storageProductRepository.UpdateAsync(storageProduct, cancellationToken);
     }
 }

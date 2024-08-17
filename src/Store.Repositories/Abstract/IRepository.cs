@@ -5,9 +5,9 @@ namespace Forpost.Store.Repositories.Abstract;
 
 public interface IRepository<TEntity>: IRepository where TEntity : class, IEntity
 {
-    public Task AddAsync(TEntity entity);
-    public Task<IReadOnlyList<TEntity>> GetAllAsync();
-    public Task<TEntity?> GetByIdAsync(Guid id);
-    public Task UpdateAsync(TEntity entity);
-    public Task DeleteByIdAsync(Guid id);
+    public Task<Guid> AddAsync(TEntity entity, CancellationToken cancellationToken);
+    public Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken);
+    public Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken);
+    public Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken);
 }

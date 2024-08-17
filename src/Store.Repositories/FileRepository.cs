@@ -11,7 +11,7 @@ internal sealed  class FileRepository: Repository<FileEntity>, IFilesRepository
     {
     }
 
-    public async Task<IReadOnlyList<FileEntity>> GetAllByParentId(Guid id)
+    public async Task<IReadOnlyList<FileEntity>> GetAllByParentIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await DbSet.Where(entity => entity.ParentId == id).ToListAsync();
     }

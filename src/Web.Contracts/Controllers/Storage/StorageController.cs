@@ -28,10 +28,11 @@ sealed public class StorageController: ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Create([FromBody] StorageCreateRequest request)
+    public async Task<IActionResult>
+        CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<StorageCreateModel>(request);
-        await _storageService.Add(model);
+        await _storageService.AddAsync(model, cancellationToken);
         return Ok();
     }
 
@@ -41,9 +42,9 @@ sealed public class StorageController: ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(typeof(StorageReponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var storages = await _storageService.GetAll();
+        var storages = await _storageService.GetAllAsync(cancellationToken);
         return Ok(storages);
     }
 }

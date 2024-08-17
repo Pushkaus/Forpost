@@ -27,10 +27,11 @@ sealed public class InvoiceProductController: ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create([FromBody] InvoiceProductRequest request)
+    public async Task<IActionResult> 
+        CreateAsync([FromBody] InvoiceProductRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceProductCreateModel>(request);
-        await _invoiceProductService.Add(model);
+        await _invoiceProductService.AddAsync(model, cancellationToken);
         return Ok();
     }
 
@@ -41,9 +42,9 @@ sealed public class InvoiceProductController: ControllerBase
     /// <returns></returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceProductResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllProductsById(Guid id)
+    public async Task<IActionResult> GetAllProductsByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var products = await _invoiceProductService.GetProductsById(id);
+        var products = await _invoiceProductService.GetProductsByInvoiceIdAsync(id, cancellationToken);
         var model = _mapper.Map<List<InvoiceProductResponse>>(products);
         return Ok(model);
     }
@@ -55,10 +56,11 @@ sealed public class InvoiceProductController: ControllerBase
     /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Update([FromBody] InvoiceProductRequest request)
+    public async Task<IActionResult>
+        UpdateAsync([FromBody] InvoiceProductRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceProductCreateModel>(request);
-        await _invoiceProductService.Update(model);
+        await _invoiceProductService.UpdateAsync(model, cancellationToken);
         return Ok();
     }
 
@@ -69,9 +71,9 @@ sealed public class InvoiceProductController: ControllerBase
     /// <returns></returns>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _invoiceProductService.DeleteByProductId(id);
+        await _invoiceProductService.DeleteByProductIdAsync(id, cancellationToken);
         return Ok();
     }
 }

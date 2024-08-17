@@ -4,7 +4,7 @@ namespace Forpost.Business.Abstract.Services;
 
 public interface IContragentService: IBusinessService
 {
-    public Task Add(string name);
-    public Task<IReadOnlyList<Contragent>> GetAll();
-    public Task<Contragent?> GetById(Guid id);
+    public Task AddAsync(string name, CancellationToken cancellationToken);
+    public Task<IReadOnlyList<Contragent>> GetAllAsync(CancellationToken cancellationToken);
+    public Task<Contragent?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 }

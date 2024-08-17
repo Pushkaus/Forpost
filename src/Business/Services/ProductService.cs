@@ -15,31 +15,31 @@ internal sealed class ProductService: IProductService
         _productRepository = productRepository;
         _mapper = mapper;
     }
-    public async Task<IReadOnlyList<Product>> GetAll()
+    public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken)
     { 
-        return await _productRepository.GetAllAsync();
+        return await _productRepository.GetAllAsync(cancellationToken);
     }
 
-    public async Task Add(ProductCreateModel model)
+    public async Task<Guid> AddAsync(ProductCreateModel model, CancellationToken cancellationToken)
     {
         var product = _mapper.Map<Product>(model);
-        await _productRepository.AddAsync(product);
+        return await _productRepository.AddAsync(product, cancellationToken);
     }
 
-    public async Task<Product?> GetById(Guid id)
+    public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(id);
+        var product = await _productRepository.GetByIdAsync(id, cancellationToken);
         return product;
     }
 
-    public async Task Update(ProductUpdateModel model)
+    public async Task UpdateAsync(ProductUpdateModel model, CancellationToken cancellationToken)
     {
         var product = _mapper.Map<Product>(model);
-        await _productRepository.UpdateAsync(product);
+        await _productRepository.UpdateAsync(product, cancellationToken);
     }
 
-    public async Task Delete(Guid id)
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _productRepository.DeleteByIdAsync(id);
+        await _productRepository.DeleteByIdAsync(id, cancellationToken);
     }
 }

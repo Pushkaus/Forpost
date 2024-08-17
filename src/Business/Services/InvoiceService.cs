@@ -26,41 +26,42 @@ internal sealed class InvoiceService: IInvoiceService
         _invoiceRepository = invoiceRepository;
         _mapper = mapper;
     }
-    public async Task<Invoice?> GetByNumber(string number)
+    public async Task<Invoice?> GetByNumberAsync(string number, CancellationToken cancellationToken)
     {
-        var invoice = await _invoiceRepository.GetByNumberAsync(number);
+        var invoice = await _invoiceRepository.GetByNumberAsync(number, cancellationToken);
         return invoice;
     }
 
-    public async Task<IReadOnlyList<Invoice>> GetAll()
+    public async Task<IReadOnlyList<Invoice>> GetAllAsync(CancellationToken cancellationToken)
     {
-        var invoices = await _invoiceRepository.GetAllAsync();
+        var invoices = await _invoiceRepository.GetAllAsync(cancellationToken);
         return invoices;
     }
 
-    public async Task Expose(InvoiceCreateModel model)
+    public async Task<Guid> ExposeAsync(InvoiceCreateModel model, CancellationToken cancellationToken)
     {
         var invoice = _mapper.Map<Invoice>(model);
-        await _invoiceRepository.AddAsync(invoice);
+        invoice.IssueStatus = IssueStatus.Pending; // Заводя счет, выставляется статус - ожидаемый
+        return await _invoiceRepository.AddAsync(invoice, cancellationToken);
     }
 
-    public async Task Closing(InvoiceUpdateModel model)
+    public async Task CloseAsync(InvoiceUpdateModel model, CancellationToken cancellationToken)
     {
-        model.Status = Status.Completed;
+        model.IssueStatus = IssueStatus.Completed;
         model.DateShipment = DateTimeOffset.UtcNow;
         var invoice = _mapper.Map<Invoice>(model);
-        await _invoiceRepository.UpdateAsync(invoice);
+        await _invoiceRepository.UpdateAsync(invoice, cancellationToken);
     }
 
-    public async Task Update(InvoiceUpdateModel model)
+    public async Task UpdateAsync(InvoiceUpdateModel model, CancellationToken cancellationToken)
     {
         var invoice = _mapper.Map<Invoice>(model);
-        await _invoiceRepository.UpdateAsync(invoice);
+        await _invoiceRepository.UpdateAsync(invoice, cancellationToken);
     }
 
-    public async Task DeleteById(Guid id)
+    public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _invoiceRepository.DeleteByIdAsync(id);
+        await _invoiceRepository.DeleteByIdAsync(id, cancellationToken);
     }
     
 }

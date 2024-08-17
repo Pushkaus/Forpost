@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Forpost.Common.EntityAnnotations;
 using Forpost.Common.Utils;
+using Forpost.Store.Catalog;
+using Forpost.Store.Entities.ProductCreating;
 using Microsoft.AspNetCore.Http;
 
 namespace Forpost.Store.Postgres;
@@ -24,12 +26,11 @@ public  class ForpostContextPostgres : DbContext
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Storage> Storages => Set<Storage>();
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
-    public DbSet<Component> Components => Set<Component>();
     public DbSet<Contragent> Contragents => Set<Contragent>();
     public DbSet<FileEntity> Files => Set<FileEntity>();
     public DbSet<Category> Categories => Set<Category>();
-    public DbSet<Issue> Issues => Set<Issue>();
-    public DbSet<IssueOperation> IssueOperations => Set<IssueOperation>();
+    public DbSet<Step> Issues => Set<Step>();
+    public DbSet<TechnologicalCard> TechnologicalProcesses => Set<TechnologicalCard>();
     public DbSet<Operation> Operations => Set<Operation>();
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

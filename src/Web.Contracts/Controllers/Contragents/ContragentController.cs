@@ -27,9 +27,9 @@ sealed public class ContragentController: ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create(string name)
+    public async Task<IActionResult> CreateAsync(string name, CancellationToken cancellationToken)
     {
-        await _contragentService.Add(name);
+        await _contragentService.AddAsync(name, cancellationToken);
         return Ok();
     }
 
@@ -39,9 +39,9 @@ sealed public class ContragentController: ControllerBase
     /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ContragentResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var contragents = await _contragentService.GetAll();
+        var contragents = await _contragentService.GetAllAsync(cancellationToken);
         return Ok(contragents);
     }
 
@@ -53,9 +53,9 @@ sealed public class ContragentController: ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ContragentResponse), StatusCodes.Status200OK)]
 
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var contragent = await _contragentService.GetById(id);
+        var contragent = await _contragentService.GetByIdAsync(id, cancellationToken);
         return Ok(contragent);
     }
 }

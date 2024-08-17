@@ -40,10 +40,11 @@ sealed public class AccountController: ControllerBase
     [HttpPost]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> RegisterAsync([FromQuery] RegisterUserRequest request)
+    public async Task<IActionResult> 
+        RegisterAsync([FromQuery] RegisterUserRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<RegisterUserModel>(request);
-        await _accountService.RegisterAsync(model);
+        await _accountService.RegisterAsync(model, cancellationToken);
         return Ok();
     }
     /// <summary>
@@ -53,11 +54,11 @@ sealed public class AccountController: ControllerBase
     [HttpPost("login")]
     [Produces("application/json")]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-    public async Task<string> LoginAsync([FromQuery] LoginUserRequest request)
+    public async Task<string> LoginAsync([FromQuery] LoginUserRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<LoginUserModel>(request);
         
-        var token = await _accountService.LoginAsync(model);
+        var token = await _accountService.LoginAsync(model, cancellationToken);
         return token;
     }
     
