@@ -1,3 +1,4 @@
+using Forpost.Store.Catalog;
 using Forpost.Store.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,8 +15,6 @@ internal sealed class ManufacturingProcessConfiguration: IEntityTypeConfiguratio
             .WithMany()
             .HasForeignKey(key => key.TechnologicalCardId);
         
-        builder.HasOne<ProductDetails>()
-            .WithOne()
-            .HasForeignKey<ManufacturingProcess>(key => key.ProductDetailsId);
+       
     }
 }

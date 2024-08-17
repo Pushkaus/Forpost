@@ -2,9 +2,9 @@ using Forpost.Common.EntityAnnotations;
 
 namespace Forpost.Store.Entities;
 /// <summary>
-/// Состав тех.карты
+/// Компонент, в составе тех.карты
 /// </summary>
-public sealed class CompositionTechnologicalCard: IEntity
+public sealed class TechCardItem: IEntity
 {
     public Guid Id { get; set; }
     public Guid TechnologicalCardId { get; set; }

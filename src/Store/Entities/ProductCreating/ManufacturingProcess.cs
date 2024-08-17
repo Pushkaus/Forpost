@@ -3,14 +3,10 @@ using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
 
-public sealed class ManufacturingProcess: IEntity, IAuditableEntity
+public sealed class ManufacturingProcess: IEntity, IAuditableEntity, ITimeFrameEntity
 {
     public Guid Id { get; set; }
     public Guid TechnologicalCardId { get; set; }
-    /// <summary>
-    /// Дополнительная информация о продукте в ходе производственного процесса
-    /// </summary>
-    public Guid ProductDetailsId { get; set; }
     /// <summary>
     /// Номер партии
     /// </summary>
@@ -23,7 +19,6 @@ public sealed class ManufacturingProcess: IEntity, IAuditableEntity
     /// Целевое количество продукта в производственном процессе
     /// </summary>
     public int TargetQuantity { get; set; }
-    public Status Status { get; set; }
     /// <summary>
     /// Дата начала выполнения производственного процесса
     /// </summary>

@@ -1,6 +1,6 @@
 using Forpost.Common.EntityAnnotations;
-namespace Forpost.Store.Entities;
 
+namespace Forpost.Store.Catalog;
 /// <summary>
 /// Технологическая карта
 /// </summary>
@@ -11,14 +11,16 @@ public sealed class TechnologicalCard: IEntity
     /// Номер тех.карты
     /// </summary>
     public string Number { get; set; }
-    
+    /// <summary>
+    /// Описание
+    /// </summary>
     public string? Description { get; set; }
     /// <summary>
     /// Ссылка на продукт, относительно которого составляется тех.карта
     /// </summary>
     public Guid ProductId { get; set; }
     /// <summary>
-    /// Состав тех.карты
+    /// Создатель тех.карты
     /// </summary>
-    public Guid CompositionTechonogicalCardId { get; set; }
+    public Guid CreatedById { get; set; }
 }

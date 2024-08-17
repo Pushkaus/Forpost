@@ -3,20 +3,23 @@ using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
 /// <summary>
-/// Детали задачи
+/// Задача. Участвует в производственном процессе
 /// </summary>
-public class IssueDetails: IEntity, IAuditableEntity
+public class Issue: IEntity, IAuditableEntity, ITimeFrameEntity
 {
     public Guid Id { get; set; }
     /// <summary>
     /// Ссылка на производственный процесс этой задачи
     /// </summary>
     public Guid ManufacturingProcessId { get; set; }
-    public Guid IssueId { get; set; }
     /// <summary>
-    /// Номер задачи в очереди
+    /// Ссылка на этап из тех.карты
     /// </summary>
-    public string Number { get; set; } = null!;
+    public Guid StepId { get; set; }
+    /// <summary>
+    /// Ссылка на детали задачи
+    /// </summary>
+    public Guid IssueDetailsId { get; set; }
     /// <summary>
     /// Исполнитель задачи
     /// </summary>
@@ -41,7 +44,8 @@ public class IssueDetails: IEntity, IAuditableEntity
     /// Дата завершения выполнения задачи
     /// </summary>
     public DateTimeOffset EndTime { get; set; }
-    public Status Status { get; set; }
+    
+    public IssueStatus IssueStatus { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

@@ -1,21 +1,22 @@
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.ProductCreating;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public class IssueConfiguration: IEntityTypeConfiguration<Issue>
+public class IssueConfiguration: IEntityTypeConfiguration<Step>
 {
-    public void Configure(EntityTypeBuilder<Issue> builder)
+    public void Configure(EntityTypeBuilder<Step> builder)
     {
         builder.ConfigureBaseEntity();
         
+        
+            
         builder.HasOne<Operation>()
             .WithOne()
-            .HasForeignKey<Issue>(entity => entity.OperationId);
+            .HasForeignKey<Step>(entity => entity.OperationId);
 
-        builder.HasOne<Product>()
-            .WithMany()
-            .HasForeignKey(entity => entity.ProductId);
+        
     }
 }

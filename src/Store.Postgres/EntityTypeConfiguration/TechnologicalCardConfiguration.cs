@@ -1,3 +1,4 @@
+using Forpost.Store.Catalog;
 using Forpost.Store.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,9 +11,7 @@ internal sealed class TechnologicalCardConfiguration: IEntityTypeConfiguration<T
     {
         builder.ConfigureBaseEntity();
         
-        builder.HasOne<CompositionTechnologicalCard>()
-            .WithOne()
-            .HasForeignKey<TechnologicalCard>(key => key.CompositionTechonogicalCardId);
+        
 
         builder.HasOne<Product>()
             .WithOne()

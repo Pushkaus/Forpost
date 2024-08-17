@@ -2,8 +2,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Forpost.Common.EntityAnnotations;
 
 namespace Forpost.Store.Entities;
-
-sealed public class InvoiceProduct: IEntity
+/// <summary>
+/// Состав счета
+/// </summary>
+public sealed class InvoiceProduct: IEntity
 {
     public Guid Id { get; set; }
     public Guid InvoiceId { get; set; }

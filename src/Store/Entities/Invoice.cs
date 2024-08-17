@@ -16,7 +16,7 @@ public sealed class Invoice: IAuditableEntity, IEntity
     public string? Description { get; set; }
     public int PaymentPercentage { get; set; }
     public int DaysShipment { get; set; }
-    public Status Status { get; set; }
+    public IssueStatus IssueStatus { get; set; }
     public DateTimeOffset? DateShipment { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }

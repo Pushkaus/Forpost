@@ -2,8 +2,10 @@ using Forpost.Common.EntityAnnotations;
 using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
-
-public class ProductDetails: IEntity
+/// <summary>
+/// Серийный у отпускаемого продукта
+/// </summary>
+public sealed class SerialProduct: IEntity
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
@@ -11,7 +13,7 @@ public class ProductDetails: IEntity
     /// <summary>
     /// Серийный номер продукта
     /// </summary>
-    public string SerialNumber { get; set; } = null!;
+    public string? SerialNumber { get; set; } 
     /// <summary>
     /// Вариант настройки
     /// </summary>

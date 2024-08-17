@@ -41,13 +41,13 @@ internal sealed class InvoiceService: IInvoiceService
     public async Task<Guid> ExposeAsync(InvoiceCreateModel model, CancellationToken cancellationToken)
     {
         var invoice = _mapper.Map<Invoice>(model);
-        invoice.Status = Status.Pending; // Заводя счет, выставляется статус - ожидаемый
+        invoice.IssueStatus = IssueStatus.Pending; // Заводя счет, выставляется статус - ожидаемый
         return await _invoiceRepository.AddAsync(invoice, cancellationToken);
     }
 
     public async Task CloseAsync(InvoiceUpdateModel model, CancellationToken cancellationToken)
     {
-        model.Status = Status.Completed;
+        model.IssueStatus = IssueStatus.Completed;
         model.DateShipment = DateTimeOffset.UtcNow;
         var invoice = _mapper.Map<Invoice>(model);
         await _invoiceRepository.UpdateAsync(invoice, cancellationToken);
