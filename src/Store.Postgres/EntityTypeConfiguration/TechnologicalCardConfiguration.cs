@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class TechnologicalCardConfiguration: IEntityTypeConfiguration<TechnologicalCard>
+internal sealed class TechnologicalCardConfiguration: IEntityTypeConfiguration<TechCard>
 {
-    public void Configure(EntityTypeBuilder<TechnologicalCard> builder)
+    public void Configure(EntityTypeBuilder<TechCard> builder)
     {
         builder.ConfigureBaseEntity();
         
@@ -15,6 +15,6 @@ internal sealed class TechnologicalCardConfiguration: IEntityTypeConfiguration<T
 
         builder.HasOne<Product>()
             .WithOne()
-            .HasForeignKey<TechnologicalCard>(key => key.ProductId);
+            .HasForeignKey<TechCard>(key => key.ProductId);
     }
 }

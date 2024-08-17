@@ -26,11 +26,11 @@ public  class ForpostContextPostgres : DbContext
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Storage> Storages => Set<Storage>();
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
-    public DbSet<Contragent> Contragents => Set<Contragent>();
+    public DbSet<Contractor> Contragents => Set<Contractor>();
     public DbSet<FileEntity> Files => Set<FileEntity>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Step> Issues => Set<Step>();
-    public DbSet<TechnologicalCard> TechnologicalProcesses => Set<TechnologicalCard>();
+    public DbSet<TechCard> TechnologicalProcesses => Set<TechCard>();
     public DbSet<Operation> Operations => Set<Operation>();
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

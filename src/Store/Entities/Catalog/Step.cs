@@ -13,7 +13,7 @@ public sealed class Step : IEntity
     /// <summary>
     /// Ссылка на тех.карту
     /// </summary>
-    public Guid TechonologicalCardId { get; set; }
+    public Guid TechCardId { get; set; }
 
     /// <summary>
     /// Ссылка на операцию (пайка/мойка/сборка и тд)

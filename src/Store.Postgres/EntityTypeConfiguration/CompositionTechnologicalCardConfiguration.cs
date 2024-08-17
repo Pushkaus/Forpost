@@ -11,7 +11,7 @@ internal sealed class CompositionTechnologicalCardConfiguration: IEntityTypeConf
     {
         builder.ConfigureBaseEntity();
         
-        builder.HasOne<TechnologicalCard>()
+        builder.HasOne<TechCard>()
             .WithOne()
             .HasForeignKey<TechCardItem>(key => key.TechnologicalCardId);
         

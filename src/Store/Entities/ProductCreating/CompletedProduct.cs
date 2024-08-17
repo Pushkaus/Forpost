@@ -3,9 +3,9 @@ using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
 /// <summary>
-/// Серийный у отпускаемого продукта
+/// Завершенный продукт
 /// </summary>
-public sealed class SerialProduct: IEntity
+public sealed class CompletedProduct: IEntity
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
@@ -13,7 +13,7 @@ public sealed class SerialProduct: IEntity
     /// <summary>
     /// Серийный номер продукта
     /// </summary>
-    public string? SerialNumber { get; set; } 
+    public string SerialNumber { get; set; } 
     /// <summary>
     /// Вариант настройки
     /// </summary>

@@ -4,13 +4,13 @@ namespace Forpost.Store.Catalog;
 /// <summary>
 /// Технологическая карта
 /// </summary>
-public sealed class TechnologicalCard: IEntity
+public sealed class TechCard: IEntity
 {
     public Guid Id { get; set; }
     /// <summary>
     /// Номер тех.карты
     /// </summary>
-    public string Number { get; set; }
+    public string Number { get; set; } = null!;
     /// <summary>
     /// Описание
     /// </summary>

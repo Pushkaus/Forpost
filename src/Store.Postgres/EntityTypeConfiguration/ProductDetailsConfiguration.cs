@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class ProductDetailsConfiguration: IEntityTypeConfiguration<SerialProduct>
+internal sealed class ProductDetailsConfiguration: IEntityTypeConfiguration<CompletedProduct>
 {
-    public void Configure(EntityTypeBuilder<SerialProduct> builder)
+    public void Configure(EntityTypeBuilder<CompletedProduct> builder)
     {
         builder.ConfigureBaseEntity();
         
@@ -16,6 +16,6 @@ internal sealed class ProductDetailsConfiguration: IEntityTypeConfiguration<Seri
         
         builder.HasOne<ManufacturingProcess>()
             .WithOne()
-            .HasForeignKey<SerialProduct>(key => key.ManufacturingProcessId);
+            .HasForeignKey<CompletedProduct>(key => key.ManufacturingProcessId);
     }
 }

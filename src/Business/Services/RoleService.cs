@@ -13,9 +13,8 @@ internal sealed class RoleService: IRoleService
     }
     public async Task AddAsync(string name, CancellationToken cancellationToken)
     {
-        var role = new Role(name);
+        var role = new Role() { Name = name };
         await _roleRepository.AddAsync(role, cancellationToken);
-        
     }
 
     public async Task<IReadOnlyList<Role>> GetAllAsync(CancellationToken cancellationToken)

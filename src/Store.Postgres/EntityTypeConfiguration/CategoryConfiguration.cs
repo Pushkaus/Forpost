@@ -10,6 +10,7 @@ namespace Forpost.Store.Postgres.EntityTypeConfiguration
         {
             builder.ConfigureBaseEntity();
             
+            builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLenght).IsRequired();
         }
     }
 }

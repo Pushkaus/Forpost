@@ -11,7 +11,7 @@ internal sealed class ManufacturingProcessConfiguration: IEntityTypeConfiguratio
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<TechnologicalCard>()
+        builder.HasOne<TechCard>()
             .WithMany()
             .HasForeignKey(key => key.TechnologicalCardId);
         

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-sealed public class ContragentConfiguration: IEntityTypeConfiguration<Contragent>
+sealed public class ContragentConfiguration: IEntityTypeConfiguration<Contractor>
 {
-    public void Configure(EntityTypeBuilder<Contragent> builder)
+    public void Configure(EntityTypeBuilder<Contractor> builder)
     {
         builder.ConfigureBaseEntity();
     }

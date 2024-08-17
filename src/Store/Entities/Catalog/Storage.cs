@@ -5,9 +5,8 @@ namespace Forpost.Store.Entities;
 
 public class Storage: IAuditableEntity, IEntity
 {
-    private Storage() {}
     public Guid Id { get; set; }
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     public string? Description { get; set; }
     /// <summary>
     /// Ответственный за склад
