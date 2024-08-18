@@ -4,17 +4,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public sealed class StorageProductConfiguration: IEntityTypeConfiguration<StorageProduct>
+public sealed class StorageProductConfiguration : IEntityTypeConfiguration<StorageProduct>
 {
     public void Configure(EntityTypeBuilder<StorageProduct> builder)
     {
         builder.HasKey(sp => new { sp.ProductId, sp.StorageId });
-        
+
         builder.HasOne<Storage>()
             .WithMany()
             .HasForeignKey(key => key.StorageId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
         builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId)
@@ -23,5 +23,4 @@ public sealed class StorageProductConfiguration: IEntityTypeConfiguration<Storag
         // Индекс для оптимизации запросов
         builder.HasIndex(sp => new { sp.ProductId, sp.StorageId }).IsUnique();
     }
-    
 }

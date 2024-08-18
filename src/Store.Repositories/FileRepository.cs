@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed  class FileRepository: Repository<FileEntity>, IFilesRepository
+internal sealed class FileRepository : Repository<FileEntity>, IFilesRepository
 {
     public FileRepository(ForpostContextPostgres db) : base(db)
     {

@@ -4,16 +4,18 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
-internal sealed class RoleService: IRoleService
+internal sealed class RoleService : IRoleService
 {
     private readonly IRoleRepository _roleRepository;
+
     public RoleService(IRoleRepository roleRepository)
     {
         _roleRepository = roleRepository;
     }
+
     public async Task AddAsync(string name, CancellationToken cancellationToken)
     {
-        var role = new Role() { Name = name };
+        var role = new Role { Name = name };
         await _roleRepository.AddAsync(role, cancellationToken);
     }
 

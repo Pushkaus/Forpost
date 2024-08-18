@@ -6,5 +6,5 @@ public enum IssueStatus
     PendingPreviousIssue = 101,
     InProgress = 200,
     Completed = 300,
-    Cancelled = 400,
+    Cancelled = 400
 }

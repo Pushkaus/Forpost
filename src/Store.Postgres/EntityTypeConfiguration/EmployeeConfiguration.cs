@@ -1,38 +1,27 @@
 ﻿using Forpost.Store.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration
+namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+
+internal class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
-    internal class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+    public void Configure(EntityTypeBuilder<Employee> builder)
     {
-        public void Configure(EntityTypeBuilder<Employee> builder)
-        {
-            builder.ConfigureBaseEntity();
-            builder.HasOne<Role>()
-                .WithMany()
-                .HasForeignKey(key => key.RoleId);
+        builder.ConfigureBaseEntity();
+        builder.HasOne<Role>()
+            .WithMany()
+            .HasForeignKey(key => key.RoleId);
+        
+        builder.Property(entity => entity.FirstName).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.LastName).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Patronymic).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Post).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Email).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.PhoneNumber).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.PasswordHash).HasMaxLength(DatabaseConstrains.MaxLenght);
 
-            
-            var hasher = new PasswordHasher<Employee>();
-            var userId = Guid.NewGuid();
-            builder.HasData(new Employee
-            {
-                Id = userId,
-                FirstName = "test",
-                LastName = "test",
-                Patronymic = null,
-                Post = "Administrator",
-                RoleId = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),
-                Email = "default@employee.com",
-                PhoneNumber = "1234567890",
-                PasswordHash = hasher.HashPassword(null, "123"),
-                CreatedAt = DateTimeOffset.UtcNow,
-                CreatedById = userId,
-                UpdatedAt = DateTimeOffset.UtcNow,
-                UpdatedById = userId
-            });
-        }
+
+
     }
 }

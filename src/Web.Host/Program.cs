@@ -2,7 +2,6 @@ using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
-using ILogger = Serilog.ILogger;
 
 namespace Forpost.Web.Host;
 
@@ -41,14 +40,18 @@ internal sealed class Program
     }
 
     private static IHostBuilder CreateHostBuilder(string[] args, Action<IWebHostBuilder> webHostBuilderConfigurator)
-        => Microsoft.Extensions.Hosting.Host
+    {
+        return Microsoft.Extensions.Hosting.Host
             .CreateDefaultBuilder()
             .UseSerilog()
             .ConfigureWebHostDefaults(webHostBuilderConfigurator);
+    }
 
     private static IWebHostBuilder ConfigureWebHostBuilder(IWebHostBuilder webHostBuilder)
-        => webHostBuilder
+    {
+        return webHostBuilder
             .UseStartup<Startup>();
+    }
 
     private static void ConfigureLogger(IConfiguration configuration)
     {

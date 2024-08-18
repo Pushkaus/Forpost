@@ -1,12 +1,10 @@
 using AutoMapper;
 using Forpost.Business.Models.Accounts;
-using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Models.Employee;
-using EmployeeWithRoleModel = Forpost.Business.Models.Accounts.EmployeeWithRoleModel;
 
 namespace Forpost.Business.Mappers;
 
-public sealed class AccountMappingProfile: Profile
+public sealed class AccountMappingProfile : Profile
 {
     public AccountMappingProfile()
     {

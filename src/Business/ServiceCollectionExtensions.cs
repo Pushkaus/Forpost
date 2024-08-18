@@ -16,12 +16,12 @@ public static class ServiceCollectionExtensions
         services.AddDomainEventBus();
         return services;
     }
-    
+
     private static IServiceCollection AddDomainEventBus(this IServiceCollection services)
     {
         services.AddTransient<IDomainEventBus, InMemoryDomainEventBus>();
         services.AddAllTypesAssignableMarkerInterfaceTo<IDomainEventHandler>(ServiceLifetime.Transient);
-        
+
         return services;
     }
 }

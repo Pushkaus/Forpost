@@ -1,21 +1,18 @@
-using AutoMapper.QueryableExtensions;
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Forpost.Store.Repositories.Models.Employee;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class EmployeeRepository: Repository<Employee>, IEmployeeRepository
+internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeRepository
 {
     public EmployeeRepository(ForpostContextPostgres db) : base(db)
     {
-        
     }
 
-    public async Task<EmployeeWithRole?> 
+    public async Task<EmployeeWithRole?>
         GetAutorizedByUsernameAsync(string firstName, string lastName, CancellationToken cancellationToken)
     {
         var userWithRole = await DbSet

@@ -1,11 +1,10 @@
 using AutoMapper;
 using Forpost.Business.Models.Invoices;
-using Forpost.Store.Repositories;
 using Forpost.Web.Contracts.Models.Invoices;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public class InvoiceMappingProfile: Profile
+public class InvoiceMappingProfile : Profile
 {
     public InvoiceMappingProfile()
     {

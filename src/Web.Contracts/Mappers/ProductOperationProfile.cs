@@ -4,7 +4,7 @@ using Forpost.Web.Contracts.Models.ProductOperations;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public class ProductOperationProfile: Profile
+public class ProductOperationProfile : Profile
 {
     public ProductOperationProfile()
     {

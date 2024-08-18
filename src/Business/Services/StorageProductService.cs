@@ -7,22 +7,24 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
-internal sealed class StorageProductService: IStorageProductService
+internal sealed class StorageProductService : IStorageProductService
 {
-    private readonly IStorageProductRepository _storageProductRepository;
     private readonly IMapper _mapper;
+    private readonly IStorageProductRepository _storageProductRepository;
+
     public StorageProductService(IStorageProductRepository storageProductRepository, IMapper mapper)
     {
         _storageProductRepository = storageProductRepository;
         _mapper = mapper;
     }
+
     public async Task<Guid> AddAsync(StorageProductCreateModel model, CancellationToken cancellationToken)
     {
         var storageProduct = _mapper.Map<StorageProduct>(model);
         return await _storageProductRepository.AddAsync(storageProduct, cancellationToken);
     }
 
-    public async Task<IReadOnlyList<StorageProductModel>> 
+    public async Task<IReadOnlyList<StorageProductModel>>
         GetAllProductsAsync(Guid id, CancellationToken cancellationToken)
     {
         var storageProducts = await _storageProductRepository.GetAllByStorageIdAsync(id, cancellationToken);
@@ -44,10 +46,10 @@ internal sealed class StorageProductService: IStorageProductService
     public async Task WriteOffAsync(Guid productId, int quantity, CancellationToken cancellationToken)
     {
         var storageProduct = await _storageProductRepository.GetByIdAsync(productId, cancellationToken);
-        
-        storageProduct.EnsureFoundBy(x=>x.Id, productId);
+
+        storageProduct.EnsureFoundBy(x => x.Id, productId);
         storageProduct.Quantity -= quantity;
-        
+
         await _storageProductRepository.UpdateAsync(storageProduct, cancellationToken);
     }
 }

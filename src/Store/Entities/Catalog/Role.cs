@@ -1,11 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Forpost.Common.EntityAnnotations;
-using Microsoft.AspNetCore.Identity;
+﻿using Forpost.Common.EntityAnnotations;
 
 namespace Forpost.Store.Entities;
 
-public sealed class Role: IEntity
+public sealed class Role : IEntity
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } = null!;
+    public Guid Id { get; set; }
 }

@@ -17,25 +17,24 @@ internal sealed class InMemoryDomainEventBus : IDomainEventBus
                 .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDomainEventHandler<>))
                 .Select(i => i.GetGenericArguments()[0])
                 .ToList();
-            
+
             foreach (var eventType in eventTypes)
-            {
                 _eventHandlerCache.AddOrUpdate(
                     eventType,
-                    addValueFactory:_ => [handler],
-                    updateValueFactory:(_, existingHandlers) => existingHandlers.Append(handler).ToList());
-            }
+                    _ => [handler],
+                    (_, existingHandlers) => existingHandlers.Append(handler).ToList());
         }
     }
-    
-    public async Task PublishAsync<TDomainEvent>(TDomainEvent domainEvent, CancellationToken cancellationToken = default)
+
+    public async Task PublishAsync<TDomainEvent>(TDomainEvent domainEvent,
+        CancellationToken cancellationToken = default)
         where TDomainEvent : class, IDomainEvent
     {
-       if(_eventHandlerCache.TryGetValue(typeof(TDomainEvent), out var handlers))
-       {
-           var typedHandlers = handlers.Cast<IDomainEventHandler<TDomainEvent>>();
-           await Task.WhenAll(typedHandlers
-               .Select(handler => handler.HandleAsync(domainEvent, cancellationToken)));
-       }
+        if (_eventHandlerCache.TryGetValue(typeof(TDomainEvent), out var handlers))
+        {
+            var typedHandlers = handlers.Cast<IDomainEventHandler<TDomainEvent>>();
+            await Task.WhenAll(typedHandlers
+                .Select(handler => handler.HandleAsync(domainEvent, cancellationToken)));
+        }
     }
 }

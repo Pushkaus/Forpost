@@ -1,5 +1,5 @@
 namespace Forpost.Store.Enums;
 
-public enum SettingOption
+public enum ProductStatus
 {
 }

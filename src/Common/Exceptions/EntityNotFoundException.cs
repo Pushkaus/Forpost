@@ -1,10 +1,9 @@
-using Forpost.Common.EntityAnnotations;
-
 namespace Forpost.Common.Exceptions;
+
 /// <summary>
-/// Сущность не найдена
+///     Сущность не найдена
 /// </summary>
-public sealed class EntityNotFoundException: ForpostExceptionBase
+public sealed class EntityNotFoundException : ForpostExceptionBase
 {
     public EntityNotFoundException(string message) : base(message)
     {

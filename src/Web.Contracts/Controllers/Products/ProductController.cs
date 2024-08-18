@@ -7,13 +7,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Products;
+
 [ApiController]
 [Route("api/v1/products")]
 [Authorize]
-sealed public class ProductController: ControllerBase
+public sealed class ProductController : ControllerBase
 {
-    private readonly IProductService _productService;
     private readonly IMapper _mapper;
+    private readonly IProductService _productService;
+
     public ProductController(IProductService productService, IMapper mapper)
     {
         _productService = productService;
@@ -21,7 +23,7 @@ sealed public class ProductController: ControllerBase
     }
 
     /// <summary>
-    /// Получение всех продуктов
+    ///     Получение всех продуктов
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -33,7 +35,7 @@ sealed public class ProductController: ControllerBase
     }
 
     /// <summary>
-    /// Получение продукта по id
+    ///     Получение продукта по id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -46,7 +48,7 @@ sealed public class ProductController: ControllerBase
     }
 
     /// <summary>
-    /// Создать продукт
+    ///     Создать продукт
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -61,22 +63,22 @@ sealed public class ProductController: ControllerBase
     }
 
     /// <summary>
-    /// Обновление продукта по id
+    ///     Обновление продукта по id
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> 
+    public async Task<IActionResult>
         UpdateAsync([FromBody] ProductUpdateRequest request, CancellationToken cancellationToken)
     {
-       var model = _mapper.Map<ProductUpdateModel>(request);
-       await _productService.UpdateAsync(model, cancellationToken);
-       return Ok();
+        var model = _mapper.Map<ProductUpdateModel>(request);
+        await _productService.UpdateAsync(model, cancellationToken);
+        return Ok();
     }
 
     /// <summary>
-    /// Удаление продукта по id
+    ///     Удаление продукта по id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

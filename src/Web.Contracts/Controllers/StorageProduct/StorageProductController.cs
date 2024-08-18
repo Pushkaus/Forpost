@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.StorageProduct;
@@ -8,13 +7,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.StorageProduct;
+
 [ApiController]
 [Route("api/v1/storage-products")]
 [Authorize]
-sealed public class StorageProductController: ControllerBase
+public sealed class StorageProductController : ControllerBase
 {
-    private readonly IStorageProductService _storageProductService;
     private readonly IMapper _mapper;
+    private readonly IStorageProductService _storageProductService;
 
     public StorageProductController(IStorageProductService storageProductService, IMapper mapper)
     {
@@ -23,7 +23,7 @@ sealed public class StorageProductController: ControllerBase
     }
 
     /// <summary>
-    /// Получить список всех продуктов
+    ///     Получить список всех продуктов
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
@@ -36,7 +36,7 @@ sealed public class StorageProductController: ControllerBase
     }
 
     /// <summary>
-    /// Добавить продукт на склад
+    ///     Добавить продукт на склад
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -49,9 +49,9 @@ sealed public class StorageProductController: ControllerBase
         await _storageProductService.AddAsync(model, cancellationToken);
         return Ok();
     }
-    
+
     /// <summary>
-    /// Получение информации о продукте на складе
+    ///     Получение информации о продукте на складе
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -62,8 +62,9 @@ sealed public class StorageProductController: ControllerBase
         var storageProduct = await _storageProductService.GetByIdAsync(id, cancellationToken);
         return Ok(storageProduct);
     }
+
     /// <summary>
-    /// Обновление продукта на складе
+    ///     Обновление продукта на складе
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>

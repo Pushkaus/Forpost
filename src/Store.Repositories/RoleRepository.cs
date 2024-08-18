@@ -5,12 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class RoleRepository: Repository<Role>, IRoleRepository
+internal sealed class RoleRepository : Repository<Role>, IRoleRepository
 {
     public RoleRepository(ForpostContextPostgres db) : base(db)
     {
     }
-    
-    public async Task<Role?> GetByNameAsync(string name, CancellationToken cancellationToken) 
-        => await DbSet.FirstOrDefaultAsync(sp => sp.Name == name, cancellationToken);
+
+    public async Task<Role?> GetByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        return await DbSet.FirstOrDefaultAsync(sp => sp.Name == name, cancellationToken);
+    }
 }

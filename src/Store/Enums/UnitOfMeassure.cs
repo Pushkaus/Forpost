@@ -2,5 +2,5 @@ namespace Forpost.Store.Enums;
 
 public enum UnitOfMeassure
 {
-    Piece = 1,
+    Piece = 1
 }
