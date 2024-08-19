@@ -1,6 +1,6 @@
 using Forpost.Common.EntityAnnotations;
 
-namespace Forpost.Store.Entities;
+namespace Forpost.Store.Entities.ProductCreating;
 
 public sealed class ManufacturingProcess : IEntity, IAuditableEntity, ITimeFrameEntity
 {

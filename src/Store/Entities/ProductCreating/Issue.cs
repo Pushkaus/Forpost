@@ -1,7 +1,7 @@
 using Forpost.Common.EntityAnnotations;
 using Forpost.Store.Enums;
 
-namespace Forpost.Store.Entities;
+namespace Forpost.Store.Entities.ProductCreating;
 
 /// <summary>
 ///     Задача. Участвует в производственном процессе
