@@ -2,6 +2,7 @@ using AutoMapper;
 using Forpost.Business.Abstract.Services.CreatingProducts;
 using Forpost.Business.Models.ProductDevelopment;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.ProductCreating;
 using Forpost.Store.Repositories.Abstract.Repositories.CreatingProducts;
 
 namespace Forpost.Business.Services.CreatingProducts;

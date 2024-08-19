@@ -1,6 +1,6 @@
 using Forpost.Common.EntityAnnotations;
 
-namespace Forpost.Store.Catalog;
+namespace Forpost.Store.Entities;
 
 /// <summary>
 ///     Технологическая карта

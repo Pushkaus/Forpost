@@ -1,5 +1,6 @@
 using Forpost.Business.Models.ProductDevelopment;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.ProductCreating;
 
 namespace Forpost.Business.Abstract.Services.CreatingProducts;
 

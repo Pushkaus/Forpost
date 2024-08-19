@@ -1,4 +1,4 @@
-using Forpost.Store.Catalog;
+using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
 

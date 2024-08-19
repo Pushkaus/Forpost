@@ -1,4 +1,4 @@
-using Forpost.Store.Catalog;
+using Forpost.Store.Entities;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 

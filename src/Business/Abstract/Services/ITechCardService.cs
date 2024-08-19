@@ -1,5 +1,5 @@
 using Forpost.Business.Models.TechCards;
-using Forpost.Store.Catalog;
+using Forpost.Store.Entities;
 
 namespace Forpost.Business.Abstract.Services;
 
