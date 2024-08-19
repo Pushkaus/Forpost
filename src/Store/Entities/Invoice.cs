@@ -3,15 +3,9 @@ using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
 
-public sealed class Invoice: IAuditableEntity, IEntity
+public sealed class Invoice : IAuditableEntity, IEntity
 {
-    public Invoice()
-    {
-        
-    }
-    
-    public Guid Id { get; set; }
-    public string Number { get; set; }
+    public string Number { get; set; } = null!;
     public Guid ContragentId { get; set; }
     public string? Description { get; set; }
     public int PaymentPercentage { get; set; }
@@ -24,4 +18,6 @@ public sealed class Invoice: IAuditableEntity, IEntity
     public Guid UpdatedById { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
+
+    public Guid Id { get; set; }
 }

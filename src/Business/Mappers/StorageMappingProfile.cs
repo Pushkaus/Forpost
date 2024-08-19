@@ -4,7 +4,7 @@ using Forpost.Store.Entities;
 
 namespace Forpost.Business.Mappers;
 
-public class StorageMappingProfile: Profile
+public class StorageMappingProfile : Profile
 {
     public StorageMappingProfile()
     {

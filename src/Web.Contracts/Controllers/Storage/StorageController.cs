@@ -8,21 +8,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Storage;
+
 [ApiController]
 [Route("api/v1/storages")]
 [Authorize]
-sealed public class StorageController: ControllerBase
+public sealed class StorageController : ControllerBase
 {
-    private readonly IStorageService _storageService;
     private readonly IMapper _mapper;
+    private readonly IStorageService _storageService;
 
     public StorageController(IStorageService storageService, IMapper mapper)
     {
         _storageService = storageService;
         _mapper = mapper;
     }
+
     /// <summary>
-    /// Создание нового склада
+    ///     Создание нового склада
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -37,7 +39,7 @@ sealed public class StorageController: ControllerBase
     }
 
     /// <summary>
-    /// Получить список всех складов
+    ///     Получить список всех складов
     /// </summary>
     /// <returns></returns>
     [HttpGet]

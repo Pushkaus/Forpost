@@ -2,7 +2,6 @@ namespace Forpost.Common.Exceptions;
 
 public abstract class ForpostExceptionBase : Exception, IErrorDescription
 {
-    
     public ForpostExceptionBase(string message)
         : base(message)
     {
@@ -14,6 +13,6 @@ public abstract class ForpostExceptionBase : Exception, IErrorDescription
 
 public interface IErrorDescription
 {
-    public string ErrorCode { get;  }
+    public string ErrorCode { get; }
     public string ShortDescription { get; }
 }

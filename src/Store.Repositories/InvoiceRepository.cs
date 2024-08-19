@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed  class InvoiceRepository: Repository<Invoice>, IInvoiceRepository
+internal sealed class InvoiceRepository : Repository<Invoice>, IInvoiceRepository
 {
     public InvoiceRepository(ForpostContextPostgres db) : base(db)
     {
     }
 
-    public async Task<Invoice?> GetByNumberAsync(string number, CancellationToken cancellationToken) 
-        => await DbSet.FirstOrDefaultAsync(entity => entity.Number == number, cancellationToken);
-
-    
+    public async Task<Invoice?> GetByNumberAsync(string number, CancellationToken cancellationToken)
+    {
+        return await DbSet.FirstOrDefaultAsync(entity => entity.Number == number, cancellationToken);
+    }
 }

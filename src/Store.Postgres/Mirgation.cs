@@ -1,9 +1,4 @@
-using Forpost.Store.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Logging;
 
 namespace Forpost.Store.Postgres;
@@ -23,7 +18,7 @@ public static class Mirgation
         var createdAt = DateTimeOffset.UtcNow;
         var passwordHash = "AQAAAAIAAYagAAAAEFfWkQvwd4hja19jKrd1rYqLWLwCv1cjfJKTXrOfI7wVn3n5GjQPaN7SGsKDJVD06w";
 
-        bool roleExists = await context.Roles.AnyAsync(r => r.Id == roleId);
+        var roleExists = await context.Roles.AnyAsync(r => r.Id == roleId);
 
         if (!roleExists)
         {
@@ -34,7 +29,7 @@ public static class Mirgation
             await context.Database.ExecuteSqlRawAsync(insertRoleSql);
         }
 
-        bool userExists = await context.Employees.AnyAsync(e => e.Id == userId);
+        var userExists = await context.Employees.AnyAsync(e => e.Id == userId);
 
         if (!userExists)
         {

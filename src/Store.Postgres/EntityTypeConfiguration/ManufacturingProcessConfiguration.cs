@@ -5,16 +5,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class ManufacturingProcessConfiguration: IEntityTypeConfiguration<ManufacturingProcess>
+internal sealed class ManufacturingProcessConfiguration : IEntityTypeConfiguration<ManufacturingProcess>
 {
     public void Configure(EntityTypeBuilder<ManufacturingProcess> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<TechnologicalCard>()
+        builder.HasOne<TechCard>()
             .WithMany()
             .HasForeignKey(key => key.TechnologicalCardId);
         
-       
+        builder.Property(entity => entity.BatchNumber).HasMaxLength(DatabaseConstrains.MaxLenght);
+
     }
 }

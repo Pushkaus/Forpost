@@ -3,22 +3,22 @@ using Forpost.Business.EventHanding;
 namespace Forpost.Business.Events.Products;
 
 /// <summary>
-/// Продукт добавлен к заказу
+///     Продукт добавлен к заказу
 /// </summary>
 public sealed class ProductInInvoiceAdded : IDomainEvent
 {
     /// <summary>
-    /// Ид счётв
+    ///     Ид счётв
     /// </summary>
     public Guid InvoiceId { get; set; }
-    
+
     /// <summary>
-    /// Ид продукта
+    ///     Ид продукта
     /// </summary>
     public Guid ProductId { get; set; }
-    
+
     /// <summary>
-    /// Количество к списанию
+    ///     Количество к списанию
     /// </summary>
     public int Quantity { get; set; }
 }

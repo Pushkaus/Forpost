@@ -1,12 +1,10 @@
 using Forpost.Business.Abstract.Services;
 using Forpost.Store.Entities;
-using Forpost.Store.Repositories;
 using Forpost.Store.Repositories.Abstract.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Business.Services;
 
-internal sealed class EmployeeService: IEmployeeService
+internal sealed class EmployeeService : IEmployeeService
 {
     private readonly IEmployeeRepository _employeeRepository;
 
@@ -14,9 +12,10 @@ internal sealed class EmployeeService: IEmployeeService
     {
         _employeeRepository = employeeRepository;
     }
+
     public async Task<IReadOnlyList<Employee>> GetAllAsync(CancellationToken cancellationToken)
     {
-       var employees = await _employeeRepository.GetAllAsync(cancellationToken);
-       return employees;
+        var employees = await _employeeRepository.GetAllAsync(cancellationToken);
+        return employees;
     }
 }

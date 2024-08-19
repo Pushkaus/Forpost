@@ -6,10 +6,11 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
-internal sealed class StorageService: IStorageService
+internal sealed class StorageService : IStorageService
 {
-    private readonly IStorageRepository _storageRepository;
     private readonly IMapper _mapper;
+    private readonly IStorageRepository _storageRepository;
+
     public StorageService(IStorageRepository storageRepository, IMapper mapper)
     {
         _storageRepository = storageRepository;

@@ -6,6 +6,8 @@ namespace Forpost.Store.Repositories;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddRepositories(this IServiceCollection services) =>
-        services.AddAllTypesAssignableMarkerInterfaceTo<IRepository>(ServiceLifetime.Transient);
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        return services.AddAllTypesAssignableMarkerInterfaceTo<IRepository>(ServiceLifetime.Transient);
+    }
 }

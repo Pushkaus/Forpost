@@ -9,5 +9,11 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.ConfigureBaseEntity();
+        builder.HasOne<Category>()
+            .WithMany()
+            .HasForeignKey(key => key.CategoryId);
+        
+        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLenght);
+
     }
 }

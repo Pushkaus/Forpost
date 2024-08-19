@@ -20,15 +20,14 @@ internal sealed class ForpostExceptionFilter : IExceptionFilter
             var problemDetails = problemDetailsFactory.CreateProblemDetails(
                 context.HttpContext,
                 StatusCodes.Status422UnprocessableEntity,
-                title: exception.ShortDescription,
-                type: exception.ErrorCode,
-                detail: exception.Message);
+                exception.ShortDescription,
+                exception.ErrorCode,
+                exception.Message);
 
             switch (exception)
             {
-                case EntityNotFoundException _ : SetStatusCode(problemDetails,StatusCodes.Status404NotFound);
-                    break;
-                default:
+                case EntityNotFoundException _:
+                    SetStatusCode(problemDetails, StatusCodes.Status404NotFound);
                     break;
             }
         }

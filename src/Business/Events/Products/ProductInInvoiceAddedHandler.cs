@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.EventHanding;
-using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Events.Products;
@@ -17,11 +16,10 @@ internal sealed class ProductInInvoiceAddedHandler : IDomainEventHandler<Product
         _logger = logger;
         _storageProductService = storageProductService;
     }
-    
+
     public async Task HandleAsync(ProductInInvoiceAdded domainEvent, CancellationToken cancellationToken = default)
     {
         await _storageProductService.WriteOffAsync(domainEvent.ProductId, domainEvent.Quantity, cancellationToken);
         Debug.WriteLine($"Произошлоа списание со склада в количестве {domainEvent.Quantity}");
     }
-    
 }

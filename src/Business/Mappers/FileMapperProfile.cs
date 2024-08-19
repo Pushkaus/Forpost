@@ -4,7 +4,7 @@ using Forpost.Store.Entities;
 
 namespace Forpost.Business.Mappers;
 
-public sealed class FileMapperProfile: Profile
+public sealed class FileMapperProfile : Profile
 {
     public FileMapperProfile()
     {

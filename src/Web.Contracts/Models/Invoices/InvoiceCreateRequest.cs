@@ -3,7 +3,7 @@ using Forpost.Store.Enums;
 namespace Forpost.Web.Contracts.Models.Invoices;
 
 /// <summary>
-/// Модель запроса на создание счета
+///     Модель запроса на создание счета
 /// </summary>
 public class InvoiceCreateRequest
 {

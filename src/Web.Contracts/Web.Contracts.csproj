@@ -1,32 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	
-<PropertyGroup>
-	<GenerateDocumentationFile>true</GenerateDocumentationFile>
-</PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" />
-    <PackageReference Include="Docker.DotNet" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-	  
-    <PackageReference Include="Swashbuckle.AspNetCore" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
-  </ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\Business\Business.csproj" />
-		<ProjectReference Include="..\Common\Common.csproj" />
-		<ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj" />
-		<ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Infrasctructure\" />
-	</ItemGroup>
-	
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="AutoMapper"/>
+        <PackageReference Include="Docker.DotNet"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+
+        <PackageReference Include="Swashbuckle.AspNetCore"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Business\Business.csproj"/>
+        <ProjectReference Include="..\Common\Common.csproj"/>
+        <ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj"/>
+        <ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Infrasctructure\"/>
+    </ItemGroup>
+
 </Project>

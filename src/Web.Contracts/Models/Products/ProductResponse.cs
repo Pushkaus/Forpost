@@ -13,5 +13,4 @@ internal sealed class ProductResponse
     public Guid UpdatedById { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public Guid? DeletedById { get; set; }
-    
 }

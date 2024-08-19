@@ -1,21 +1,21 @@
 using Forpost.Common.EntityAnnotations;
-using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IEntity
+internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
 {
     protected readonly ForpostContextPostgres _db;
     protected readonly DbSet<TEntity> DbSet;
-    
+
     public Repository(ForpostContextPostgres db)
     {
         _db = db;
         DbSet = db.Set<TEntity>();
     }
+
     public async Task<Guid> AddAsync(TEntity entity, CancellationToken cancellationToken)
     {
         await _db.AddAsync(entity, cancellationToken);

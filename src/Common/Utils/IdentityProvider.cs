@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Forpost.Common.Utils;
 
-internal sealed class IdentityProvider: IIdentityProvider
+internal sealed class IdentityProvider : IIdentityProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -14,11 +14,9 @@ internal sealed class IdentityProvider: IIdentityProvider
 
     public Guid GetUserId()
     {
-        var user = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        if (user == null)
-        {
-            throw new UnauthorizedAccessException("User not found.");
-        }
+        var user = _httpContextAccessor.HttpContext?.User.Claims
+            .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        if (user == null) throw new UnauthorizedAccessException("User not found.");
         return Guid.Parse(user);
     }
 }

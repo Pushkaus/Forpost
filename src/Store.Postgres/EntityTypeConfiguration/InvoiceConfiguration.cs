@@ -4,14 +4,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal class InvoiceConfiguration: IEntityTypeConfiguration<Invoice>
+internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
 {
-   public void Configure(EntityTypeBuilder<Invoice> builder)
-   {
-      builder.ConfigureBaseEntity();
+    public void Configure(EntityTypeBuilder<Invoice> builder)
+    {
+        builder.ConfigureBaseEntity();
 
-      builder.HasOne<Contragent>()
-         .WithMany()
-         .HasForeignKey(key => key.ContragentId);
-   }
+        builder.HasOne<Contractor>()
+            .WithMany()
+            .HasForeignKey(key => key.ContragentId);
+        
+        builder.Property(entity => entity.Number).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLenght);
+    }
 }

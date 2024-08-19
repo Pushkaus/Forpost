@@ -7,13 +7,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.InvoiceProducts;
+
 [ApiController]
 [Route("api/v1/invoice-products")]
 [Authorize]
-sealed public class InvoiceProductController: ControllerBase
+public sealed class InvoiceProductController : ControllerBase
 {
     private readonly IInvoiceProductService _invoiceProductService;
     private readonly IMapper _mapper;
+
     public InvoiceProductController(IInvoiceProductService invoiceProductService, IMapper mapper)
     {
         _invoiceProductService = invoiceProductService;
@@ -21,13 +23,13 @@ sealed public class InvoiceProductController: ControllerBase
     }
 
     /// <summary>
-    /// Добавление продуктов в счет
+    ///     Добавление продуктов в счет
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> 
+    public async Task<IActionResult>
         CreateAsync([FromBody] InvoiceProductRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceProductCreateModel>(request);
@@ -36,7 +38,7 @@ sealed public class InvoiceProductController: ControllerBase
     }
 
     /// <summary>
-    /// Получение продуктов по id счета
+    ///     Получение продуктов по id счета
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -50,7 +52,7 @@ sealed public class InvoiceProductController: ControllerBase
     }
 
     /// <summary>
-    /// Обновление продукта в счете
+    ///     Обновление продукта в счете
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -65,7 +67,7 @@ sealed public class InvoiceProductController: ControllerBase
     }
 
     /// <summary>
-    /// Удаление продукта из счета
+    ///     Удаление продукта из счета
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

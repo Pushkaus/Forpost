@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Roles;
+
 [ApiController]
 [Route("api/v1/role")]
 [Authorize]
-sealed public class RoleController: ControllerBase
+public sealed class RoleController : ControllerBase
 {
     private readonly IRoleService _roleService;
 
@@ -16,8 +17,9 @@ sealed public class RoleController: ControllerBase
     {
         _roleService = roleService;
     }
+
     /// <summary>
-    /// Создать новую роль
+    ///     Создать новую роль
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -28,7 +30,7 @@ sealed public class RoleController: ControllerBase
     }
 
     /// <summary>
-    /// Получить все роли
+    ///     Получить все роли
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -40,7 +42,7 @@ sealed public class RoleController: ControllerBase
     }
 
     /// <summary>
-    /// Получить роль по id
+    ///     Получить роль по id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -48,7 +50,7 @@ sealed public class RoleController: ControllerBase
     [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-       var role = await _roleService.GetByIdAsync(id, cancellationToken);
-       return Ok(role);
+        var role = await _roleService.GetByIdAsync(id, cancellationToken);
+        return Ok(role);
     }
 }

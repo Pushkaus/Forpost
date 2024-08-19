@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed  class InvoiceProductRepository: Repository<InvoiceProduct>, IInvoiceProductRepository
+internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IInvoiceProductRepository
 {
     public InvoiceProductRepository(ForpostContextPostgres db) : base(db)
     {
     }
 
-    public async Task<IReadOnlyList<InvoiceWithProducts>> 
+    public async Task<IReadOnlyList<InvoiceWithProducts>>
         GetProductsByInvoiceIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await DbSet
@@ -29,14 +29,14 @@ internal sealed  class InvoiceProductRepository: Repository<InvoiceProduct>, IIn
             )
             .Join(
                 _db.Invoices,
-                combined => combined.Entity.InvoiceId, 
-                invoice => invoice.Id, 
+                combined => combined.Entity.InvoiceId,
+                invoice => invoice.Id,
                 (combined, invoice) => new InvoiceWithProducts
                 {
                     ProductId = combined.Entity.Id,
-                    Name= combined.Product.Name,
+                    Name = combined.Product.Name,
                     InvoiceId = combined.Entity.InvoiceId,
-                    Quantity = combined.Entity.Quantity,
+                    Quantity = combined.Entity.Quantity
                 }
             )
             .ToListAsync(cancellationToken);

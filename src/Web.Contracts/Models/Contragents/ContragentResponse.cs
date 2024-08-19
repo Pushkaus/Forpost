@@ -1,5 +1,3 @@
-using Forpost.Common.EntityAnnotations;
-
 namespace Forpost.Web.Contracts.Models.Contragents;
 
 public class ContragentResponse

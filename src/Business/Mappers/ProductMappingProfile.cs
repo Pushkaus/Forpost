@@ -4,7 +4,7 @@ using Forpost.Store.Entities;
 
 namespace Forpost.Business.Mappers;
 
-public class ProductMappingProfile: Profile
+public class ProductMappingProfile : Profile
 {
     public ProductMappingProfile()
     {

@@ -7,5 +7,4 @@ public class OperationCreateModel
     public string? Description { get; set; }
     public decimal? OperationTime { get; set; }
     public decimal? Cost { get; set; }
-
 }
