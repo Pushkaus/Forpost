@@ -9,6 +9,7 @@ internal class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
     public void Configure(EntityTypeBuilder<Employee> builder)
     {
         builder.ConfigureBaseEntity();
+        
         builder.HasOne<Role>()
             .WithMany()
             .HasForeignKey(key => key.RoleId);

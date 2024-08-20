@@ -19,7 +19,22 @@ public class HttpRequestLoggingMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        var userId = _identityProvider.GetUserId();
+        string userId = "Anonymous";
+        try
+        {
+            if (context.User.Identity != null && context.User.Identity.IsAuthenticated)
+            {
+                userId = _identityProvider.GetUserId().ToString();
+            }
+        }
+        catch (UnauthorizedAccessException)
+        {
+            _logger.LogWarning("User is not authorized.");
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            await context.Response.WriteAsync("User is not authorized.");
+            return;
+        }
+
         _logger.LogInformation("Incoming HTTP request: {Method} {Path}, User ID: {UserId}",
             context.Request.Method, context.Request.Path, userId);
 

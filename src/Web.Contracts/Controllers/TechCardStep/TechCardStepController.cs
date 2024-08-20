@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Forpost.Web.Contracts.Controllers.TechCardStep;
 [ApiController]
 [Route("api/v1/techcardstep")]
-internal sealed class TechCardStepController: ControllerBase
+public sealed class TechCardStepController: ControllerBase
 {
     private readonly ITechCardStepService _techCardStepService;
     private readonly IMapper _mapper;

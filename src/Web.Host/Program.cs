@@ -1,4 +1,5 @@
 using Forpost.Store.Postgres;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -27,8 +28,8 @@ internal sealed class Program
             {
                 var context = services.GetRequiredService<ForpostContextPostgres>();
                 var logger = services.GetRequiredService<ILogger<Program>>();
-                await context.Database.MigrateAsync();
-                await Mirgation.StartMigrationWithFirstUser(context, logger);
+                //await context.Database.MigrateAsync();
+                //await Mirgation.StartMigrationWithFirstUser(context, logger);
             }
             catch (Exception ex)
             {
@@ -61,6 +62,7 @@ internal sealed class Program
             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .WriteTo.Seq(serverUrl)
+            .WriteTo.Console()
             .CreateBootstrapLogger();
     }
 }

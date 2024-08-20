@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Forpost.Web.Contracts.Controllers.Steps;
 [ApiController]
 [Route("v1/api/steps")]
-internal sealed class StepController: ControllerBase
+public sealed class StepController: ControllerBase
 {
     private readonly IStepService _stepService;
     private readonly IMapper _mapper;
@@ -58,6 +58,7 @@ internal sealed class StepController: ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
+    [HttpDelete("{id}")]
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
         await _stepService.DeleteByIdAsync(id, cancellationToken);

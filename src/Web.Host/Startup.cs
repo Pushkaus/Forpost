@@ -40,9 +40,9 @@ internal sealed class Startup
         services.AddSerilog();
         ConfigureOpenTelemetry(services);
         services.AddForpostContextPostgres(_configuration);
-
+        
         services.AddScoped<IPasswordHasher<EmployeeWithRole>, PasswordHasher<EmployeeWithRole>>();
-
+        
         services.AddAutoMapper(WebAssemblyReference.Assembly);
         services.AddAutoMapper(BusinessAssemblyReference.Assembly);
 
@@ -120,15 +120,7 @@ internal sealed class Startup
         {
             options.AddDefaultPolicy(policy =>
             {
-                policy.WithOrigins("http://localhost:3000")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-                policy.WithOrigins("http://localhost:4200")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-                policy.WithOrigins("http://localhost:5173")
+                policy.WithOrigins("http://localhost:3000", "http://localhost:4200", "http://localhost:5173")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
@@ -154,12 +146,12 @@ internal sealed class Startup
 
     public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider)
     {
-        app.UseCors();
+        app.UseHttpsRedirection();
         app.UseRouting();
+        app.UseCors();
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseHttpRequestLoggingWithEmployeeId();
-        app.UseHttpsRedirection();
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {

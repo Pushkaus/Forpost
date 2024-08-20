@@ -1,6 +1,6 @@
-namespace Forpost.Web.Contracts.Models.Accounts;
+namespace Forpost.Store.Repositories.Models.Employee;
 
-public class LoginUserRequest
+public sealed class LoginModel
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

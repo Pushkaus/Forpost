@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Forpost.Web.Contracts.Controllers.TechCardItemController;
 [ApiController]
 [Route("v1/api/techcarditem")]
-internal sealed class TechCardItemController: ControllerBase
+public sealed class TechCardItemController: ControllerBase
 {
     private readonly ITechCardItemService _techCardItemService;
     private readonly IMapper _mapper;

@@ -51,12 +51,12 @@ public sealed class InvoiceController : ControllerBase
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult>
+    public async Task<Guid>
         ExposeAsync([FromBody] InvoiceCreateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceCreateModel>(request);
         var id = await _invoiceService.ExposeAsync(model, cancellationToken);
-        return Ok(id);
+        return id;
     }
 
     /// <summary>

@@ -14,6 +14,10 @@ internal sealed class IdentityProvider : IIdentityProvider
 
     public Guid GetUserId()
     {
+        if (_httpContextAccessor.HttpContext?.User.Identity is not { IsAuthenticated: true })
+        {
+            throw new UnauthorizedAccessException("User is not authenticated.");
+        }
         var user = _httpContextAccessor.HttpContext?.User.Claims
             .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         if (user == null) throw new UnauthorizedAccessException("User not found.");

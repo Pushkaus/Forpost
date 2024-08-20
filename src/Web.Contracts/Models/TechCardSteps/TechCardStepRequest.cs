@@ -1,6 +1,6 @@
 namespace Forpost.Web.Contracts.Models.TechCardSteps;
 
-internal sealed class TechCardStepRequest
+public sealed class TechCardStepRequest
 {
     public Guid TechCardId { get; set; }
     public Guid StepId { get; set; }

@@ -1,6 +1,6 @@
 namespace Forpost.Web.Contracts.Models.TechCardItems;
 
-internal sealed class TechCardItemsResponse
+public sealed class TechCardItemsResponse
 {
     public Guid TechCardId { get; set; }
 

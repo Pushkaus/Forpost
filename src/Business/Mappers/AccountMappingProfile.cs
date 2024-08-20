@@ -8,7 +8,8 @@ public sealed class AccountMappingProfile : Profile
 {
     public AccountMappingProfile()
     {
-        CreateMap<LoginUserModel, EmployeeWithRole>().ValidateMemberList(MemberList.Destination);
+        CreateMap<LoginUserModel, LoginModel>()
+            .ValidateMemberList(MemberList.Destination);
         /*CreateMap<RegisterUserModel, Employee>()
             .ForMember(x => x.Role, opt => opt.Ignore())
             .ValidateMemberList(MemberList.Destination);*/

@@ -15,7 +15,7 @@ internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeReposi
     public async Task<EmployeeWithRole?>
         GetAutorizedByUsernameAsync(string firstName, string lastName, CancellationToken cancellationToken)
     {
-        var userWithRole = await DbSet
+        var userWithRole = await DbSet.Where(entity => entity.FirstName == firstName && entity.LastName == lastName)
             .Join(
                 _db.Roles,
                 employee => employee.RoleId,
@@ -33,7 +33,7 @@ internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeReposi
                     PasswordHash = employee.PasswordHash
                 }
             )
-            .FirstOrDefaultAsync(e => e.FirstName == firstName && e.LastName == lastName);
+            .FirstOrDefaultAsync(cancellationToken);
 
         return userWithRole;
     }

@@ -1,6 +1,7 @@
 using Forpost.Common.EntityAnnotations;
 using Forpost.Common.Utils;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.ProductCreating;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +30,11 @@ public class ForpostContextPostgres : DbContext
     public DbSet<FileEntity> Files => Set<FileEntity>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Step> Issues => Set<Step>();
-    public DbSet<TechCard> TechnologicalProcesses => Set<TechCard>();
+    public DbSet<TechCard> TechCards => Set<TechCard>();
+    public DbSet<TechCardItem> TechCardItems => Set<TechCardItem>();
+    public DbSet<TechCardStep> TechCardSteps => Set<TechCardStep>();
+    public DbSet<CompletedProduct> CompletedProducts => Set<CompletedProduct>();
+    public DbSet<ProductDevelopment> ProductDevelopments => Set<ProductDevelopment>();
     public DbSet<Operation> Operations => Set<Operation>();
     public DbSet<Step> Steps => Set<Step>();
     
