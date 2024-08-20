@@ -1,4 +1,5 @@
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Repositories.Models.Employee;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;

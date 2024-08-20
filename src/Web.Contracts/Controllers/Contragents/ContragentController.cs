@@ -18,7 +18,7 @@ public sealed class ContragentController : ControllerBase
     }
 
     /// <summary>
-    ///     Добавление контрагента
+    /// Добавление контрагента
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
@@ -31,7 +31,7 @@ public sealed class ContragentController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить всех контрагентов
+    /// Получить всех контрагентов
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -43,7 +43,7 @@ public sealed class ContragentController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить контрагента по id
+    /// Получить контрагента по id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

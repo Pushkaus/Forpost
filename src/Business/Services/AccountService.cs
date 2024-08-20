@@ -6,6 +6,7 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Accounts;
 using Forpost.Common;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Forpost.Store.Repositories.Models.Employee;
 using Microsoft.AspNetCore.Identity;

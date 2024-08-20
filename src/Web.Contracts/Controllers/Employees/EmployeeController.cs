@@ -19,7 +19,7 @@ public sealed class EmployeeController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить список всех сотрудников
+    /// Получить список всех сотрудников
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeResponse>), StatusCodes.Status200OK)]

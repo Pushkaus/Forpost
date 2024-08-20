@@ -13,7 +13,7 @@ public static class ServiceCollectionExtentions
     }
 
     /// <summary>
-    ///     Зарегистрировать типы, реализующие интерфейсы, помеченные маркерным интерфейсом.
+    /// Зарегистрировать типы, реализующие интерфейсы, помеченные маркерным интерфейсом.
     /// </summary>
     public static IServiceCollection AddAllTypesAssignableMarkerInterfaceTo<TMarkerInterface>(
         this IServiceCollection services,
@@ -28,7 +28,7 @@ public static class ServiceCollectionExtentions
     }
 
     /// <summary>
-    ///     Зарегистрировать типы, реализующие интерфейсы, помеченные маркерным интерфейсом.
+    /// Зарегистрировать типы, реализующие интерфейсы, помеченные маркерным интерфейсом.
     /// </summary>
     public static IServiceCollection AddAllTypesAssignableMarkerInterfaceTo<TMarkerInterface>(
         this IServiceCollection services, Assembly assembly,
@@ -44,7 +44,7 @@ public static class ServiceCollectionExtentions
 
 
     /// <summary>
-    ///     Зарегистрировать сервисы, реализующий интерфейс
+    /// Зарегистрировать сервисы, реализующий интерфейс
     /// </summary>
     /// <param name="lifetime">Время жизни объекта</param>
     /// <typeparam name="TInterface">Тип интерфейса</typeparam>
@@ -61,7 +61,7 @@ public static class ServiceCollectionExtentions
     }
 
     /// <summary>
-    ///     Зарегистрировать сервисы, реализующий интерфейс
+    /// Зарегистрировать сервисы, реализующий интерфейс
     /// </summary>
     /// <param name="lifetime">Время жизни объекта</param>
     /// <typeparam name="TInterface">Тип интерфейса</typeparam>

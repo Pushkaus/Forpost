@@ -1,7 +1,7 @@
 using Forpost.Common.EntityAnnotations;
 using Forpost.Common.Utils;
-using Forpost.Store.Catalog;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

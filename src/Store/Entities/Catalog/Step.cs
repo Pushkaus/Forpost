@@ -1,40 +1,40 @@
 using Forpost.Common.EntityAnnotations;
 using Forpost.Store.Enums;
 
-namespace Forpost.Store.Entities;
+namespace Forpost.Store.Entities.Catalog;
 
 /// <summary>
-///     Этап
+/// Этап
 /// </summary>
 public sealed class Step : IEntity
 {
     /// <summary>
-    ///     Ссылка на тех.карту
+    /// Ссылка на тех.карту
     /// </summary>
     public Guid TechCardId { get; set; }
 
     /// <summary>
-    ///     Ссылка на операцию (пайка/мойка/сборка и тд)
+    /// Ссылка на операцию (пайка/мойка/сборка и тд)
     /// </summary>
     public Guid OperationId { get; set; }
 
     /// <summary>
-    ///     Описание задачи
+    /// Описание задачи
     /// </summary>
     public string? Description { get; set; }
 
     /// <summary>
-    ///     Длительность задачи
+    /// Длительность задачи
     /// </summary>
     public TimeSpan Duration { get; set; }
 
     /// <summary>
-    ///     Стоимость задачи
+    /// Стоимость задачи
     /// </summary>
     public decimal Cost { get; set; }
 
     /// <summary>
-    ///     Единица измерения
+    /// Единица измерения
     /// </summary>
     public UnitOfMeassure UnitOfMeassure { get; set; }
 

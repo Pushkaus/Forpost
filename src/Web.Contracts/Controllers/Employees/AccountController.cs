@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Forpost.Web.Contracts.Controllers.Employees;
 
 /// <summary>
-///     Контроллер для работы с сотрудниками
+/// Контроллер для работы с сотрудниками
 /// </summary>
 [ApiController]
 [Route("api/v1/accounts")]
@@ -21,7 +21,7 @@ public sealed class AccountController : ControllerBase
     private readonly IMapper _mapper;
 
     /// <summary>
-    ///     Регистрация сервиса Accountservice
+    /// Регистрация сервиса Accountservice
     /// </summary>
     /// <param name="accountService"></param>
     /// <param name="identityProvider"></param>
@@ -34,7 +34,7 @@ public sealed class AccountController : ControllerBase
     }
 
     /// <summary>
-    ///     Регистрация сотрудника
+    /// Регистрация сотрудника
     /// </summary>
     [HttpPost]
     [Authorize]
@@ -48,7 +48,7 @@ public sealed class AccountController : ControllerBase
     }
 
     /// <summary>
-    ///     Логин сотрудника
+    /// Логин сотрудника
     /// </summary>
     [HttpPost("login")]
     [Produces("application/json")]

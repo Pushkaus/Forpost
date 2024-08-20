@@ -1,7 +1,7 @@
 namespace Forpost.Common.EntityAnnotations;
 
 /// <summary>
-///     Маркерный интерфейс для сущности
+/// Маркерный интерфейс для сущности
 /// </summary>
 public interface IEntity
 {

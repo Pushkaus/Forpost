@@ -1,4 +1,5 @@
 ﻿using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

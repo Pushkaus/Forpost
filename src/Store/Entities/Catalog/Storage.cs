@@ -1,6 +1,6 @@
 using Forpost.Common.EntityAnnotations;
 
-namespace Forpost.Store.Entities;
+namespace Forpost.Store.Entities.Catalog;
 
 public class Storage : IAuditableEntity, IEntity
 {
@@ -8,7 +8,7 @@ public class Storage : IAuditableEntity, IEntity
     public string? Description { get; set; }
 
     /// <summary>
-    ///     Ответственный за склад
+    /// Ответственный за склад
     /// </summary>
     public Guid ResponsibleId { get; set; }
 

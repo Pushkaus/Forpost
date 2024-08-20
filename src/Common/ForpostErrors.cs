@@ -20,7 +20,7 @@ public static class ForpostErrors
     }
 
     /// <summary>
-    ///     Убедиться, что сущность найдена, иначе бросать <see cref="EntityNotFoundException" />
+    /// Убедиться, что сущность найдена, иначе бросать <see cref="EntityNotFoundException" />
     /// </summary>
     /// <param name="entity">Сущность БД</param>
     /// <param name="property">Указание на свойство, по которому производился поиск</param>
