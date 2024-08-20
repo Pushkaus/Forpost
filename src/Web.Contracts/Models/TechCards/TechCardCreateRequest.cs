@@ -1,6 +1,6 @@
-namespace Forpost.Business.Models.TechCards;
+namespace Forpost.Web.Contracts.Models.TechCards;
 
-public sealed class TechCardCreateModel
+internal sealed class TechCardCreateRequest
 {
     /// <summary>
     ///     Номер тех.карты

@@ -4,9 +4,9 @@ using Forpost.Web.Contracts.Models.Files;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public sealed class FileMapperProfile : Profile
+public sealed class FileMappingProfile : Profile
 {
-    public FileMapperProfile()
+    public FileMappingProfile()
     {
         CreateMap<UploadFileRequest, UploadFileModel>()
             .ForMember(dest => dest.FileName, opt => opt.MapFrom(src => src.File.FileName))

@@ -23,4 +23,8 @@
         <InternalsVisibleTo Include="$(CommonPrefix).UnitTests"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\CreatingProducts\" />
+    </ItemGroup>
+
 </Project>

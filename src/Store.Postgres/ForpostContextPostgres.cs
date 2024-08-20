@@ -31,6 +31,8 @@ public class ForpostContextPostgres : DbContext
     public DbSet<Step> Issues => Set<Step>();
     public DbSet<TechCard> TechnologicalProcesses => Set<TechCard>();
     public DbSet<Operation> Operations => Set<Operation>();
+    public DbSet<Step> Steps => Set<Step>();
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

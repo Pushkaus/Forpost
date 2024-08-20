@@ -8,11 +8,11 @@ namespace Forpost.Web.Contracts.Controllers.Contragents;
 [ApiController]
 [Route("api/v1/contragents")]
 //[Authorize]
-public sealed class ContragentController : ControllerBase
+public sealed class ContractorController : ControllerBase
 {
     private readonly IContragentService _contragentService;
 
-    public ContragentController(IContragentService contragentService)
+    public ContractorController(IContragentService contragentService)
     {
         _contragentService = contragentService;
     }
@@ -35,7 +35,7 @@ public sealed class ContragentController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<ContragentResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<ContractorResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
         var contragents = await _contragentService.GetAllAsync(cancellationToken);
@@ -48,7 +48,7 @@ public sealed class ContragentController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ContragentResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ContractorResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var contragent = await _contragentService.GetByIdAsync(id, cancellationToken);

@@ -26,6 +26,14 @@ internal sealed class TechCardStepService: ITechCardStepService
     public async Task<TechCardStep?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
         => await _techCardStepRepositrory.GetByIdAsync(id, cancellationToken);
 
+    public async Task<IReadOnlyCollection<StepsInTechCardModel>> GetStepsByTechCardIdAsync
+        (Guid techCardId, CancellationToken cancellationToken)
+    {
+        var model = await _techCardStepRepositrory.GetAllStepsByTechCardId(techCardId, cancellationToken);
+        var result = _mapper.Map<IReadOnlyCollection<StepsInTechCardModel>>(model);
+        return result;
+    }
+
     public async Task<IReadOnlyList<TechCardStep>> GetAllAsync(CancellationToken cancellationToken) 
         => await _techCardStepRepositrory.GetAllAsync(cancellationToken);
 

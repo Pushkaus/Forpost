@@ -1,8 +1,8 @@
 using Forpost.Store.Enums;
 
-namespace Forpost.Business.Models.Steps;
+namespace Forpost.Web.Contracts.Models.Steps;
 
-public sealed class StepCreateModel
+public sealed class StepCreateRequest
 {
     /// <summary>
     ///     Ссылка на тех.карту

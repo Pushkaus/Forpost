@@ -30,6 +30,13 @@ internal sealed class TechCardItemService: ITechCardItemService
     public async Task<IReadOnlyList<TechCardItem>> GetAllAsync(CancellationToken cancellationToken) 
         => await _techCardItemRepository.GetAllAsync(cancellationToken);
 
+    public async Task<IReadOnlyCollection<ItemsInTechCardModel>> GetAllItemsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
+    {
+        var items = await _techCardItemRepository.GetAllItemsByTechCardId(techCardId, cancellationToken);
+        var result = _mapper.Map<IReadOnlyCollection<ItemsInTechCardModel>>(items);
+        return result;
+    }
+
     public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken) 
         => await _techCardItemRepository.DeleteByIdAsync(id, cancellationToken);
 }
