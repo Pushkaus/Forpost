@@ -7,7 +7,7 @@ using InvoiceProduct = Forpost.Store.Entities.InvoiceProduct;
 
 namespace Forpost.Business.Mappers;
 
-public class InvoiceProductMappingProfile : Profile
+internal sealed class InvoiceProductMappingProfile : Profile
 {
     public InvoiceProductMappingProfile()
     {

@@ -4,7 +4,7 @@ using Forpost.Web.Contracts.Models.Invoices;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public class InvoiceMappingProfile : Profile
+internal sealed class InvoiceMappingProfile : Profile
 {
     public InvoiceMappingProfile()
     {

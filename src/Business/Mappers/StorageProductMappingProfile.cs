@@ -5,7 +5,7 @@ using Forpost.Store.Repositories.Models.StorageProduct;
 
 namespace Forpost.Business.Mappers;
 
-public class StorageProductMappingProfile : Profile
+internal sealed class StorageProductMappingProfile : Profile
 {
     public StorageProductMappingProfile()
     {

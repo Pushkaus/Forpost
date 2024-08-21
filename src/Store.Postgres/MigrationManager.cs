@@ -1,22 +1,26 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Forpost.Store.Postgres;
 
-public static class Mirgation
+public static class MigrationManager
 {
-    public static async Task StartMigrationWithFirstUser(ForpostContextPostgres context, ILogger logger)
+    public static async Task MigrateData(ForpostContextPostgres context)
     {
-        logger.LogInformation("Старт миграции с начальными данными");
         await GenerateFirstUser(context);
+    }
+
+    public static async Task MigrateSchema(ForpostContextPostgres context)
+    {
+        await context.Database.MigrateAsync();
     }
 
     public static async Task GenerateFirstUser(ForpostContextPostgres context)
     {
         var userId = new Guid("15492e30-8df3-132f-9de6-3fcd91e38923");
         var roleId = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5");
-        var createdAt = DateTimeOffset.UtcNow;
-        var passwordHash = "AQAAAAIAAYagAAAAEFfWkQvwd4hja19jKrd1rYqLWLwCv1cjfJKTXrOfI7wVn3n5GjQPaN7SGsKDJVD06w";
+        var createdAt = DateTimeOffset.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+   
+        const string passwordHash = "AQAAAAIAAYagAAAAEFfWkQvwd4hja19jKrd1rYqLWLwCv1cjfJKTXrOfI7wVn3n5GjQPaN7SGsKDJVD06w";
 
         var roleExists = await context.Roles.AnyAsync(r => r.Id == roleId);
 

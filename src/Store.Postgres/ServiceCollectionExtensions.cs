@@ -6,7 +6,7 @@ namespace Forpost.Store.Postgres;
 
 public static class ServiceCollectionExtensions
 {
-    private const string ConnectionName = "DBContext";
+    private const string ConnectionName = "ErpDatabase";
 
     public static IServiceCollection AddForpostContextPostgres(this IServiceCollection services,
         IConfiguration configuration)

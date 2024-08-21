@@ -4,7 +4,7 @@ using Forpost.Web.Contracts.Models.SubProducts;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public sealed class SubProductMappingProfile : Profile
+internal sealed class SubProductMappingProfile : Profile
 {
     public SubProductMappingProfile()
     {

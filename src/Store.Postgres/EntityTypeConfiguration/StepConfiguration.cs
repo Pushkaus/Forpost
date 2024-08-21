@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public class StepConfiguration : IEntityTypeConfiguration<Step>
+internal sealed class StepConfiguration : IEntityTypeConfiguration<Step>
 {
     public void Configure(EntityTypeBuilder<Step> builder)
     {
@@ -19,7 +19,7 @@ public class StepConfiguration : IEntityTypeConfiguration<Step>
             .WithMany()
             .HasForeignKey(key => key.TechCardId);
         
-        builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }
 }

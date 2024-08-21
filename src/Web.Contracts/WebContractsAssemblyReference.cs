@@ -1,14 +1,14 @@
 using System.Reflection;
 
-namespace Forpost.Web.Contracts.Settings;
+namespace Forpost.Web.Contracts;
 
 /// <summary>
 /// Класс предоставляющий ссылку на сборку, в которой он находится
 /// </summary>
-public static class WebAssemblyReference
+public static class WebContractsAssemblyReference
 {
     /// <summary>
     /// Получить сборку
     /// </summary>
-    public static Assembly Assembly => typeof(WebAssemblyReference).Assembly;
+    public static Assembly Assembly => typeof(WebContractsAssemblyReference).Assembly;
 }

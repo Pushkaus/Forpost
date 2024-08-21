@@ -16,7 +16,7 @@ internal sealed class ManufacturingProcessConfiguration : IEntityTypeConfigurati
             .WithMany()
             .HasForeignKey(key => key.TechnologicalCardId);
         
-        builder.Property(entity => entity.BatchNumber).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.BatchNumber).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }
 }

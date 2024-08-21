@@ -4,7 +4,7 @@ using Forpost.Web.Contracts.Models.Accounts;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public sealed class AccountMappingProfile : Profile
+internal sealed class AccountMappingProfile : Profile
 {
     public AccountMappingProfile()
     {

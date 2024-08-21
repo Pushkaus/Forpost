@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public sealed class StorageProductConfiguration : IEntityTypeConfiguration<StorageProduct>
+internal sealed class StorageProductConfiguration : IEntityTypeConfiguration<StorageProduct>
 {
     public void Configure(EntityTypeBuilder<StorageProduct> builder)
     {

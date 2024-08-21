@@ -1,7 +1,4 @@
 using Forpost.Store.Postgres;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-using Serilog.Events;
 
 namespace Forpost.Web.Host;
 
@@ -9,30 +6,27 @@ internal sealed class Program
 {
     public static async Task Main(string[] args)
     {
-        var host = CreateHostBuilder(args, b => ConfigureWebHostBuilder(b))
-            .Build();
-
-        var configuration = host.Services.GetRequiredService<IConfiguration>();
-
-        ConfigureLogger(configuration);
-
-        Log.Information("Сервис запущен");
-
-        await Task.Delay(1000);
-
+        var host = CreateHostBuilder(args, ConfigureWebHostBuilder).Build();
+        var logger = host.Services.GetRequiredService<ILogger<Program>>();
+        
         using (var scope = host.Services.CreateScope())
         {
             var services = scope.ServiceProvider;
             try
             {
                 var context = services.GetRequiredService<ForpostContextPostgres>();
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                await context.Database.MigrateAsync();
-                await Mirgation.StartMigrationWithFirstUser(context, logger);
+                
+                logger.LogInformation("Старт миграции БД ErpDatabase");
+                await MigrationManager.MigrateSchema(context); 
+                logger.LogInformation("Миграция схемы произошла успешно!");
+                
+                logger.LogInformation("Старт миграции данных");
+                await MigrationManager.MigrateData(context);
+                logger.LogInformation("Старт миграции прошла успешно");
             }
             catch (Exception ex)
             {
-                Log.Error($"Ошибка при выполнении стартовой миграции: {ex}", ex);
+                logger.LogError(ex, "Не удалось выполнить миграцию.");
             }
         }
 
@@ -43,24 +37,8 @@ internal sealed class Program
     {
         return Microsoft.Extensions.Hosting.Host
             .CreateDefaultBuilder()
-            .UseSerilog()
             .ConfigureWebHostDefaults(webHostBuilderConfigurator);
     }
 
-    private static IWebHostBuilder ConfigureWebHostBuilder(IWebHostBuilder webHostBuilder)
-    {
-        return webHostBuilder
-            .UseStartup<Startup>();
-    }
-
-    private static void ConfigureLogger(IConfiguration configuration)
-    {
-        var serverUrl = configuration["Serilog:WriteTo:0:Args:serverUrl"];
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Information()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-            .Enrich.FromLogContext()
-            .WriteTo.Seq(serverUrl)
-            .CreateBootstrapLogger();
-    }
+    private static void ConfigureWebHostBuilder(IWebHostBuilder webHostBuilder) => webHostBuilder.UseStartup<Startup>();
 }

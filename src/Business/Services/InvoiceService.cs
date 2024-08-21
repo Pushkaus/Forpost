@@ -16,12 +16,14 @@ internal sealed class InvoiceService : IInvoiceService
 {
     private readonly IInvoiceRepository _invoiceRepository;
     private readonly IMapper _mapper;
+    private readonly TimeProvider _timeProvider;
 
 
-    public InvoiceService(IInvoiceRepository invoiceRepository, IMapper mapper)
+    public InvoiceService(IInvoiceRepository invoiceRepository, IMapper mapper, TimeProvider timeProvider)
     {
         _invoiceRepository = invoiceRepository;
         _mapper = mapper;
+        _timeProvider = timeProvider;
     }
 
     public async Task<Invoice?> GetByNumberAsync(string number, CancellationToken cancellationToken)
@@ -46,7 +48,7 @@ internal sealed class InvoiceService : IInvoiceService
     public async Task CloseAsync(InvoiceUpdateModel model, CancellationToken cancellationToken)
     {
         model.IssueStatus = IssueStatus.Completed;
-        model.DateShipment = DateTimeOffset.UtcNow;
+        model.DateShipment = _timeProvider.GetUtcNow();
         var invoice = _mapper.Map<Invoice>(model);
         await _invoiceRepository.UpdateAsync(invoice, cancellationToken);
     }

@@ -4,7 +4,7 @@ using Forpost.Web.Contracts.Models.Files;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public sealed class FileMapperProfile : Profile
+internal sealed class FileMapperProfile : Profile
 {
     public FileMapperProfile()
     {

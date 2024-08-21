@@ -14,7 +14,7 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
             .WithMany()
             .HasForeignKey(key => key.CategoryId);
         
-        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }
 }

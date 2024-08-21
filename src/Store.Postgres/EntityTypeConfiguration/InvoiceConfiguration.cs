@@ -15,7 +15,7 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
             .WithMany()
             .HasForeignKey(key => key.ContragentId);
         
-        builder.Property(entity => entity.Number).HasMaxLength(DatabaseConstrains.MaxLenght);
-        builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Number).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);
     }
 }

@@ -5,7 +5,7 @@ using Forpost.Store.Entities.Catalog;
 
 namespace Forpost.Business.Mappers;
 
-public class StorageMappingProfile : Profile
+internal sealed class StorageMappingProfile : Profile
 {
     public StorageMappingProfile()
     {

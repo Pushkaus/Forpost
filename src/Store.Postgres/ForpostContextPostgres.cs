@@ -2,21 +2,20 @@ using Forpost.Common.EntityAnnotations;
 using Forpost.Common.Utils;
 using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Forpost.Store.Postgres;
 
-public class ForpostContextPostgres : DbContext
+public sealed class ForpostContextPostgres : DbContext
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IIdentityProvider _identityProvider;
-
+    private readonly TimeProvider _timeProvider;
     public ForpostContextPostgres(DbContextOptions<ForpostContextPostgres> options,
-        IHttpContextAccessor httpContextAccessor, IIdentityProvider identityProvider) : base(options)
+         IIdentityProvider identityProvider, TimeProvider timeProvider) : base(options)
     {
-        _httpContextAccessor = httpContextAccessor;
         _identityProvider = identityProvider;
+        _timeProvider = timeProvider;
     }
 
     public DbSet<Employee> Employees => Set<Employee>();
@@ -41,33 +40,35 @@ public class ForpostContextPostgres : DbContext
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var auditableEntries = ChangeTracker.Entries<IAuditableEntity>();
+        var auditableEntries = ChangeTracker.Entries<IAuditableEntity>().ToArray();
 
-        if (auditableEntries.Any())
-        {
-            var userId = _identityProvider.GetUserId();
-            foreach (var entry in auditableEntries)
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.CreatedAt = DateTimeOffset.UtcNow;
-                        entry.Entity.CreatedById = userId;
-                        entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
-                        entry.Entity.UpdatedById = userId;
-                        break;
-                    case EntityState.Modified:
-                        entry.Property(e => e.CreatedAt).IsModified = false;
-                        entry.Property(e => e.CreatedById).IsModified = false;
-                        entry.Entity.UpdatedAt = DateTimeOffset.UtcNow;
-                        entry.Entity.UpdatedById = userId;
-                        break;
-                    case EntityState.Deleted:
-                        entry.Entity.DeletedAt = DateTimeOffset.UtcNow;
-                        entry.Entity.DeletedById = userId;
-                        entry.State = EntityState.Modified;
-                        break;
-                }
-        }
+        if (auditableEntries.Length == 0)
+            return await base.SaveChangesAsync(cancellationToken);
+        
+        var userId = _identityProvider.GetUserId() ?? 
+                     throw new InvalidOperationException("Пользователи, модифицирующий сущности обязан быть авторизованным");
+        
+        foreach (var entry in auditableEntries)
+            switch (entry.State)
+            {
+                case EntityState.Added:
+                    entry.Entity.CreatedAt = _timeProvider.GetUtcNow();
+                    entry.Entity.CreatedById = userId;
+                    entry.Entity.UpdatedAt = _timeProvider.GetUtcNow();
+                    entry.Entity.UpdatedById = userId;
+                    break;
+                case EntityState.Modified:
+                    entry.Property(e => e.CreatedAt).IsModified = false;
+                    entry.Property(e => e.CreatedById).IsModified = false;
+                    entry.Entity.UpdatedAt = _timeProvider.GetUtcNow();
+                    entry.Entity.UpdatedById = userId;
+                    break;
+                case EntityState.Deleted:
+                    entry.Entity.DeletedAt = _timeProvider.GetUtcNow();
+                    entry.Entity.DeletedById = userId;
+                    entry.State = EntityState.Modified;
+                    break;
+            }
 
         return await base.SaveChangesAsync(cancellationToken);
     }
