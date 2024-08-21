@@ -16,13 +16,12 @@ internal sealed class Program
             {
                 var context = services.GetRequiredService<ForpostContextPostgres>();
                 
-                logger.LogInformation("Старт миграции БД ErpDatabase");
+                logger.LogDebug("Старт миграции БД ErpDatabase");
                 await MigrationManager.MigrateSchema(context); 
-                logger.LogInformation("Миграция схемы произошла успешно!");
-                
-                logger.LogInformation("Старт миграции данных");
+                logger.LogDebug("Миграция схемы произошла успешно!");
+                logger.LogDebug("Старт миграции данных");
                 await MigrationManager.MigrateData(context);
-                logger.LogInformation("Старт миграции прошла успешно");
+                logger.LogDebug("Старт миграции прошла успешно");
             }
             catch (Exception ex)
             {

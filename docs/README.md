@@ -3,3 +3,11 @@
 ```shell
 docker-compose up --build
 ```
+#### Остановить и удалить все контейнеры
+```shell
+docker-compose down
+```
+#### "Мужицкий" перезапуск
+```shell
+docker-compose down; docker-compose up --build
+```

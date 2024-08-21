@@ -22,12 +22,12 @@ internal sealed class HttpRequestLoggingMiddleware
         var userId = _identityProvider.GetUserId().ToString();
         var displayId = string.IsNullOrEmpty(userId) ? "Anonymous" : userId;
         
-        _logger.LogInformation("Incoming HTTP request: {Method} {Path}, User ID: {UserId}",
+        _logger.LogDebug("Incoming HTTP request: {Method} {Path}, User ID: {UserId}",
             context.Request.Method, context.Request.Path, displayId);
 
         await _next(context);
 
-        _logger.LogInformation("Outgoing HTTP response: {StatusCode}, User ID: {UserId}",
+        _logger.LogDebug("Outgoing HTTP response: {StatusCode}, User ID: {UserId}",
             context.Response.StatusCode, displayId);
     }
 }
