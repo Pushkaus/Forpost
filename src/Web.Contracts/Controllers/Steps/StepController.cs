@@ -2,6 +2,7 @@ using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Steps;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Web.Contracts.Models.Steps;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

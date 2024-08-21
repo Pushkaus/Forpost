@@ -7,7 +7,7 @@ namespace Forpost.Business.Mappers;
 
 internal sealed class TechCardStepMappingProfile: Profile
 {
-    internal TechCardStepMappingProfile()
+    public TechCardStepMappingProfile()
     {
         CreateMap<StepsInTechCard, StepsInTechCardModel>().ValidateMemberList(MemberList.Destination);
     }

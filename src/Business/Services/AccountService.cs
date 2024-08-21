@@ -42,12 +42,10 @@ internal sealed class AccountService : IAccountService
 
     public async Task<string> LoginAsync(LoginUserModel model, CancellationToken cancellationToken)
     {
-        var user = _mapper.Map<EmployeeWithRole>(model);
-
         // При добавлении нового пользователя его пароль хэшируется с добавлением соли
         var employee =
-            await _employeeRepository.GetAutorizedByUsernameAsync(user.FirstName, user.LastName, cancellationToken);
-
+            await _employeeRepository.GetAutorizedByUsernameAsync(model.FirstName, model.LastName, cancellationToken);
+        
         if (employee == null) throw ForpostErrors.Validation("Неверное имя пользователя или пароль.");
         var verificationResult = _passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, model.Password);
 

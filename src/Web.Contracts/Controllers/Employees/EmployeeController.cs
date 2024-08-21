@@ -8,7 +8,6 @@ namespace Forpost.Web.Contracts.Controllers.Employees;
 
 [ApiController]
 [Route("api/v1/employees")]
-[Authorize]
 public sealed class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;

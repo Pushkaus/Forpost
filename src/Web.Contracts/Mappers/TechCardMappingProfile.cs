@@ -6,7 +6,7 @@ namespace Forpost.Web.Contracts.Mappers;
 
 internal sealed class TechCardMappingProfile: Profile
 {
-    internal TechCardMappingProfile()
+    public TechCardMappingProfile()
     {
         CreateMap<TechCardCreateRequest, TechCardCreateModel>().ValidateMemberList(MemberList.Destination);
     }

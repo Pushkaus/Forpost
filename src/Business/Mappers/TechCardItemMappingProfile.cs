@@ -6,7 +6,7 @@ namespace Forpost.Business.Mappers;
 
 internal sealed class TechCardItemMappingProfile: Profile
 {
-    internal TechCardItemMappingProfile()
+    public TechCardItemMappingProfile()
     {
         CreateMap<ItemsInTechCard, ItemsInTechCardModel>().ValidateMemberList(MemberList.Destination);
     }

@@ -2,6 +2,7 @@ using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.TechCardItems;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Web.Contracts.Models.TechCardItems;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,11 +44,9 @@ public sealed class TechCardItemController: ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<Guid> CreateAsync(TechCardItem techCardItem, CancellationToken cancellationToken)
-    {
-        var model = _mapper.Map<TechCardItemCreateModel>(techCardItem);
-        return await _techCardItemService.AddAsync(model, cancellationToken);
-    }
+    public async Task<Guid> CreateAsync(TechCardItem techCardItem, CancellationToken cancellationToken) 
+        => await _techCardItemService.AddAsync(techCardItem, cancellationToken);
+
     /// <summary>
     /// Удаление компонента из тех.карты
     /// </summary>

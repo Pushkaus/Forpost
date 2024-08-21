@@ -2,7 +2,9 @@ using AutoMapper;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.TechCardItems;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Repositories.Abstract;
+using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;
 
@@ -18,10 +20,9 @@ internal sealed class TechCardItemService: ITechCardItemService
         _mapper = mapper;
     }
 
-    public async Task<Guid> AddAsync(TechCardItemCreateModel model, CancellationToken cancellationToken)
+    public async Task<Guid> AddAsync(TechCardItem model, CancellationToken cancellationToken)
     {
-        var techCardItem = _mapper.Map<TechCardItem>(model);
-        return await _techCardItemRepository.AddAsync(techCardItem, cancellationToken);
+        return await _techCardItemRepository.AddAsync(model, cancellationToken);
     }
 
     public async Task<TechCardItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 

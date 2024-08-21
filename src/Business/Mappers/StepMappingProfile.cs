@@ -1,14 +1,14 @@
 using AutoMapper;
 using Forpost.Business.Models.Steps;
 using Forpost.Store.Entities;
-using Forpost.Web.Contracts.Models.Steps;
+using Forpost.Store.Entities.Catalog;
 
-namespace Forpost.Web.Contracts.Mappers;
+namespace Forpost.Business.Mappers;
 
 internal sealed class StepMappingProfile: Profile
 {
     public StepMappingProfile()
     {
-        CreateMap<StepCreateRequest, StepCreateModel>().ValidateMemberList(MemberList.Destination);
+        CreateMap<StepCreateModel, Step>().ValidateMemberList(MemberList.Destination);
     }
 }
