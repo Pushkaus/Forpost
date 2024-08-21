@@ -1,11 +1,13 @@
 using AutoMapper;
 using Forpost.Business.Models.InvoiceProducts;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
+using Forpost.Store.Repositories.Models.InvoiceProduct;
 using InvoiceProduct = Forpost.Store.Entities.InvoiceProduct;
 
 namespace Forpost.Business.Mappers;
 
-public class InvoiceProductMappingProfile : Profile
+internal sealed class InvoiceProductMappingProfile : Profile
 {
     public InvoiceProductMappingProfile()
     {

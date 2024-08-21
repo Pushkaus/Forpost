@@ -6,6 +6,7 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Accounts;
 using Forpost.Common;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Forpost.Store.Repositories.Models.Employee;
 using Microsoft.AspNetCore.Identity;
@@ -47,11 +48,11 @@ internal sealed class AccountService : IAccountService
         var employee =
             await _employeeRepository.GetAutorizedByUsernameAsync(user.FirstName, user.LastName, cancellationToken);
 
-        if (employee == null) throw new UnauthorizedAccessException("Неверное имя пользователя или пароль.");
+        if (employee == null) throw ForpostErrors.Validation("Неверное имя пользователя или пароль.");
         var verificationResult = _passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, model.Password);
 
         if (verificationResult == PasswordVerificationResult.Failed)
-            throw new UnauthorizedAccessException("Неверное имя пользователя или пароль.");
+            throw ForpostErrors.Validation("Неверное имя пользователя или пароль.");
         _logger.LogInformation("Авторизовался {employee}", employee.LastName);
         var token = GenerateJwtToken(employee);
         return token;

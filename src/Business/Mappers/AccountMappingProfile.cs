@@ -4,7 +4,7 @@ using Forpost.Store.Repositories.Models.Employee;
 
 namespace Forpost.Business.Mappers;
 
-public sealed class AccountMappingProfile : Profile
+internal sealed class AccountMappingProfile : Profile
 {
     public AccountMappingProfile()
     {

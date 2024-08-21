@@ -4,7 +4,7 @@ using Forpost.Store.Entities;
 
 namespace Forpost.Business.Mappers;
 
-public sealed class InvoiceMappingProfile : Profile
+internal sealed class InvoiceMappingProfile : Profile
 {
     public InvoiceMappingProfile()
     {

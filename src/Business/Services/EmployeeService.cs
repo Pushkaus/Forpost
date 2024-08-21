@@ -1,5 +1,6 @@
 using Forpost.Business.Abstract.Services;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Business.Services;

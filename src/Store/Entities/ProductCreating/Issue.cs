@@ -4,42 +4,42 @@ using Forpost.Store.Enums;
 namespace Forpost.Store.Entities.ProductCreating;
 
 /// <summary>
-///     Задача. Участвует в производственном процессе
+/// Задача. Участвует в производственном процессе
 /// </summary>
 public class Issue : IEntity, IAuditableEntity, ITimeFrameEntity
 {
     /// <summary>
-    ///     Ссылка на производственный процесс этой задачи
+    /// Ссылка на производственный процесс этой задачи
     /// </summary>
     public Guid ManufacturingProcessId { get; set; }
 
     /// <summary>
-    ///     Ссылка на этап из тех.карты
+    /// Ссылка на этап из тех.карты
     /// </summary>
     public Guid StepId { get; set; }
 
     /// <summary>
-    ///     Ссылка на детали задачи
+    /// Ссылка на детали задачи
     /// </summary>
     public Guid IssueDetailsId { get; set; }
 
     /// <summary>
-    ///     Исполнитель задачи
+    /// Исполнитель задачи
     /// </summary>
     public Guid ExecutorId { get; set; }
 
     /// <summary>
-    ///     Ответственный над исполнителем
+    /// Ответственный над исполнителем
     /// </summary>
     public Guid ResponsibleId { get; set; }
 
     /// <summary>
-    ///     Комментарий по работе
+    /// Комментарий по работе
     /// </summary>
     public string? Description { get; set; }
 
     /// <summary>
-    ///     Текущее количество
+    /// Текущее количество
     /// </summary>
     public int CurrentQuantity { get; set; }
 
@@ -53,12 +53,12 @@ public class Issue : IEntity, IAuditableEntity, ITimeFrameEntity
     public Guid Id { get; set; }
 
     /// <summary>
-    ///     Дата начала выполнения задачи
+    /// Дата начала выполнения задачи
     /// </summary>
     public DateTimeOffset StartTime { get; set; }
 
     /// <summary>
-    ///     Дата завершения выполнения задачи
+    /// Дата завершения выполнения задачи
     /// </summary>
     public DateTimeOffset EndTime { get; set; }
 }

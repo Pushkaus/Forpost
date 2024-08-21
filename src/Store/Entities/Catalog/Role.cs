@@ -1,6 +1,6 @@
 ﻿using Forpost.Common.EntityAnnotations;
 
-namespace Forpost.Store.Entities;
+namespace Forpost.Store.Entities.Catalog;
 
 public sealed class Role : IEntity
 {

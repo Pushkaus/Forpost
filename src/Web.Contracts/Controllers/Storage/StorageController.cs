@@ -24,7 +24,7 @@ public sealed class StorageController : ControllerBase
     }
 
     /// <summary>
-    ///     Создание нового склада
+    /// Создание нового склада
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -39,7 +39,7 @@ public sealed class StorageController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить список всех складов
+    /// Получить список всех складов
     /// </summary>
     /// <returns></returns>
     [HttpGet]

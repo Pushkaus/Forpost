@@ -1,5 +1,5 @@
-using Forpost.Store.Catalog;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Entities.ProductCreating;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -16,7 +16,7 @@ internal sealed class ManufacturingProcessConfiguration : IEntityTypeConfigurati
             .WithMany()
             .HasForeignKey(key => key.TechnologicalCardId);
         
-        builder.Property(entity => entity.BatchNumber).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.BatchNumber).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }
 }

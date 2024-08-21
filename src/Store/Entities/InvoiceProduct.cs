@@ -3,7 +3,7 @@ using Forpost.Common.EntityAnnotations;
 namespace Forpost.Store.Entities;
 
 /// <summary>
-///     Состав счета
+/// Состав счета
 /// </summary>
 public sealed class InvoiceProduct : IEntity
 {

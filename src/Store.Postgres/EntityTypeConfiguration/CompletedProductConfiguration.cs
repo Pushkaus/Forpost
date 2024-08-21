@@ -1,4 +1,5 @@
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Entities.ProductCreating;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -19,7 +20,7 @@ internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<C
             .WithOne()
             .HasForeignKey<CompletedProduct>(key => key.ManufacturingProcessId);
         
-        builder.Property(entity => entity.SerialNumber).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.SerialNumber).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }
 }

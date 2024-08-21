@@ -12,11 +12,13 @@ internal sealed class IdentityProvider : IIdentityProvider
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Guid GetUserId()
+    public Guid? GetUserId()
     {
-        var user = _httpContextAccessor.HttpContext?.User.Claims
+        var userId = _httpContextAccessor.HttpContext?.User.Claims
             .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        if (user == null) throw new UnauthorizedAccessException("User not found.");
-        return Guid.Parse(user);
+
+        if (Guid.TryParse(userId, out var result)) return result;
+        
+        return null;
     }
 }

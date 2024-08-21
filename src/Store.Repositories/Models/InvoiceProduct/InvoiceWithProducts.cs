@@ -1,4 +1,4 @@
-namespace Forpost.Business.Models.InvoiceProducts;
+namespace Forpost.Store.Repositories.Models.InvoiceProduct;
 
 public class InvoiceWithProducts
 {
