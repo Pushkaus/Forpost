@@ -1,12 +1,7 @@
 namespace Forpost.Common.Exceptions;
 
-public abstract class ForpostExceptionBase : Exception, IErrorDescription
+public abstract class ForpostExceptionBase(string message) : Exception(message), IErrorDescription
 {
-    public ForpostExceptionBase(string message)
-        : base(message)
-    {
-    }
-
     public abstract string ErrorCode { get; }
     public virtual string ShortDescription => string.Empty;
 }

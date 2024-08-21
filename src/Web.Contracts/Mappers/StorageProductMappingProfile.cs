@@ -4,7 +4,7 @@ using Forpost.Web.Contracts.Models.StorageProduct;
 
 namespace Forpost.Web.Contracts.Mappers;
 
-public class StorageProductMappingProfile : Profile
+internal sealed class StorageProductMappingProfile : Profile
 {
     public StorageProductMappingProfile()
     {

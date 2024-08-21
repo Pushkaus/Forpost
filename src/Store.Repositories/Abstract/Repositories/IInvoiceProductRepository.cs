@@ -1,5 +1,5 @@
-using Forpost.Business.Models.InvoiceProducts;
 using Forpost.Store.Entities;
+using Forpost.Store.Repositories.Models.InvoiceProduct;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 

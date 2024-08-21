@@ -23,7 +23,7 @@ public sealed class ProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Получение всех продуктов
+    /// Получение всех продуктов
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -35,7 +35,7 @@ public sealed class ProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Получение продукта по id
+    /// Получение продукта по id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -48,7 +48,7 @@ public sealed class ProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Создать продукт
+    /// Создать продукт
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -63,7 +63,7 @@ public sealed class ProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Обновление продукта по id
+    /// Обновление продукта по id
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -78,7 +78,7 @@ public sealed class ProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Удаление продукта по id
+    /// Удаление продукта по id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

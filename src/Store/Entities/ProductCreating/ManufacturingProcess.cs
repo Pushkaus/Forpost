@@ -7,17 +7,17 @@ public sealed class ManufacturingProcess : IEntity, IAuditableEntity, ITimeFrame
     public Guid TechnologicalCardId { get; set; }
 
     /// <summary>
-    ///     Номер партии
+    /// Номер партии
     /// </summary>
     public string BatchNumber { get; set; } = null!;
 
     /// <summary>
-    ///     Текущее количество продукта из производственного процесса
+    /// Текущее количество продукта из производственного процесса
     /// </summary>
     public int CurrentQuantity { get; set; }
 
     /// <summary>
-    ///     Целевое количество продукта в производственном процессе
+    /// Целевое количество продукта в производственном процессе
     /// </summary>
     public int TargetQuantity { get; set; }
 
@@ -30,12 +30,12 @@ public sealed class ManufacturingProcess : IEntity, IAuditableEntity, ITimeFrame
     public Guid Id { get; set; }
 
     /// <summary>
-    ///     Дата начала выполнения производственного процесса
+    /// Дата начала выполнения производственного процесса
     /// </summary>
     public DateTimeOffset StartTime { get; set; }
 
     /// <summary>
-    ///     Дата завершения выполнения производственного процесса
+    /// Дата завершения выполнения производственного процесса
     /// </summary>
     public DateTimeOffset EndTime { get; set; }
 }

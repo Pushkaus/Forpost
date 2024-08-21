@@ -1,4 +1,5 @@
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,7 +15,7 @@ internal sealed class StorageConfiguration : IEntityTypeConfiguration<Storage>
             .WithOne()
             .HasForeignKey<Storage>(key => key.ResponsibleId);
         
-        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLenght);
-        builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);
     }
 }

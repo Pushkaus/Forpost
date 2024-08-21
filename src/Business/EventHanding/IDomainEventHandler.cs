@@ -1,13 +1,13 @@
 namespace Forpost.Business.EventHanding;
 
 /// <summary>
-///     Обработчик доменного события
+/// Обработчик доменного события
 /// </summary>
 /// <typeparam name="TDomainEvent">Тип доменного события</typeparam>
 public interface IDomainEventHandler<in TDomainEvent> : IDomainEventHandler where TDomainEvent : IDomainEvent
 {
     /// <summary>
-    ///     Обработать событие
+    /// Обработать событие
     /// </summary>
     /// <param name="domainEvent">Событие</param>
     /// <param name="cancellationToken">Токен отмены</param>

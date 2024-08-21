@@ -1,4 +1,5 @@
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,7 +14,7 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
             .WithMany()
             .HasForeignKey(key => key.CategoryId);
         
-        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }
 }

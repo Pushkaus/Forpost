@@ -1,4 +1,5 @@
 ﻿using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,13 +15,13 @@ internal class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
             .WithMany()
             .HasForeignKey(key => key.RoleId);
         
-        builder.Property(entity => entity.FirstName).HasMaxLength(DatabaseConstrains.MaxLenght);
-        builder.Property(entity => entity.LastName).HasMaxLength(DatabaseConstrains.MaxLenght);
-        builder.Property(entity => entity.Patronymic).HasMaxLength(DatabaseConstrains.MaxLenght);
-        builder.Property(entity => entity.Post).HasMaxLength(DatabaseConstrains.MaxLenght);
-        builder.Property(entity => entity.Email).HasMaxLength(DatabaseConstrains.MaxLenght);
-        builder.Property(entity => entity.PhoneNumber).HasMaxLength(DatabaseConstrains.MaxLenght);
-        builder.Property(entity => entity.PasswordHash).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.FirstName).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.LastName).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.Patronymic).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.Post).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.Email).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.PhoneNumber).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.PasswordHash).HasMaxLength(DatabaseConstrains.MaxLength);
 
 
 

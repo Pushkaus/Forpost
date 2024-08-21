@@ -4,7 +4,7 @@ using Forpost.Store.Enums;
 namespace Forpost.Store.Entities.ProductCreating;
 
 /// <summary>
-///     Завершенный продукт
+/// Завершенный продукт
 /// </summary>
 public sealed class CompletedProduct : IEntity
 {
@@ -12,17 +12,17 @@ public sealed class CompletedProduct : IEntity
     public Guid ManufacturingProcessId { get; set; }
 
     /// <summary>
-    ///     Серийный номер продукта
+    /// Серийный номер продукта
     /// </summary>
     public string SerialNumber { get; set; } = null!;
 
     /// <summary>
-    ///     Вариант настройки
+    /// Вариант настройки
     /// </summary>
     public SettingOption? SettingOption { get; set; }
 
     /// <summary>
-    ///     Номер счета, в который уйдет продукт
+    /// Номер счета, в который уйдет продукт
     /// </summary>
     public Guid? InvoiceId { get; set; }
 

@@ -19,7 +19,7 @@ public sealed class RoleController : ControllerBase
     }
 
     /// <summary>
-    ///     Создать новую роль
+    /// Создать новую роль
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -30,7 +30,7 @@ public sealed class RoleController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить все роли
+    /// Получить все роли
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -42,7 +42,7 @@ public sealed class RoleController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить роль по id
+    /// Получить роль по id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

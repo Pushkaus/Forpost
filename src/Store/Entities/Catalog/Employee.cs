@@ -1,46 +1,46 @@
 ﻿using Forpost.Common.EntityAnnotations;
 
-namespace Forpost.Store.Entities;
+namespace Forpost.Store.Entities.Catalog;
 
 public sealed class Employee : IAuditableEntity, IEntity
 {
     /// <summary>
-    ///     Имя сотрудника
+    /// Имя сотрудника
     /// </summary>
     public string FirstName { get; set; } = null!;
 
     /// <summary>
-    ///     Фамилия сотрудника
+    /// Фамилия сотрудника
     /// </summary>
     public string LastName { get; set; } = null!;
 
     /// <summary>
-    ///     Отчество сотрудника
+    /// Отчество сотрудника
     /// </summary>
     public string? Patronymic { get; set; }
 
     /// <summary>
-    ///     Должность сотрудника
+    /// Должность сотрудника
     /// </summary>
     public string Post { get; set; } = null!;
 
     /// <summary>
-    ///     Id на роль в приложении
+    /// Id на роль в приложении
     /// </summary>
     public Guid RoleId { get; set; }
 
     /// <summary>
-    ///     Почта сотрудника
+    /// Почта сотрудника
     /// </summary>
     public string? Email { get; set; }
 
     /// <summary>
-    ///     Номер телефона сотрудника
+    /// Номер телефона сотрудника
     /// </summary>
     public string PhoneNumber { get; set; } = null!;
 
     /// <summary>
-    ///     Пароль сотрудника
+    /// Пароль сотрудника
     /// </summary>
     public string PasswordHash { get; set; } = null!;
 

@@ -2,7 +2,7 @@ using Forpost.Common.Utils;
 
 namespace Forpost.Web.Host.Middlewares;
 
-public class HttpRequestLoggingMiddleware
+internal sealed class HttpRequestLoggingMiddleware
 {
     private readonly IIdentityProvider _identityProvider;
     private readonly ILogger<HttpRequestLoggingMiddleware> _logger;
@@ -19,36 +19,21 @@ public class HttpRequestLoggingMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        string userId = "Anonymous";
-        try
-        {
-            if (context.User.Identity != null && context.User.Identity.IsAuthenticated)
-            {
-                userId = _identityProvider.GetUserId().ToString();
-            }
-        }
-        catch (UnauthorizedAccessException)
-        {
-            _logger.LogWarning("User is not authorized.");
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            await context.Response.WriteAsync("User is not authorized.");
-            return;
-        }
-
-        _logger.LogInformation("Incoming HTTP request: {Method} {Path}, User ID: {UserId}",
-            context.Request.Method, context.Request.Path, userId);
+        var userId = _identityProvider.GetUserId().ToString();
+        var displayId = string.IsNullOrEmpty(userId) ? "Anonymous" : userId;
+        
+        _logger.LogDebug("Incoming HTTP request: {Method} {Path}, User ID: {UserId}",
+            context.Request.Method, context.Request.Path, displayId);
 
         await _next(context);
 
-        _logger.LogInformation("Outgoing HTTP response: {StatusCode}, User ID: {UserId}",
-            context.Response.StatusCode, userId);
+        _logger.LogDebug("Outgoing HTTP response: {StatusCode}, User ID: {UserId}",
+            context.Response.StatusCode, displayId);
     }
 }
 
-public static class HttpRequestLoggingMiddlewareExtensions
+internal static class HttpRequestLoggingMiddlewareExtensions
 {
-    public static IApplicationBuilder UseHttpRequestLoggingWithEmployeeId(this IApplicationBuilder builder)
-    {
-        return builder.UseMiddleware<HttpRequestLoggingMiddleware>();
-    }
+    public static IApplicationBuilder UseHttpRequestLoggingWithEmployeeId(this IApplicationBuilder builder) => 
+        builder.UseMiddleware<HttpRequestLoggingMiddleware>();
 }

@@ -23,7 +23,7 @@ public sealed class StorageProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить список всех продуктов
+    /// Получить список всех продуктов
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
@@ -36,7 +36,7 @@ public sealed class StorageProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Добавить продукт на склад
+    /// Добавить продукт на склад
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -51,7 +51,7 @@ public sealed class StorageProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Получение информации о продукте на складе
+    /// Получение информации о продукте на складе
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -64,7 +64,7 @@ public sealed class StorageProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Обновление продукта на складе
+    /// Обновление продукта на складе
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>

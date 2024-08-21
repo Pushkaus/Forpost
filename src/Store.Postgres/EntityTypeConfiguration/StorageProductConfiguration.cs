@@ -1,10 +1,11 @@
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-public sealed class StorageProductConfiguration : IEntityTypeConfiguration<StorageProduct>
+internal sealed class StorageProductConfiguration : IEntityTypeConfiguration<StorageProduct>
 {
     public void Configure(EntityTypeBuilder<StorageProduct> builder)
     {
