@@ -1,3 +1,4 @@
+using AutoMapper;
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
@@ -8,7 +9,8 @@ namespace Forpost.Store.Repositories;
 
 internal sealed class StorageProductRepository : Repository<StorageProduct>, IStorageProductRepository
 {
-    public StorageProductRepository(ForpostContextPostgres db) : base(db)
+    public StorageProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+        : base(dbContext, timeProvider, mapper)
     {
     }
 
@@ -17,13 +19,13 @@ internal sealed class StorageProductRepository : Repository<StorageProduct>, ISt
     {
         var result = await DbSet
             .Join(
-                _db.Products,
+                DbContext.Products,
                 entity => entity.ProductId,
                 product => product.Id,
                 (entity, product) => new { entity, product }
             )
             .Join(
-                _db.Storages,
+                DbContext.Storages,
                 combined => combined.entity.StorageId,
                 storage => storage.Id,
                 (combined, storage) => new ProductsOnStorage
@@ -41,8 +43,8 @@ internal sealed class StorageProductRepository : Repository<StorageProduct>, ISt
         return result;
     }
 
-    public async Task<StorageProduct?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<StorageProduct?> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken)
     {
-        return await DbSet.Where(entity => entity.ProductId == id).FirstOrDefaultAsync(cancellationToken);
+        return await DbSet.Where(entity => entity.ProductId == productId).FirstOrDefaultAsync(cancellationToken);
     }
 }

@@ -11,13 +11,14 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddForpostContextPostgres(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<ForpostContextPostgres>((provider, builder) =>
+        services.AddDbContext<ForpostContextPostgres>((_, options) =>
         {
             var connectionString = configuration.GetConnectionString(ConnectionName)
                                    ?? throw new InvalidOperationException(
                                        $"Не удалось получить строку подключения: {ConnectionName}");
 
-            builder.UseNpgsql(connectionString);
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            options.UseNpgsql(connectionString);
         });
 
         return services;

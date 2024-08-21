@@ -1,3 +1,4 @@
+using AutoMapper;
 using Forpost.Store.Entities;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
@@ -8,7 +9,8 @@ namespace Forpost.Store.Repositories;
 
 internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IInvoiceProductRepository
 {
-    public InvoiceProductRepository(ForpostContextPostgres db) : base(db)
+    public InvoiceProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+        : base(dbContext, timeProvider, mapper)
     {
     }
 
@@ -18,7 +20,7 @@ internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IIn
         var result = await DbSet
             .Where(entity => entity.InvoiceId == id)
             .Join(
-                _db.Products,
+                DbContext.Products,
                 entity => entity.ProductId,
                 product => product.Id,
                 (entity, product) => new
@@ -28,7 +30,7 @@ internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IIn
                 }
             )
             .Join(
-                _db.Invoices,
+                DbContext.Invoices,
                 combined => combined.Entity.InvoiceId,
                 invoice => invoice.Id,
                 (combined, invoice) => new InvoiceWithProducts
@@ -45,8 +47,8 @@ internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IIn
 
     public async Task DeleteByProductIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var product = await DbSet.FirstAsync(entity => entity.ProductId == id);
+        var product = await DbSet.FirstAsync(entity => entity.ProductId == id, cancellationToken);
         DbSet.Entry(product).State = EntityState.Deleted;
-        await _db.SaveChangesAsync(cancellationToken);
+        await DbContext.SaveChangesAsync(cancellationToken);
     }
 }

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Forpost.Common.EntityAnnotations;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract;
@@ -7,19 +8,23 @@ namespace Forpost.Store.Repositories;
 
 internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
 {
-    protected readonly ForpostContextPostgres _db;
+    protected readonly IMapper Mapper;
+    protected readonly ForpostContextPostgres DbContext;
     protected readonly DbSet<TEntity> DbSet;
+    protected readonly TimeProvider TimeProvider;
 
-    public Repository(ForpostContextPostgres db)
+    protected Repository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
     {
-        _db = db;
-        DbSet = db.Set<TEntity>();
+        DbContext = dbContext;
+        TimeProvider = timeProvider;
+        Mapper = mapper;
+        DbSet = dbContext.Set<TEntity>();
     }
 
     public async Task<Guid> AddAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        await _db.AddAsync(entity, cancellationToken);
-        await _db.SaveChangesAsync(cancellationToken);
+        await DbContext.AddAsync(entity, cancellationToken);
+        await DbContext.SaveChangesAsync(cancellationToken);
         var id = entity.Id;
         return id;
     }
@@ -31,20 +36,20 @@ internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity
 
     public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await DbSet.Where(entity => entity.Id == id).FirstOrDefaultAsync(cancellationToken);
+        return await DbSet.ById(id).FirstOrDefaultAsync(cancellationToken);
     }
 
     public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
     {
         DbSet.Update(entity);
-        _db.Entry(entity).State = EntityState.Modified;
-        await _db.SaveChangesAsync(cancellationToken);
+        DbContext.Entry(entity).State = EntityState.Modified;
+        await DbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var entity = await DbSet.FirstAsync(entity => entity.Id == id, cancellationToken);
-        _db.Entry(entity).State = EntityState.Deleted;
-        await _db.SaveChangesAsync(cancellationToken);
+        var entity = await DbSet.ById(id).FirstAsync(cancellationToken);
+        DbContext.Entry(entity).State = EntityState.Deleted;
+        await DbContext.SaveChangesAsync(cancellationToken);
     }
 }

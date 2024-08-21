@@ -1,4 +1,4 @@
-using Forpost.Store.Entities;
+using AutoMapper;
 using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract.Repositories;
@@ -9,7 +9,8 @@ namespace Forpost.Store.Repositories;
 
 internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeRepository
 {
-    public EmployeeRepository(ForpostContextPostgres db) : base(db)
+    public EmployeeRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+        : base(dbContext, timeProvider, mapper)
     {
     }
 
@@ -18,7 +19,7 @@ internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeReposi
     {
         var userWithRole = await DbSet
             .Join(
-                _db.Roles,
+                DbContext.Roles,
                 employee => employee.RoleId,
                 role => role.Id,
                 (employee, role) => new EmployeeWithRole
@@ -34,7 +35,7 @@ internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeReposi
                     PasswordHash = employee.PasswordHash
                 }
             )
-            .FirstOrDefaultAsync(e => e.FirstName == firstName && e.LastName == lastName);
+            .FirstOrDefaultAsync(e => e.FirstName == firstName && e.LastName == lastName, cancellationToken);
 
         return userWithRole;
     }
