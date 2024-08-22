@@ -1,7 +1,7 @@
 using Forpost.Common.EntityAnnotations;
 
 namespace Forpost.Store.Entities.Catalog;
-
+//TODO; 
 public sealed class Category : IEntity
 {
     public string Name { get; set; } = null!;

@@ -19,11 +19,6 @@ public class Issue : IEntity, IAuditableEntity, ITimeFrameEntity
     public Guid StepId { get; set; }
 
     /// <summary>
-    /// Ссылка на детали задачи
-    /// </summary>
-    public Guid IssueDetailsId { get; set; }
-
-    /// <summary>
     /// Исполнитель задачи
     /// </summary>
     public Guid ExecutorId { get; set; }
@@ -44,6 +39,7 @@ public class Issue : IEntity, IAuditableEntity, ITimeFrameEntity
     public int CurrentQuantity { get; set; }
 
     public IssueStatus IssueStatus { get; set; }
+    
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

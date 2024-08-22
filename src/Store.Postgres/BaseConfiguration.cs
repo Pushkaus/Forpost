@@ -9,7 +9,6 @@ internal static class BaseConfiguration
         where TEntity : class, IEntity
     {
         builder.HasKey(entity => entity.Id);
-        builder.Property(entity => entity.Id).ValueGeneratedOnAdd();
         return builder;
     }
 }

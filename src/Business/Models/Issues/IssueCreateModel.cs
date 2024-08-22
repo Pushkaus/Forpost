@@ -17,12 +17,6 @@ public class IssueCreateModel
     ///     Ссылка на этап из тех.карты
     /// </summary>
     public Guid StepId { get; set; }
-
-    /// <summary>
-    ///     Ссылка на детали задачи
-    /// </summary>
-    public Guid IssueDetailsId { get; set; }
-
     /// <summary>
     ///     Исполнитель задачи
     /// </summary>

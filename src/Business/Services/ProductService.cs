@@ -27,7 +27,7 @@ internal sealed class ProductService : BaseBusinessService, IProductService
     public async Task<Guid> AddAsync(ProductCreateModel model, CancellationToken cancellationToken)
     {
         var product = Mapper.Map<Product>(model);
-        var productId = await DbUnitOfWork.ProductRepository.Add(product);
+        var productId = DbUnitOfWork.ProductRepository.Add(product);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return productId;
     }

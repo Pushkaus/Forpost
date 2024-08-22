@@ -24,7 +24,7 @@ internal sealed class OperationService: BaseBusinessService, IOperationService
     public async Task<Guid> AddAsync(OperationModel model, CancellationToken cancellationToken)
     {
         var operation = Mapper.Map<Operation>(model);
-        var operationId = await DbUnitOfWork.OperationRepository.Add(operation);
+        var operationId = DbUnitOfWork.OperationRepository.Add(operation);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return operationId;
     }

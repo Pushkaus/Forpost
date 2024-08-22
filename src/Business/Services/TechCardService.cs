@@ -24,7 +24,7 @@ internal sealed class TechCardService: BaseBusinessService, ITechCardService
     public async Task<Guid> AddAsync(TechCardCreateModel model, CancellationToken cancellationToken)
     {
         var techCard = Mapper.Map<TechCard>(model);
-        var techCardId = await DbUnitOfWork.TechCardRepository.Add(techCard);
+        var techCardId = DbUnitOfWork.TechCardRepository.Add(techCard);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return techCardId;
     }

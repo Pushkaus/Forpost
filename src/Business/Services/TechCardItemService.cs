@@ -22,7 +22,7 @@ internal sealed class TechCardItemService: BaseBusinessService, ITechCardItemSer
     }
     public async Task<Guid> AddAsync(TechCardItem model, CancellationToken cancellationToken)
     {
-        var techCardItemId = await DbUnitOfWork.TechCardItemRepository.Add(model);
+        var techCardItemId = DbUnitOfWork.TechCardItemRepository.Add(model);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return techCardItemId;
     }

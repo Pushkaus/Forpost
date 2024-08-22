@@ -26,7 +26,7 @@ internal sealed class StepService: BaseBusinessService, IStepService
     public async Task<Guid> AddAsync(StepCreateModel model, CancellationToken cancellationToken)
     {
         var step = Mapper.Map<Step>(model);
-        var stepId = await DbUnitOfWork.StepRepository.Add(step);
+        var stepId = DbUnitOfWork.StepRepository.Add(step);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return stepId;
     }

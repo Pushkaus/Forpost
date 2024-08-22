@@ -5,7 +5,7 @@ namespace Forpost.Store.Entities.Catalog;
 public sealed class Product : IAuditableEntity, IEntity
 {
     public string Name { get; set; } = null!;
-
+    public string Version { get; set; } = null!;
     public Guid? CategoryId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
