@@ -1,55 +1,64 @@
 using AutoMapper;
+using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.StorageProduct;
 using Forpost.Common;
 using Forpost.Store.Entities;
+using Forpost.Store.Repositories.Abstract;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services;
 
-internal sealed class StorageProductService : IStorageProductService
+internal sealed class StorageProductService : BaseBusinessService, IStorageProductService
 {
-    private readonly IMapper _mapper;
-    private readonly IStorageProductRepository _storageProductRepository;
-
-    public StorageProductService(IStorageProductRepository storageProductRepository, IMapper mapper)
+    public StorageProductService(IDbUnitOfWork dbUnitOfWork,
+        ILogger<StorageProductService> logger, 
+        IMapper mapper,
+        IConfiguration configuration,
+        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
-        _storageProductRepository = storageProductRepository;
-        _mapper = mapper;
     }
 
     public async Task<Guid> AddAsync(StorageProductCreateModel model, CancellationToken cancellationToken)
     {
-        var storageProduct = _mapper.Map<StorageProduct>(model);
-        return await _storageProductRepository.AddAsync(storageProduct, cancellationToken);
+        var storageProduct = Mapper.Map<StorageProduct>(model);
+        DbUnitOfWork.StorageProductRepository.Add(storageProduct);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
+
+        //TODO:
+        return Guid.Empty;
     }
 
     public async Task<IReadOnlyList<StorageProductModel>>
         GetAllProductsAsync(Guid id, CancellationToken cancellationToken)
     {
-        var storageProducts = await _storageProductRepository.GetAllByStorageIdAsync(id, cancellationToken);
-        var response = _mapper.Map<IReadOnlyList<StorageProductModel>>(storageProducts);
+        var storageProducts = await DbUnitOfWork.StorageProductRepository.GetAllByStorageIdAsync(id, cancellationToken);
+        var response = Mapper.Map<IReadOnlyList<StorageProductModel>>(storageProducts);
         return response;
     }
 
     public async Task<StorageProduct?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _storageProductRepository.GetByIdAsync(id, cancellationToken);
+        return await DbUnitOfWork.StorageProductRepository.GetByIdAsync(id, cancellationToken);
     }
 
     public async Task UpdateAsync(StorageProductCreateModel model, CancellationToken cancellationToken)
     {
-        var storageProduct = _mapper.Map<StorageProduct>(model);
-        await _storageProductRepository.UpdateAsync(storageProduct, cancellationToken);
+        var storageProduct = Mapper.Map<StorageProduct>(model);
+        DbUnitOfWork.StorageProductRepository.Update(storageProduct);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public async Task WriteOffAsync(Guid productId, int quantity, CancellationToken cancellationToken)
     {
-        var storageProduct = await _storageProductRepository.GetByIdAsync(productId, cancellationToken);
+        var storageProduct = await DbUnitOfWork.StorageProductRepository.GetByIdAsync(productId, cancellationToken);
 
         storageProduct.EnsureFoundBy(x => x.Id, productId);
         storageProduct.Quantity -= quantity;
 
-        await _storageProductRepository.UpdateAsync(storageProduct, cancellationToken);
+        DbUnitOfWork.StorageProductRepository.Update(storageProduct);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

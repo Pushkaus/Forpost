@@ -20,36 +20,16 @@ internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity
         Mapper = mapper;
         DbSet = dbContext.Set<TEntity>();
     }
+    
+    public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken) => 
+        await DbSet.ToListAsync(cancellationToken);
 
-    public async Task<Guid> AddAsync(TEntity entity, CancellationToken cancellationToken)
-    {
-        await DbContext.AddAsync(entity, cancellationToken);
-        await DbContext.SaveChangesAsync(cancellationToken);
-        var id = entity.Id;
-        return id;
-    }
+    public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) => 
+        await DbSet.ById(id).FirstOrDefaultAsync(cancellationToken);
 
-    public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken)
-    {
-        return await DbSet.ToListAsync(cancellationToken);
-    }
+    public void Add(TEntity entity) => DbSet.Entry(entity).State = EntityState.Added;
 
-    public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-    {
-        return await DbSet.ById(id).FirstOrDefaultAsync(cancellationToken);
-    }
+    public void Update(TEntity entity) => DbContext.Entry(entity).State = EntityState.Modified;
 
-    public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
-    {
-        DbSet.Update(entity);
-        DbContext.Entry(entity).State = EntityState.Modified;
-        await DbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken)
-    {
-        var entity = await DbSet.ById(id).FirstAsync(cancellationToken);
-        DbContext.Entry(entity).State = EntityState.Deleted;
-        await DbContext.SaveChangesAsync(cancellationToken);
-    }
+    public void DeleteById(Guid id) => DbContext.Entry(DbSet.ById(id).First()).State = EntityState.Deleted;
 }
