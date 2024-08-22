@@ -1,22 +1,26 @@
+using AutoMapper;
+using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
-using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
-using Forpost.Store.Repositories.Abstract.Repositories;
+using Forpost.Store.Repositories.Abstract;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services;
 
-internal sealed class EmployeeService : IEmployeeService
+internal sealed class EmployeeService : BaseBusinessService, IEmployeeService
 {
-    private readonly IEmployeeRepository _employeeRepository;
-
-    public EmployeeService(IEmployeeRepository employeeRepository)
+    public EmployeeService(IDbUnitOfWork dbUnitOfWork, 
+        ILogger<EmployeeService> logger,
+        IMapper mapper,
+        IConfiguration configuration, 
+        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
-        _employeeRepository = employeeRepository;
     }
 
     public async Task<IReadOnlyList<Employee>> GetAllAsync(CancellationToken cancellationToken)
     {
-        var employees = await _employeeRepository.GetAllAsync(cancellationToken);
+        var employees = await DbUnitOfWork.EmployeeRepository.GetAllAsync(cancellationToken);
         return employees;
     }
 }
