@@ -5,6 +5,8 @@
 * Не нарушаем ссылки на проекты;
 * Не используем efCore `Include()` ;
 * Часто встречающиеся фильтрации упаковываем в спецификации. Например:`.ById(id); .ByIds(ids), .NotDeletedAt(timeProvider.GetUtcNow())`
+* При добавлении нового репозитория добавляем его в `DbUnitOfWork`
+* Сервисы наследуются от `BaseBusinessService`
 
 ## Дизайн API
 * Xml-комментарии на модели и контроллеры обязательны;
@@ -14,6 +16,18 @@
 * Любые ошибки в коде упаковываем в ProblemDetails через фильтр;
 * При дизайне урлов выделяем семантические группы. Например: `/api/v1/catalog/products`
 
+## Пример работы с транзакциями 
+```csharp
+      await using (var transaction = DbUnitOfWork.BeginTransaction())
+        {
+            //Накапливаем изменения
+            DbUnitOfWork.EmployeeRepository.Add(Mapper.Map<Employee>(model));
+            DbUnitOfWork.FilesRepository.Add(employeeDoc);
+            //Сохраняем и коммитим транзакцию
+            await DbUnitOfWork.SaveChangesAsync(cancellationToken);
+            await transaction.CommitAsync(cancellationToken);
+        }
+```
 
 ## Логирование
 * `LogError` - Для ошибок;

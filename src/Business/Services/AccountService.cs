@@ -2,12 +2,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
+using Forpost.Business.Abstract;
 using Forpost.Business.Models.Accounts;
 using Forpost.Common;
-using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
-using Forpost.Store.Repositories.Abstract.Repositories;
+using Forpost.Store.Repositories.Abstract;
 using Forpost.Store.Repositories.Models.Employee;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -16,53 +15,44 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Forpost.Business.Services;
 
-internal sealed class AccountService : IAccountService
+internal sealed class AccountService : BaseBusinessService
 {
-    private readonly IConfiguration _configuration;
-    private readonly IEmployeeRepository _employeeRepository;
-    private readonly ILogger<Employee> _logger;
-    private readonly IMapper _mapper;
     private readonly IPasswordHasher<EmployeeWithRole> _passwordHasher;
-    private readonly IRoleRepository _roleRepository;
 
-    public AccountService(IEmployeeRepository employeeRepository,
-        IRoleRepository roleRepository,
-        IPasswordHasher<EmployeeWithRole> passwordHasher,
-        IConfiguration configuration,
+    public AccountService(IDbUnitOfWork dbUnitOfWork,
+        ILogger<AccountService> logger,
         IMapper mapper,
-        ILogger<Employee> logger)
+        TimeProvider timeProvider,
+        IConfiguration configuration,
+        IPasswordHasher<EmployeeWithRole> passwordHasher) : base(dbUnitOfWork, logger, mapper, configuration,
+        timeProvider)
     {
-        _employeeRepository = employeeRepository;
-        _roleRepository = roleRepository;
         _passwordHasher = passwordHasher;
-        _configuration = configuration;
-        _mapper = mapper;
-        _logger = logger;
     }
 
     public async Task<string> LoginAsync(LoginUserModel model, CancellationToken cancellationToken)
     {
-        var user = _mapper.Map<EmployeeWithRole>(model);
+        var user = Mapper.Map<EmployeeWithRole>(model);
 
         // При добавлении нового пользователя его пароль хэшируется с добавлением соли
         var employee =
-            await _employeeRepository.GetAutorizedByUsernameAsync(user.FirstName, user.LastName, cancellationToken);
+            await DbUnitOfWork.EmployeeRepository.GetAutorizedByUsernameAsync(user.FirstName, user.LastName, cancellationToken);
 
         if (employee == null) throw ForpostErrors.Validation("Неверное имя пользователя или пароль.");
         var verificationResult = _passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, model.Password);
 
         if (verificationResult == PasswordVerificationResult.Failed)
             throw ForpostErrors.Validation("Неверное имя пользователя или пароль.");
-        _logger.LogInformation("Авторизовался {employee}", employee.LastName);
+        Logger.LogInformation("Авторизовался {employee}", employee.LastName);
         var token = GenerateJwtToken(employee);
         return token;
     }
 
     public async Task RegisterAsync(RegisterUserModel model, CancellationToken cancellationToken)
     {
-        var user = _mapper.Map<Employee>(model);
+        var user = Mapper.Map<Employee>(model);
 
-        var role = await _roleRepository.GetByNameAsync(model.Role, cancellationToken);
+        var role = await DbUnitOfWork.RoleRepository.GetByNameAsync(model.Role, cancellationToken);
 
         role.EnsureFoundBy(x => role.Name, model.Role);
 
@@ -77,7 +67,7 @@ internal sealed class AccountService : IAccountService
     private string GenerateJwtToken(EmployeeWithRole user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+        var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]
