@@ -35,7 +35,7 @@ internal sealed class InvoiceProductService : BaseBusinessService, IInvoiceProdu
             ProductId = invoiceProduct.ProductId,
             Quantity = invoiceProduct.Quantity
         }, cancellationToken);
-        DbUnitOfWork.InvoiceProductRepository.Add(invoiceProduct);
+        await DbUnitOfWork.InvoiceProductRepository.Add(invoiceProduct);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 

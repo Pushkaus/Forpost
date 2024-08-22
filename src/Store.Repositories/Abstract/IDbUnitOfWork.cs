@@ -9,7 +9,11 @@ namespace Forpost.Store.Repositories.Abstract;
 public interface IDbUnitOfWork
 {
     public IContragentRepository ContragentRepository { get; }
-    
+    public IOperationRepository OperationRepository { get; }
+    public IStepRepository StepRepository { get; }
+    public ITechCardItemRepository TechCardItemRepository { get; }
+    public ITechCardRepository TechCardRepository { get; }
+    public ITechCardStepRepositrory TechCardStepRepository { get; }
     public IEmployeeRepository EmployeeRepository { get; }
     
     public IFilesRepository FilesRepository { get; }

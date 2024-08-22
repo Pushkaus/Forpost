@@ -1,43 +1,51 @@
 using AutoMapper;
+using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.TechCardSteps;
 using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
+using Forpost.Store.Repositories.Abstract;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services;
 
-internal sealed class TechCardStepService: ITechCardStepService
+internal sealed class TechCardStepService: BaseBusinessService, ITechCardStepService
 {
-    private readonly ITechCardStepRepositrory _techCardStepRepositrory;
-    private readonly IMapper _mapper;
-
-    public TechCardStepService(ITechCardStepRepositrory techCardStepRepositrory, IMapper mapper)
+    public TechCardStepService(IDbUnitOfWork dbUnitOfWork,
+        ILogger<TechCardStepService> logger,
+        IMapper mapper,
+        IConfiguration configuration,
+        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
-        _techCardStepRepositrory = techCardStepRepositrory;
-        _mapper = mapper;
     }
-
+    
     public async Task<Guid> AddAsync(TechCardStepCreateModel model, CancellationToken cancellationToken)
     {
-        var techCardStep = _mapper.Map<TechCardStep>(model);
-        return await _techCardStepRepositrory.AddAsync(techCardStep, cancellationToken);
+        var techCardStep = Mapper.Map<TechCardStep>(model);
+        var techCardStepId = await DbUnitOfWork.TechCardStepRepository.Add(techCardStep);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
+        return techCardStepId;
     }
-
+    
     public async Task<TechCardStep?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
-        => await _techCardStepRepositrory.GetByIdAsync(id, cancellationToken);
+        => await DbUnitOfWork.TechCardStepRepository.GetByIdAsync(id, cancellationToken);
 
     public async Task<IReadOnlyCollection<StepsInTechCardModel>> GetStepsByTechCardIdAsync
         (Guid techCardId, CancellationToken cancellationToken)
     {
-        var model = await _techCardStepRepositrory.GetAllStepsByTechCardId(techCardId, cancellationToken);
-        var result = _mapper.Map<IReadOnlyCollection<StepsInTechCardModel>>(model);
+        var model = await DbUnitOfWork.TechCardStepRepository.GetAllStepsByTechCardId(techCardId, cancellationToken);
+        var result = Mapper.Map<IReadOnlyCollection<StepsInTechCardModel>>(model);
         return result;
     }
 
     public async Task<IReadOnlyList<TechCardStep>> GetAllAsync(CancellationToken cancellationToken) 
-        => await _techCardStepRepositrory.GetAllAsync(cancellationToken);
+        => await DbUnitOfWork.TechCardStepRepository.GetAllAsync(cancellationToken);
 
     public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken)
-        => await _techCardStepRepositrory.DeleteByIdAsync(id, cancellationToken);
+    {
+        DbUnitOfWork.TechCardStepRepository.DeleteById(id);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
+    }
 }

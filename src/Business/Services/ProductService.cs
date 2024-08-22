@@ -21,25 +21,19 @@ internal sealed class ProductService : BaseBusinessService, IProductService
     {
     }
 
-    public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken)
-    {
-        return await DbUnitOfWork.ProductRepository.GetAllAsync(cancellationToken);
-    }
+    public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken) 
+        => await DbUnitOfWork.ProductRepository.GetAllAsync(cancellationToken);
 
     public async Task<Guid> AddAsync(ProductCreateModel model, CancellationToken cancellationToken)
     {
         var product = Mapper.Map<Product>(model);
-        DbUnitOfWork.ProductRepository.Add(product);
+        var productId = await DbUnitOfWork.ProductRepository.Add(product);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
-        //TODO:
-        return Guid.Empty;
+        return productId;
     }
 
-    public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-    {
-        var product = await DbUnitOfWork.ProductRepository.GetByIdAsync(id, cancellationToken);
-        return product;
-    }
+    public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+        => await DbUnitOfWork.ProductRepository.GetByIdAsync(id, cancellationToken);
 
     public async Task UpdateAsync(ProductUpdateModel model, CancellationToken cancellationToken)
     {

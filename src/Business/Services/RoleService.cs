@@ -23,7 +23,7 @@ internal sealed class RoleService : BaseBusinessService, IRoleService
     public async Task AddAsync(string name, CancellationToken cancellationToken)
     {
         var role = new Role { Name = name };
-        DbUnitOfWork.RoleRepository.Add(role);
+        await DbUnitOfWork.RoleRepository.Add(role);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 

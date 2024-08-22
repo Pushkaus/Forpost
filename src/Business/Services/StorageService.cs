@@ -22,7 +22,7 @@ internal sealed class StorageService : BaseBusinessService, IStorageService
     public async Task AddAsync(StorageCreateModel model, CancellationToken cancellationToken)
     {
         var storage = Mapper.Map<Storage>(model);
-        DbUnitOfWork.StorageRepository.Add(storage);
+        await DbUnitOfWork.StorageRepository.Add(storage);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
