@@ -24,7 +24,7 @@ public sealed class FileController : ControllerBase
     }
 
     /// <summary>
-    ///     Добавление файлов к id
+    /// Добавление файлов к id
     /// </summary>
     /// <returns></returns>
     [HttpPost]
@@ -48,7 +48,7 @@ public sealed class FileController : ControllerBase
     }
 
     /// <summary>
-    ///     Скачивание файла с сервера
+    /// Скачивание файла с сервера
     /// </summary>
     /// <returns></returns>
     [HttpGet("{id}")]
@@ -61,7 +61,7 @@ public sealed class FileController : ControllerBase
     }
 
     /// <summary>
-    ///     Удаление файла из БД
+    /// Удаление файла из БД
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -74,7 +74,7 @@ public sealed class FileController : ControllerBase
     }
 
     /// <summary>
-    ///     Список файлов по id
+    /// Список файлов по id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

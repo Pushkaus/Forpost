@@ -8,7 +8,6 @@ namespace Forpost.Web.Contracts.Controllers.Employees;
 
 [ApiController]
 [Route("api/v1/employees")]
-[Authorize]
 public sealed class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
@@ -19,7 +18,7 @@ public sealed class EmployeeController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить список всех сотрудников
+    /// Получить список всех сотрудников
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeResponse>), StatusCodes.Status200OK)]

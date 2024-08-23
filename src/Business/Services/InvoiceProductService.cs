@@ -1,37 +1,42 @@
 using AutoMapper;
+using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.EventHanding;
 using Forpost.Business.Events.Products;
 using Forpost.Business.Models.InvoiceProducts;
+using Forpost.Store.Repositories.Abstract;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using InvoiceProduct = Forpost.Store.Entities.InvoiceProduct;
 
 namespace Forpost.Business.Services;
 
-internal sealed class InvoiceProductService : IInvoiceProductService
+internal sealed class InvoiceProductService : BaseBusinessService, IInvoiceProductService
 {
     private readonly IDomainEventBus _eventBus;
-    private readonly IInvoiceProductRepository _invoiceProductRepository;
-    private readonly IMapper _mapper;
-
-    public InvoiceProductService(IInvoiceProductRepository invoiceProductRepository,
-        IMapper mapper, IDomainEventBus eventBus)
+    
+    public InvoiceProductService(IDbUnitOfWork dbUnitOfWork, 
+        ILogger<InvoiceProductService> logger, 
+        IMapper mapper,
+        IConfiguration configuration,
+        TimeProvider timeProvider,
+        IDomainEventBus eventBus) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
-        _invoiceProductRepository = invoiceProductRepository;
-        _mapper = mapper;
         _eventBus = eventBus;
     }
 
     public async Task AddAsync(InvoiceProductCreateModel model, CancellationToken cancellationToken)
     {
-        var invoiceProduct = _mapper.Map<InvoiceProduct>(model);
+        var invoiceProduct = Mapper.Map<InvoiceProduct>(model);
         await _eventBus.PublishAsync(new ProductInInvoiceAdded
         {
             InvoiceId = invoiceProduct.InvoiceId,
             ProductId = invoiceProduct.ProductId,
             Quantity = invoiceProduct.Quantity
-        });
-        await _invoiceProductRepository.AddAsync(invoiceProduct, cancellationToken);
+        }, cancellationToken);
+        await DbUnitOfWork.InvoiceProductRepository.Add(invoiceProduct);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<IReadOnlyList<InvoiceProductModel?>>
@@ -51,19 +56,20 @@ internal sealed class InvoiceProductService : IInvoiceProductService
         //     Quantity = 1000
         // });
         //
-        var invoiceProducts = await _invoiceProductRepository.GetProductsByInvoiceIdAsync(id, cancellationToken);
-        var response = _mapper.Map<IReadOnlyList<InvoiceProductModel>>(invoiceProducts);
+        var invoiceProducts = await DbUnitOfWork.InvoiceProductRepository.GetProductsByInvoiceIdAsync(id, cancellationToken);
+        var response = Mapper.Map<IReadOnlyList<InvoiceProductModel>>(invoiceProducts);
         return response;
     }
 
     public async Task UpdateAsync(InvoiceProductCreateModel model, CancellationToken cancellationToken)
     {
-        var invoiceProduct = _mapper.Map<InvoiceProduct>(model);
-        await _invoiceProductRepository.UpdateAsync(invoiceProduct, cancellationToken);
+        var invoiceProduct = Mapper.Map<InvoiceProduct>(model);
+        DbUnitOfWork.InvoiceProductRepository.Update(invoiceProduct);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DeleteByProductIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _invoiceProductRepository.DeleteByProductIdAsync(id, cancellationToken);
+        await DbUnitOfWork.InvoiceProductRepository.DeleteByProductIdAsync(id, cancellationToken);
     }
 }

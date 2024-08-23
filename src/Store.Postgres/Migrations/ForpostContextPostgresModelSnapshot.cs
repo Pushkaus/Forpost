@@ -30,7 +30,8 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uuid");
@@ -40,32 +41,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.CompositionTechnologicalCard", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("TechnologicalCardId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TechnologicalCardId")
-                        .IsUnique();
-
-                    b.ToTable("CompositionTechnologicalCard");
-                });
-
-            modelBuilder.Entity("Forpost.Store.Entities.Contragent", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Contractor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +49,8 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -99,30 +76,37 @@ namespace Forpost.Store.Postgres.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Patronymic")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Post")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uuid");
@@ -138,23 +122,6 @@ namespace Forpost.Store.Postgres.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("29cc14a6-c4ca-42c9-a47f-9f0a6bf623cf"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 8, 13, 15, 58, 54, 292, DateTimeKind.Unspecified).AddTicks(432), new TimeSpan(0, 0, 0, 0, 0)),
-                            CreatedById = new Guid("29cc14a6-c4ca-42c9-a47f-9f0a6bf623cf"),
-                            Email = "default@employee.com",
-                            FirstName = "test",
-                            LastName = "test",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIuR06hkqWZlSriBvz/0rl5exwSPEu0APfArS1PyzXnhQsnQddrgtBhau5kCH4NBZA==",
-                            PhoneNumber = "1234567890",
-                            Post = "Administrator",
-                            RoleId = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2024, 8, 13, 15, 58, 54, 292, DateTimeKind.Unspecified).AddTicks(440), new TimeSpan(0, 0, 0, 0, 0)),
-                            UpdatedById = new Guid("29cc14a6-c4ca-42c9-a47f-9f0a6bf623cf")
-                        });
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.FileEntity", b =>
@@ -165,15 +132,18 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.Property<string>("ContentType")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("FilePath")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<Guid>("ParentId")
                         .HasColumnType("uuid");
@@ -211,16 +181,18 @@ namespace Forpost.Store.Postgres.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("IssueStatus")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("PaymentPercentage")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
@@ -260,112 +232,20 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("InvoiceProducts");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Issue", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("interval");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("OperationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("UnitOfMeassure")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OperationId")
-                        .IsUnique();
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Issues");
-                });
-
-            modelBuilder.Entity("Forpost.Store.Entities.ManufacturingProcess", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("BatchNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("CurrentQuantity")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("EndTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ProductDetailsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("StartTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TargetQuantity")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("TechnologicalCardId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UpdatedById")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductDetailsId")
-                        .IsUnique();
-
-                    b.HasIndex("TechnologicalCardId");
-
-                    b.ToTable("ManufacturingProcess");
-                });
-
             modelBuilder.Entity("Forpost.Store.Entities.Operation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -395,7 +275,8 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -405,16 +286,18 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductDetails", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.CompletedProduct", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("InvoiceId")
+                    b.Property<Guid?>("InvoiceId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("ManufacturingProcessId")
@@ -423,10 +306,12 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("SerialNumber")
-                        .HasColumnType("integer");
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
-                    b.Property<int>("SettingOption")
+                    b.Property<int?>("SettingOption")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -436,7 +321,78 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductDetails");
+                    b.ToTable("CompletedProducts");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ManufacturingProcess", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("BatchNumber")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CurrentQuantity")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("EndTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("StartTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TargetQuantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("TechnologicalCardId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedById")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechnologicalCardId");
+
+                    b.ToTable("ManufacturingProcess");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ProductDevelopment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ManufacturingProcessId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductDevelopments");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.ProductVersion", b =>
@@ -481,18 +437,47 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5"),
-                            Name = "Admin"
-                        });
+            modelBuilder.Entity("Forpost.Store.Entities.Step", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("interval");
+
+                    b.Property<Guid>("OperationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TechCardId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("UnitOfMeassure")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OperationId")
+                        .IsUnique();
+
+                    b.HasIndex("TechCardId");
+
+                    b.ToTable("Step");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Storage", b =>
@@ -514,11 +499,13 @@ namespace Forpost.Store.Postgres.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<Guid>("ResponsibleId")
                         .HasColumnType("uuid");
@@ -551,9 +538,8 @@ namespace Forpost.Store.Postgres.Migrations
                     b.Property<decimal>("Quantity")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("UnitOfMeasure")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("UnitOfMeasure")
+                        .HasColumnType("integer");
 
                     b.HasKey("ProductId", "StorageId");
 
@@ -565,49 +551,88 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("StorageProducts");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.TechnologicalCard", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.TechCard", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CompositionTechonogicalCardId")
+                    b.Property<Guid>("CreatedById")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompositionTechonogicalCardId")
+                    b.HasIndex("CreatedById")
                         .IsUnique();
 
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("TechnologicalProcesses");
+                    b.ToTable("TechCards");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.CompositionTechnologicalCard", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.TechCardItem", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.HasOne("Forpost.Store.Entities.TechnologicalCard", null)
-                        .WithOne()
-                        .HasForeignKey("Forpost.Store.Entities.CompositionTechnologicalCard", "TechnologicalCardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("TechCardId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.HasIndex("TechCardId")
+                        .IsUnique();
+
+                    b.ToTable("TechCardItems");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.TechCardStep", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("StepId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TechCardId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StepId")
+                        .IsUnique();
+
+                    b.HasIndex("TechCardId")
+                        .IsUnique();
+
+                    b.ToTable("TechCardSteps");
                 });
 
             modelBuilder.Entity("Forpost.Store.Entities.Employee", b =>
@@ -621,7 +646,7 @@ namespace Forpost.Store.Postgres.Migrations
 
             modelBuilder.Entity("Forpost.Store.Entities.Invoice", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Contragent", null)
+                    b.HasOne("Forpost.Store.Entities.Contractor", null)
                         .WithMany()
                         .HasForeignKey("ContragentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -643,11 +668,18 @@ namespace Forpost.Store.Postgres.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Issue", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Product", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Operation", null)
+                    b.HasOne("Forpost.Store.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.CompletedProduct", b =>
+                {
+                    b.HasOne("Forpost.Store.Entities.ProductCreating.ManufacturingProcess", null)
                         .WithOne()
-                        .HasForeignKey("Forpost.Store.Entities.Issue", "OperationId")
+                        .HasForeignKey("Forpost.Store.Entities.ProductCreating.CompletedProduct", "ManufacturingProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -658,32 +690,11 @@ namespace Forpost.Store.Postgres.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ManufacturingProcess", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ManufacturingProcess", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.ProductDetails", null)
-                        .WithOne()
-                        .HasForeignKey("Forpost.Store.Entities.ManufacturingProcess", "ProductDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Forpost.Store.Entities.TechnologicalCard", null)
+                    b.HasOne("Forpost.Store.Entities.TechCard", null)
                         .WithMany()
                         .HasForeignKey("TechnologicalCardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Forpost.Store.Entities.ProductDetails", b =>
-                {
-                    b.HasOne("Forpost.Store.Entities.ManufacturingProcess", null)
-                        .WithOne()
-                        .HasForeignKey("Forpost.Store.Entities.ProductDetails", "ManufacturingProcessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Forpost.Store.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -693,6 +704,21 @@ namespace Forpost.Store.Postgres.Migrations
                     b.HasOne("Forpost.Store.Entities.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.Step", b =>
+                {
+                    b.HasOne("Forpost.Store.Entities.Operation", null)
+                        .WithOne()
+                        .HasForeignKey("Forpost.Store.Entities.Step", "OperationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Store.Entities.TechCard", null)
+                        .WithMany()
+                        .HasForeignKey("TechCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -721,17 +747,47 @@ namespace Forpost.Store.Postgres.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.TechnologicalCard", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.TechCard", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.CompositionTechnologicalCard", null)
+                    b.HasOne("Forpost.Store.Entities.Employee", null)
                         .WithOne()
-                        .HasForeignKey("Forpost.Store.Entities.TechnologicalCard", "CompositionTechonogicalCardId")
+                        .HasForeignKey("Forpost.Store.Entities.TechCard", "CreatedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Forpost.Store.Entities.Product", null)
                         .WithOne()
-                        .HasForeignKey("Forpost.Store.Entities.TechnologicalCard", "ProductId")
+                        .HasForeignKey("Forpost.Store.Entities.TechCard", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.TechCardItem", b =>
+                {
+                    b.HasOne("Forpost.Store.Entities.Product", null)
+                        .WithOne()
+                        .HasForeignKey("Forpost.Store.Entities.TechCardItem", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Store.Entities.TechCard", null)
+                        .WithOne()
+                        .HasForeignKey("Forpost.Store.Entities.TechCardItem", "TechCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Forpost.Store.Entities.TechCardStep", b =>
+                {
+                    b.HasOne("Forpost.Store.Entities.Step", null)
+                        .WithOne()
+                        .HasForeignKey("Forpost.Store.Entities.TechCardStep", "StepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Store.Entities.TechCard", null)
+                        .WithOne()
+                        .HasForeignKey("Forpost.Store.Entities.TechCardStep", "TechCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

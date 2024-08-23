@@ -21,6 +21,4 @@ public sealed class TechCardCreateModel
     ///     Создатель тех.карты
     /// </summary>
     public Guid CreatedById { get; set; }
-
-    public Guid Id { get; set; }
 }

@@ -23,7 +23,7 @@ public sealed class InvoiceProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Добавление продуктов в счет
+    /// Добавление продуктов в счет
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -38,7 +38,7 @@ public sealed class InvoiceProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Получение продуктов по id счета
+    /// Получение продуктов по id счета
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -52,7 +52,7 @@ public sealed class InvoiceProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Обновление продукта в счете
+    /// Обновление продукта в счете
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -67,7 +67,7 @@ public sealed class InvoiceProductController : ControllerBase
     }
 
     /// <summary>
-    ///     Удаление продукта из счета
+    /// Удаление продукта из счета
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

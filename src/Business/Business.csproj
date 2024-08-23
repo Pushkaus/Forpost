@@ -3,15 +3,6 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper"/>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Swashbuckle.AspNetCore"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -21,6 +12,10 @@
 
     <ItemGroup>
         <InternalsVisibleTo Include="$(CommonPrefix).UnitTests"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services\CreatingProducts\" />
     </ItemGroup>
 
 </Project>

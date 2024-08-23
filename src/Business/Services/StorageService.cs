@@ -1,30 +1,33 @@
 using AutoMapper;
+using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
 using Forpost.Business.Models.Storages;
-using Forpost.Store.Entities;
-using Forpost.Store.Repositories.Abstract.Repositories;
+using Forpost.Store.Entities.Catalog;
+using Forpost.Store.Repositories.Abstract;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services;
 
-internal sealed class StorageService : IStorageService
+internal sealed class StorageService : BaseBusinessService, IStorageService
 {
-    private readonly IMapper _mapper;
-    private readonly IStorageRepository _storageRepository;
-
-    public StorageService(IStorageRepository storageRepository, IMapper mapper)
+    public StorageService(IDbUnitOfWork dbUnitOfWork,
+        ILogger<StorageService> logger,
+        IMapper mapper,
+        IConfiguration configuration,
+        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
-        _storageRepository = storageRepository;
-        _mapper = mapper;
     }
 
     public async Task AddAsync(StorageCreateModel model, CancellationToken cancellationToken)
     {
-        var storage = _mapper.Map<Storage>(model);
-        await _storageRepository.AddAsync(storage, cancellationToken);
+        var storage = Mapper.Map<Storage>(model);
+        await DbUnitOfWork.StorageRepository.Add(storage);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<IReadOnlyList<Storage?>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await _storageRepository.GetAllAsync(cancellationToken);
+        return await DbUnitOfWork.StorageRepository.GetAllAsync(cancellationToken);
     }
 }

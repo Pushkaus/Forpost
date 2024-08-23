@@ -1,4 +1,5 @@
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,6 +10,6 @@ internal class RoleConfiguration : IEntityTypeConfiguration<Role>
     public void Configure(EntityTypeBuilder<Role> builder)
     {
         builder.ConfigureBaseEntity();
-        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLenght);
+        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
     }
 }

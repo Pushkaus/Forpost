@@ -1,35 +1,42 @@
+using AutoMapper;
+using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
 using Forpost.Common;
-using Forpost.Store.Entities;
-using Forpost.Store.Repositories.Abstract.Repositories;
+using Forpost.Store.Entities.Catalog;
+using Forpost.Store.Repositories.Abstract;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services;
 
-internal sealed class ContragentService : IContragentService
+internal sealed class ContragentService : BaseBusinessService, IContragentService
 {
-    private readonly IContragentRepository _contragentRepository;
-
-    public ContragentService(IContragentRepository contragentRepository)
+    public ContragentService(IDbUnitOfWork dbUnitOfWork, 
+        ILogger<ContragentService> logger,
+        IMapper mapper,
+        IConfiguration configuration, 
+        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
-        _contragentRepository = contragentRepository;
     }
 
-    public async Task AddAsync(string name, CancellationToken cancellationToken)
+    public async Task<Guid> AddAsync(string name, CancellationToken cancellationToken)
     {
         var contragent = new Contractor { Name = name };
-        await _contragentRepository.AddAsync(contragent, cancellationToken);
+        var contragentId = await DbUnitOfWork.ContragentRepository.Add(contragent);
+        await DbUnitOfWork.SaveChangesAsync(cancellationToken);
+        return contragentId;
     }
 
     public async Task<IReadOnlyList<Contractor>> GetAllAsync(CancellationToken cancellationToken)
     {
-        var contragents = await _contragentRepository.GetAllAsync(cancellationToken);
+        var contragents = await DbUnitOfWork.ContragentRepository.GetAllAsync(cancellationToken);
 
         return contragents;
     }
 
     public async Task<Contractor?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var contragent = await _contragentRepository.GetByIdAsync(id, cancellationToken);
+        var contragent = await DbUnitOfWork.ContragentRepository.GetByIdAsync(id, cancellationToken);
         if (contragent == null) throw ForpostErrors.NotFound<Contractor>(id);
 
         return contragent;

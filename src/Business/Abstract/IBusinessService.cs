@@ -1,5 +1,6 @@
 ﻿namespace Forpost.Business.Abstract;
 
-public interface IBusinessService
-{
-}
+/// <summary>
+/// Маркерный интерфейс для бизнес-сервисов
+/// </summary>
+public interface IBusinessService;

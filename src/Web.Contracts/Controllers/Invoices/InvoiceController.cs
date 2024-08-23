@@ -24,7 +24,7 @@ public sealed class InvoiceController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить счет по его номеру
+    /// Получить счет по его номеру
     /// </summary>
     [HttpGet("{number}")]
     [ProducesResponseType(typeof(InvoiceResponse), StatusCodes.Status200OK)]
@@ -35,7 +35,7 @@ public sealed class InvoiceController : ControllerBase
     }
 
     /// <summary>
-    ///     Получить все счета
+    /// Получить все счета
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -47,20 +47,20 @@ public sealed class InvoiceController : ControllerBase
     }
 
     /// <summary>
-    ///     Создать счет
+    /// Создать счет
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult>
+    public async Task<Guid>
         ExposeAsync([FromBody] InvoiceCreateRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<InvoiceCreateModel>(request);
         var id = await _invoiceService.ExposeAsync(model, cancellationToken);
-        return Ok(id);
+        return id;
     }
 
     /// <summary>
-    ///     Закрытие счета, смена статуса и выставление даты отгрузки
+    /// Закрытие счета, смена статуса и выставление даты отгрузки
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -75,7 +75,7 @@ public sealed class InvoiceController : ControllerBase
     }
 
     /// <summary>
-    ///     Обновление счета
+    /// Обновление счета
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -90,7 +90,7 @@ public sealed class InvoiceController : ControllerBase
     }
 
     /// <summary>
-    ///     Удалить счет по его id
+    /// Удалить счет по его id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

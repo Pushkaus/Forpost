@@ -1,10 +1,11 @@
 using AutoMapper;
 using Forpost.Business.Models.Storages;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 
 namespace Forpost.Business.Mappers;
 
-public class StorageMappingProfile : Profile
+internal sealed class StorageMappingProfile : Profile
 {
     public StorageMappingProfile()
     {

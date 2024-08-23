@@ -1,10 +1,11 @@
 using AutoMapper;
 using Forpost.Business.Models.Products;
 using Forpost.Store.Entities;
+using Forpost.Store.Entities.Catalog;
 
 namespace Forpost.Business.Mappers;
 
-public class ProductMappingProfile : Profile
+internal sealed class ProductMappingProfile : Profile
 {
     public ProductMappingProfile()
     {

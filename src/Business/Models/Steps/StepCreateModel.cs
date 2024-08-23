@@ -33,6 +33,4 @@ public sealed class StepCreateModel
     ///     Единица измерения
     /// </summary>
     public UnitOfMeassure UnitOfMeassure { get; set; }
-
-    public Guid Id { get; set; }
 }
