@@ -17,17 +17,18 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Forpost.Business.Services;
 
-internal sealed class AccountService : BaseBusinessService, IAccountService
+internal sealed class AccountService : BusinessService, IAccountService
 {
     private readonly IPasswordHasher<EmployeeWithRole> _passwordHasher;
 
     public AccountService(
         IDbUnitOfWork dbUnitOfWork,
-        ILogger<BaseBusinessService> logger,
+        ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
+        IDomainEventBus domainEventBus,
         TimeProvider timeProvider, IPasswordHasher<EmployeeWithRole> passwordHasher)
-        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
         _passwordHasher = passwordHasher;
     }

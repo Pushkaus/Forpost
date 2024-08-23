@@ -9,16 +9,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services;
 
-internal sealed class EmployeeService : BaseBusinessService, IEmployeeService
+internal sealed class EmployeeService : BusinessService, IEmployeeService
 {
     public EmployeeService(
         IDbUnitOfWork dbUnitOfWork,
-        ILogger<BaseBusinessService> logger,
+        ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
+        IDomainEventBus domainEventBus,
         TimeProvider timeProvider
     )
-        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
     }
 

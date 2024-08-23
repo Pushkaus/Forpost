@@ -9,24 +9,27 @@ namespace Forpost.Business.Abstract;
 /// <summary>
 /// Шаблон для сервисов, с только с часто используемой необходимой инфраструктурой
 /// </summary>
-internal abstract class BaseBusinessService
+internal abstract class BusinessService
 {
     protected IDbUnitOfWork DbUnitOfWork;
-    protected ILogger<BaseBusinessService> Logger;
+    protected ILogger<BusinessService> Logger;
     protected IMapper Mapper;
     protected IConfiguration Configuration;
+    protected IDomainEventBus DomainEventBus;
     protected TimeProvider TimeProvider;
 
-    protected BaseBusinessService(IDbUnitOfWork dbUnitOfWork,
-        ILogger<BaseBusinessService> logger, 
+    protected BusinessService(IDbUnitOfWork dbUnitOfWork,
+        ILogger<BusinessService> logger, 
         IMapper mapper,
-        IConfiguration configuration, 
+        IConfiguration configuration,
+        IDomainEventBus domainEventBus,
         TimeProvider timeProvider)
     {
         DbUnitOfWork = dbUnitOfWork;
         Logger = logger;
         Mapper = mapper;
         TimeProvider = timeProvider;
+        DomainEventBus = domainEventBus;
         Configuration = configuration;
     }
 }

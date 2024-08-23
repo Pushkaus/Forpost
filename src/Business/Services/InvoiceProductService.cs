@@ -12,16 +12,17 @@ using InvoiceProduct = Forpost.Store.Entities.InvoiceProduct;
 
 namespace Forpost.Business.Services;
 
-internal sealed class InvoiceProductService : BaseBusinessService, IInvoiceProductService
+internal sealed class InvoiceProductService : BusinessService, IInvoiceProductService
 {
     private readonly IDomainEventBus _eventBus;
     public InvoiceProductService(
         IDbUnitOfWork dbUnitOfWork,
-        ILogger<BaseBusinessService> logger,
+        ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
+        IDomainEventBus domainEventBus,
         TimeProvider timeProvider, IDomainEventBus eventBus)
-        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
         _eventBus = eventBus;
     }

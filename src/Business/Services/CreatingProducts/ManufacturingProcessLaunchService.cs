@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services.CreatingProducts;
+using Forpost.Business.EventHanding;
 using Forpost.Store.Entities.ProductCreating;
 using Forpost.Store.Enums;
 using Forpost.Store.Repositories.Abstract;
@@ -9,15 +10,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services.CreatingProducts;
 
-internal sealed class ManufacturingProcessLaunchService: BaseBusinessService, IManufacturingProcessLaunchService
+internal sealed class ManufacturingProcessLaunchService: BusinessService, IManufacturingProcessLaunchService
 {
     public ManufacturingProcessLaunchService(
         IDbUnitOfWork dbUnitOfWork,
-        ILogger<BaseBusinessService> logger,
+        ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
+        IDomainEventBus domainEventBus,
         TimeProvider timeProvider)
-        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
     }
 

@@ -12,16 +12,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services.CreatingProducts;
 
-internal sealed class ManufacturingProcessPlanningService: BaseBusinessService, IManufacturingProcessPlanningService
+internal sealed class ManufacturingProcessPlanningService: BusinessService, IManufacturingProcessPlanningService
 {
     public ManufacturingProcessPlanningService(
         IDbUnitOfWork dbUnitOfWork,
-        ILogger<BaseBusinessService> logger,
+        ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
+        IDomainEventBus domainEventBus,
         TimeProvider timeProvider
         )
-        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
     }
 

@@ -12,16 +12,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services;
 
-internal sealed class OperationService: BaseBusinessService, IOperationService
+internal sealed class OperationService: BusinessService, IOperationService
 {
     public OperationService(
         IDbUnitOfWork dbUnitOfWork,
-        ILogger<BaseBusinessService> logger,
+        ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
+        IDomainEventBus domainEventBus,
         TimeProvider timeProvider
     )
-        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
     }
 

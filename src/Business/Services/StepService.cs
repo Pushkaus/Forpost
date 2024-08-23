@@ -13,16 +13,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Forpost.Business.Services;
 
-internal sealed class StepService: BaseBusinessService, IStepService
+internal sealed class StepService: BusinessService, IStepService
 {
     public StepService(
         IDbUnitOfWork dbUnitOfWork,
-        ILogger<BaseBusinessService> logger,
+        ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
+        IDomainEventBus domainEventBus,
         TimeProvider timeProvider
     )
-        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
     }
 
