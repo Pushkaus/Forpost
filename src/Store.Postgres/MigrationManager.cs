@@ -6,8 +6,8 @@ public static class MigrationManager
 {
     public static async Task MigrateData(ForpostContextPostgres context)
     {
-        await GenerateFirstUser(context);
-        await GenerateFirstTechCard(context);
+        await GenerateFirstUser(context); 
+        //await GenerateFirstTechCard(context);
     }
 
     public static async Task MigrateSchema(ForpostContextPostgres context)

@@ -1,6 +1,8 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
+using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +13,14 @@ namespace Forpost.Business.Services;
 
 internal sealed class RoleService : BaseBusinessService, IRoleService
 {
-    public RoleService(IDbUnitOfWork dbUnitOfWork,
-        ILogger<RoleService> logger,
+    public RoleService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
-        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration,
-        timeProvider)
+        TimeProvider timeProvider
+    )
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
     }
 

@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
 using Forpost.Business.Models.StorageProduct;
 using Forpost.Common;
 using Forpost.Store.Entities;
@@ -13,11 +14,14 @@ namespace Forpost.Business.Services;
 
 internal sealed class StorageProductService : BaseBusinessService, IStorageProductService
 {
-    public StorageProductService(IDbUnitOfWork dbUnitOfWork,
-        ILogger<StorageProductService> logger, 
+    public StorageProductService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
-        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        TimeProvider timeProvider
+    )
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
     }
 

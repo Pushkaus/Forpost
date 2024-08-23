@@ -56,5 +56,5 @@ public class Issue : IEntity, IAuditableEntity, ITimeFrameEntity
     /// <summary>
     /// Дата завершения выполнения задачи
     /// </summary>
-    public DateTimeOffset EndTime { get; set; }
+    public DateTimeOffset? EndTime { get; set; }
 }

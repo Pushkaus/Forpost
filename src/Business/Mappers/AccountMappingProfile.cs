@@ -1,5 +1,6 @@
 using AutoMapper;
 using Forpost.Business.Models.Accounts;
+using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Repositories.Models.Employee;
 
 namespace Forpost.Business.Mappers;
@@ -10,8 +11,7 @@ internal sealed class AccountMappingProfile : Profile
     {
         CreateMap<LoginUserModel, LoginModel>()
             .ValidateMemberList(MemberList.Destination);
-        /*CreateMap<RegisterUserModel, Employee>()
-            .ForMember(x => x.Role, opt => opt.Ignore())
-            .ValidateMemberList(MemberList.Destination);*/
+        CreateMap<LoginUserModel, EmployeeWithRole>()
+            .ValidateMemberList(MemberList.Destination);
     }
 }

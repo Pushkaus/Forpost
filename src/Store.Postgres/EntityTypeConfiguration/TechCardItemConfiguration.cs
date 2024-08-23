@@ -5,18 +5,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class TechCardItemCardConfiguration : IEntityTypeConfiguration<TechCardItem>
+internal sealed class TechCardItemConfiguration : IEntityTypeConfiguration<TechCardItem>
 {
     public void Configure(EntityTypeBuilder<TechCardItem> builder)
     {
         builder.ConfigureBaseEntity();
 
         builder.HasOne<TechCard>()
-            .WithOne()
-            .HasForeignKey<TechCardItem>(key => key.TechCardId);
+            .WithMany()
+            .HasForeignKey(key => key.TechCardId);
 
         builder.HasOne<Product>()
-            .WithOne()
-            .HasForeignKey<TechCardItem>(key => key.ProductId);
+            .WithMany()
+            .HasForeignKey(key => key.ProductId);
     }
 }

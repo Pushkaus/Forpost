@@ -1,4 +1,5 @@
 using AutoMapper;
+using Forpost.Business.EventHanding;
 using Forpost.Store.Repositories.Abstract;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

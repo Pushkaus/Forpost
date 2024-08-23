@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
 using Forpost.Business.Models.TechCardItems;
 using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
@@ -13,16 +14,20 @@ namespace Forpost.Business.Services;
 
 internal sealed class TechCardItemService: BaseBusinessService, ITechCardItemService
 {
-    public TechCardItemService(IDbUnitOfWork dbUnitOfWork,
-        ILogger<TechCardItemService> logger,
+    public TechCardItemService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
-        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        TimeProvider timeProvider
+    )
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
     }
-    public async Task<Guid> AddAsync(TechCardItem model, CancellationToken cancellationToken)
+    public async Task<Guid> AddAsync(TechCardItemCreateModel model, CancellationToken cancellationToken)
     {
-        var techCardItemId = DbUnitOfWork.TechCardItemRepository.Add(model);
+        var techCardItem = Mapper.Map<TechCardItem>(model);
+        var techCardItemId = DbUnitOfWork.TechCardItemRepository.Add(techCardItem);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return techCardItemId;
     }

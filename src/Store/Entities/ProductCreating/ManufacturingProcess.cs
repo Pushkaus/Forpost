@@ -1,4 +1,5 @@
 using Forpost.Common.EntityAnnotations;
+using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities.ProductCreating;
 
@@ -37,5 +38,7 @@ public sealed class ManufacturingProcess : IEntity, IAuditableEntity, ITimeFrame
     /// <summary>
     /// Дата завершения выполнения производственного процесса
     /// </summary>
-    public DateTimeOffset EndTime { get; set; }
+    public DateTimeOffset? EndTime { get; set; }
+    
+    public ManufacturingProcessStatus Status { get; set; }
 }

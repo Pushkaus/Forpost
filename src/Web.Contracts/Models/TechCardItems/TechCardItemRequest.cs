@@ -1,6 +1,6 @@
 namespace Forpost.Web.Contracts.Models.TechCardItems;
 
-internal sealed class TechCardItemRequest
+public sealed class TechCardItemRequest
 {
     public Guid TechCardId { get; set; }
 
@@ -12,6 +12,4 @@ internal sealed class TechCardItemRequest
     ///     Необходимое количество, для создания единицы целевого продукта
     /// </summary>
     public int Quantity { get; set; }
-
-    public Guid Id { get; set; }
 }

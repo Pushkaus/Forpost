@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Services\CreatingProducts\" />
+      <Folder Include="Models\Catalog\" />
     </ItemGroup>
 
 </Project>

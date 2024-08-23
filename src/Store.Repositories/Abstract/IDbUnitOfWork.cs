@@ -1,4 +1,5 @@
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Forpost.Store.Repositories.Abstract.Repositories.CreatingProducts;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Forpost.Store.Repositories.Abstract;
@@ -9,11 +10,17 @@ namespace Forpost.Store.Repositories.Abstract;
 public interface IDbUnitOfWork
 {
     public IContragentRepository ContragentRepository { get; }
+    
     public IOperationRepository OperationRepository { get; }
+    
     public IStepRepository StepRepository { get; }
+    
     public ITechCardItemRepository TechCardItemRepository { get; }
+    
     public ITechCardRepository TechCardRepository { get; }
+    
     public ITechCardStepRepositrory TechCardStepRepository { get; }
+    
     public IEmployeeRepository EmployeeRepository { get; }
     
     public IFilesRepository FilesRepository { get; }
@@ -29,8 +36,8 @@ public interface IDbUnitOfWork
     public IStorageProductRepository StorageProductRepository { get; }
     
     public IStorageRepository StorageRepository { get; }
-    
-    
+    public IManufacturingProcessRepository ManufacturingProcessRepository { get; }
+    public IIssueRepository IssueRepository { get; }
     /// <summary>
     /// Начать транзакцию на уровне БД
     /// </summary>

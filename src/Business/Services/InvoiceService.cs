@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
 using Forpost.Business.Models.Invoices;
 using Forpost.Store.Entities;
 using Forpost.Store.Enums;
@@ -18,11 +19,14 @@ public class InvoiceModel
 
 internal sealed class InvoiceService : BaseBusinessService, IInvoiceService
 {
-    public InvoiceService(IDbUnitOfWork dbUnitOfWork, 
-        ILogger<InvoiceService> logger, 
+    public InvoiceService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
-        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        TimeProvider timeProvider
+    )
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
     }
 

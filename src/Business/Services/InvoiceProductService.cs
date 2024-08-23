@@ -15,13 +15,13 @@ namespace Forpost.Business.Services;
 internal sealed class InvoiceProductService : BaseBusinessService, IInvoiceProductService
 {
     private readonly IDomainEventBus _eventBus;
-    
-    public InvoiceProductService(IDbUnitOfWork dbUnitOfWork, 
-        ILogger<InvoiceProductService> logger, 
+    public InvoiceProductService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
-        TimeProvider timeProvider,
-        IDomainEventBus eventBus) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        TimeProvider timeProvider, IDomainEventBus eventBus)
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
         _eventBus = eventBus;
     }

@@ -1,8 +1,11 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
 using Forpost.Common;
+using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
+using Forpost.Store.Enums;
 using Forpost.Store.Repositories.Abstract;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -11,11 +14,14 @@ namespace Forpost.Business.Services;
 
 internal sealed class ContragentService : BaseBusinessService, IContragentService
 {
-    public ContragentService(IDbUnitOfWork dbUnitOfWork, 
-        ILogger<ContragentService> logger,
+    public ContragentService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
-        IConfiguration configuration, 
-        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        IConfiguration configuration,
+        TimeProvider timeProvider
+    )
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
     }
 

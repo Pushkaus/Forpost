@@ -24,7 +24,7 @@ public sealed class TechCardStepController: ControllerBase
     /// <param name="techCardId"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    [HttpGet("{id}")]
+    [HttpGet("{techCardId}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<StepsInTechCardResponse>),StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<StepsInTechCardResponse>> GetStepsByTechCardIdAsync(Guid techCardId,
         CancellationToken cancellationToken)

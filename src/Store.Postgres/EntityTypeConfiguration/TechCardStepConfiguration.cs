@@ -12,11 +12,11 @@ internal sealed class TechCardStepConfiguration : IEntityTypeConfiguration<TechC
         builder.ConfigureBaseEntity();
 
         builder.HasOne<TechCard>()
-            .WithOne()
-            .HasForeignKey<TechCardStep>(key => key.TechCardId);
+            .WithMany()
+            .HasForeignKey(key => key.TechCardId);
 
         builder.HasOne<Step>()
-            .WithOne()
-            .HasForeignKey<TechCardStep>(key => key.StepId);
+            .WithMany()
+            .HasForeignKey(key => key.StepId);
     }
 }

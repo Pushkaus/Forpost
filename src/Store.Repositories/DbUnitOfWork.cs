@@ -4,6 +4,7 @@ using Forpost.Common.Utils;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Abstract;
 using Forpost.Store.Repositories.Abstract.Repositories;
+using Forpost.Store.Repositories.Abstract.Repositories.CreatingProducts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -16,16 +17,16 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
     private readonly ForpostContextPostgres _dbContext;
     private readonly IIdentityProvider _identityProvider;
     private readonly TimeProvider _timeProvider;
-    
+
     public DbUnitOfWork(ForpostContextPostgres dbContext,
         TimeProvider timeProvider,
         IIdentityProvider identityProvider,
         IContragentRepository contragentRepository,
         IEmployeeRepository employeeRepository,
-        IFilesRepository filesRepository, 
-        IInvoiceRepository invoiceRepository, 
+        IFilesRepository filesRepository,
+        IInvoiceRepository invoiceRepository,
         IProductRepository productRepository,
-        IRoleRepository roleRepository, 
+        IRoleRepository roleRepository,
         IStorageProductRepository storageProductRepository,
         IStorageRepository storageRepository,
         IInvoiceProductRepository invoiceProductRepository,
@@ -34,7 +35,9 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
         ITechCardItemRepository techCardItemRepository,
         ITechCardRepository techCardRepository,
         ITechCardStepRepositrory techCardStepRepository,
-        ICategoryRepository categoryRepository)
+        ICategoryRepository categoryRepository,
+        IManufacturingProcessRepository manufacturingProcessRepository,
+        IIssueRepository issueRepository)
     {
         _dbContext = dbContext;
         _timeProvider = timeProvider;
@@ -54,11 +57,15 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
         TechCardRepository = techCardRepository;
         TechCardStepRepository = techCardStepRepository;
         CategoryRepository = categoryRepository;
+        ManufacturingProcessRepository = manufacturingProcessRepository;
+        IssueRepository = issueRepository;
     }
 
     public IContragentRepository ContragentRepository { get; }
     public IOperationRepository OperationRepository { get; }
     public ICategoryRepository CategoryRepository { get; }
+    public IIssueRepository IssueRepository { get; }
+    public IManufacturingProcessRepository ManufacturingProcessRepository { get; }
     public IStepRepository StepRepository { get; }
     public ITechCardItemRepository TechCardItemRepository { get; }
     public ITechCardRepository TechCardRepository { get; }
@@ -79,15 +86,15 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
         var auditableEntries = _dbContext.ChangeTracker.Entries<IAuditableEntity>().ToArray();
         
         if (auditableEntries.IsNotEmpty())
-            return await SaveChangesWithAuditAsync(auditableEntries, cancellationToken);
+            MarkAuditEntities(auditableEntries);
         
         return await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    private async Task<int> SaveChangesWithAuditAsync(EntityEntry<IAuditableEntity>[] auditableEntries, CancellationToken cancellationToken)
+    private void MarkAuditEntities(EntityEntry<IAuditableEntity>[] auditableEntries)
     {
         var userId = _identityProvider.GetUserId() ?? 
-                     throw new InvalidOperationException("Пользователи, модифицирующий сущности обязан быть авторизованным");
+                     throw new InvalidOperationException("Пользователь, модифицирующий сущности обязан быть авторизованным");
         
         foreach (var entry in auditableEntries)
             switch (entry.State)
@@ -97,6 +104,8 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
                     entry.Entity.CreatedById = userId;
                     entry.Entity.UpdatedAt = _timeProvider.GetUtcNow();
                     entry.Entity.UpdatedById = userId;
+                    entry.Entity.DeletedAt = null;
+                    entry.Entity.DeletedById = null;
                     break;
                 case EntityState.Modified:
                     entry.Property(e => e.CreatedAt).IsModified = false;
@@ -110,6 +119,5 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
                     entry.State = EntityState.Modified;
                     break;
             }
-        return await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
 using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Repositories.Abstract;
 using Microsoft.Extensions.Configuration;
@@ -10,11 +11,14 @@ namespace Forpost.Business.Services;
 
 internal sealed class EmployeeService : BaseBusinessService, IEmployeeService
 {
-    public EmployeeService(IDbUnitOfWork dbUnitOfWork, 
-        ILogger<EmployeeService> logger,
+    public EmployeeService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
-        IConfiguration configuration, 
-        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        IConfiguration configuration,
+        TimeProvider timeProvider
+    )
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
     }
 

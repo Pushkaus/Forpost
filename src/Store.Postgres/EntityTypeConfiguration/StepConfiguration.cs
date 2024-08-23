@@ -12,8 +12,8 @@ internal sealed class StepConfiguration : IEntityTypeConfiguration<Step>
         builder.ConfigureBaseEntity();
 
         builder.HasOne<Operation>()
-            .WithOne()
-            .HasForeignKey<Step>(entity => entity.OperationId);
+            .WithMany()
+            .HasForeignKey(entity => entity.OperationId);
 
         builder.HasOne<TechCard>()
             .WithMany()

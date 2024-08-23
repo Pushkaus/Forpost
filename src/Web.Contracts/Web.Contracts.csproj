@@ -13,5 +13,9 @@
         <ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj"/>
         <ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj"/>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Controllers\Catalog\" />
+      <Folder Include="Models\CreatingProducts\" />
+    </ItemGroup>
 
 </Project>

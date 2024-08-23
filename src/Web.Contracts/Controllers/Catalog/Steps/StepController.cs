@@ -14,9 +14,10 @@ public sealed class StepController: ControllerBase
 {
     private readonly IStepService _stepService;
     private readonly IMapper _mapper;
-    public StepController(IStepService stepService)
+    public StepController(IStepService stepService, IMapper mapper)
     {
         _stepService = stepService;
+        _mapper = mapper;
     }
     /// <summary>
     /// Получение этапа по Id 

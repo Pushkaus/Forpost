@@ -12,12 +12,12 @@ internal sealed class TechCardConfiguration : IEntityTypeConfiguration<TechCard>
         builder.ConfigureBaseEntity();
 
         builder.HasOne<Employee>()
-            .WithOne()
-            .HasForeignKey<TechCard>(key => key.CreatedById);
+            .WithMany()
+            .HasForeignKey(key => key.CreatedById);
 
         builder.HasOne<Product>()
-            .WithOne()
-            .HasForeignKey<TechCard>(key => key.ProductId);
+            .WithMany()
+            .HasForeignKey(key => key.ProductId);
         builder.Property(entity => entity.Number).HasMaxLength(DatabaseConstrains.MaxLength);
         builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);
 

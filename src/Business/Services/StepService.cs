@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
 using Forpost.Business.Models.Steps;
 using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
@@ -14,12 +15,14 @@ namespace Forpost.Business.Services;
 
 internal sealed class StepService: BaseBusinessService, IStepService
 {
-    public StepService(IDbUnitOfWork dbUnitOfWork,
-        ILogger<StepService> logger,
+    public StepService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
-        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration,
-        timeProvider)
+        TimeProvider timeProvider
+    )
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
     }
 

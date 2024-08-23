@@ -13,6 +13,4 @@ public sealed class TechCardItemCreateModel
     ///     Необходимое количество, для создания единицы целевого продукта
     /// </summary>
     public int Quantity { get; set; }
-
-    public Guid Id { get; set; }
 }

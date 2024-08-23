@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using Forpost.Business.Abstract;
+using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
 using Forpost.Business.Models.Accounts;
 using Forpost.Common;
 using Forpost.Store.Entities.Catalog;
@@ -15,17 +17,17 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Forpost.Business.Services;
 
-internal sealed class AccountService : BaseBusinessService
+internal sealed class AccountService : BaseBusinessService, IAccountService
 {
     private readonly IPasswordHasher<EmployeeWithRole> _passwordHasher;
 
-    public AccountService(IDbUnitOfWork dbUnitOfWork,
-        ILogger<AccountService> logger,
+    public AccountService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
-        TimeProvider timeProvider,
         IConfiguration configuration,
-        IPasswordHasher<EmployeeWithRole> passwordHasher) : base(dbUnitOfWork, logger, mapper, configuration,
-        timeProvider)
+        TimeProvider timeProvider, IPasswordHasher<EmployeeWithRole> passwordHasher)
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
         _passwordHasher = passwordHasher;
     }
@@ -33,7 +35,7 @@ internal sealed class AccountService : BaseBusinessService
     public async Task<string> LoginAsync(LoginUserModel model, CancellationToken cancellationToken)
     {
         var user = Mapper.Map<EmployeeWithRole>(model);
-
+        
         // При добавлении нового пользователя его пароль хэшируется с добавлением соли
         var employee =
             await DbUnitOfWork.EmployeeRepository.GetAutorizedByUsernameAsync(user.FirstName, user.LastName, cancellationToken);

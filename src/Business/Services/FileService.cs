@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Business.Abstract;
 using Forpost.Business.Abstract.Services;
+using Forpost.Business.EventHanding;
 using Forpost.Business.Models.Files;
 using Forpost.Common;
 using Forpost.Store.Entities;
@@ -12,11 +13,14 @@ namespace Forpost.Business.Services;
 
 internal sealed class FileService : BaseBusinessService, IFileService
 {
-    public FileService(IDbUnitOfWork dbUnitOfWork, 
-        ILogger<FileService> logger, 
+    public FileService(
+        IDbUnitOfWork dbUnitOfWork,
+        ILogger<BaseBusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
-        TimeProvider timeProvider) : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
+        TimeProvider timeProvider
+    )
+        : base(dbUnitOfWork, logger, mapper, configuration, timeProvider)
     {
     }
 
