@@ -3,7 +3,7 @@ namespace Forpost.Business.Abstract.Services;
 /// <summary>
 /// Сервис, для работы с производственным процессом
 /// </summary>
-public interface IManufacturingProcessService
+public interface IManufacturingProcessService: IBusinessService
 {
     /// <summary>
     /// Запуск производственного процесса

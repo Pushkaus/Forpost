@@ -28,7 +28,13 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
         IRoleRepository roleRepository, 
         IStorageProductRepository storageProductRepository,
         IStorageRepository storageRepository,
-        IInvoiceProductRepository invoiceProductRepository)
+        IInvoiceProductRepository invoiceProductRepository,
+        IOperationRepository operationRepository,
+        IStepRepository stepRepository,
+        ITechCardItemRepository techCardItemRepository,
+        ITechCardRepository techCardRepository,
+        ITechCardStepRepositrory techCardStepRepository,
+        ICategoryRepository categoryRepository)
     {
         _dbContext = dbContext;
         _timeProvider = timeProvider;
@@ -42,9 +48,21 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
         StorageProductRepository = storageProductRepository;
         StorageRepository = storageRepository;
         InvoiceProductRepository = invoiceProductRepository;
+        OperationRepository = operationRepository;
+        StepRepository = stepRepository;
+        TechCardItemRepository = techCardItemRepository;
+        TechCardRepository = techCardRepository;
+        TechCardStepRepository = techCardStepRepository;
+        CategoryRepository = categoryRepository;
     }
 
     public IContragentRepository ContragentRepository { get; }
+    public IOperationRepository OperationRepository { get; }
+    public ICategoryRepository CategoryRepository { get; }
+    public IStepRepository StepRepository { get; }
+    public ITechCardItemRepository TechCardItemRepository { get; }
+    public ITechCardRepository TechCardRepository { get; }
+    public ITechCardStepRepositrory TechCardStepRepository { get; }
     public IEmployeeRepository EmployeeRepository { get; }
     public IFilesRepository FilesRepository { get; }
     public IInvoiceProductRepository InvoiceProductRepository { get; }

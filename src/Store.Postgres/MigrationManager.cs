@@ -20,7 +20,7 @@ public static class MigrationManager
         var roleId = new Guid("05492e30-8df3-432f-9de6-3fcd91e389f5");
         var createdAt = DateTimeOffset.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
    
-        const string passwordHash = "AQAAAAIAAYagAAAAEFfWkQvwd4hja19jKrd1rYqLWLwCv1cjfJKTXrOfI7wVn3n5GjQPaN7SGsKDJVD06w";
+        const string passwordHash = "AQAAAAIAAYagAAAAEGyBmwpFq9JfhWPbknKvvf2jNN6ix79jnbyMAAi87jI9/+rXaTqLCaL13m5D+FcNow==";
 
         var roleExists = await context.Roles.AnyAsync(r => r.Id == roleId);
 

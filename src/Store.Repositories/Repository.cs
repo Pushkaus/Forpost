@@ -27,7 +27,11 @@ internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity
     public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) => 
         await DbSet.ById(id).FirstOrDefaultAsync(cancellationToken);
 
-    public void Add(TEntity entity) => DbSet.Entry(entity).State = EntityState.Added;
+    public async Task<Guid> Add(TEntity entity)
+    {
+        DbSet.Entry(entity).State = EntityState.Added;
+        return entity.Id;
+    }
 
     public void Update(TEntity entity) => DbContext.Entry(entity).State = EntityState.Modified;
 

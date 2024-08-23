@@ -19,11 +19,12 @@ internal sealed class ContragentService : BaseBusinessService, IContragentServic
     {
     }
 
-    public async Task AddAsync(string name, CancellationToken cancellationToken)
+    public async Task<Guid> AddAsync(string name, CancellationToken cancellationToken)
     {
         var contragent = new Contractor { Name = name };
-        DbUnitOfWork.ContragentRepository.Add(contragent);
+        var contragentId = await DbUnitOfWork.ContragentRepository.Add(contragent);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
+        return contragentId;
     }
 
     public async Task<IReadOnlyList<Contractor>> GetAllAsync(CancellationToken cancellationToken)

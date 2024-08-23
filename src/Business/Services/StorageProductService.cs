@@ -24,11 +24,9 @@ internal sealed class StorageProductService : BaseBusinessService, IStorageProdu
     public async Task<Guid> AddAsync(StorageProductCreateModel model, CancellationToken cancellationToken)
     {
         var storageProduct = Mapper.Map<StorageProduct>(model);
-        DbUnitOfWork.StorageProductRepository.Add(storageProduct);
+        var storageProductId = await DbUnitOfWork.StorageProductRepository.Add(storageProduct);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
-
-        //TODO:
-        return Guid.Empty;
+        return storageProductId;
     }
 
     public async Task<IReadOnlyList<StorageProductModel>>

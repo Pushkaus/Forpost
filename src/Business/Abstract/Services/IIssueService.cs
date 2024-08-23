@@ -1,6 +1,6 @@
 namespace Forpost.Business.Abstract.Services;
 
-public interface IIssueService
+public interface IIssueService: IBusinessService
 {
     /// <summary>
     /// Назначение/смена исполнителей

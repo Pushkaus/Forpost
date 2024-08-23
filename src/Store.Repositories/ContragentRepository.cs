@@ -7,7 +7,9 @@ namespace Forpost.Store.Repositories;
 
 internal sealed class ContragentRepository : Repository<Contractor>, IContragentRepository
 {
-    public ContragentRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+    public ContragentRepository(ForpostContextPostgres dbContext,
+        TimeProvider timeProvider,
+        IMapper mapper) 
         : base(dbContext, timeProvider, mapper)
     {
     }
