@@ -14,7 +14,7 @@ internal sealed class StorageProductRepository : Repository<StorageProductEntity
     {
     }
 
-    public async Task<IReadOnlyList<ProductsOnStorage>>
+    public async Task<IReadOnlyList<ProductsOnStorageModel>>
         GetAllByStorageIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await DbSet
@@ -28,7 +28,7 @@ internal sealed class StorageProductRepository : Repository<StorageProductEntity
                 DbContext.Storages,
                 combined => combined.entity.StorageId,
                 storage => storage.Id,
-                (combined, storage) => new ProductsOnStorage
+                (combined, storage) => new ProductsOnStorageModel
                 {
                     ProductId = combined.entity.ProductId,
                     ProductName = combined.product.Name,

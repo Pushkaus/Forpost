@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services.CreatingProducts;
+using Forpost.Business.ProductCreating.ManufacturingProcesses.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.CreatingProducts.ManufacturingProcesses;

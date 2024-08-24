@@ -5,5 +5,5 @@ namespace Forpost.Store.Repositories.Abstract.Repositories;
 
 public interface ITechCardItemRepository: IRepository<TechCardItemEntity>
 {
-    public Task<IReadOnlyCollection<ItemsInTechCard>> GetAllItemsByTechCardId(Guid techCardId, CancellationToken cancellationToken);
+    public Task<IReadOnlyCollection<ItemsInTechCardModel>> GetAllItemsByTechCardId(Guid techCardId, CancellationToken cancellationToken);
 }

@@ -1,13 +1,11 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.Operations;
-using Forpost.Store.Entities;
+using Forpost.Business.Catalogs.Operations;
 using Forpost.Store.Entities.Catalog;
 using Forpost.Web.Contracts.Models.Operations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Operations;
+namespace Forpost.Web.Contracts.Controllers.Catalog.Operations;
 [ApiController]
 [Route("api/v1/operations")]
 public sealed class OperationController: ControllerBase
@@ -27,7 +25,7 @@ public sealed class OperationController: ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<Guid> AddAsync([FromBody] OperationRequest model, CancellationToken cancellationToken)
     {
-        var operation = _mapper.Map<OperationModel>(model);
+        var operation = _mapper.Map<Operation>(model);
         return await _operationService.AddAsync(operation, cancellationToken);
     }
     /// <summary>

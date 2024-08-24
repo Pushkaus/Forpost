@@ -1,14 +1,11 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.TechCardItems;
-using Forpost.Store.Entities;
+using Forpost.Business.Catalogs.TechCardItems;
 using Forpost.Store.Entities.Catalog;
-using Forpost.Store.Repositories.Models.TechCardItem;
 using Forpost.Web.Contracts.Models.TechCardItems;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.TechCardItemController;
+namespace Forpost.Web.Contracts.Controllers.Catalog.TechCardItem;
 [ApiController]
 [Route("v1/api/techcarditem")]
 public sealed class TechCardItemController: ControllerBase
@@ -47,7 +44,7 @@ public sealed class TechCardItemController: ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync(TechCardItemRequest model, CancellationToken cancellationToken)
     {
-        var techCardItem = _mapper.Map<TechCardItemCreateModel>(model);
+        var techCardItem = _mapper.Map<TechCardItemCreateCommand>(model);
         return await _techCardItemService.AddAsync(techCardItem, cancellationToken);
     } 
 

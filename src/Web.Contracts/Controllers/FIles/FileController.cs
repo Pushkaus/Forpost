@@ -1,6 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.Files;
+using Forpost.Business.FileStorage;
 using Forpost.Web.Contracts.Models.Files;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -41,7 +40,7 @@ public sealed class FileController : ControllerBase
             content = memoryStream.ToArray();
         }
 
-        var model = _mapper.Map<UploadFileModel>(request);
+        var model = _mapper.Map<UploadFileCommand>(request);
         model.Content = content;
         var id = await _fileService.UploadFileAsync(model, cancellationToken);
         return Ok(id);

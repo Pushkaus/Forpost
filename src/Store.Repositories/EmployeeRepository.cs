@@ -14,7 +14,7 @@ internal sealed class EmployeeRepository : Repository<EmployeeEntity>, IEmployee
     {
     }
 
-    public async Task<EmployeeWithRole?>
+    public async Task<EmployeeWithRoleModel?>
         GetAutorizedByUsernameAsync(string firstName, string lastName, CancellationToken cancellationToken)
     {
         var userWithRole = await DbSet
@@ -22,7 +22,7 @@ internal sealed class EmployeeRepository : Repository<EmployeeEntity>, IEmployee
                 DbContext.Roles,
                 employee => employee.RoleId,
                 role => role.Id,
-                (employee, role) => new EmployeeWithRole
+                (employee, role) => new EmployeeWithRoleModel
                 {
                     Id = employee.Id,
                     FirstName = employee.FirstName,

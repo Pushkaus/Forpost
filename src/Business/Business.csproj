@@ -6,16 +6,13 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EventBus\EventBus.csproj" />
         <ProjectReference Include="..\Store.Repositories\Store.Repositories.csproj"/>
         <ProjectReference Include="..\Store\Store.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
         <InternalsVisibleTo Include="$(CommonPrefix).UnitTests"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\Catalog\" />
     </ItemGroup>
 
 </Project>

@@ -1,12 +1,12 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.Products;
+using Forpost.Business.Catalogs.Products;
+using Forpost.Business.Catalogs.Products.Commands;
 using Forpost.Web.Contracts.Models.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Products;
+namespace Forpost.Web.Contracts.Controllers.Catalog.Products;
 
 [ApiController]
 [Route("api/v1/products")]
@@ -57,7 +57,7 @@ public sealed class ProductController : ControllerBase
     public async Task<IActionResult>
         CreateAsync([FromBody] ProductCreateRequest request, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<ProductCreateModel>(request);
+        var model = _mapper.Map<ProductCreateCommand>(request);
         var id = await _productService.AddAsync(model, cancellationToken);
         return Ok(id);
     }
@@ -72,7 +72,7 @@ public sealed class ProductController : ControllerBase
     public async Task<IActionResult>
         UpdateAsync([FromBody] ProductUpdateRequest request, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<ProductUpdateModel>(request);
+        var model = _mapper.Map<ProductUpdateCommand>(request);
         await _productService.UpdateAsync(model, cancellationToken);
         return Ok();
     }

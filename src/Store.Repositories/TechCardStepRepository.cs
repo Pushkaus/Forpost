@@ -15,7 +15,7 @@ internal sealed class TechCardStepRepository: Repository<TechCardStepEntity>, IT
     {
     }
 
-    public async Task<IReadOnlyList<StepsInTechCard>> GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<StepsInTechCardModel>> GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
     {
         return await DbSet.Where(techCardStep => techCardStep.TechCardId == techCardId)
             .Join(DbContext.Steps,
@@ -26,7 +26,7 @@ internal sealed class TechCardStepRepository: Repository<TechCardStepEntity>, IT
             .Join(DbContext.Operations,
                 techCardStep => techCardStep.step.OperationId,
                 operation => operation.Id,
-                (techCardStep, operation) => new StepsInTechCard
+                (techCardStep, operation) => new StepsInTechCardModel
                 {
                     TechCardId = techCardId,
                     StepId = techCardStep.step.Id,

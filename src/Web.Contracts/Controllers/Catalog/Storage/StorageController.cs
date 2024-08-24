@@ -1,13 +1,12 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.Storages;
+using Forpost.Business.Catalogs.Storages;
 using Forpost.Web.Contracts.Models.StorageProduct;
 using Forpost.Web.Contracts.Models.Storages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Storage;
+namespace Forpost.Web.Contracts.Controllers.Catalog.Storage;
 
 [ApiController]
 [Route("api/v1/storages")]
@@ -33,7 +32,7 @@ public sealed class StorageController : ControllerBase
     public async Task<IActionResult>
         CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<StorageCreateModel>(request);
+        var model = _mapper.Map<StorageCreateCommand>(request);
         await _storageService.AddAsync(model, cancellationToken);
         return Ok();
     }

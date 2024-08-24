@@ -1,6 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Models.CreatingProducts.LaunchManufacturingProcessModel;
-using Forpost.Business.Models.CreatingProducts.PlanningManufacturingProcessModel;
+using Forpost.Business.ProductCreating.PlanningManufacturingProcessModel;
 using Forpost.Store.Entities.ProductCreating;
 using Forpost.Web.Contracts.Models.CreatingProducts.PlanningManufacturingProcessModel;
 
@@ -10,8 +9,8 @@ internal sealed class PlanningManufacturingProcessMappingProfile: Profile
 {
     public PlanningManufacturingProcessMappingProfile()
     {
-        CreateMap<PlanningManufacturingProcess, PlanningManufacturingProcessModel>()
+        CreateMap<Models.CreatingProducts.PlanningManufacturingProcessModel.PlanningManufacturingProcess, PlanningManufacturingProcessCommand>()
             .ValidateMemberList(MemberList.Source);
-        CreateMap<StartingIssue, StartingIssueModel>().ValidateMemberList(MemberList.Source);
+        CreateMap<Models.CreatingProducts.PlanningManufacturingProcessModel.StartingIssue, StartingIssueCommand>().ValidateMemberList(MemberList.Source);
     }
 }

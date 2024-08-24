@@ -1,5 +1,3 @@
-using Forpost.Business.Models.CreatingProducts.LaunchManufacturingProcessModel;
-
 namespace Forpost.Web.Contracts.Models.CreatingProducts.PlanningManufacturingProcessModel;
 
 public sealed class PlanningManufacturingProcess

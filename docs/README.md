@@ -11,3 +11,9 @@ docker-compose down
 ```shell
 docker-compose down; docker-compose up --build
 ```
+# Миграции
+Миграции делаются при помощи скриптов в проекте `Store.Migrations`
+```csharp
+Для миграции данных создаём постую миграцию (без модификации схемы) и в методы Up и Down
+добавляем sql-скрипты. Прямой и обратный. ОБЯЗАТЕЛЬНО!
+```

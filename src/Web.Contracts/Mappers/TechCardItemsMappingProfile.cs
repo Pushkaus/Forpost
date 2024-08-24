@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Models.TechCardItems;
+using Forpost.Business.Catalogs.TechCardItems;
 using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
 using Forpost.Web.Contracts.Models.TechCardItems;
@@ -10,7 +10,7 @@ internal sealed class TechCardItemsMappingProfile: Profile
 {
     public TechCardItemsMappingProfile()
     {
-        CreateMap<ItemsInTechCardModel, TechCardItemsResponse>().ValidateMemberList(MemberList.Destination);
-        CreateMap<TechCardItemRequest, TechCardItemCreateModel>().ValidateMemberList(MemberList.Destination);
+        CreateMap<ItemsInTechCard, TechCardItemsResponse>().ValidateMemberList(MemberList.Destination);
+        CreateMap<TechCardItemRequest, TechCardItemCreateCommand>().ValidateMemberList(MemberList.Destination);
     }
 }

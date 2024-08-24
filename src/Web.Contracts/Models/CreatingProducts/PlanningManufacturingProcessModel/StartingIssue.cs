@@ -1,4 +1,4 @@
-namespace Forpost.Business.Models.CreatingProducts.LaunchManufacturingProcessModel;
+namespace Forpost.Web.Contracts.Models.CreatingProducts.PlanningManufacturingProcessModel;
 /// <summary>
 /// Модель задачи, при запуске производственного процесса
 /// </summary>

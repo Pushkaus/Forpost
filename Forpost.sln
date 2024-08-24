@@ -38,11 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CA10D920-4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Migrations", "src\Store.Migrations\Store.Migrations.csproj", "{BBDD23C9-1E2C-406D-BFCB-5994A7707F4D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{F7A22605-67F5-45BA-A898-9757FCC7D510}"
-	ProjectSection(SolutionItems) = preProject
-		AddSchemeMigration.ps1 = AddSchemeMigration.ps1
-		AddDataMigration.ps1 = AddDataMigration.ps1
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "src\EventBus\EventBus.csproj", "{173B5056-3F28-4909-B138-00475AAF35C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +78,10 @@ Global
 		{BBDD23C9-1E2C-406D-BFCB-5994A7707F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBDD23C9-1E2C-406D-BFCB-5994A7707F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBDD23C9-1E2C-406D-BFCB-5994A7707F4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{173B5056-3F28-4909-B138-00475AAF35C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{173B5056-3F28-4909-B138-00475AAF35C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{173B5056-3F28-4909-B138-00475AAF35C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{173B5056-3F28-4909-B138-00475AAF35C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +95,7 @@ Global
 		{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
 		{1F217EB3-4FBF-45A9-93FE-AD35F2962182} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
 		{BBDD23C9-1E2C-406D-BFCB-5994A7707F4D} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
+		{173B5056-3F28-4909-B138-00475AAF35C9} = {E4C73D73-5D04-4D21-8945-10A32D3DE1CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38E6143B-C8A2-40AA-A6E8-E546A47A612B}

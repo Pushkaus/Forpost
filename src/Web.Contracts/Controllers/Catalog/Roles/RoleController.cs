@@ -1,10 +1,10 @@
-using Forpost.Business.Abstract.Services;
+using Forpost.Business.Catalogs.Roles;
 using Forpost.Web.Contracts.Models.Roles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Roles;
+namespace Forpost.Web.Contracts.Controllers.Catalog.Roles;
 
 [ApiController]
 [Route("api/v1/role")]

@@ -1,13 +1,11 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.Steps;
-using Forpost.Store.Entities;
+using Forpost.Business.Catalogs.Steps;
 using Forpost.Store.Entities.Catalog;
 using Forpost.Web.Contracts.Models.Steps;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Steps;
+namespace Forpost.Web.Contracts.Controllers.Catalog.Steps;
 [ApiController]
 [Route("v1/api/steps")]
 public sealed class StepController: ControllerBase
@@ -52,7 +50,7 @@ public sealed class StepController: ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync([FromBody] StepCreateRequest step, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<StepCreateModel>(step);
+        var model = _mapper.Map<StepCreateCommand>(step);
         return await _stepService.AddAsync(model, cancellationToken);
     }
     /// <summary>

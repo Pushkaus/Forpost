@@ -1,11 +1,10 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.TechCardSteps;
+using Forpost.Business.Catalogs.TechCardSteps;
 using Forpost.Web.Contracts.Models.TechCardSteps;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.TechCardStep;
+namespace Forpost.Web.Contracts.Controllers.Catalog.TechCardStep;
 [ApiController]
 [Route("api/v1/techcardstep")]
 public sealed class TechCardStepController: ControllerBase
@@ -43,7 +42,7 @@ public sealed class TechCardStepController: ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync(TechCardStepRequest model, CancellationToken cancellationToken)
     {
-        var techCardStep = _mapper.Map<TechCardStepCreateModel>(model);
+        var techCardStep = _mapper.Map<TechCardStepCreateCommand>(model);
         return await _techCardStepService.AddAsync(techCardStep, cancellationToken);
     }
     /// <summary>

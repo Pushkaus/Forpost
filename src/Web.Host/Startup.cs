@@ -1,6 +1,5 @@
 using System.Text;
 using Forpost.Business;
-using Forpost.Business.Settings;
 using Forpost.Common;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Models.Employee;
@@ -27,7 +26,7 @@ internal sealed class Startup
         services.AddBusinessServices();
         services.AddIdentityProvider();
         services.AddOpenTelemetryLogging(_configuration);
-        services.AddScoped<IPasswordHasher<EmployeeWithRole>, PasswordHasher<EmployeeWithRole>>();
+        services.AddScoped<IPasswordHasher<EmployeeWithRoleModel>, PasswordHasher<EmployeeWithRoleModel>>();
         services.AddForpostContextPostgres(_configuration);
         services.AddSwaggerServices();
         services.AddSingleton(TimeProvider.System);

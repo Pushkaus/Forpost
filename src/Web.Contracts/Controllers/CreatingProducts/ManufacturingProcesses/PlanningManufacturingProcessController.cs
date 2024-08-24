@@ -1,6 +1,6 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services.CreatingProducts;
-using Forpost.Business.Models.CreatingProducts.PlanningManufacturingProcessModel;
+using Forpost.Business.ProductCreating.ManufacturingProcesses.Services.Abstract;
+using Forpost.Business.ProductCreating.PlanningManufacturingProcessModel;
 using Forpost.Web.Contracts.Models.CreatingProducts.PlanningManufacturingProcessModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +21,9 @@ public sealed class PlanningManufacturingProcessController: ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Planning(PlanningManufacturingProcess process, CancellationToken cancellationToken)
+    public async Task<IActionResult> Planning(Models.CreatingProducts.PlanningManufacturingProcessModel.PlanningManufacturingProcess process, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<PlanningManufacturingProcessModel>(process);
+        var model = _mapper.Map<PlanningManufacturingProcessCommand>(process);
         await _manufacturingProcessPlanningService.Planning(model, cancellationToken);
         return Ok(model);
     }

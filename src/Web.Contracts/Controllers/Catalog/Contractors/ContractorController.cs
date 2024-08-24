@@ -1,20 +1,20 @@
-using Forpost.Business.Abstract.Services;
+using Forpost.Business.Catalogs.Contractors;
 using Forpost.Web.Contracts.Models.Contragents;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Contragents;
+namespace Forpost.Web.Contracts.Controllers.Catalog.Contractors;
 
 [ApiController]
 [Route("api/v1/contragents")]
 //[Authorize]
 public sealed class ContractorController : ControllerBase
 {
-    private readonly IContragentService _contragentService;
+    private readonly IContractorService _contractorService;
 
-    public ContractorController(IContragentService contragentService)
+    public ContractorController(IContractorService contractorService)
     {
-        _contragentService = contragentService;
+        _contractorService = contractorService;
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public sealed class ContractorController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateAsync(string name, CancellationToken cancellationToken)
     {
-        await _contragentService.AddAsync(name, cancellationToken);
+        await _contractorService.AddAsync(name, cancellationToken);
         return Ok();
     }
 
@@ -38,7 +38,7 @@ public sealed class ContractorController : ControllerBase
     [ProducesResponseType(typeof(IReadOnlyCollection<ContractorResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var contragents = await _contragentService.GetAllAsync(cancellationToken);
+        var contragents = await _contractorService.GetAllAsync(cancellationToken);
         return Ok(contragents);
     }
 
@@ -51,7 +51,7 @@ public sealed class ContractorController : ControllerBase
     [ProducesResponseType(typeof(ContractorResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var contragent = await _contragentService.GetByIdAsync(id, cancellationToken);
+        var contragent = await _contractorService.GetByIdAsync(id, cancellationToken);
         return Ok(contragent);
     }
 }
