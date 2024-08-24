@@ -7,7 +7,7 @@ public interface IRepository<TEntity> : IRepository where TEntity : class, IEnti
 {
     public Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken);
     public Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    public Task<Guid> Add(TEntity entity);
+    public Guid Add(TEntity entity);
     public void Update(TEntity entity);
     public void DeleteById(Guid id);
 }

@@ -1,6 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.Invoices;
+using Forpost.Business.Sortout;
 using Forpost.Web.Contracts.Models.Invoices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -54,7 +53,7 @@ public sealed class InvoiceController : ControllerBase
     public async Task<Guid>
         ExposeAsync([FromBody] InvoiceCreateRequest request, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<InvoiceCreateModel>(request);
+        var model = _mapper.Map<InvoiceCreateCommand>(request);
         var id = await _invoiceService.ExposeAsync(model, cancellationToken);
         return id;
     }
@@ -69,7 +68,7 @@ public sealed class InvoiceController : ControllerBase
     public async Task<IActionResult>
         ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<InvoiceUpdateModel>(request);
+        var model = _mapper.Map<InvoiceUpdateCommand>(request);
         await _invoiceService.CloseAsync(model, cancellationToken);
         return Ok();
     }
@@ -84,7 +83,7 @@ public sealed class InvoiceController : ControllerBase
     public async Task<IActionResult>
         UpdateAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<InvoiceUpdateModel>(request);
+        var model = _mapper.Map<InvoiceUpdateCommand>(request);
         await _invoiceService.UpdateAsync(model, cancellationToken);
         return Ok();
     }

@@ -4,8 +4,8 @@ using Forpost.Store.Repositories.Models.Employee;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 
-public interface IEmployeeRepository : IRepository<Employee>
+public interface IEmployeeRepository : IRepository<EmployeeEntity>
 {
-    public Task<EmployeeWithRole?>
+    public Task<EmployeeWithRoleModel?>
         GetAutorizedByUsernameAsync(string firstName, string lastName, CancellationToken cancellationToken);
 }

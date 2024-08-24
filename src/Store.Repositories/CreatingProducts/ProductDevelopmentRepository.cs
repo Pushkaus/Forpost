@@ -6,7 +6,7 @@ using Forpost.Store.Repositories.Abstract.Repositories.CreatingProducts;
 
 namespace Forpost.Store.Repositories.CreatingProducts;
 
-internal sealed class ProductDevelopmentRepository: Repository<ProductDevelopment>, IProductDevelopmentRepository
+internal sealed class ProductDevelopmentRepository: Repository<ProductDevelopmentEntity>, IProductDevelopmentRepository
 {
     public ProductDevelopmentRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)

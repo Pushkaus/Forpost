@@ -11,5 +11,4 @@ public sealed class StepsInTechCardResponse
     /// </summary>
     public int Number { get; set; }
 
-    public Guid Id { get; set; }
 }

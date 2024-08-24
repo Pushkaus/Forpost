@@ -5,7 +5,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class ContragentRepository : Repository<Contractor>, IContragentRepository
+internal sealed class ContragentRepository : Repository<ContractorEntity>, IContragentRepository
 {
     public ContragentRepository(ForpostContextPostgres dbContext,
         TimeProvider timeProvider,

@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class StorageConfiguration : IEntityTypeConfiguration<Storage>
+internal sealed class StorageConfiguration : IEntityTypeConfiguration<StorageEntity>
 {
-    public void Configure(EntityTypeBuilder<Storage> builder)
+    public void Configure(EntityTypeBuilder<StorageEntity> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<Employee>()
+        builder.HasOne<EmployeeEntity>()
             .WithOne()
-            .HasForeignKey<Storage>(key => key.ResponsibleId);
+            .HasForeignKey<StorageEntity>(key => key.ResponsibleId);
         
         builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
         builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);

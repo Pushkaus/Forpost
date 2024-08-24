@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeRepository
+internal sealed class EmployeeRepository : Repository<EmployeeEntity>, IEmployeeRepository
 {
     public EmployeeRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)
     {
     }
 
-    public async Task<EmployeeWithRole?>
+    public async Task<EmployeeWithRoleModel?>
         GetAutorizedByUsernameAsync(string firstName, string lastName, CancellationToken cancellationToken)
     {
         var userWithRole = await DbSet
@@ -22,7 +22,7 @@ internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeReposi
                 DbContext.Roles,
                 employee => employee.RoleId,
                 role => role.Id,
-                (employee, role) => new EmployeeWithRole
+                (employee, role) => new EmployeeWithRoleModel
                 {
                     Id = employee.Id,
                     FirstName = employee.FirstName,

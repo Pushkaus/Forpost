@@ -8,7 +8,7 @@ using Forpost.Store.Repositories.Abstract.Repositories.CreatingProducts;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class StepRepository: Repository<Step>, IStepRepository
+internal sealed class StepRepository: Repository<StepEntity>, IStepRepository
 {
     public StepRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)

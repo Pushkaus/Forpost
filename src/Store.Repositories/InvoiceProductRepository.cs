@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IInvoiceProductRepository
+internal sealed class InvoiceProductRepository : Repository<InvoiceProductEntity>, IInvoiceProductRepository
 {
     public InvoiceProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)
     {
     }
 
-    public async Task<IReadOnlyList<InvoiceWithProducts>>
+    public async Task<IReadOnlyList<InvoiceWithProductsModel>>
         GetProductsByInvoiceIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await DbSet
@@ -33,7 +33,7 @@ internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IIn
                 DbContext.Invoices,
                 combined => combined.Entity.InvoiceId,
                 invoice => invoice.Id,
-                (combined, invoice) => new InvoiceWithProducts
+                (combined, invoice) => new InvoiceWithProductsModel
                 {
                     ProductId = combined.Entity.Id,
                     Name = combined.Product.Name,

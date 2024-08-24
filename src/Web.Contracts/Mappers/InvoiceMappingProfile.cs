@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Models.Invoices;
+using Forpost.Business.Sortout;
 using Forpost.Web.Contracts.Models.Invoices;
 
 namespace Forpost.Web.Contracts.Mappers;
@@ -8,7 +8,7 @@ internal sealed class InvoiceMappingProfile : Profile
 {
     public InvoiceMappingProfile()
     {
-        CreateMap<InvoiceCreateRequest, InvoiceCreateModel>().ValidateMemberList(MemberList.Destination);
-        CreateMap<InvoiceUpdateRequest, InvoiceUpdateModel>().ValidateMemberList(MemberList.Destination);
+        CreateMap<InvoiceCreateRequest, InvoiceCreateCommand>().ValidateMemberList(MemberList.Destination);
+        CreateMap<InvoiceUpdateRequest, InvoiceUpdateCommand>().ValidateMemberList(MemberList.Destination);
     }
 }

@@ -11,4 +11,9 @@ public static class EnumerableExtensions
     /// Имеет ли коллекция хотя бы один элемент
     /// </summary>
     public static bool IsNotEmpty<TElement>(this IEnumerable<TElement> source) => source.Any();
+    
+    /// <summary>
+    /// Представить один элемент, как коллекцию
+    /// </summary>
+    public static IEnumerable<TElement> Yield<TElement>(this TElement source) => [source];
 }

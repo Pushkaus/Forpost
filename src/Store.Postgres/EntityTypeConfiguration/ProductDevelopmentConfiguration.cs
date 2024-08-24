@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class ProductDevelopmentConfiguration: IEntityTypeConfiguration<ProductDevelopment>
+internal sealed class ProductDevelopmentConfiguration: IEntityTypeConfiguration<ProductDevelopmentEntity>
 {
-    public void Configure(EntityTypeBuilder<ProductDevelopment> builder)
+    public void Configure(EntityTypeBuilder<ProductDevelopmentEntity> builder)
     {
         builder.ConfigureBaseEntity();
     }

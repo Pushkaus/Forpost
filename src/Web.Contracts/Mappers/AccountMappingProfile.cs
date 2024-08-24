@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Models.Accounts;
+using Forpost.Business.Auth.Commands;
 using Forpost.Web.Contracts.Models.Accounts;
 
 namespace Forpost.Web.Contracts.Mappers;
@@ -8,7 +8,7 @@ internal sealed class AccountMappingProfile : Profile
 {
     public AccountMappingProfile()
     {
-        CreateMap<LoginUserRequest, LoginUserModel>().ValidateMemberList(MemberList.Destination);
-        CreateMap<RegisterUserRequest, RegisterUserModel>().ValidateMemberList(MemberList.Destination);
+        CreateMap<LoginUserRequest, LoginUserCommand>().ValidateMemberList(MemberList.Destination);
+        CreateMap<RegisterUserRequest, RegisterUserCommand>().ValidateMemberList(MemberList.Destination);
     }
 }

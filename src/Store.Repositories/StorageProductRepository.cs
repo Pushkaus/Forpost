@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class StorageProductRepository : Repository<StorageProduct>, IStorageProductRepository
+internal sealed class StorageProductRepository : Repository<StorageProductEntity>, IStorageProductRepository
 {
     public StorageProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)
     {
     }
 
-    public async Task<IReadOnlyList<ProductsOnStorage>>
+    public async Task<IReadOnlyList<ProductsOnStorageModel>>
         GetAllByStorageIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await DbSet
@@ -28,7 +28,7 @@ internal sealed class StorageProductRepository : Repository<StorageProduct>, ISt
                 DbContext.Storages,
                 combined => combined.entity.StorageId,
                 storage => storage.Id,
-                (combined, storage) => new ProductsOnStorage
+                (combined, storage) => new ProductsOnStorageModel
                 {
                     ProductId = combined.entity.ProductId,
                     ProductName = combined.product.Name,
@@ -43,7 +43,7 @@ internal sealed class StorageProductRepository : Repository<StorageProduct>, ISt
         return result;
     }
 
-    public async Task<StorageProduct?> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken)
+    public async Task<StorageProductEntity?> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken)
     {
         return await DbSet.Where(entity => entity.ProductId == productId).FirstOrDefaultAsync(cancellationToken);
     }

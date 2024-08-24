@@ -3,7 +3,7 @@ using Forpost.Store.Entities.Catalog;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 
-public interface IRoleRepository : IRepository<Role>
+public interface IRoleRepository : IRepository<RoleEntity>
 {
-    public Task<Role?> GetByNameAsync(string name, CancellationToken cancellationToken);
+    public Task<RoleEntity?> GetByNameAsync(string name, CancellationToken cancellationToken);
 }

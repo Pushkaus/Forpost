@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class TechCardStepRepository: Repository<TechCardStep>, ITechCardStepRepositrory
+internal sealed class TechCardStepRepository: Repository<TechCardStepEntity>, ITechCardStepRepositrory
 {
     public TechCardStepRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)
     {
     }
 
-    public async Task<IReadOnlyList<StepsInTechCard>> GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<StepsInTechCardModel>> GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
     {
         return await DbSet.Where(techCardStep => techCardStep.TechCardId == techCardId)
             .Join(DbContext.Steps,
@@ -26,7 +26,7 @@ internal sealed class TechCardStepRepository: Repository<TechCardStep>, ITechCar
             .Join(DbContext.Operations,
                 techCardStep => techCardStep.step.OperationId,
                 operation => operation.Id,
-                (techCardStep, operation) => new StepsInTechCard
+                (techCardStep, operation) => new StepsInTechCardModel
                 {
                     TechCardId = techCardId,
                     StepId = techCardStep.step.Id,

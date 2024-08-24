@@ -1,6 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Abstract.Services;
-using Forpost.Business.Models.StorageProduct;
+using Forpost.Business.Sortout;
 using Forpost.Web.Contracts.Models.StorageProduct;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -45,7 +44,7 @@ public sealed class StorageProductController : ControllerBase
     public async Task<IActionResult>
         CreateAsync([FromBody] StorageProductCreateRequest request, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<StorageProductCreateModel>(request);
+        var model = _mapper.Map<StorageProductCreateCommand>(request);
         await _storageProductService.AddAsync(model, cancellationToken);
         return Ok();
     }
@@ -73,7 +72,7 @@ public sealed class StorageProductController : ControllerBase
     public async Task<IActionResult>
         UpdateAsync([FromBody] StorageProductCreateRequest request, CancellationToken cancellationToken)
     {
-        var model = _mapper.Map<StorageProductCreateModel>(request);
+        var model = _mapper.Map<StorageProductCreateCommand>(request);
         await _storageProductService.UpdateAsync(model, cancellationToken);
         return Ok();
     }

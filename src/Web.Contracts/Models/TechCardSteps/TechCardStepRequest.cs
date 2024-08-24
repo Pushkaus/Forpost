@@ -9,6 +9,4 @@ public sealed class TechCardStepRequest
     ///     Номер в очереди
     /// </summary>
     public int Number { get; set; }
-
-    public Guid Id { get; set; }
 }
