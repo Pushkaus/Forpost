@@ -28,7 +28,7 @@ internal sealed class ManufacturingProcessLaunchService: BusinessService, IManuf
         var model = await DbUnitOfWork.ManufacturingProcessRepository.
             GetByIdAsync(manufacturingProcessId, cancellationToken);
         
-        var manufacturingProcess = Mapper.Map<ManufacturingProcess>(model);
+        var manufacturingProcess = Mapper.Map<ManufacturingProcessEntity>(model);
         
         manufacturingProcess.StartTime = TimeProvider.GetUtcNow();
         manufacturingProcess.Status = (ManufacturingProcessStatus)200;

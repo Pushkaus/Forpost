@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class TechCardItemRepository: Repository<TechCardItem>, ITechCardItemRepository
+internal sealed class TechCardItemRepository: Repository<TechCardItemEntity>, ITechCardItemRepository
 {
     public TechCardItemRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)

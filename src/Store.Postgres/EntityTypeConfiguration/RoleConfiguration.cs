@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal class RoleConfiguration : IEntityTypeConfiguration<Role>
+internal class RoleConfiguration : IEntityTypeConfiguration<RoleEntity>
 {
-    public void Configure(EntityTypeBuilder<Role> builder)
+    public void Configure(EntityTypeBuilder<RoleEntity> builder)
     {
         builder.ConfigureBaseEntity();
         builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);

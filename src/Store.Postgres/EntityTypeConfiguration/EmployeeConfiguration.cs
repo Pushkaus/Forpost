@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+internal class EmployeeConfiguration : IEntityTypeConfiguration<EmployeeEntity>
 {
-    public void Configure(EntityTypeBuilder<Employee> builder)
+    public void Configure(EntityTypeBuilder<EmployeeEntity> builder)
     {
         builder.ConfigureBaseEntity();
         
-        builder.HasOne<Role>()
+        builder.HasOne<RoleEntity>()
             .WithMany()
             .HasForeignKey(key => key.RoleId);
         

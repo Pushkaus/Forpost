@@ -4,33 +4,31 @@ using Forpost.Business.Abstract.Services;
 using Forpost.Business.EventHanding;
 using Forpost.Business.Events.Products;
 using Forpost.Business.Models.InvoiceProducts;
+using Forpost.Store.Entities;
 using Forpost.Store.Repositories.Abstract;
 using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using InvoiceProduct = Forpost.Store.Entities.InvoiceProduct;
 
 namespace Forpost.Business.Services;
 
 internal sealed class InvoiceProductService : BusinessService, IInvoiceProductService
 {
-    private readonly IDomainEventBus _eventBus;
     public InvoiceProductService(
         IDbUnitOfWork dbUnitOfWork,
         ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
         IDomainEventBus domainEventBus,
-        TimeProvider timeProvider, IDomainEventBus eventBus)
+        TimeProvider timeProvider)
         : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
-        _eventBus = eventBus;
     }
 
     public async Task AddAsync(InvoiceProductCreateModel model, CancellationToken cancellationToken)
     {
-        var invoiceProduct = Mapper.Map<InvoiceProduct>(model);
-        await _eventBus.PublishAsync(new ProductInInvoiceAdded
+        var invoiceProduct = Mapper.Map<InvoiceProductEntity>(model);
+        await DomainEventBus.PublishAsync(new ProductInInvoiceAdded
         {
             InvoiceId = invoiceProduct.InvoiceId,
             ProductId = invoiceProduct.ProductId,
@@ -64,7 +62,7 @@ internal sealed class InvoiceProductService : BusinessService, IInvoiceProductSe
 
     public async Task UpdateAsync(InvoiceProductCreateModel model, CancellationToken cancellationToken)
     {
-        var invoiceProduct = Mapper.Map<InvoiceProduct>(model);
+        var invoiceProduct = Mapper.Map<InvoiceProductEntity>(model);
         DbUnitOfWork.InvoiceProductRepository.Update(invoiceProduct);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }

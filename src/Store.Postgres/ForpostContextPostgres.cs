@@ -1,43 +1,36 @@
-using Forpost.Common.EntityAnnotations;
-using Forpost.Common.Utils;
 using Forpost.Store.Entities;
 using Forpost.Store.Entities.Catalog;
 using Forpost.Store.Entities.ProductCreating;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Forpost.Store.Postgres;
 
 public sealed class ForpostContextPostgres : DbContext
 {
-    private readonly IIdentityProvider _identityProvider;
-    private readonly TimeProvider _timeProvider;
-    public ForpostContextPostgres(DbContextOptions<ForpostContextPostgres> options,
-         IIdentityProvider identityProvider, TimeProvider timeProvider) : base(options)
+    public ForpostContextPostgres(DbContextOptions<ForpostContextPostgres> options) : base(options)
     {
-        _identityProvider = identityProvider;
-        _timeProvider = timeProvider;
     }
 
-    public DbSet<Employee> Employees => Set<Employee>();
-    public DbSet<Role> Roles => Set<Role>();
-    public DbSet<Invoice> Invoices => Set<Invoice>();
-    public DbSet<InvoiceProduct> InvoiceProducts => Set<InvoiceProduct>();
-    public DbSet<Product> Products => Set<Product>();
-    public DbSet<Storage> Storages => Set<Storage>();
-    public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
-    public DbSet<Contractor> Contractors => Set<Contractor>();
+    public DbSet<EmployeeEntity> Employees => Set<EmployeeEntity>();
+    public DbSet<RoleEntity> Roles => Set<RoleEntity>();
+    public DbSet<InvoiceEntity> Invoices => Set<InvoiceEntity>();
+    public DbSet<InvoiceProductEntity> InvoiceProducts => Set<InvoiceProductEntity>();
+    public DbSet<ProductEntity> Products => Set<ProductEntity>();
+    public DbSet<StorageEntity> Storages => Set<StorageEntity>();
+    public DbSet<StorageProductEntity> StorageProducts => Set<StorageProductEntity>();
+    public DbSet<ContractorEntity> Contractors => Set<ContractorEntity>();
     public DbSet<FileEntity> Files => Set<FileEntity>();
-    public DbSet<Category> Categories => Set<Category>();
-    public DbSet<Issue> Issues => Set<Issue>();
-    public DbSet<TechCard> TechCards => Set<TechCard>();
-    public DbSet<TechCardItem> TechCardItems => Set<TechCardItem>();
-    public DbSet<TechCardStep> TechCardSteps => Set<TechCardStep>();
-    public DbSet<Operation> Operations => Set<Operation>();
-    public DbSet<Step> Steps => Set<Step>();
-    public DbSet<CompletedProduct> CompletedProducts => Set<CompletedProduct>();
-    public DbSet<ManufacturingProcess> ManufacturingProcesses => Set<ManufacturingProcess>();
-    public DbSet<ProductDevelopment> ProductDevelopments => Set<ProductDevelopment>();
+    public DbSet<CategoryEntity> Categories => Set<CategoryEntity>();
+    public DbSet<IssueEntity> Issues => Set<IssueEntity>();
+    public DbSet<TechCardEntity> TechCards => Set<TechCardEntity>();
+    public DbSet<TechCardItemEntity> TechCardItems => Set<TechCardItemEntity>();
+    public DbSet<TechCardStepEntity> TechCardSteps => Set<TechCardStepEntity>();
+    public DbSet<OperationEntity> Operations => Set<OperationEntity>();
+    public DbSet<StepEntity> Steps => Set<StepEntity>();
+    public DbSet<CompletedProductEntity> CompletedProducts => Set<CompletedProductEntity>();
+    public DbSet<ManufacturingProcessEntity> ManufacturingProcesses => Set<ManufacturingProcessEntity>();
+    public DbSet<ProductDevelopmentEntity> ProductDevelopments => Set<ProductDevelopmentEntity>();
+    public DbSet<ProductVersionEntity> ProductVersions => Set<ProductVersionEntity>();
     
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

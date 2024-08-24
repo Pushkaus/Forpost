@@ -6,7 +6,7 @@ namespace Forpost.Store.Entities.Catalog;
 /// <summary>
 /// Этап
 /// </summary>
-public sealed class Step : IEntity
+public sealed class StepEntity : IEntity
 {
     /// <summary>
     /// Ссылка на тех.карту

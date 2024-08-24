@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class ManufacturingProcessConfiguration : IEntityTypeConfiguration<ManufacturingProcess>
+internal sealed class ManufacturingProcessConfiguration : IEntityTypeConfiguration<ManufacturingProcessEntity>
 {
-    public void Configure(EntityTypeBuilder<ManufacturingProcess> builder)
+    public void Configure(EntityTypeBuilder<ManufacturingProcessEntity> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<TechCard>()
+        builder.HasOne<TechCardEntity>()
             .WithMany()
             .HasForeignKey(key => key.TechnologicalCardId);
         

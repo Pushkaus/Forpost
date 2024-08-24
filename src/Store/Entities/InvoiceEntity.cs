@@ -3,7 +3,7 @@ using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
 
-public sealed class Invoice : IAuditableEntity, IEntity
+public sealed class InvoiceEntity : IAuditableEntity, IEntity
 {
     public string Number { get; set; } = null!;
     public Guid ContragentId { get; set; }

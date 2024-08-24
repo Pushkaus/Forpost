@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
+internal class InvoiceConfiguration : IEntityTypeConfiguration<InvoiceEntity>
 {
-    public void Configure(EntityTypeBuilder<Invoice> builder)
+    public void Configure(EntityTypeBuilder<InvoiceEntity> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<Contractor>()
+        builder.HasOne<ContractorEntity>()
             .WithMany()
             .HasForeignKey(key => key.ContragentId);
         

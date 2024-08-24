@@ -27,8 +27,8 @@ public sealed class TechCardController: ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(TechCard), StatusCodes.Status200OK)]
-    public async Task<TechCard?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+    [ProducesResponseType(typeof(TechCardEntity), StatusCodes.Status200OK)]
+    public async Task<TechCardEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
         => await _techCardService.GetByIdAsync(id, cancellationToken);
     /// <summary>
     /// Получение всех тех.карт
@@ -36,8 +36,8 @@ public sealed class TechCardController: ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<TechCard>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<TechCard>> GetAllAsync(CancellationToken cancellationToken) 
+    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardEntity>), StatusCodes.Status200OK)]
+    public async Task<IReadOnlyCollection<TechCardEntity>> GetAllAsync(CancellationToken cancellationToken) 
         => await _techCardService.GetAllAsync(cancellationToken);
     /// <summary>
     /// Создание тех.карты

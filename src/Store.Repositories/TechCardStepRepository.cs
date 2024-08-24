@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class TechCardStepRepository: Repository<TechCardStep>, ITechCardStepRepositrory
+internal sealed class TechCardStepRepository: Repository<TechCardStepEntity>, ITechCardStepRepositrory
 {
     public TechCardStepRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)

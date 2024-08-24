@@ -1,17 +1,10 @@
 using Forpost.Common.EntityAnnotations;
 
-namespace Forpost.Store.Entities.Catalog;
+namespace Forpost.Store.Entities;
 
-public class Storage : IAuditableEntity, IEntity
+public class ProductVersionEntity : IEntity, IAuditableEntity
 {
-    public string Name { get; set; } = null!;
-    public string? Description { get; set; }
-
-    /// <summary>
-    /// Ответственный за склад
-    /// </summary>
-    public Guid ResponsibleId { get; set; }
-
+    public Guid ProductId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

@@ -7,5 +7,5 @@ namespace Forpost.Business.Abstract.Services;
 public interface IStorageService : IBusinessService
 {
     public Task AddAsync(StorageCreateModel model, CancellationToken cancellationToken);
-    public Task<IReadOnlyList<Storage?>> GetAllAsync(CancellationToken cancellationToken);
+    public Task<IReadOnlyList<StorageEntity?>> GetAllAsync(CancellationToken cancellationToken);
 }

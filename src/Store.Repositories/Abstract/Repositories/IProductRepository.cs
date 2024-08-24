@@ -3,6 +3,6 @@ using Forpost.Store.Entities.Catalog;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 
-public interface IProductRepository : IRepository<Product>
+public interface IProductRepository : IRepository<ProductEntity>
 {
 }

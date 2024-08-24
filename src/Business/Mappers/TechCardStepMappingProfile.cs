@@ -11,6 +11,6 @@ internal sealed class TechCardStepMappingProfile: Profile
     public TechCardStepMappingProfile()
     {
         CreateMap<StepsInTechCard, StepsInTechCardModel>().ValidateMemberList(MemberList.Destination);
-        CreateMap<TechCardStepCreateModel, TechCardStep>().ValidateMemberList(MemberList.Source);
+        CreateMap<TechCardStepCreateModel, TechCardStepEntity>().ValidateMemberList(MemberList.Source);
     }
 }

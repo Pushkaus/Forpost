@@ -9,6 +9,6 @@ internal sealed class StepMappingProfile: Profile
 {
     public StepMappingProfile()
     {
-        CreateMap<StepCreateModel, Step>().ValidateMemberList(MemberList.Destination);
+        CreateMap<StepCreateModel, StepEntity>().ValidateMemberList(MemberList.Destination);
     }
 }

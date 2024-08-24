@@ -1,10 +1,12 @@
 using Forpost.Common.EntityAnnotations;
 
-namespace Forpost.Store.Entities;
+namespace Forpost.Store.Entities.Catalog;
 
-public class ProductVersion : IEntity, IAuditableEntity
+public sealed class ProductEntity : IAuditableEntity, IEntity
 {
-    public Guid ProductId { get; set; }
+    public string Name { get; set; } = null!;
+    public string Version { get; set; } = null!;
+    public Guid? CategoryId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

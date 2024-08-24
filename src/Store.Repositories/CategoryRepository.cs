@@ -6,7 +6,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class CategoryRepository: Repository<Category>, ICategoryRepository
+internal sealed class CategoryRepository: Repository<CategoryEntity>, ICategoryRepository
 {
     public CategoryRepository(ForpostContextPostgres dbContext,
         TimeProvider timeProvider,

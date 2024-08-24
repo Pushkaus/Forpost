@@ -26,12 +26,12 @@ internal sealed class StorageService : BusinessService, IStorageService
 
     public async Task AddAsync(StorageCreateModel model, CancellationToken cancellationToken)
     {
-        var storage = Mapper.Map<Storage>(model);
+        var storage = Mapper.Map<StorageEntity>(model);
         DbUnitOfWork.StorageRepository.Add(storage);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IReadOnlyList<Storage?>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<StorageEntity?>> GetAllAsync(CancellationToken cancellationToken)
     {
         return await DbUnitOfWork.StorageRepository.GetAllAsync(cancellationToken);
     }

@@ -6,7 +6,7 @@ namespace Forpost.Store.Entities.ProductCreating;
 /// <summary>
 /// Задача. Участвует в производственном процессе
 /// </summary>
-public class Issue : IEntity, IAuditableEntity, ITimeFrameEntity
+public class IssueEntity : IEntity, IAuditableEntity, ITimeFrameEntity
 {
     /// <summary>
     /// Ссылка на производственный процесс этой задачи

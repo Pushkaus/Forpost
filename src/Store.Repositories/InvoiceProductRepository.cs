@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IInvoiceProductRepository
+internal sealed class InvoiceProductRepository : Repository<InvoiceProductEntity>, IInvoiceProductRepository
 {
     public InvoiceProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)

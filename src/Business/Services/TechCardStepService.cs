@@ -28,13 +28,13 @@ internal sealed class TechCardStepService: BusinessService, ITechCardStepService
     
     public async Task<Guid> AddAsync(TechCardStepCreateModel model, CancellationToken cancellationToken)
     {
-        var techCardStep = Mapper.Map<TechCardStep>(model);
+        var techCardStep = Mapper.Map<TechCardStepEntity>(model);
         var techCardStepId = DbUnitOfWork.TechCardStepRepository.Add(techCardStep);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return techCardStepId;
     }
     
-    public async Task<TechCardStep?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+    public async Task<TechCardStepEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
         => await DbUnitOfWork.TechCardStepRepository.GetByIdAsync(id, cancellationToken);
 
     public async Task<IReadOnlyCollection<StepsInTechCardModel>> GetStepsByTechCardIdAsync
@@ -45,7 +45,7 @@ internal sealed class TechCardStepService: BusinessService, ITechCardStepService
         return result;
     }
 
-    public async Task<IReadOnlyList<TechCardStep>> GetAllAsync(CancellationToken cancellationToken) 
+    public async Task<IReadOnlyList<TechCardStepEntity>> GetAllAsync(CancellationToken cancellationToken) 
         => await DbUnitOfWork.TechCardStepRepository.GetAllAsync(cancellationToken);
 
     public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken)

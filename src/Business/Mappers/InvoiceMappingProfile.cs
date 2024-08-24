@@ -8,7 +8,7 @@ internal sealed class InvoiceMappingProfile : Profile
 {
     public InvoiceMappingProfile()
     {
-        CreateMap<InvoiceCreateModel, Invoice>().ValidateMemberList(MemberList.Destination);
-        CreateMap<InvoiceUpdateModel, Invoice>().ValidateMemberList(MemberList.Destination);
+        CreateMap<InvoiceCreateModel, InvoiceEntity>().ValidateMemberList(MemberList.Destination);
+        CreateMap<InvoiceUpdateModel, InvoiceEntity>().ValidateMemberList(MemberList.Destination);
     }
 }

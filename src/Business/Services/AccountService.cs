@@ -53,7 +53,7 @@ internal sealed class AccountService : BusinessService, IAccountService
 
     public async Task RegisterAsync(RegisterUserModel model, CancellationToken cancellationToken)
     {
-        var user = Mapper.Map<Employee>(model);
+        var user = Mapper.Map<EmployeeEntity>(model);
 
         var role = await DbUnitOfWork.RoleRepository.GetByNameAsync(model.Role, cancellationToken);
 

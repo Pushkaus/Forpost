@@ -4,7 +4,7 @@ using Forpost.Store.Repositories.Models.TechCardStep;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 
-public interface ITechCardStepRepositrory: IRepository<TechCardStep>
+public interface ITechCardStepRepositrory: IRepository<TechCardStepEntity>
 {
     public Task<IReadOnlyList<StepsInTechCard>> GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken);
 }

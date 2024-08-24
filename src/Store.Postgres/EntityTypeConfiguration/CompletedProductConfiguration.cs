@@ -6,19 +6,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<CompletedProduct>
+internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<CompletedProductEntity>
 {
-    public void Configure(EntityTypeBuilder<CompletedProduct> builder)
+    public void Configure(EntityTypeBuilder<CompletedProductEntity> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<Product>()
+        builder.HasOne<ProductEntity>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);
 
-        builder.HasOne<ManufacturingProcess>()
+        builder.HasOne<ManufacturingProcessEntity>()
             .WithOne()
-            .HasForeignKey<CompletedProduct>(key => key.ManufacturingProcessId);
+            .HasForeignKey<CompletedProductEntity>(key => key.ManufacturingProcessId);
         
         builder.Property(entity => entity.SerialNumber).HasMaxLength(DatabaseConstrains.MaxLength);
 

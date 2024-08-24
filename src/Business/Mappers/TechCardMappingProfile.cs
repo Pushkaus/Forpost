@@ -8,6 +8,6 @@ internal sealed class TechCardMappingProfile: Profile
 {
     public TechCardMappingProfile()
     {
-        CreateMap<TechCardCreateModel, TechCard>().ValidateMemberList(MemberList.Source);
+        CreateMap<TechCardCreateModel, TechCardEntity>().ValidateMemberList(MemberList.Source);
     }
 }

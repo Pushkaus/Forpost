@@ -5,7 +5,7 @@ namespace Forpost.Store.Entities.Catalog;
 /// <summary>
 /// Сущность, связывающая этапы и тех.карту
 /// </summary>
-public sealed class TechCardStep : IEntity
+public sealed class TechCardStepEntity : IEntity
 {
     public Guid TechCardId { get; set; }
     public Guid StepId { get; set; }

@@ -3,7 +3,7 @@ using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities.ProductCreating;
 
-public sealed class ManufacturingProcess : IEntity, IAuditableEntity, ITimeFrameEntity
+public sealed class ManufacturingProcessEntity : IEntity, IAuditableEntity, ITimeFrameEntity
 {
     public Guid TechnologicalCardId { get; set; }
 

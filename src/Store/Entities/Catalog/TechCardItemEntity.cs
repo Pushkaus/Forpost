@@ -5,7 +5,7 @@ namespace Forpost.Store.Entities.Catalog;
 /// <summary>
 /// Компонент, в составе тех.карты
 /// </summary>
-public sealed class TechCardItem : IEntity
+public sealed class TechCardItemEntity : IEntity
 {
     public Guid TechCardId { get; set; }
 

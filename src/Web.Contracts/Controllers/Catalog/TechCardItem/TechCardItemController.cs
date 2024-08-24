@@ -29,7 +29,7 @@ public sealed class TechCardItemController: ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{techCardId}")]
-    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardItem>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardItemEntity>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<TechCardItemsResponse>> GetTechCardItems(Guid techCardId,
         CancellationToken cancellationToken)
     {

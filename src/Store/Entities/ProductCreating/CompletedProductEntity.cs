@@ -6,7 +6,7 @@ namespace Forpost.Store.Entities.ProductCreating;
 /// <summary>
 /// Завершенный продукт
 /// </summary>
-public sealed class CompletedProduct : IEntity
+public sealed class CompletedProductEntity : IEntity
 {
     public Guid ProductId { get; set; }
     public Guid ManufacturingProcessId { get; set; }

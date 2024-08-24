@@ -9,11 +9,11 @@ internal sealed class StorageProductMappingProfile : Profile
 {
     public StorageProductMappingProfile()
     {
-        CreateMap<StorageProductCreateModel, StorageProduct>().ValidateMemberList(MemberList.Destination);
+        CreateMap<StorageProductCreateModel, StorageProductEntity>().ValidateMemberList(MemberList.Destination);
         CreateMap<ProductsOnStorage, StorageProductModel>().ValidateMemberList(MemberList.Destination);
-        /*CreateMap<StorageProduct, StorageProductModel>()
-            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
-            .ForMember(dest => dest.StorageName, opt => opt.MapFrom(src => src.Storage.Name))
+        /*CreateMap<StorageProductEntity, StorageProductModel>()
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductEntity.Name))
+            .ForMember(dest => dest.StorageName, opt => opt.MapFrom(src => src.StorageEntity.Name))
             .ValidateMemberList(MemberList.Destination);*/
     }
 }

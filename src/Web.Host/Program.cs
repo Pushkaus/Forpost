@@ -1,4 +1,4 @@
-using Forpost.Store.Postgres;
+using Forpost.Store.Migrations;
 
 namespace Forpost.Web.Host;
 
@@ -9,24 +9,18 @@ internal sealed class Program
         var host = CreateHostBuilder(args, ConfigureWebHostBuilder).Build();
         var logger = host.Services.GetRequiredService<ILogger<Program>>();
         
-        using (var scope = host.Services.CreateScope())
+        try
         {
-            var services = scope.ServiceProvider;
-            try
-            {
-                var context = services.GetRequiredService<ForpostContextPostgres>();
-                
-                logger.LogDebug("Старт миграции БД ErpDatabase");
-                await MigrationManager.MigrateSchema(context); 
-                logger.LogDebug("Миграция схемы произошла успешно!");
-                logger.LogDebug("Старт миграции данных");
-                await MigrationManager.MigrateData(context);
-                logger.LogDebug("Старт миграции прошла успешно");
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Не удалось выполнить миграцию.");
-            }
+            logger.LogDebug("Старт миграции БД ErpDatabase");
+            await MigrationManager.MigrateSchema(); 
+            logger.LogDebug("Миграция схемы произошла успешно!");
+            logger.LogDebug("Старт миграции данных");
+            await MigrationManager.MigrateData();
+            logger.LogDebug("Старт миграции прошла успешно");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Не удалось выполнить миграцию.");
         }
 
         await host.RunAsync();

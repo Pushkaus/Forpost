@@ -31,13 +31,13 @@ internal sealed class InvoiceService : BusinessService, IInvoiceService
     {
     }
 
-    public async Task<Invoice?> GetByNumberAsync(string number, CancellationToken cancellationToken)
+    public async Task<InvoiceEntity?> GetByNumberAsync(string number, CancellationToken cancellationToken)
     {
         var invoice = await DbUnitOfWork.InvoiceRepository.GetByNumberAsync(number, cancellationToken);
         return invoice;
     }
 
-    public async Task<IReadOnlyList<Invoice>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<InvoiceEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         var invoices = await DbUnitOfWork.InvoiceRepository.GetAllAsync(cancellationToken);
         return invoices;
@@ -45,7 +45,7 @@ internal sealed class InvoiceService : BusinessService, IInvoiceService
 
     public async Task<Guid> ExposeAsync(InvoiceCreateModel model, CancellationToken cancellationToken)
     {
-        var invoice = Mapper.Map<Invoice>(model);
+        var invoice = Mapper.Map<InvoiceEntity>(model);
         invoice.IssueStatus = IssueStatus.Pending; // Заводя счет, выставляется статус - ожидаемый
         DbUnitOfWork.InvoiceRepository.Add(invoice);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
@@ -57,14 +57,14 @@ internal sealed class InvoiceService : BusinessService, IInvoiceService
     {
         model.IssueStatus = IssueStatus.Completed;
         model.DateShipment = TimeProvider.GetUtcNow();
-        var invoice = Mapper.Map<Invoice>(model);
+        var invoice = Mapper.Map<InvoiceEntity>(model);
         DbUnitOfWork.InvoiceRepository.Update(invoice);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public async Task UpdateAsync(InvoiceUpdateModel model, CancellationToken cancellationToken)
     {
-        var invoice = Mapper.Map<Invoice>(model);
+        var invoice = Mapper.Map<InvoiceEntity>(model);
         DbUnitOfWork.InvoiceRepository.Update(invoice);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }

@@ -27,17 +27,17 @@ internal sealed class RoleService : BusinessService, IRoleService
 
     public async Task AddAsync(string name, CancellationToken cancellationToken)
     {
-        var role = new Role { Name = name };
+        var role = new RoleEntity { Name = name };
         DbUnitOfWork.RoleRepository.Add(role);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IReadOnlyList<Role>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<RoleEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         return await DbUnitOfWork.RoleRepository.GetAllAsync(cancellationToken);
     }
 
-    public async Task<Role?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<RoleEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await DbUnitOfWork.RoleRepository.GetByIdAsync(id, cancellationToken);
     }

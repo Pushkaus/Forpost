@@ -23,7 +23,7 @@ internal sealed class EmployeeService : BusinessService, IEmployeeService
     {
     }
 
-    public async Task<IReadOnlyList<Employee>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<EmployeeEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         var employees = await DbUnitOfWork.EmployeeRepository.GetAllAsync(cancellationToken);
         return employees;

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Forpost.Store.Postgres.Migrations
+namespace Forpost.Store.Migrations.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -16,7 +16,7 @@ namespace Forpost.Store.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     ParentId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -25,15 +25,15 @@ namespace Forpost.Store.Postgres.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contragents",
+                name: "Contractors",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contragents", x => x.Id);
+                    table.PrimaryKey("PK_Contractors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,9 +41,9 @@ namespace Forpost.Store.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FileName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    FilePath = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    ContentType = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    FileName = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    FilePath = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    ContentType = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     ParentId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -52,12 +52,39 @@ namespace Forpost.Store.Postgres.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Issues",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ManufacturingProcessId = table.Column<Guid>(type: "uuid", nullable: false),
+                    StepId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExecutorId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ResponsibleId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CurrentQuantity = table.Column<int>(type: "integer", nullable: false),
+                    IssueStatus = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    DeletedById = table.Column<Guid>(type: "uuid", nullable: true),
+                    StartTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Issues", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Operations",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
+                    Name = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    Type = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,7 +110,7 @@ namespace Forpost.Store.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    Name = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,7 +122,8 @@ namespace Forpost.Store.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Version = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
@@ -119,9 +147,9 @@ namespace Forpost.Store.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Number = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Number = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     ContragentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     PaymentPercentage = table.Column<int>(type: "integer", nullable: false),
                     DaysShipment = table.Column<int>(type: "integer", nullable: false),
                     IssueStatus = table.Column<int>(type: "integer", nullable: false),
@@ -137,9 +165,9 @@ namespace Forpost.Store.Postgres.Migrations
                 {
                     table.PrimaryKey("PK_Invoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Invoices_Contragents_ContragentId",
+                        name: "FK_Invoices_Contractors_ContragentId",
                         column: x => x.ContragentId,
-                        principalTable: "Contragents",
+                        principalTable: "Contractors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -149,14 +177,14 @@ namespace Forpost.Store.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Patronymic = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    Post = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    FirstName = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    LastName = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Patronymic = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    Post = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     RoleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    PasswordHash = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    PasswordHash = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -176,7 +204,7 @@ namespace Forpost.Store.Postgres.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductVersion",
+                name: "ProductVersions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -190,9 +218,9 @@ namespace Forpost.Store.Postgres.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductVersion", x => x.Id);
+                    table.PrimaryKey("PK_ProductVersions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductVersion_Products_ProductId",
+                        name: "FK_ProductVersions_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -230,8 +258,8 @@ namespace Forpost.Store.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     ResponsibleId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
@@ -256,8 +284,8 @@ namespace Forpost.Store.Postgres.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Number = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Number = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -306,12 +334,12 @@ namespace Forpost.Store.Postgres.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ManufacturingProcess",
+                name: "ManufacturingProcesses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TechnologicalCardId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BatchNumber = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    BatchNumber = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     CurrentQuantity = table.Column<int>(type: "integer", nullable: false),
                     TargetQuantity = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -321,13 +349,14 @@ namespace Forpost.Store.Postgres.Migrations
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     DeletedById = table.Column<Guid>(type: "uuid", nullable: true),
                     StartTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ManufacturingProcess", x => x.Id);
+                    table.PrimaryKey("PK_ManufacturingProcesses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ManufacturingProcess_TechCards_TechnologicalCardId",
+                        name: "FK_ManufacturingProcesses_TechCards_TechnologicalCardId",
                         column: x => x.TechnologicalCardId,
                         principalTable: "TechCards",
                         principalColumn: "Id",
@@ -335,28 +364,28 @@ namespace Forpost.Store.Postgres.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Step",
+                name: "Steps",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TechCardId = table.Column<Guid>(type: "uuid", nullable: false),
                     OperationId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     Duration = table.Column<TimeSpan>(type: "interval", nullable: false),
                     Cost = table.Column<decimal>(type: "numeric", nullable: false),
                     UnitOfMeassure = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Step", x => x.Id);
+                    table.PrimaryKey("PK_Steps", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Step_Operations_OperationId",
+                        name: "FK_Steps_Operations_OperationId",
                         column: x => x.OperationId,
                         principalTable: "Operations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Step_TechCards_TechCardId",
+                        name: "FK_Steps_TechCards_TechCardId",
                         column: x => x.TechCardId,
                         principalTable: "TechCards",
                         principalColumn: "Id",
@@ -396,7 +425,7 @@ namespace Forpost.Store.Postgres.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     ManufacturingProcessId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SerialNumber = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    SerialNumber = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     SettingOption = table.Column<int>(type: "integer", nullable: true),
                     InvoiceId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -404,9 +433,9 @@ namespace Forpost.Store.Postgres.Migrations
                 {
                     table.PrimaryKey("PK_CompletedProducts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CompletedProducts_ManufacturingProcess_ManufacturingProcess~",
+                        name: "FK_CompletedProducts_ManufacturingProcesses_ManufacturingProce~",
                         column: x => x.ManufacturingProcessId,
-                        principalTable: "ManufacturingProcess",
+                        principalTable: "ManufacturingProcesses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -430,9 +459,9 @@ namespace Forpost.Store.Postgres.Migrations
                 {
                     table.PrimaryKey("PK_TechCardSteps", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TechCardSteps_Step_StepId",
+                        name: "FK_TechCardSteps_Steps_StepId",
                         column: x => x.StepId,
-                        principalTable: "Step",
+                        principalTable: "Steps",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -475,8 +504,8 @@ namespace Forpost.Store.Postgres.Migrations
                 column: "ContragentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ManufacturingProcess_TechnologicalCardId",
-                table: "ManufacturingProcess",
+                name: "IX_ManufacturingProcesses_TechnologicalCardId",
+                table: "ManufacturingProcesses",
                 column: "TechnologicalCardId");
 
             migrationBuilder.CreateIndex(
@@ -485,19 +514,18 @@ namespace Forpost.Store.Postgres.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductVersion_ProductId",
-                table: "ProductVersion",
+                name: "IX_ProductVersions_ProductId",
+                table: "ProductVersions",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Step_OperationId",
-                table: "Step",
-                column: "OperationId",
-                unique: true);
+                name: "IX_Steps_OperationId",
+                table: "Steps",
+                column: "OperationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Step_TechCardId",
-                table: "Step",
+                name: "IX_Steps_TechCardId",
+                table: "Steps",
                 column: "TechCardId");
 
             migrationBuilder.CreateIndex(
@@ -520,38 +548,32 @@ namespace Forpost.Store.Postgres.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_TechCardItems_ProductId",
                 table: "TechCardItems",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TechCardItems_TechCardId",
                 table: "TechCardItems",
-                column: "TechCardId",
-                unique: true);
+                column: "TechCardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TechCards_CreatedById",
                 table: "TechCards",
-                column: "CreatedById",
-                unique: true);
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TechCards_ProductId",
                 table: "TechCards",
-                column: "ProductId",
-                unique: true);
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TechCardSteps_StepId",
                 table: "TechCardSteps",
-                column: "StepId",
-                unique: true);
+                column: "StepId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TechCardSteps_TechCardId",
                 table: "TechCardSteps",
-                column: "TechCardId",
-                unique: true);
+                column: "TechCardId");
         }
 
         /// <inheritdoc />
@@ -567,10 +589,13 @@ namespace Forpost.Store.Postgres.Migrations
                 name: "InvoiceProducts");
 
             migrationBuilder.DropTable(
+                name: "Issues");
+
+            migrationBuilder.DropTable(
                 name: "ProductDevelopments");
 
             migrationBuilder.DropTable(
-                name: "ProductVersion");
+                name: "ProductVersions");
 
             migrationBuilder.DropTable(
                 name: "StorageProducts");
@@ -582,7 +607,7 @@ namespace Forpost.Store.Postgres.Migrations
                 name: "TechCardSteps");
 
             migrationBuilder.DropTable(
-                name: "ManufacturingProcess");
+                name: "ManufacturingProcesses");
 
             migrationBuilder.DropTable(
                 name: "Invoices");
@@ -591,10 +616,10 @@ namespace Forpost.Store.Postgres.Migrations
                 name: "Storages");
 
             migrationBuilder.DropTable(
-                name: "Step");
+                name: "Steps");
 
             migrationBuilder.DropTable(
-                name: "Contragents");
+                name: "Contractors");
 
             migrationBuilder.DropTable(
                 name: "Operations");

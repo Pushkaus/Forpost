@@ -8,5 +8,5 @@ public interface IOperationService: IBusinessService
 {
     public Task<Guid> AddAsync(OperationModel model, CancellationToken cancellationToken);
     public Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken);
-    public Task<IReadOnlyCollection<Operation>> GetAllAsync (CancellationToken cancellationToken);
+    public Task<IReadOnlyCollection<OperationEntity>> GetAllAsync (CancellationToken cancellationToken);
 }

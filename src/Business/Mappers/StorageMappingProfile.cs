@@ -9,6 +9,6 @@ internal sealed class StorageMappingProfile : Profile
 {
     public StorageMappingProfile()
     {
-        CreateMap<StorageCreateModel, Storage>().ValidateMemberList(MemberList.Destination);
+        CreateMap<StorageCreateModel, StorageEntity>().ValidateMemberList(MemberList.Destination);
     }
 }

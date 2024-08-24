@@ -3,7 +3,7 @@ using Forpost.Store.Repositories.Models.InvoiceProduct;
 
 namespace Forpost.Store.Repositories.Abstract.Repositories;
 
-public interface IInvoiceProductRepository : IRepository<InvoiceProduct>
+public interface IInvoiceProductRepository : IRepository<InvoiceProductEntity>
 {
     public Task<IReadOnlyList<InvoiceWithProducts>> GetProductsByInvoiceIdAsync(Guid id,
         CancellationToken cancellationToken);

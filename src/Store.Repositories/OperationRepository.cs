@@ -6,7 +6,7 @@ using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class OperationRepository: Repository<Operation>, IOperationRepository
+internal sealed class OperationRepository: Repository<OperationEntity>, IOperationRepository
 {
     public OperationRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)

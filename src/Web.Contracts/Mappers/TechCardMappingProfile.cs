@@ -11,6 +11,6 @@ internal sealed class TechCardMappingProfile: Profile
     public TechCardMappingProfile()
     {
         CreateMap<TechCardCreateRequest, TechCardCreateModel>().ValidateMemberList(MemberList.Destination);
-        CreateMap<TechCardItemCreateModel, TechCardItem>().ValidateMemberList(MemberList.Destination);
+        CreateMap<TechCardItemCreateModel, TechCardItemEntity>().ValidateMemberList(MemberList.Destination);
     }
 }

@@ -28,7 +28,7 @@ internal sealed class OperationService: BusinessService, IOperationService
 
     public async Task<Guid> AddAsync(OperationModel model, CancellationToken cancellationToken)
     {
-        var operation = Mapper.Map<Operation>(model);
+        var operation = Mapper.Map<OperationEntity>(model);
         var operationId = DbUnitOfWork.OperationRepository.Add(operation);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return operationId;
@@ -40,6 +40,6 @@ internal sealed class OperationService: BusinessService, IOperationService
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IReadOnlyCollection<Operation>> GetAllAsync(CancellationToken cancellationToken) 
+    public async Task<IReadOnlyCollection<OperationEntity>> GetAllAsync(CancellationToken cancellationToken) 
         => await DbUnitOfWork.OperationRepository.GetAllAsync(cancellationToken);
 }

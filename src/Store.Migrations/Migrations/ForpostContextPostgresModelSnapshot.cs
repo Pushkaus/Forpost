@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Forpost.Store.Postgres.Migrations
+namespace Forpost.Store.Migrations.Migrations
 {
     [DbContext(typeof(ForpostContextPostgres))]
     partial class ForpostContextPostgresModelSnapshot : ModelSnapshot
@@ -17,12 +17,12 @@ namespace Forpost.Store.Postgres.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Category", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.CategoryEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Contractor", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.ContractorEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Contractors");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Employee", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.EmployeeEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -124,7 +124,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Operation", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.OperationEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,7 +147,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Operations");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Product", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.ProductEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +190,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Role", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.RoleEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -206,7 +206,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Step", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.StepEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -240,7 +240,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Steps");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Storage", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.StorageEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,7 +284,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Storages");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCard", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,7 +314,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("TechCards");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardItem", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardItemEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -338,7 +338,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("TechCardItems");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardStep", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardStepEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -391,7 +391,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Files");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Invoice", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.InvoiceEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -446,7 +446,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.InvoiceProduct", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.InvoiceProductEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -470,7 +470,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("InvoiceProducts");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.CompletedProduct", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.CompletedProductEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -503,7 +503,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("CompletedProducts");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.Issue", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.IssueEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -559,7 +559,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ManufacturingProcess", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ManufacturingProcessEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -613,7 +613,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("ManufacturingProcesses");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ProductDevelopment", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ProductDevelopmentEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -633,7 +633,7 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("ProductDevelopments");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductVersion", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductVersionEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -664,10 +664,10 @@ namespace Forpost.Store.Postgres.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductVersion");
+                    b.ToTable("ProductVersions");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.StorageProduct", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.StorageProductEntity", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
@@ -694,157 +694,157 @@ namespace Forpost.Store.Postgres.Migrations
                     b.ToTable("StorageProducts");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Employee", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.EmployeeEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Role", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.RoleEntity", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Product", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.ProductEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Category", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.CategoryEntity", null)
                         .WithMany()
                         .HasForeignKey("CategoryId");
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Step", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.StepEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Operation", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.OperationEntity", null)
                         .WithMany()
                         .HasForeignKey("OperationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Store.Entities.Catalog.TechCard", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.TechCardEntity", null)
                         .WithMany()
                         .HasForeignKey("TechCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.Storage", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.StorageEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Employee", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.EmployeeEntity", null)
                         .WithOne()
-                        .HasForeignKey("Forpost.Store.Entities.Catalog.Storage", "ResponsibleId")
+                        .HasForeignKey("Forpost.Store.Entities.Catalog.StorageEntity", "ResponsibleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCard", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Employee", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.EmployeeEntity", null)
                         .WithMany()
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Store.Entities.Catalog.Product", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.ProductEntity", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardItem", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardItemEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Product", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.ProductEntity", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Store.Entities.Catalog.TechCard", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.TechCardEntity", null)
                         .WithMany()
                         .HasForeignKey("TechCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardStep", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.Catalog.TechCardStepEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Step", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.StepEntity", null)
                         .WithMany()
                         .HasForeignKey("StepId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Store.Entities.Catalog.TechCard", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.TechCardEntity", null)
                         .WithMany()
                         .HasForeignKey("TechCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.Invoice", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.InvoiceEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Contractor", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.ContractorEntity", null)
                         .WithMany()
                         .HasForeignKey("ContragentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.InvoiceProduct", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.InvoiceProductEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Invoice", null)
+                    b.HasOne("Forpost.Store.Entities.InvoiceEntity", null)
                         .WithMany()
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Store.Entities.Catalog.Product", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.ProductEntity", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.CompletedProduct", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.CompletedProductEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.ProductCreating.ManufacturingProcess", null)
+                    b.HasOne("Forpost.Store.Entities.ProductCreating.ManufacturingProcessEntity", null)
                         .WithOne()
-                        .HasForeignKey("Forpost.Store.Entities.ProductCreating.CompletedProduct", "ManufacturingProcessId")
+                        .HasForeignKey("Forpost.Store.Entities.ProductCreating.CompletedProductEntity", "ManufacturingProcessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Store.Entities.Catalog.Product", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.ProductEntity", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ManufacturingProcess", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductCreating.ManufacturingProcessEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.TechCard", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.TechCardEntity", null)
                         .WithMany()
                         .HasForeignKey("TechnologicalCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.ProductVersion", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.ProductVersionEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Product", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.ProductEntity", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Store.Entities.StorageProduct", b =>
+            modelBuilder.Entity("Forpost.Store.Entities.StorageProductEntity", b =>
                 {
-                    b.HasOne("Forpost.Store.Entities.Catalog.Product", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.ProductEntity", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Store.Entities.Catalog.Storage", null)
+                    b.HasOne("Forpost.Store.Entities.Catalog.StorageEntity", null)
                         .WithMany()
                         .HasForeignKey("StorageId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -27,16 +27,16 @@ internal sealed class TechCardItemService: BusinessService, ITechCardItemService
     }
     public async Task<Guid> AddAsync(TechCardItemCreateModel model, CancellationToken cancellationToken)
     {
-        var techCardItem = Mapper.Map<TechCardItem>(model);
+        var techCardItem = Mapper.Map<TechCardItemEntity>(model);
         var techCardItemId = DbUnitOfWork.TechCardItemRepository.Add(techCardItem);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return techCardItemId;
     }
 
-    public async Task<TechCardItem?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+    public async Task<TechCardItemEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
         => await DbUnitOfWork.TechCardItemRepository.GetByIdAsync(id, cancellationToken);
 
-    public async Task<IReadOnlyList<TechCardItem>> GetAllAsync(CancellationToken cancellationToken) 
+    public async Task<IReadOnlyList<TechCardItemEntity>> GetAllAsync(CancellationToken cancellationToken) 
         => await DbUnitOfWork.TechCardItemRepository.GetAllAsync(cancellationToken);
 
     public async Task<IReadOnlyCollection<ItemsInTechCardModel>> GetAllItemsByTechCardId(Guid techCardId, CancellationToken cancellationToken)

@@ -34,8 +34,8 @@ public sealed class OperationController: ControllerBase
     /// Получение всех операций
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(Operation), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<Operation>> GetAllAsync(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(OperationEntity), StatusCodes.Status200OK)]
+    public async Task<IReadOnlyCollection<OperationEntity>> GetAllAsync(CancellationToken cancellationToken)
         => await _operationService.GetAllAsync(cancellationToken);
     /// <summary>
     /// Удаление операции

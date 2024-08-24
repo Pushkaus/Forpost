@@ -28,23 +28,23 @@ internal sealed class ContragentService : BusinessService, IContragentService
 
     public async Task<Guid> AddAsync(string name, CancellationToken cancellationToken)
     {
-        var contragent = new Contractor { Name = name };
+        var contragent = new ContractorEntity { Name = name };
         var contragentId =  DbUnitOfWork.ContragentRepository.Add(contragent);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return contragentId;
     }
 
-    public async Task<IReadOnlyList<Contractor>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<ContractorEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         var contragents = await DbUnitOfWork.ContragentRepository.GetAllAsync(cancellationToken);
 
         return contragents;
     }
 
-    public async Task<Contractor?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<ContractorEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var contragent = await DbUnitOfWork.ContragentRepository.GetByIdAsync(id, cancellationToken);
-        if (contragent == null) throw ForpostErrors.NotFound<Contractor>(id);
+        if (contragent == null) throw ForpostErrors.NotFound<ContractorEntity>(id);
 
         return contragent;
     }

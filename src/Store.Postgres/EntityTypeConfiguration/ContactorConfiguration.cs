@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class ContactorConfiguration : IEntityTypeConfiguration<Contractor>
+internal sealed class ContactorConfiguration : IEntityTypeConfiguration<ContractorEntity>
 {
-    public void Configure(EntityTypeBuilder<Contractor> builder)
+    public void Configure(EntityTypeBuilder<ContractorEntity> builder)
     {
         builder.ConfigureBaseEntity();
         builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);

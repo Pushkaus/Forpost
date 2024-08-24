@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class OperationConfiguration : IEntityTypeConfiguration<Operation>
+internal sealed class OperationConfiguration : IEntityTypeConfiguration<OperationEntity>
 {
-    public void Configure(EntityTypeBuilder<Operation> builder)
+    public void Configure(EntityTypeBuilder<OperationEntity> builder)
     {
         builder.ConfigureBaseEntity();
         

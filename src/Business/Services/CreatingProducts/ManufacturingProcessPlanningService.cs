@@ -28,14 +28,14 @@ internal sealed class ManufacturingProcessPlanningService: BusinessService, IMan
 
     public async Task Planning(PlanningManufacturingProcessModel model, CancellationToken cancellationToken)
     {
-        var manufacturingProcess = Mapper.Map<ManufacturingProcess>(model);
+        var manufacturingProcess = Mapper.Map<ManufacturingProcessEntity>(model);
         
         manufacturingProcess.CurrentQuantity = 0;
         
         var manufacturingProcessId = DbUnitOfWork.ManufacturingProcessRepository.Add(manufacturingProcess);
         foreach (var issue in model.Issues)
         {
-            var issueEntity = Mapper.Map<Issue>(issue);
+            var issueEntity = Mapper.Map<IssueEntity>(issue);
             issueEntity.ManufacturingProcessId = manufacturingProcessId;
             issueEntity.ExecutorId = new Guid("0950ff47-bedf-4356-a2a0-315f9ce737ed"); // Сюда зарегаю эмплоя "Не определен"
             issueEntity.CurrentQuantity = 0;

@@ -29,16 +29,16 @@ internal sealed class StepService: BusinessService, IStepService
 
     public async Task<Guid> AddAsync(StepCreateModel model, CancellationToken cancellationToken)
     {
-        var step = Mapper.Map<Step>(model);
+        var step = Mapper.Map<StepEntity>(model);
         var stepId = DbUnitOfWork.StepRepository.Add(step);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return stepId;
     }
 
-    public async Task<Step?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+    public async Task<StepEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
         => await DbUnitOfWork.StepRepository.GetByIdAsync(id, cancellationToken);
 
-    public async Task<IReadOnlyList<Step>> GetAllAsync(CancellationToken cancellationToken) 
+    public async Task<IReadOnlyList<StepEntity>> GetAllAsync(CancellationToken cancellationToken) 
         => await DbUnitOfWork.StepRepository.GetAllAsync(cancellationToken);
 
     public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken)

@@ -3,7 +3,7 @@ using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities.ProductCreating;
 
-public sealed class ProductDevelopment : IEntity
+public sealed class ProductDevelopmentEntity : IEntity
 {
     public Guid ProductId { get; set; }
     public Guid ManufacturingProcessId { get; set; }

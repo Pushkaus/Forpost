@@ -8,8 +8,8 @@ internal sealed class PlanningManufacturingProcessMappingProfile: Profile
 {
     public PlanningManufacturingProcessMappingProfile()
     {
-        CreateMap<PlanningManufacturingProcessModel, ManufacturingProcess>()
+        CreateMap<PlanningManufacturingProcessModel, ManufacturingProcessEntity>()
             .ValidateMemberList(MemberList.Source);
-        CreateMap<StartingIssueModel, Issue>().ValidateMemberList(MemberList.Source);
+        CreateMap<StartingIssueModel, IssueEntity>().ValidateMemberList(MemberList.Source);
     }
 }

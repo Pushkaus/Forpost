@@ -2,7 +2,7 @@
 
 namespace Forpost.Store.Entities.Catalog;
 
-public sealed class Employee : IAuditableEntity, IEntity
+public sealed class EmployeeEntity : IAuditableEntity, IEntity
 {
     /// <summary>
     /// Имя сотрудника

@@ -26,8 +26,8 @@ public sealed class StepController: ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(Step), StatusCodes.Status200OK)]
-    public async Task<Step?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(StepEntity), StatusCodes.Status200OK)]
+    public async Task<StepEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _stepService.GetByIdAsync(id, cancellationToken);
     }
@@ -37,8 +37,8 @@ public sealed class StepController: ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<Step>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<Step>> GetAllAsync(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(IReadOnlyCollection<StepEntity>), StatusCodes.Status200OK)]
+    public async Task<IReadOnlyCollection<StepEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         return await _stepService.GetAllAsync(cancellationToken);
     }

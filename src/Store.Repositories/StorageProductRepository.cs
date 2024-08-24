@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class StorageProductRepository : Repository<StorageProduct>, IStorageProductRepository
+internal sealed class StorageProductRepository : Repository<StorageProductEntity>, IStorageProductRepository
 {
     public StorageProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
         : base(dbContext, timeProvider, mapper)
@@ -43,7 +43,7 @@ internal sealed class StorageProductRepository : Repository<StorageProduct>, ISt
         return result;
     }
 
-    public async Task<StorageProduct?> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken)
+    public async Task<StorageProductEntity?> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken)
     {
         return await DbSet.Where(entity => entity.ProductId == productId).FirstOrDefaultAsync(cancellationToken);
     }

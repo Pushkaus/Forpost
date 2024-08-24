@@ -3,7 +3,7 @@ using Forpost.Store.Enums;
 
 namespace Forpost.Store.Entities;
 
-public class StorageProduct : IEntity
+public class StorageProductEntity : IEntity
 {
     public Guid StorageId { get; set; }
     public Guid ProductId { get; set; }

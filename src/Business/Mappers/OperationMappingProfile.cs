@@ -9,7 +9,7 @@ internal sealed class OperationMappingProfile: Profile
 {
     public OperationMappingProfile()
     {
-        CreateMap<OperationModel, Operation>()
+        CreateMap<OperationModel, OperationEntity>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ValidateMemberList(MemberList.Destination);
     }

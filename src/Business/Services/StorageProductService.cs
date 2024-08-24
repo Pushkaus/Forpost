@@ -28,7 +28,7 @@ internal sealed class StorageProductService : BusinessService, IStorageProductSe
 
     public async Task<Guid> AddAsync(StorageProductCreateModel model, CancellationToken cancellationToken)
     {
-        var storageProduct = Mapper.Map<StorageProduct>(model);
+        var storageProduct = Mapper.Map<StorageProductEntity>(model);
         var storageProductId = DbUnitOfWork.StorageProductRepository.Add(storageProduct);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
         return storageProductId;
@@ -42,14 +42,14 @@ internal sealed class StorageProductService : BusinessService, IStorageProductSe
         return response;
     }
 
-    public async Task<StorageProduct?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<StorageProductEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await DbUnitOfWork.StorageProductRepository.GetByIdAsync(id, cancellationToken);
     }
 
     public async Task UpdateAsync(StorageProductCreateModel model, CancellationToken cancellationToken)
     {
-        var storageProduct = Mapper.Map<StorageProduct>(model);
+        var storageProduct = Mapper.Map<StorageProductEntity>(model);
         DbUnitOfWork.StorageProductRepository.Update(storageProduct);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
