@@ -11,28 +11,27 @@ namespace Forpost.Business.ProductCreating.ManufacturingProcesses.Services;
 
 internal sealed class ManufacturingProcessLaunchService: BusinessService, IManufacturingProcessLaunchService
 {
+    private readonly IManufactureProcessRepository _manufactureProcessRepository;
     public ManufacturingProcessLaunchService(
         IDbUnitOfWork dbUnitOfWork,
         ILogger<BusinessService> logger,
         IMapper mapper,
         IConfiguration configuration,
         IDomainEventBus domainEventBus,
-        TimeProvider timeProvider)
+        TimeProvider timeProvider, IManufactureProcessRepository manufactureProcessRepository)
         : base(dbUnitOfWork, logger, mapper, configuration, domainEventBus, timeProvider)
     {
+        _manufactureProcessRepository = manufactureProcessRepository;
     }
 
     public async Task Launch(Guid manufacturingProcessId, CancellationToken cancellationToken)
     {
-        var model = await DbUnitOfWork.ManufacturingProcessRepository.
-            GetByIdAsync(manufacturingProcessId, cancellationToken);
+        var manufacturingProcess = await _manufactureProcessRepository
+            .GetPlanningManufacturingProcessByIdAsync(manufacturingProcessId, cancellationToken);
+
+        manufacturingProcess.Launch();
         
-        var manufacturingProcess = Mapper.Map<ManufacturingProcessEntity>(model);
-        
-        manufacturingProcess.StartTime = TimeProvider.GetUtcNow();
-        manufacturingProcess.Status = (ManufacturingProcessStatus)200;
-        
-        DbUnitOfWork.ManufacturingProcessRepository.Update(manufacturingProcess);
+        _manufactureProcessRepository.Update(manufacturingProcess);
         await DbUnitOfWork.SaveChangesAsync(cancellationToken);
     }
 
