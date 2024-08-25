@@ -1,20 +1,18 @@
 using AutoMapper;
-using Forpost.Store.Entities;
+using Forpost.Domain.Sortout;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract.Repositories;
-using Forpost.Store.Repositories.Models.InvoiceProduct;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class InvoiceProductRepository : Repository<InvoiceProductEntity>, IInvoiceProductRepository
+internal sealed class InvoiceProductRepository : Repository<InvoiceProduct>, IInvoiceProductRepository
 {
-    public InvoiceProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+    public InvoiceProductRepository(ForpostContextPostgres dbContext, TimeProvider timeProvider, IMapper mapper)
         : base(dbContext, timeProvider, mapper)
     {
     }
 
-    public async Task<IReadOnlyList<InvoiceWithProductsModel>>
+    public async Task<IReadOnlyList<InvoiceProduct>>
         GetProductsByInvoiceIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await DbSet
@@ -33,10 +31,9 @@ internal sealed class InvoiceProductRepository : Repository<InvoiceProductEntity
                 DbContext.Invoices,
                 combined => combined.Entity.InvoiceId,
                 invoice => invoice.Id,
-                (combined, invoice) => new InvoiceWithProductsModel
+                (combined, invoice) => new InvoiceProduct
                 {
                     ProductId = combined.Entity.Id,
-                    Name = combined.Product.Name,
                     InvoiceId = combined.Entity.InvoiceId,
                     Quantity = combined.Entity.Quantity
                 }

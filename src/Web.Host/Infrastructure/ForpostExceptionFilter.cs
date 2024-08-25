@@ -8,11 +8,11 @@ namespace Forpost.Web.Host.Infrastructure;
 internal sealed class ForpostExceptionFilter : IExceptionFilter
 {
     private ExceptionContext _exceptionContext = null!;
-    
+
     public void OnException(ExceptionContext context)
     {
         _exceptionContext = context;
-        
+
         var problemDetailsFactory = context.HttpContext.RequestServices.GetRequiredService<ProblemDetailsFactory>();
 
         if (context.Exception is ForpostExceptionBase exception)
@@ -21,7 +21,7 @@ internal sealed class ForpostExceptionFilter : IExceptionFilter
         }
         else
         {
-            HandleUnpredictableException(context, problemDetailsFactory, context.Exception); 
+            HandleUnpredictableException(context, problemDetailsFactory, context.Exception);
         }
     }
 
@@ -46,7 +46,7 @@ internal sealed class ForpostExceptionFilter : IExceptionFilter
                 break;
         }
     }
-    
+
     private void HandleUnpredictableException(ExceptionContext context, ProblemDetailsFactory problemDetailsFactory, Exception exception)
     {
         var problemDetails = problemDetailsFactory.CreateProblemDetails(
@@ -56,7 +56,7 @@ internal sealed class ForpostExceptionFilter : IExceptionFilter
             type: exception.GetType().Name,
             exception.Message,
             instance: context.Exception.StackTrace);
-        
+
         SetProblemDetailsResponse(problemDetails);
     }
 

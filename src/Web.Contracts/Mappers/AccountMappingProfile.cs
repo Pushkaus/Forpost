@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Business.Auth.Commands;
+using Forpost.Application.Auth;
 using Forpost.Web.Contracts.Models.Accounts;
 
 namespace Forpost.Web.Contracts.Mappers;

@@ -1,13 +1,12 @@
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.Category;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class CategoryConfiguration : IEntityTypeConfiguration<CategoryEntity>
+internal sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
-    public void Configure(EntityTypeBuilder<CategoryEntity> builder)
+    public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.ConfigureBaseEntity();
 

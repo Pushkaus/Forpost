@@ -1,19 +1,19 @@
 using AutoMapper;
-using Forpost.Store.Entities;
+using Forpost.Domain.FileStorage;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract.Repositories;
 using Microsoft.EntityFrameworkCore;
+using File = Forpost.Domain.FileStorage.File;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class FileRepository : Repository<FileEntity>, IFilesRepository
+internal sealed class FileRepository : Repository<File>, IFileRepository
 {
-    public FileRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+    public FileRepository(ForpostContextPostgres dbContext, TimeProvider timeProvider, IMapper mapper)
         : base(dbContext, timeProvider, mapper)
     {
     }
 
-    public async Task<IReadOnlyList<FileEntity>> GetAllByParentIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<File>> GetAllByParentIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await DbSet.Where(entity => entity.ParentId == id).ToListAsync();
     }

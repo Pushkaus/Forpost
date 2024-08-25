@@ -1,21 +1,21 @@
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.Sortout;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class InvoiceProductConfiguration : IEntityTypeConfiguration<InvoiceProductEntity>
+internal sealed class InvoiceProductConfiguration : IEntityTypeConfiguration<InvoiceProduct>
 {
-    public void Configure(EntityTypeBuilder<InvoiceProductEntity> builder)
+    public void Configure(EntityTypeBuilder<InvoiceProduct> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<InvoiceEntity>()
+        builder.HasOne<Invoice>()
             .WithMany()
             .HasForeignKey(key => key.InvoiceId);
 
-        builder.HasOne<ProductEntity>()
+        builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);
     }

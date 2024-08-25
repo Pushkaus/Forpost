@@ -8,11 +8,11 @@ internal sealed class Program
     {
         var host = CreateHostBuilder(args, ConfigureWebHostBuilder).Build();
         var logger = host.Services.GetRequiredService<ILogger<Program>>();
-        
+
         try
         {
             logger.LogDebug("Старт миграции БД ErpDatabase");
-            await MigrationManager.MigrateSchema(); 
+            await MigrationManager.MigrateSchema();
             logger.LogDebug("Миграция схемы произошла успешно!");
             logger.LogDebug("Старт миграции данных");
             await MigrationManager.MigrateData();

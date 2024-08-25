@@ -1,16 +1,14 @@
 using AutoMapper;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.Category;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract;
-using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class CategoryRepository: Repository<CategoryEntity>, ICategoryRepository
+internal sealed class CategoryRepository : Repository<Category>, ICategoryRepository
 {
     public CategoryRepository(ForpostContextPostgres dbContext,
         TimeProvider timeProvider,
-        IMapper mapper) 
+        IMapper mapper)
         : base(dbContext, timeProvider, mapper)
     {
     }

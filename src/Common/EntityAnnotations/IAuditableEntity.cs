@@ -2,10 +2,10 @@ namespace Forpost.Common.EntityAnnotations;
 
 public interface IAuditableEntity
 {
-    DateTimeOffset CreatedAt { get; set; }
-    Guid CreatedById { get; set; }
-    DateTimeOffset UpdatedAt { get; set; }
-    Guid UpdatedById { get; set; }
-    DateTimeOffset? DeletedAt { get; set; }
-    Guid? DeletedById { get; set; }
+    DateTimeOffset CreatedAt { get; }
+    Guid CreatedById { get; }
+    DateTimeOffset UpdatedAt { get; }
+    Guid UpdatedById { get; }
+    DateTimeOffset? DeletedAt { get; }
+    Guid? DeletedById { get; }
 }

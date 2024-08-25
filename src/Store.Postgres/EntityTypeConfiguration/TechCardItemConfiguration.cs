@@ -1,21 +1,22 @@
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.Catalogs.TechCardItems;
+using Forpost.Domain.Catalogs.TechCards;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class TechCardItemConfiguration : IEntityTypeConfiguration<TechCardItemEntity>
+internal sealed class TechCardItemConfiguration : IEntityTypeConfiguration<TechCardItem>
 {
-    public void Configure(EntityTypeBuilder<TechCardItemEntity> builder)
+    public void Configure(EntityTypeBuilder<TechCardItem> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<TechCardEntity>()
+        builder.HasOne<TechCard>()
             .WithMany()
             .HasForeignKey(key => key.TechCardId);
 
-        builder.HasOne<ProductEntity>()
+        builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);
     }

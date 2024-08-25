@@ -21,7 +21,7 @@ internal sealed class HttpRequestLoggingMiddleware
     {
         var userId = _identityProvider.GetUserId().ToString();
         var displayId = string.IsNullOrEmpty(userId) ? "Anonymous" : userId;
-        
+
         _logger.LogDebug("Incoming HTTP request: {Method} {Path}, User ID: {UserId}",
             context.Request.Method, context.Request.Path, displayId);
 
@@ -34,6 +34,6 @@ internal sealed class HttpRequestLoggingMiddleware
 
 internal static class HttpRequestLoggingMiddlewareExtensions
 {
-    public static IApplicationBuilder UseHttpRequestLoggingWithEmployeeId(this IApplicationBuilder builder) => 
+    public static IApplicationBuilder UseHttpRequestLoggingWithEmployeeId(this IApplicationBuilder builder) =>
         builder.UseMiddleware<HttpRequestLoggingMiddleware>();
 }

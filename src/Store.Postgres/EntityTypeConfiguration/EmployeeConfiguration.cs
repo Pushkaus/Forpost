@@ -1,20 +1,20 @@
-﻿using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+﻿using Forpost.Domain.Catalogs.Employees;
+using Forpost.Domain.Catalogs.Roles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal class EmployeeConfiguration : IEntityTypeConfiguration<EmployeeEntity>
+internal class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
-    public void Configure(EntityTypeBuilder<EmployeeEntity> builder)
+    public void Configure(EntityTypeBuilder<Employee> builder)
     {
         builder.ConfigureBaseEntity();
-        
-        builder.HasOne<RoleEntity>()
+
+        builder.HasOne<Role>()
             .WithMany()
             .HasForeignKey(key => key.RoleId);
-        
+
         builder.Property(entity => entity.FirstName).HasMaxLength(DatabaseConstrains.MaxLength);
         builder.Property(entity => entity.LastName).HasMaxLength(DatabaseConstrains.MaxLength);
         builder.Property(entity => entity.Patronymic).HasMaxLength(DatabaseConstrains.MaxLength);

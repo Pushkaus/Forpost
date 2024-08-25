@@ -4,7 +4,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj"/>
-        <ProjectReference Include="..\Store\Store.csproj"/>
+      <ProjectReference Include="..\Application.Contracts\Application.Contracts.csproj" />
+      <ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj" />
     </ItemGroup>
 </Project>

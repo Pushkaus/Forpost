@@ -1,13 +1,12 @@
 using AutoMapper;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.Products;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class ProductRepository : Repository<ProductEntity>, IProductRepository
+internal sealed class ProductRepository : Repository<Product>, IProductRepository
 {
-    public ProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+    public ProductRepository(ForpostContextPostgres dbContext, TimeProvider timeProvider, IMapper mapper)
         : base(dbContext, timeProvider, mapper)
     {
     }

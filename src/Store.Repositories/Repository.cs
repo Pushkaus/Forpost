@@ -1,7 +1,7 @@
 using AutoMapper;
+using Forpost.Common.DataAccess;
 using Forpost.Common.EntityAnnotations;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
@@ -13,23 +13,22 @@ internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity
     protected readonly DbSet<TEntity> DbSet;
     protected readonly TimeProvider TimeProvider;
 
-    protected Repository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+    protected Repository(ForpostContextPostgres dbContext, TimeProvider timeProvider, IMapper mapper)
     {
         DbContext = dbContext;
         TimeProvider = timeProvider;
         Mapper = mapper;
         DbSet = dbContext.Set<TEntity>();
     }
-    
-    public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken) => 
+
+    public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken) =>
         await DbSet.ToListAsync(cancellationToken);
 
-    public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) => 
+    public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
         await DbSet.ById(id).FirstOrDefaultAsync(cancellationToken);
 
     public Guid Add(TEntity entity)
     {
-        entity.Id = Guid.NewGuid();
         DbSet.Entry(entity).State = EntityState.Added;
         return entity.Id;
     }

@@ -11,7 +11,7 @@ public sealed class PlanningManufacturingProcess
     /// <summary>
     ///     Целевое количество продукта в производственном процессе
     /// </summary>
-    public int TargetQuantity { get; set; } 
+    public int TargetQuantity { get; set; }
     /// <summary>
     ///     Дата начала выполнения производственного процесса
     /// </summary>
