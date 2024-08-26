@@ -1,4 +1,5 @@
 using Forpost.Domain.Catalogs.Contractors;
+using Forpost.Domain.InvoiceManagment;
 using Forpost.Domain.Sortout;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

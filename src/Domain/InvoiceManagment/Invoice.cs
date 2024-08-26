@@ -1,10 +1,15 @@
 using Forpost.Common.EntityAnnotations;
+using Forpost.Common.EntityTemplates;
 using Forpost.Domain.ProductCreating.Issue;
 
-namespace Forpost.Domain.Sortout;
+namespace Forpost.Domain.InvoiceManagment;
 
-public sealed class Invoice : IAuditableEntity, IEntity
+public sealed class Invoice : DomainAuditableEntity, IEntity
 {
+    public void InitialAdd()
+    {
+        IssueStatus = IssueStatus.InProgress;
+    }
     public string Number { get; set; } = null!;
     public Guid ContragentId { get; set; }
     public string? Description { get; set; }
@@ -12,12 +17,4 @@ public sealed class Invoice : IAuditableEntity, IEntity
     public int DaysShipment { get; set; }
     public IssueStatus IssueStatus { get; set; }
     public DateTimeOffset? DateShipment { get; set; }
-    public DateTimeOffset CreatedAt { get; set; }
-    public Guid CreatedById { get; set; }
-    public DateTimeOffset UpdatedAt { get; set; }
-    public Guid UpdatedById { get; set; }
-    public DateTimeOffset? DeletedAt { get; set; }
-    public Guid? DeletedById { get; set; }
-
-    public Guid Id { get; set; }
 }

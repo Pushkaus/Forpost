@@ -9,6 +9,7 @@ using Forpost.Domain.Catalogs.Storages;
 using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
+using Forpost.Domain.InvoiceManagment;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
