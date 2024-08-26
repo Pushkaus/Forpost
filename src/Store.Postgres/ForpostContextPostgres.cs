@@ -1,7 +1,21 @@
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
-using Forpost.Store.Entities.ProductCreating;
+using Forpost.Domain.Catalogs.Category;
+using Forpost.Domain.Catalogs.Contractors;
+using Forpost.Domain.Catalogs.Employees;
+using Forpost.Domain.Catalogs.Operations;
+using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.Catalogs.Roles;
+using Forpost.Domain.Catalogs.Steps;
+using Forpost.Domain.Catalogs.Storages;
+using Forpost.Domain.Catalogs.TechCardItems;
+using Forpost.Domain.Catalogs.TechCards;
+using Forpost.Domain.Catalogs.TechCardSteps;
+using Forpost.Domain.ProductCreating.CompletedProduct;
+using Forpost.Domain.ProductCreating.Issue;
+using Forpost.Domain.ProductCreating.ManufacturingProcesses;
+using Forpost.Domain.ProductCreating.ProductDevelopment;
+using Forpost.Domain.Sortout;
 using Microsoft.EntityFrameworkCore;
+using File = Forpost.Domain.FileStorage.File;
 
 namespace Forpost.Store.Postgres;
 
@@ -11,27 +25,27 @@ public sealed class ForpostContextPostgres : DbContext
     {
     }
 
-    public DbSet<EmployeeEntity> Employees => Set<EmployeeEntity>();
-    public DbSet<RoleEntity> Roles => Set<RoleEntity>();
-    public DbSet<InvoiceEntity> Invoices => Set<InvoiceEntity>();
-    public DbSet<InvoiceProductEntity> InvoiceProducts => Set<InvoiceProductEntity>();
-    public DbSet<ProductEntity> Products => Set<ProductEntity>();
-    public DbSet<StorageEntity> Storages => Set<StorageEntity>();
-    public DbSet<StorageProductEntity> StorageProducts => Set<StorageProductEntity>();
-    public DbSet<ContractorEntity> Contractors => Set<ContractorEntity>();
-    public DbSet<FileEntity> Files => Set<FileEntity>();
-    public DbSet<CategoryEntity> Categories => Set<CategoryEntity>();
-    public DbSet<IssueEntity> Issues => Set<IssueEntity>();
-    public DbSet<TechCardEntity> TechCards => Set<TechCardEntity>();
-    public DbSet<TechCardItemEntity> TechCardItems => Set<TechCardItemEntity>();
-    public DbSet<TechCardStepEntity> TechCardSteps => Set<TechCardStepEntity>();
-    public DbSet<OperationEntity> Operations => Set<OperationEntity>();
-    public DbSet<StepEntity> Steps => Set<StepEntity>();
-    public DbSet<CompletedProductEntity> CompletedProducts => Set<CompletedProductEntity>();
-    public DbSet<ManufacturingProcessEntity> ManufacturingProcesses => Set<ManufacturingProcessEntity>();
-    public DbSet<ProductDevelopmentEntity> ProductDevelopments => Set<ProductDevelopmentEntity>();
-    public DbSet<ProductVersionEntity> ProductVersions => Set<ProductVersionEntity>();
-    
+    public DbSet<Employee> Employees => Set<Employee>();
+    public DbSet<Role> Roles => Set<Role>();
+    public DbSet<Invoice> Invoices => Set<Invoice>();
+    public DbSet<InvoiceProduct> InvoiceProducts => Set<InvoiceProduct>();
+    public DbSet<Product> Products => Set<Product>();
+    public DbSet<Storage> Storages => Set<Storage>();
+    public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
+    public DbSet<Contractor> Contractors => Set<Contractor>();
+    public DbSet<File> Files => Set<File>();
+    public DbSet<Category> Categories => Set<Category>();
+    public DbSet<Issue> Issues => Set<Issue>();
+    public DbSet<TechCard> TechCards => Set<TechCard>();
+    public DbSet<TechCardItem> TechCardItems => Set<TechCardItem>();
+    public DbSet<TechCardStep> TechCardSteps => Set<TechCardStep>();
+    public DbSet<Operation> Operations => Set<Operation>();
+    public DbSet<Step> Steps => Set<Step>();
+    public DbSet<CompletedProduct> CompletedProducts => Set<CompletedProduct>();
+    public DbSet<ManufacturingProcess> ManufacturingProcesses => Set<ManufacturingProcess>();
+    public DbSet<ProductDevelopment> ProductDevelopments => Set<ProductDevelopment>();
+    public DbSet<ProductVersion> ProductVersions => Set<ProductVersion>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

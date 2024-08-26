@@ -6,12 +6,6 @@ namespace Forpost.Common;
 
 public static class ServiceCollectionExtentions
 {
-    public static IServiceCollection AddIdentityProvider(this IServiceCollection services)
-    {
-        services.AddSingleton<IIdentityProvider, IdentityProvider>();
-        return services;
-    }
-
     /// <summary>
     /// Зарегистрировать типы, реализующие интерфейсы, помеченные маркерным интерфейсом.
     /// </summary>
@@ -31,10 +25,10 @@ public static class ServiceCollectionExtentions
     /// Зарегистрировать типы, реализующие интерфейсы, помеченные маркерным интерфейсом.
     /// </summary>
     public static IServiceCollection AddAllTypesAssignableMarkerInterfaceTo<TMarkerInterface>(
-        this IServiceCollection services, Assembly assembly,
+        this IServiceCollection services, Assembly assemblyWithImplementations,
         ServiceLifetime lifetime)
     {
-        var types = assembly.GetTypes()
+        var types = assemblyWithImplementations.GetTypes()
             .Where(type => typeof(TMarkerInterface).IsAssignableFrom(type) && !type.IsAbstract);
 
         foreach (var type in types) services.AddAsImplementedInterfaces(type, lifetime);

@@ -1,22 +1,23 @@
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.Catalogs.Storages;
+using Forpost.Domain.Sortout;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class StorageProductConfiguration : IEntityTypeConfiguration<StorageProductEntity>
+internal sealed class StorageProductConfiguration : IEntityTypeConfiguration<StorageProduct>
 {
-    public void Configure(EntityTypeBuilder<StorageProductEntity> builder)
+    public void Configure(EntityTypeBuilder<StorageProduct> builder)
     {
         builder.HasKey(sp => new { sp.ProductId, sp.StorageId });
 
-        builder.HasOne<StorageEntity>()
+        builder.HasOne<Storage>()
             .WithMany()
             .HasForeignKey(key => key.StorageId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne<ProductEntity>()
+        builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId)
             .OnDelete(DeleteBehavior.Cascade);

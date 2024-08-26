@@ -1,21 +1,22 @@
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.Employees;
+using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.Catalogs.TechCards;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class TechCardConfiguration : IEntityTypeConfiguration<TechCardEntity>
+internal sealed class TechCardConfiguration : IEntityTypeConfiguration<TechCard>
 {
-    public void Configure(EntityTypeBuilder<TechCardEntity> builder)
+    public void Configure(EntityTypeBuilder<TechCard> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<EmployeeEntity>()
+        builder.HasOne<Employee>()
             .WithMany()
             .HasForeignKey(key => key.CreatedById);
 
-        builder.HasOne<ProductEntity>()
+        builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);
         builder.Property(entity => entity.Number).HasMaxLength(DatabaseConstrains.MaxLength);

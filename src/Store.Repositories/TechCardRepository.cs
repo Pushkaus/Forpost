@@ -1,14 +1,12 @@
 using AutoMapper;
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract.Repositories;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class TechCardRepository: Repository<TechCardEntity>, ITechCardRepository
+internal sealed class TechCardRepository : Repository<TechCard>, ITechCardRepository
 {
-    public TechCardRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+    public TechCardRepository(ForpostContextPostgres dbContext, TimeProvider timeProvider, IMapper mapper)
         : base(dbContext, timeProvider, mapper)
     {
     }

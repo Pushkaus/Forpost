@@ -1,20 +1,18 @@
 using AutoMapper;
-using Forpost.Store.Entities;
+using Forpost.Domain.Sortout;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract.Repositories;
-using Forpost.Store.Repositories.Models.StorageProduct;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class StorageProductRepository : Repository<StorageProductEntity>, IStorageProductRepository
+internal sealed class StorageProductRepository : Repository<StorageProduct>, IStorageProductRepository
 {
-    public StorageProductRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+    public StorageProductRepository(ForpostContextPostgres dbContext, TimeProvider timeProvider, IMapper mapper)
         : base(dbContext, timeProvider, mapper)
     {
     }
 
-    public async Task<IReadOnlyList<ProductsOnStorageModel>>
+    public async Task<IReadOnlyList<StorageProduct>>
         GetAllByStorageIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await DbSet
@@ -28,7 +26,7 @@ internal sealed class StorageProductRepository : Repository<StorageProductEntity
                 DbContext.Storages,
                 combined => combined.entity.StorageId,
                 storage => storage.Id,
-                (combined, storage) => new ProductsOnStorageModel
+                (combined, storage) => new StorageProduct
                 {
                     ProductId = combined.entity.ProductId,
                     ProductName = combined.product.Name,
@@ -43,7 +41,7 @@ internal sealed class StorageProductRepository : Repository<StorageProductEntity
         return result;
     }
 
-    public async Task<StorageProductEntity?> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken)
+    public async Task<StorageProduct?> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken)
     {
         return await DbSet.Where(entity => entity.ProductId == productId).FirstOrDefaultAsync(cancellationToken);
     }

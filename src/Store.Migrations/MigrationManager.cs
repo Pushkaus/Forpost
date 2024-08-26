@@ -6,10 +6,10 @@ namespace Forpost.Store.Migrations;
 
 public static class MigrationManager
 {
-    public static async Task MigrateSchema() => 
+    public static async Task MigrateSchema() =>
         await Migrate<ForpostContextPostgres, SchemaMigrationContextFactory>().ConfigureAwait(false);
 
-    public static async Task MigrateData() => 
+    public static async Task MigrateData() =>
         await Migrate<DataMigrationsContext, DataMigrationContextFactory>().ConfigureAwait(false);
 
     private static async Task Migrate<TDbContext, TDbContextFactory>()
@@ -18,7 +18,7 @@ public static class MigrationManager
     {
         var dbContextFactory = new TDbContextFactory();
         await using var dbContext = dbContextFactory.CreateDbContext(Array.Empty<string>());
-        
+
         await dbContext.Database.MigrateAsync().ConfigureAwait(false);
     }
 }

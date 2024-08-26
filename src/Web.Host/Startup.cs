@@ -1,10 +1,13 @@
 using System.Text;
-using Forpost.Business;
-using Forpost.Common;
+using Forpost.Application;
+using Forpost.Application.Auth;
+using Forpost.Common.Utils;
+using Forpost.Domain.Catalogs.Employees;
+using Forpost.Pipeline;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Models.Employee;
 using Forpost.Web.Contracts;
 using Forpost.Web.Host.Infrastructure;
+using Forpost.Web.Host.Infrastructure.Auth;
 using Forpost.Web.Host.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -23,23 +26,26 @@ internal sealed class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddBusinessServices();
-        services.AddIdentityProvider();
+        services.AddApplicationLayer();
         services.AddOpenTelemetryLogging(_configuration);
-        services.AddScoped<IPasswordHasher<EmployeeWithRoleModel>, PasswordHasher<EmployeeWithRoleModel>>();
+
+        services.AddSingleton<IIdentityProvider, IdentityProvider>();
+        services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
+        services.AddScoped<IPasswordHasher<RegisterUserCommand>, PasswordHasher<RegisterUserCommand>>();
+
         services.AddForpostContextPostgres(_configuration);
         services.AddSwaggerServices();
         services.AddSingleton(TimeProvider.System);
-        
+
         services.AddControllers();
 
         services.AddAutoMapper(WebContractsAssemblyReference.Assembly);
-        services.AddAutoMapper(BusinessAssemblyReference.Assembly);
+        services.AddAutoMapper(ApplicationAssemblyReference.Assembly);
 
         services.AddHttpContextAccessor();
         services.AddControllers(options => options.Filters.Add<ForpostExceptionFilter>());
         services.AddEndpointsApiExplorer();
-        
+
         var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("Jwt:Key") ??
                                           throw new AggregateException("Не указан Seq:ServerUri"));
         services.AddAuthentication(x =>
@@ -64,12 +70,12 @@ internal sealed class Startup
     private static void ConfigureCors(IServiceCollection services)
     {
         services.AddCors(options => options.AddDefaultPolicy(policy =>
-            policy.WithOrigins("http://localhost:3000", "http://localhost:4200","http://localhost:5173" )
+            policy.WithOrigins("http://localhost:3000", "http://localhost:4200", "http://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()));
     }
-    
+
     public static void Configure(IApplicationBuilder app)
     {
         app.UseCors();

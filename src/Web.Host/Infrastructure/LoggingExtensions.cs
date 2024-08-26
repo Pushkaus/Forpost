@@ -9,14 +9,14 @@ internal static class LoggingExtensions
     internal static IServiceCollection AddOpenTelemetryLogging(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddLogging(logging => logging
-                
+
             .AddSimpleConsole(options =>
             {
                 options.IncludeScopes = true;
                 options.SingleLine = true;
                 options.TimestampFormat = "HH:mm:ss ";
             })
-            
+
             .AddOpenTelemetry(options => options
                 .SetResourceBuilder(ResourceBuilder.CreateEmpty()
                     .AddService(HostConstants.Name))

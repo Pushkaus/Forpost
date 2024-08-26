@@ -1,4 +1,4 @@
-using Forpost.Store.Enums;
+using Forpost.Domain.Catalogs.Steps;
 
 namespace Forpost.Web.Contracts.Models.Steps;
 
@@ -32,5 +32,5 @@ public sealed class StepCreateRequest
     /// <summary>
     ///     Единица измерения
     /// </summary>
-    public UnitOfMeassure UnitOfMeassure { get; set; }
+    public UnitOfMeasure UnitOfMeasure { get; set; }
 }

@@ -1,26 +1,23 @@
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
-using Forpost.Store.Entities.ProductCreating;
+using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.ProductCreating.CompletedProduct;
+using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<CompletedProductEntity>
+internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<CompletedProduct>
 {
-    public void Configure(EntityTypeBuilder<CompletedProductEntity> builder)
+    public void Configure(EntityTypeBuilder<CompletedProduct> builder)
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<ProductEntity>()
+        builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);
 
-        builder.HasOne<ManufacturingProcessEntity>()
+        builder.HasOne<ManufacturingProcess>()
             .WithOne()
-            .HasForeignKey<CompletedProductEntity>(key => key.ManufacturingProcessId);
-        
-        builder.Property(entity => entity.SerialNumber).HasMaxLength(DatabaseConstrains.MaxLength);
-
+            .HasForeignKey<CompletedProduct>(key => key.ManufacturingProcessId);
     }
 }

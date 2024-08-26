@@ -1,21 +1,19 @@
 using AutoMapper;
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.TechCardSteps;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Abstract.Repositories;
 using Forpost.Store.Repositories.Models.TechCardStep;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
-internal sealed class TechCardStepRepository: Repository<TechCardStepEntity>, ITechCardStepRepositrory
+internal sealed class TechCardStepRepository : Repository<TechCardStep>, ITechCardStepRepository
 {
-    public TechCardStepRepository(ForpostContextPostgres dbContext,  TimeProvider timeProvider, IMapper mapper) 
+    public TechCardStepRepository(ForpostContextPostgres dbContext, TimeProvider timeProvider, IMapper mapper)
         : base(dbContext, timeProvider, mapper)
     {
     }
 
-    public async Task<IReadOnlyList<StepsInTechCardModel>> GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<TechCardStep>> GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
     {
         return await DbSet.Where(techCardStep => techCardStep.TechCardId == techCardId)
             .Join(DbContext.Steps,
@@ -26,12 +24,10 @@ internal sealed class TechCardStepRepository: Repository<TechCardStepEntity>, IT
             .Join(DbContext.Operations,
                 techCardStep => techCardStep.step.OperationId,
                 operation => operation.Id,
-                (techCardStep, operation) => new StepsInTechCardModel
+                (techCardStep, operation) => new TechCardStep
                 {
                     TechCardId = techCardId,
                     StepId = techCardStep.step.Id,
-                    StepName = operation.Name,
-                    StepDescription = techCardStep.step.Description,
                     Number = techCardStep.techCardStep.Number,
                     Id = techCardStep.techCardStep.Id,
                 }).ToListAsync(cancellationToken);

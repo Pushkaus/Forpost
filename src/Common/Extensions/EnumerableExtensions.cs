@@ -6,12 +6,12 @@ public static class EnumerableExtensions
     /// Является ли коллекция пустой
     /// </summary>
     public static bool IsEmpty<TElement>(this IEnumerable<TElement> source) => !source.Any();
-    
+
     /// <summary>
     /// Имеет ли коллекция хотя бы один элемент
     /// </summary>
     public static bool IsNotEmpty<TElement>(this IEnumerable<TElement> source) => source.Any();
-    
+
     /// <summary>
     /// Представить один элемент, как коллекцию
     /// </summary>

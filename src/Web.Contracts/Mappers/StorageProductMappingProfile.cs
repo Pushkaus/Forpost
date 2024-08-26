@@ -1,5 +1,6 @@
 using AutoMapper;
-using Forpost.Business.Sortout;
+using Forpost.Application.SortOut;
+using Forpost.Domain.Sortout;
 using Forpost.Web.Contracts.Models.StorageProduct;
 
 namespace Forpost.Web.Contracts.Mappers;

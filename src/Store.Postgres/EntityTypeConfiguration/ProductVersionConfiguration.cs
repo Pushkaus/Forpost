@@ -1,16 +1,16 @@
-using Forpost.Store.Entities;
-using Forpost.Store.Entities.Catalog;
+using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.Sortout;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration;
 
-internal sealed class ProductVersionConfiguration : IEntityTypeConfiguration<ProductVersionEntity>
+internal sealed class ProductVersionConfiguration : IEntityTypeConfiguration<ProductVersion>
 {
-    public void Configure(EntityTypeBuilder<ProductVersionEntity> builder)
+    public void Configure(EntityTypeBuilder<ProductVersion> builder)
     {
         builder.ConfigureBaseEntity();
-        builder.HasOne<ProductEntity>()
+        builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);
     }
