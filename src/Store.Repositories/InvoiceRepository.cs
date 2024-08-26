@@ -1,4 +1,5 @@
 using AutoMapper;
+using Forpost.Domain.InvoiceManagment;
 using Forpost.Domain.Sortout;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
