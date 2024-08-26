@@ -7,4 +7,7 @@
       <ProjectReference Include="..\Application.Contracts\Application.Contracts.csproj" />
       <ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Models\StorageProduct\ProductOnStorageModel.cs" />
+    </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@ using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
 using Forpost.Domain.ProductCreating.CompletedProduct;
+using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Forpost.Domain.Sortout;

@@ -22,8 +22,4 @@ internal sealed class AddStorageCommandHandler : IRequestHandler<AddStorageComma
     }
 }
 
-public class AddStorageCommand : IRequest<Guid>
-{
-    public string Name { get; set; } = default!;
-    public Guid ResponsibleId { get; set; }
-}
+public class AddStorageCommand(string Name, Guid ResponsibleId) : IRequest<Guid>;

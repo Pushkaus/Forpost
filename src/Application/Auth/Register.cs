@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Roles;
@@ -23,25 +24,16 @@ internal sealed class RegisterCommandHandler : IRequestHandler<RegisterUserComma
 
     public async Task Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var passwordHash = _passwordHasher.HashPassword(request, request.Password);
-        var role = await _roleRepository.GetByNameAsync(request.Role, cancellationToken);
-        role.EnsureFoundBy(entity => entity.Name, request.Role);
+        var passwordHash = _passwordHasher.HashPassword(request, request.Model.Password);
+        var role = await _roleRepository.GetByNameAsync(request.Model.Role, cancellationToken);
+        role.EnsureFoundBy(entity => entity.Name, request.Model.Role);
 
-        var registeredUser = Employee.Register(request.FirstName, request.LastName, request.Post, role!.Id, passwordHash,
-            request.PhoneNumber, request.Patronymic, request.Email);
+        var registeredUser = Employee.Register(request.Model.FirstName, request.Model.LastName, request.Model.Post,
+            role!.Id, passwordHash,
+            request.Model.PhoneNumber, request.Model.Patronymic, request.Model.Email);
 
         _employeeRepository.Add(registeredUser);
     }
 }
 
-public sealed record RegisterUserCommand : IRequest
-{
-    public string FirstName { get; set; } = default!;
-    public string LastName { get; set; } = default!;
-    public string? Patronymic { get; set; }
-    public string Post { get; set; } = default!;
-    public string Role { get; set; } = default!;
-    public string? Email { get; set; }
-    public string PhoneNumber { get; set; } = default!;
-    public string Password { get; set; } = default!;
-}
+public sealed record RegisterUserCommand(RegisterUserModel Model) : IRequest;

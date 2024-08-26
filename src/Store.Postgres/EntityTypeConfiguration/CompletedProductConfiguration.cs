@@ -19,8 +19,5 @@ internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<C
         builder.HasOne<ManufacturingProcess>()
             .WithOne()
             .HasForeignKey<CompletedProduct>(key => key.ManufacturingProcessId);
-
-        builder.Property(entity => entity.SerialNumber).HasMaxLength(DatabaseConstrains.MaxLength);
-
     }
 }

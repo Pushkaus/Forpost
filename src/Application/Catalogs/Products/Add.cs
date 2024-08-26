@@ -22,4 +22,4 @@ internal sealed class ProductCreateCommandHandler : IRequestHandler<AddProductCo
     }
 }
 
-public record AddProductCommand(string Name, string? Version, decimal Cost) : IRequest<Guid>;
+public record AddProductCommand(string Name, string? Version) : IRequest<Guid>;

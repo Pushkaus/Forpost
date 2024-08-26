@@ -1,4 +1,5 @@
 using Forpost.Common.EntityAnnotations;
+using Forpost.Domain.ProductCreating.Issue;
 
 namespace Forpost.Domain.Sortout;
 

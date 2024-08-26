@@ -1,51 +1,36 @@
-// using AutoMapper;
-// using Forpost.Domain.Catalogs.Storages;
-// using Forpost.Web.Contracts.Models.StorageProduct;
-// using Forpost.Web.Contracts.Models.Storages;
-// using Microsoft.AspNetCore.Authorization;
-// using Microsoft.AspNetCore.Http;
-// using Microsoft.AspNetCore.Mvc;
-//
-// namespace Forpost.Web.Contracts.Controllers.Catalogs.Storage;
-//
-// [ApiController]
-// [Route("api/v1/storages")]
-// [Authorize]
-// public sealed class StorageController : ControllerBase
-// {
-//     private readonly IMapper _mapper;
-//     private readonly IStorageService _storageService;
-//
-//     public StorageController(IStorageService storageService, IMapper mapper)
-//     {
-//         _storageService = storageService;
-//         _mapper = mapper;
-//     }
-//
-//     /// <summary>
-//     /// Создание нового склада
-//     /// </summary>
-//     /// <param name="request"></param>
-//     /// <returns></returns>
-//     [HttpPost]
-//     [ProducesResponseType(StatusCodes.Status200OK)]
-//     public async Task<IActionResult>
-//         CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
-//     {
-//         var model = _mapper.Map<StorageCreateCommand>(request);
-//         await _storageService.AddAsync(model, cancellationToken);
-//         return Ok();
-//     }
-//
-//     /// <summary>
-//     /// Получить список всех складов
-//     /// </summary>
-//     /// <returns></returns>
-//     [HttpGet]
-//     [ProducesResponseType(typeof(StorageReponse), StatusCodes.Status200OK)]
-//     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
-//     {
-//         var storages = await _storageService.GetAllAsync(cancellationToken);
-//         return Ok(storages);
-//     }
-// }
+using AutoMapper;
+using Forpost.Application.Catalogs.Storages;
+using Forpost.Domain.Catalogs.Storages;
+using Forpost.Web.Contracts.Models.StorageProduct;
+using Forpost.Web.Contracts.Models.Storages;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Forpost.Web.Contracts.Controllers.Catalogs;
+
+[Route("api/v1/storages")]
+public sealed class StorageController : ApiController
+{
+    /// <summary>
+    /// Создание нового склада
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult>
+        CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
+    {
+        var storageId = Mediator.Send(new AddStorageCommand(request.Name, request.ResponsibleId), cancellationToken);
+        return Ok(storageId);
+    }
+
+    /// <summary>
+    /// Получить список всех складов
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(StorageReponse), StatusCodes.Status200OK)]
+    public async Task<IReadOnlyCollection<Storage>> GetAllAsync(CancellationToken cancellationToken) 
+        => await Mediator.Send(new GetAllStoragesQuery(), cancellationToken);
+}

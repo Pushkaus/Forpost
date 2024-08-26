@@ -38,4 +38,5 @@ public sealed record EmployeeWithRoleModel
     /// Номер телефона сотрудника
     /// </summary>
     public string PhoneNumber { get; set; } = default!;
+    
 }

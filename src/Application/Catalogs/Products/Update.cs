@@ -23,4 +23,4 @@ internal sealed class ProductUpdateCommandHandler : IRequestHandler<UpdateProduc
     }
 }
 
-public record UpdateProductCommand(Guid Id, string Name, string? Version, decimal Cost) : IRequest;
+public record UpdateProductCommand(Guid Id, string Name, string? Version) : IRequest;

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Forpost.Application.Catalogs.TechCardItems;
 
-internal sealed class GetTechCardItemByIdQueryHandler : IRequestHandler<GetTechCardItemByIdQuery, TechCardItem>
+internal sealed class GetTechCardItemByIdQueryHandler : IRequestHandler<GetTechCardItemByIdQuery, IReadOnlyCollection<TechCardItem>>
 {
     private readonly ITechCardItemRepository _repository;
 
@@ -13,11 +13,10 @@ internal sealed class GetTechCardItemByIdQueryHandler : IRequestHandler<GetTechC
         _repository = repository;
     }
 
-    public async Task<TechCardItem> Handle(GetTechCardItemByIdQuery request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<TechCardItem>> Handle(GetTechCardItemByIdQuery request, CancellationToken cancellationToken)
     {
-        var TechCardItem = await _repository.GetByIdAsync(request.Id, cancellationToken);
-        return TechCardItem.EnsureFoundBy(entity => entity.Id, request.Id);
+        return await _repository.GetAllItemsByTechCardId(request.TechCardId, cancellationToken);
     }
 }
 
-public sealed record GetTechCardItemByIdQuery(Guid Id) : IRequest<TechCardItem>;
+public sealed record GetTechCardItemByIdQuery(Guid TechCardId) : IRequest<IReadOnlyCollection<TechCardItem>>;

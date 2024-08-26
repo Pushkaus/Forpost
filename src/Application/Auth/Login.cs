@@ -44,7 +44,7 @@ internal sealed class LoginUserCommandHandler : IRequestHandler<LoginUserCommand
 
         if (employee == null) throw ForpostErrors.Validation("Неверное имя пользователя или пароль.");
         var verificationResult = _passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, command.Password);
-
+        
         if (verificationResult == PasswordVerificationResult.Failed)
             throw ForpostErrors.Validation("Неверное имя пользователя или пароль.");
         _logger.LogInformation("Авторизовался {employee}", employee.LastName);
