@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Store.Postgres;
+using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;
 
@@ -15,6 +16,7 @@ internal sealed class EmployeeRepository : Repository<Employee>, IEmployeeReposi
 
     public Task<Employee?> GetAuthorizedByUsernameAsync(string firstName, string lastName, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return DbContext.Employees.Where(e => e.FirstName == firstName && e.LastName == lastName)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }

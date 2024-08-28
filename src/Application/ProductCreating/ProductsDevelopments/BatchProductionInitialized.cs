@@ -35,6 +35,7 @@ internal sealed class BatchProductionInitializedCommandHandler: IRequestHandler<
              currentSequencNumber++)
         {
            productDevelopment.GenerateInitialSerialNumber(productDevelopmentSummary.BatchNumber, currentSequencNumber);
+           productDevelopment.IssueNumber = 1; // Указатель, что блок находится на первом этапе
            _productDevelopmentRepository.Add(productDevelopment);
         }
     }

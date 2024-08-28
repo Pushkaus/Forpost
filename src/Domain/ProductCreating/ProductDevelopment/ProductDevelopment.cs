@@ -22,6 +22,10 @@ public sealed class ProductDevelopment : DomainEntity
     public Guid ProductId { get; set; }
     public Guid ManufacturingProcessId { get; set; }
     /// <summary>
+    /// Номер задачи/этапа где находится блок
+    /// </summary>
+    public int IssueNumber { get; set; }
+    /// <summary>
     /// Серийный номер продукта
     /// </summary>
     public string SerialNumber { get; set; } = null!;
