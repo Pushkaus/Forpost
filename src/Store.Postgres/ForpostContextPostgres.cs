@@ -50,6 +50,7 @@ public sealed class ForpostContextPostgres : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Ignore<IssueStatus>();
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ForpostContextPostgres).Assembly);
         base.OnModelCreating(modelBuilder);
     }

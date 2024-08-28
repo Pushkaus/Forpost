@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Controllers.Auth;
 
+[Route("api/v1/accounts")]
 public sealed class AccountController : ApiController
 
 {

@@ -1,7 +1,7 @@
 using AutoMapper;
 using Forpost.Application.InvoiceManagment.InvoiceProducts;
+using Forpost.Domain.SortOut;
 using Forpost.Web.Contracts.Models.InvoiceProducts;
-using InvoiceProduct = Forpost.Domain.Sortout.InvoiceProduct;
 
 namespace Forpost.Web.Contracts.Mappers;
 
