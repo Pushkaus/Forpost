@@ -1,10 +1,9 @@
 using Forpost.Application.Catalogs.Employees;
-using Forpost.Domain.Catalogs.Employees;
 using Forpost.Web.Contracts.Models.Employees;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Catalogs.Employees;
+namespace Forpost.Web.Contracts.Controllers.Catalogs;
 
 [Route("api/v1/employees")]
 public sealed class EmployeeController : ApiController

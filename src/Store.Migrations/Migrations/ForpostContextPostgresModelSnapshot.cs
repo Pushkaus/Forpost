@@ -498,7 +498,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("ProductDevelopments");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.Invoice", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.Invoice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -553,7 +553,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.InvoiceProduct", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.InvoiceProduct", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -577,7 +577,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("InvoiceProducts");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.Issue", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.Issue", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -633,7 +633,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.ProductVersion", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.ProductVersion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -667,7 +667,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("ProductVersions");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.StorageProduct", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.StorageProduct", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
@@ -811,7 +811,7 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.Invoice", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.Invoice", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.Contractors.Contractor", null)
                         .WithMany()
@@ -820,9 +820,9 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.InvoiceProduct", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.InvoiceProduct", b =>
                 {
-                    b.HasOne("Forpost.Domain.Sortout.Invoice", null)
+                    b.HasOne("Forpost.Domain.SortOut.Invoice", null)
                         .WithMany()
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -835,7 +835,7 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.ProductVersion", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.ProductVersion", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.Products.Product", null)
                         .WithMany()
@@ -844,7 +844,7 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Sortout.StorageProduct", b =>
+            modelBuilder.Entity("Forpost.Domain.SortOut.StorageProduct", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.Products.Product", null)
                         .WithMany()

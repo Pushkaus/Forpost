@@ -1,6 +1,6 @@
 using Forpost.Common.DataAccess;
 
-namespace Forpost.Domain.Sortout;
+namespace Forpost.Domain.SortOut;
 
 public interface IInvoiceProductRepository : IRepository<InvoiceProduct>
 {

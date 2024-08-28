@@ -9,12 +9,12 @@ using Forpost.Domain.Catalogs.Storages;
 using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
-using Forpost.Domain.InvoiceManagment;
+using Forpost.Domain.InvoiceManagement;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
-using Forpost.Domain.Sortout;
+using Forpost.Domain.SortOut;
 using Microsoft.EntityFrameworkCore;
 using File = Forpost.Domain.FileStorage.File;
 

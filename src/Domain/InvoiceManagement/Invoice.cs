@@ -1,10 +1,9 @@
-using Forpost.Common.EntityAnnotations;
 using Forpost.Common.EntityTemplates;
 using Forpost.Domain.ProductCreating.Issue;
 
-namespace Forpost.Domain.InvoiceManagment;
+namespace Forpost.Domain.InvoiceManagement;
 
-public sealed class Invoice : DomainAuditableEntity, IEntity
+public sealed class Invoice : DomainAuditableEntity
 {
     public void InitialAdd()
     {

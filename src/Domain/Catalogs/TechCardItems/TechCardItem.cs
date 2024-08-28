@@ -1,11 +1,11 @@
-using Forpost.Common.EntityAnnotations;
+using Forpost.Common.EntityTemplates;
 
 namespace Forpost.Domain.Catalogs.TechCardItems;
 
 /// <summary>
 /// Компонент, в составе тех.карты
 /// </summary>
-public sealed class TechCardItem : IEntity
+public sealed class TechCardItem : DomainEntity
 {
     public Guid TechCardId { get; set; }
 
@@ -18,6 +18,4 @@ public sealed class TechCardItem : IEntity
     /// Необходимое количество, для создания единицы целевого продукта
     /// </summary>
     public int Quantity { get; set; }
-
-    public Guid Id { get; set; }
 }

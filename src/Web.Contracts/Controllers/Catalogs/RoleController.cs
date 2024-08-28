@@ -1,11 +1,9 @@
 using Forpost.Application.Catalogs.Roles;
-using Forpost.Domain.Catalogs.Roles;
 using Forpost.Web.Contracts.Models.Roles;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Catalogs.Roles;
+namespace Forpost.Web.Contracts.Controllers.Catalogs;
 
 [Route("api/v1/role")]
 public sealed class RoleController : ApiController

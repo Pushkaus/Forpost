@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using AutoMapper;
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;

@@ -1,11 +1,11 @@
-using Forpost.Common.EntityAnnotations;
+using Forpost.Common.EntityTemplates;
 
 namespace Forpost.Domain.Catalogs.TechCardSteps;
 
 /// <summary>
 /// Сущность, связывающая этапы и тех.карту
 /// </summary>
-public sealed class TechCardStep : IEntity
+public sealed class TechCardStep : DomainEntity
 {
     public Guid TechCardId { get; set; }
     public Guid StepId { get; set; }
@@ -14,6 +14,4 @@ public sealed class TechCardStep : IEntity
     /// Номер в очереди
     /// </summary>
     public int Number { get; set; }
-
-    public Guid Id { get; set; }
 }

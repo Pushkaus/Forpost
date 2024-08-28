@@ -1,11 +1,11 @@
-using Forpost.Common.EntityAnnotations;
+using Forpost.Common.EntityTemplates;
 
 namespace Forpost.Domain.Catalogs.Steps;
 
 /// <summary>
 /// Этап
 /// </summary>
-public sealed class Step : IEntity
+public sealed class Step : DomainEntity
 {
     /// <summary>
     /// Ссылка на тех.карту
@@ -36,6 +36,4 @@ public sealed class Step : IEntity
     /// Единица измерения
     /// </summary>
     public UnitOfMeasure UnitOfMeasure { get; set; }
-
-    public Guid Id { get; set; }
 }

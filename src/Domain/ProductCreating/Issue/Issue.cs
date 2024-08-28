@@ -1,12 +1,11 @@
 using Forpost.Common.EntityAnnotations;
 using Forpost.Common.EntityTemplates;
-using Forpost.Domain.Sortout;
 
 namespace Forpost.Domain.ProductCreating.Issue;
 /// <summary>
 /// Задача. Участвует в производственном процессе
 /// </summary>
-public class Issue : DomainAuditableEntity, ITimeFrameEntity
+public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
 {
     public void Launch()
     {

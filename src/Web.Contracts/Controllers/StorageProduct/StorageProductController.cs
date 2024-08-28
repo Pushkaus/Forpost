@@ -1,5 +1,5 @@
 // using AutoMapper;
-// using Forpost.Business.Sortout;
+// using Forpost.Business.SortOut;
 // using Forpost.Web.Contracts.Models.StorageProduct;
 // using Microsoft.AspNetCore.Authorization;
 // using Microsoft.AspNetCore.Http;

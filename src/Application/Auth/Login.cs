@@ -2,7 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
-using Forpost.Application.Catalogs.Employees;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Employees;

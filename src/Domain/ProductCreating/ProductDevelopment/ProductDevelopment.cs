@@ -1,6 +1,4 @@
-using Forpost.Common.EntityAnnotations;
 using Forpost.Common.EntityTemplates;
-using Forpost.Domain.ProductCreating.CompletedProduct;
 
 namespace Forpost.Domain.ProductCreating.ProductDevelopment;
 

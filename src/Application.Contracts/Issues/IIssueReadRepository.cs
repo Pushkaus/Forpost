@@ -1,7 +1,6 @@
-using Forpost.Application.Contracts.Issues;
 using Forpost.Common.DataAccess;
 
-namespace Forpost.Domain.ProductCreating.Issue;
+namespace Forpost.Application.Contracts.Issues;
 
 public interface IIssueReadRepository: IApplicationReadRepository
 {

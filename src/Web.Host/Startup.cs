@@ -3,7 +3,6 @@ using Forpost.Application;
 using Forpost.Application.Auth;
 using Forpost.Common.Utils;
 using Forpost.Domain.Catalogs.Employees;
-using Forpost.Pipeline;
 using Forpost.Store.Postgres;
 using Forpost.Web.Contracts;
 using Forpost.Web.Host.Infrastructure;

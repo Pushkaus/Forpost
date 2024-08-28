@@ -1,17 +1,10 @@
-using Forpost.Common.EntityAnnotations;
+using Forpost.Common.EntityTemplates;
 
 namespace Forpost.Domain.Catalogs.Products;
 
-public sealed class Product : IAuditableEntity, IEntity
+public sealed class Product : DomainAuditableEntity
 {
     public string Name { get; set; } = null!;
     public string Version { get; set; } = null!;
     public Guid? CategoryId { get; set; }
-    public DateTimeOffset CreatedAt { get; set; }
-    public Guid CreatedById { get; set; }
-    public DateTimeOffset UpdatedAt { get; set; }
-    public Guid UpdatedById { get; set; }
-    public DateTimeOffset? DeletedAt { get; set; }
-    public Guid? DeletedById { get; set; }
-    public Guid Id { get; set; }
 }

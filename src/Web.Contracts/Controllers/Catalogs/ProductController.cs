@@ -1,4 +1,3 @@
-using AutoMapper;
 using Forpost.Application.Catalogs.Products;
 using Forpost.Web.Contracts.Models.Products;
 using Microsoft.AspNetCore.Authorization;

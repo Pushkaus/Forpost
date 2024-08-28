@@ -1,5 +1,5 @@
 using Forpost.Domain.Catalogs.Products;
-using Forpost.Domain.Sortout;
+using Forpost.Domain.SortOut;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

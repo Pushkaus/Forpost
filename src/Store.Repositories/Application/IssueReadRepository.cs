@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.Issues;
-using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 

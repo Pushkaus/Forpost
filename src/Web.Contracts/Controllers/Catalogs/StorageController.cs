@@ -1,4 +1,3 @@
-using AutoMapper;
 using Forpost.Application.Catalogs.Storages;
 using Forpost.Domain.Catalogs.Storages;
 using Forpost.Web.Contracts.Models.StorageProduct;
