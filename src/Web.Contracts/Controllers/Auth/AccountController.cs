@@ -1,8 +1,6 @@
-using AutoMapper;
 using Forpost.Application.Auth;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Web.Contracts.Models.Accounts;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

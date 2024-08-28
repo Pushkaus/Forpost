@@ -1,8 +1,8 @@
 // using Forpost.Business;
-// using Forpost.Business.Sortout;
-// using Forpost.Domain.Sortout;
+// using Forpost.Business.SortOut;
+// using Forpost.Domain.SortOut;
 //
-// namespace Forpost.Application.Sortout;
+// namespace Forpost.Application.SortOut;
 //
 // public interface IStorageProductService : IBusinessService
 // {

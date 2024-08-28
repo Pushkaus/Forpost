@@ -1,10 +1,6 @@
-using AutoMapper;
 using Forpost.Application.InvoiceManagment.Invoices;
-using Forpost.Application.SortOut;
-using Forpost.Domain.InvoiceManagment;
-using Forpost.Domain.Sortout;
+using Forpost.Domain.InvoiceManagement;
 using Forpost.Web.Contracts.Models.Invoices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

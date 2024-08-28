@@ -1,9 +1,6 @@
 using AutoMapper;
-using Forpost.Application.Contracts.Issues;
 using Forpost.Domain.ProductCreating.Issue;
-using Forpost.Domain.Sortout;
 using Forpost.Store.Postgres;
-using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories.CreatingProducts;
 

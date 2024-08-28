@@ -1,4 +1,4 @@
-// namespace Forpost.Business.Sortout;
+// namespace Forpost.Business.SortOut;
 //
 // public interface IInvoiceProductService : IBusinessService
 // {

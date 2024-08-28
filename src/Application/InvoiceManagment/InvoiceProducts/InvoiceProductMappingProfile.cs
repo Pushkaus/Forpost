@@ -4,7 +4,7 @@
 // using Forpost.Store.Entities;
 // using Forpost.Store.Repositories.Models.InvoiceProduct;
 //
-// namespace Forpost.Business.Sortout;
+// namespace Forpost.Business.SortOut;
 //
 // internal sealed class InvoiceProductMappingProfile : Profile
 // {

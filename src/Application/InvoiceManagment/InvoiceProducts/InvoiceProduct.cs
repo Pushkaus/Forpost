@@ -1,6 +1,6 @@
 using Forpost.Common.EntityAnnotations;
 
-namespace Forpost.Application.SortOut;
+namespace Forpost.Application.InvoiceManagment.InvoiceProducts;
 
 /// <summary>
 /// Состав счета

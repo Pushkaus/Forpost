@@ -1,5 +1,4 @@
 using Forpost.Common;
-using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using MediatR;
 

@@ -1,14 +1,13 @@
-using Forpost.Common.EntityAnnotations;
+using Forpost.Common.EntityTemplates;
 
-namespace Forpost.Domain.Sortout;
+namespace Forpost.Domain.SortOut;
 
 /// <summary>
 /// Состав счета
 /// </summary>
-public sealed class InvoiceProduct : IEntity
+public sealed class InvoiceProduct : DomainEntity
 {
     public Guid InvoiceId { get; set; }
     public Guid ProductId { get; set; }
     public int Quantity { get; set; }
-    public Guid Id { get; set; }
 }

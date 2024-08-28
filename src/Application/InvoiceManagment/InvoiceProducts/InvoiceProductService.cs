@@ -5,7 +5,7 @@
 // using Microsoft.Extensions.Configuration;
 // using Microsoft.Extensions.Logging;
 //
-// namespace Forpost.Business.Sortout;
+// namespace Forpost.Business.SortOut;
 //
 // internal sealed class InvoiceProductService : BusinessService, IInvoiceProductService
 // {

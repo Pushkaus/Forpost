@@ -1,4 +1,4 @@
-namespace Forpost.Domain.ProductCreating.Issue;
+namespace Forpost.Application.Contracts.Issues;
 
 public enum IssueStatusModel
 {

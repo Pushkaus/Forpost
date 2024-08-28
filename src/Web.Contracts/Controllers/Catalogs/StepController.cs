@@ -1,4 +1,3 @@
-using AutoMapper;
 using Forpost.Application.Catalogs.Steps;
 using Forpost.Domain.Catalogs.Steps;
 using Forpost.Web.Contracts.Models.Steps;

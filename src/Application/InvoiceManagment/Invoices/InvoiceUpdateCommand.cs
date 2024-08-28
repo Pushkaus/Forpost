@@ -1,7 +1,6 @@
 using Forpost.Domain.ProductCreating.Issue;
-using Forpost.Domain.Sortout;
 
-namespace Forpost.Application.SortOut;
+namespace Forpost.Application.InvoiceManagment.Invoices;
 
 public class InvoiceUpdateCommand
 {

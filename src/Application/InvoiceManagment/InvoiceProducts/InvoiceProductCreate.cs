@@ -1,4 +1,4 @@
-namespace Forpost.Application.SortOut;
+namespace Forpost.Application.InvoiceManagment.InvoiceProducts;
 
 public class InvoiceProductCreate
 {

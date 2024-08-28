@@ -1,11 +1,9 @@
-using AutoMapper;
 using Forpost.Application.Catalogs.TechCards;
-using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Web.Contracts.Models.TechCards;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.Catalogs.TechCard;
+namespace Forpost.Web.Contracts.Controllers.Catalogs;
 
 [Route("v1/api/techcard")]
 public sealed class TechCardController: ApiController

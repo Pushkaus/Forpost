@@ -1,7 +1,6 @@
 using AutoMapper;
 using Forpost.Domain.Catalogs.TechCardSteps;
 using Forpost.Store.Postgres;
-using Forpost.Store.Repositories.Models.TechCardStep;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories;

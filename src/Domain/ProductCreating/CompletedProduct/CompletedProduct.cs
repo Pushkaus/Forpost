@@ -1,4 +1,3 @@
-using Forpost.Common.EntityAnnotations;
 using Forpost.Common.EntityTemplates;
 
 namespace Forpost.Domain.ProductCreating.CompletedProduct;
@@ -16,6 +15,4 @@ public sealed class CompletedProduct : DomainEntity
     /// Номер счета, в который уйдет продукт
     /// </summary>
     public Guid? InvoiceId { get; set; }
-
-    public Guid Id { get; set; }
 }

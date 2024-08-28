@@ -1,7 +1,7 @@
-// using Forpost.Domain.Sortout;
+// using Forpost.Domain.SortOut;
 // using Forpost.Store.Entities;
 //
-// namespace Forpost.Business.Sortout;
+// namespace Forpost.Business.SortOut;
 //
 // public interface IInvoiceService : IBusinessService
 // {

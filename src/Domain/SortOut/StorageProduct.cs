@@ -1,9 +1,9 @@
-using Forpost.Common.EntityAnnotations;
+using Forpost.Common.EntityTemplates;
 using Forpost.Domain.Catalogs.Steps;
 
-namespace Forpost.Domain.Sortout;
+namespace Forpost.Domain.SortOut;
 
-public class StorageProduct : IEntity
+public class StorageProduct : DomainEntity
 {
     public Guid ProductId { get; set; }
     public string ProductName { get; set; } = default!;
@@ -11,5 +11,4 @@ public class StorageProduct : IEntity
     public int Quantity { get; set; }
     public Guid StorageId { get; set; }
     public string StorageName { get; set; } = default!;
-    public Guid Id { get; set; }
 }

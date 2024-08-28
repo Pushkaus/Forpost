@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.Sortout;
+using Forpost.Domain.SortOut;
 using MediatR;
 
 namespace Forpost.Application.InvoiceManagment.InvoiceProducts;

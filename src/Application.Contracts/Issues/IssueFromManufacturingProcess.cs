@@ -1,5 +1,3 @@
-using Forpost.Domain.ProductCreating.Issue;
-
 namespace Forpost.Application.Contracts.Issues;
 
 public class IssueFromManufacturingProcess

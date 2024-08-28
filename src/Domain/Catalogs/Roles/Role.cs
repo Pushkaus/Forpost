@@ -1,9 +1,8 @@
-﻿using Forpost.Common.EntityAnnotations;
+﻿using Forpost.Common.EntityTemplates;
 
 namespace Forpost.Domain.Catalogs.Roles;
 
-public sealed class Role : IEntity
+public sealed class Role : DomainEntity
 {
     public string Name { get; set; } = null!;
-    public Guid Id { get; set; }
 }

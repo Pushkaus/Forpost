@@ -3,6 +3,7 @@ namespace Forpost.Domain.ProductCreating.ProductDevelopment;
 /// <summary>
 /// Перечисление, определяющее варианты настройки продукта.
 /// </summary>
+//TODO: Убрать сокращения и перевести на английский
 public enum SettingOption
 {
     /// <summary>
