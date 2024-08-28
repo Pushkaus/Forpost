@@ -52,32 +52,6 @@ namespace Forpost.Store.Migrations.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Issues",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ManufacturingProcessId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StepId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ExecutorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ResponsibleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    CurrentQuantity = table.Column<int>(type: "integer", nullable: false),
-                    IssueStatus = table.Column<int>(type: "integer", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UpdatedById = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedById = table.Column<Guid>(type: "uuid", nullable: true),
-                    StartTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Issues", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Operations",
                 columns: table => new
                 {
@@ -98,6 +72,8 @@ namespace Forpost.Store.Migrations.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     ManufacturingProcessId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SerialNumber = table.Column<string>(type: "text", nullable: false),
+                    SettingOption = table.Column<int>(type: "integer", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -152,7 +128,6 @@ namespace Forpost.Store.Migrations.Migrations
                     Description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     PaymentPercentage = table.Column<int>(type: "integer", nullable: false),
                     DaysShipment = table.Column<int>(type: "integer", nullable: false),
-                    IssueStatus = table.Column<int>(type: "integer", nullable: false),
                     DateShipment = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
@@ -344,15 +319,15 @@ namespace Forpost.Store.Migrations.Migrations
                     BatchNumber = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     CurrentQuantity = table.Column<int>(type: "integer", nullable: false),
                     TargetQuantity = table.Column<int>(type: "integer", nullable: false),
+                    StartTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedById = table.Column<Guid>(type: "uuid", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    DeletedById = table.Column<Guid>(type: "uuid", nullable: true),
-                    StartTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    Status = table.Column<int>(type: "integer", nullable: false)
+                    DeletedById = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -427,8 +402,6 @@ namespace Forpost.Store.Migrations.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     ManufacturingProcessId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SerialNumber = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
-                    SettingOption = table.Column<int>(type: "integer", nullable: true),
                     InvoiceId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -444,6 +417,56 @@ namespace Forpost.Store.Migrations.Migrations
                         name: "FK_CompletedProducts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Issues",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ManufacturingProcessId = table.Column<Guid>(type: "uuid", nullable: false),
+                    StepId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ExecutorId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ResponsibleId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    CurrentQuantity = table.Column<int>(type: "integer", nullable: false),
+                    IssueStatus = table.Column<int>(type: "integer", nullable: false),
+                    StartTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    EndTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedById = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    DeletedById = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Issues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Issues_Employees_ExecutorId",
+                        column: x => x.ExecutorId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Issues_Employees_ResponsibleId",
+                        column: x => x.ResponsibleId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Issues_ManufacturingProcesses_ManufacturingProcessId",
+                        column: x => x.ManufacturingProcessId,
+                        principalTable: "ManufacturingProcesses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Issues_Steps_StepId",
+                        column: x => x.StepId,
+                        principalTable: "Steps",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -504,6 +527,26 @@ namespace Forpost.Store.Migrations.Migrations
                 name: "IX_Invoices_ContragentId",
                 table: "Invoices",
                 column: "ContragentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Issues_ExecutorId",
+                table: "Issues",
+                column: "ExecutorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Issues_ManufacturingProcessId",
+                table: "Issues",
+                column: "ManufacturingProcessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Issues_ResponsibleId",
+                table: "Issues",
+                column: "ResponsibleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Issues_StepId",
+                table: "Issues",
+                column: "StepId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ManufacturingProcesses_TechnologicalCardId",
@@ -609,10 +652,10 @@ namespace Forpost.Store.Migrations.Migrations
                 name: "TechCardSteps");
 
             migrationBuilder.DropTable(
-                name: "ManufacturingProcesses");
+                name: "Invoices");
 
             migrationBuilder.DropTable(
-                name: "Invoices");
+                name: "ManufacturingProcesses");
 
             migrationBuilder.DropTable(
                 name: "Storages");

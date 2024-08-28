@@ -12,7 +12,7 @@ internal sealed class IssueConfiguration: IEntityTypeConfiguration<Issue>
     public void Configure(EntityTypeBuilder<Issue> builder)
     {
         builder.ConfigureBaseEntity();
-
+        
         builder.HasOne<Step>()
             .WithMany()
             .HasForeignKey(fk => fk.StepId);
@@ -28,9 +28,8 @@ internal sealed class IssueConfiguration: IEntityTypeConfiguration<Issue>
         builder.HasOne<Employee>()
             .WithMany()
             .HasForeignKey(fk => fk.ResponsibleId);
-
+        
         builder.Property(x => x.IssueStatus)
             .HasConversion(p => p.Value, p => IssueStatus.FromValue(p));
-
     }
 }

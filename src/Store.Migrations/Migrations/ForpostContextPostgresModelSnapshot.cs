@@ -391,6 +391,58 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("Forpost.Domain.InvoiceManagement.Invoice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ContragentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DateShipment")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("DaysShipment")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<int>("PaymentPercentage")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedById")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContragentId");
+
+                    b.ToTable("Invoices");
+                });
+
             modelBuilder.Entity("Forpost.Domain.ProductCreating.CompletedProduct.CompletedProduct", b =>
                 {
                     b.Property<Guid>("Id")
@@ -406,14 +458,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("SerialNumber")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<int?>("SettingOption")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ManufacturingProcessId")
@@ -422,6 +466,70 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CompletedProducts");
+                });
+
+            modelBuilder.Entity("Forpost.Domain.ProductCreating.Issue.Issue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CurrentQuantity")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("EndTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ExecutorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("IssueStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("ManufacturingProcessId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ResponsibleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("StartTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("StepId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UpdatedById")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExecutorId");
+
+                    b.HasIndex("ManufacturingProcessId");
+
+                    b.HasIndex("ResponsibleId");
+
+                    b.HasIndex("StepId");
+
+                    b.ToTable("Issues");
                 });
 
             modelBuilder.Entity("Forpost.Domain.ProductCreating.ManufacturingProcesses.ManufacturingProcess", b =>
@@ -490,67 +598,19 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("SettingOption")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.ToTable("ProductDevelopments");
-                });
-
-            modelBuilder.Entity("Forpost.Domain.SortOut.Invoice", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ContragentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("DateShipment")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("DaysShipment")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<int>("IssueStatus")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<int>("PaymentPercentage")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UpdatedById")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ContragentId");
-
-                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("Forpost.Domain.SortOut.InvoiceProduct", b =>
@@ -575,62 +635,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("InvoiceProducts");
-                });
-
-            modelBuilder.Entity("Forpost.Domain.SortOut.Issue", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("CurrentQuantity")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("DeletedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset?>("EndTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ExecutorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("IssueStatus")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("ManufacturingProcessId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ResponsibleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("StartTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("StepId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UpdatedById")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Issues");
                 });
 
             modelBuilder.Entity("Forpost.Domain.SortOut.ProductVersion", b =>
@@ -787,6 +791,15 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Forpost.Domain.InvoiceManagement.Invoice", b =>
+                {
+                    b.HasOne("Forpost.Domain.Catalogs.Contractors.Contractor", null)
+                        .WithMany()
+                        .HasForeignKey("ContragentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Forpost.Domain.ProductCreating.CompletedProduct.CompletedProduct", b =>
                 {
                     b.HasOne("Forpost.Domain.ProductCreating.ManufacturingProcesses.ManufacturingProcess", null)
@@ -802,6 +815,33 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Forpost.Domain.ProductCreating.Issue.Issue", b =>
+                {
+                    b.HasOne("Forpost.Domain.Catalogs.Employees.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("ExecutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Domain.ProductCreating.ManufacturingProcesses.ManufacturingProcess", null)
+                        .WithMany()
+                        .HasForeignKey("ManufacturingProcessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Domain.Catalogs.Employees.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("ResponsibleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Domain.Catalogs.Steps.Step", null)
+                        .WithMany()
+                        .HasForeignKey("StepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Forpost.Domain.ProductCreating.ManufacturingProcesses.ManufacturingProcess", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.TechCards.TechCard", null)
@@ -811,18 +851,9 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.SortOut.Invoice", b =>
-                {
-                    b.HasOne("Forpost.Domain.Catalogs.Contractors.Contractor", null)
-                        .WithMany()
-                        .HasForeignKey("ContragentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Forpost.Domain.SortOut.InvoiceProduct", b =>
                 {
-                    b.HasOne("Forpost.Domain.SortOut.Invoice", null)
+                    b.HasOne("Forpost.Domain.InvoiceManagement.Invoice", null)
                         .WithMany()
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)

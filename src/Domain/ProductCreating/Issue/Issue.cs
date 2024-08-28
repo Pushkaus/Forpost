@@ -69,7 +69,7 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     /// </summary>
     public int CurrentQuantity { get; set; }
 
-    public IssueStatus IssueStatus { get; set; }
+    public IssueStatus IssueStatus { get; set; } = default!;
     
     /// <summary>
     /// Дата начала выполнения задачи
