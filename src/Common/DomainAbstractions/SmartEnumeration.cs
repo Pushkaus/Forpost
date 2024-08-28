@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 
 namespace Forpost.Common.DomainAbstractions;
@@ -5,7 +6,10 @@ namespace Forpost.Common.DomainAbstractions;
 /// <summary>
 /// Реализация Smart-enum
 /// </summary>
-// TODO: переход состояний
+/// <remarks>
+/// <see cref="NotMappedAttribute"/> нужен для того, чтобы Ef core не создавал навигацию на перечисление
+/// и не создавал отдельную таблицу</remarks>
+[NotMapped]
 public abstract class SmartEnumeration<TEnum> : IEquatable<SmartEnumeration<TEnum>>
     where TEnum : SmartEnumeration<TEnum>
 {
