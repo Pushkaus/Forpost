@@ -36,7 +36,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
                     ResponsibleId = combined.Issue.ResponsibleId,
                     Description = combined.Issue.Description,
                     CurrentQuantity = combined.Issue.CurrentQuantity,
-                    Status = (IssueStatusModel)combined.Issue.IssueStatus,
+                    Status = (IssueStatusModel)combined.Issue.IssueStatus.Value,
                     StartTime = combined.Issue.StartTime,
                     EndTime = combined.Issue.EndTime,
                 }

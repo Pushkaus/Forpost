@@ -7,5 +7,5 @@ namespace Forpost.Common.EntityTemplates;
 /// </summary>
 public abstract class DomainEntity : IEntity
 {
-    public Guid Id { get; }
+    public Guid Id { get; set; }
 }

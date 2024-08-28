@@ -2,6 +2,7 @@ using AutoMapper;
 using Forpost.Application.InvoiceManagment.InvoiceProducts;
 using Forpost.Application.InvoiceManagment.Invoices;
 using Forpost.Domain.InvoiceManagement;
+using Forpost.Domain.SortOut;
 
 namespace Forpost.Application.InvoiceManagment;
 
