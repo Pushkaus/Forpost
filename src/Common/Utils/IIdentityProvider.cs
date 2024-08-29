@@ -1,5 +1,8 @@
 namespace Forpost.Common.Utils;
 
+/// <summary>
+/// Поставщик авторизованного пользователя
+/// </summary>
 public interface IIdentityProvider
 {
     /// <summary>
@@ -7,4 +10,9 @@ public interface IIdentityProvider
     /// </summary>
     /// <value>Null - пользователь не авторизован</value>
     public Guid? GetUserId();
+
+    /// <summary>
+    /// Получить роль авторизованного пользователя
+    /// </summary>
+    public Guid? GetRoleId();
 }

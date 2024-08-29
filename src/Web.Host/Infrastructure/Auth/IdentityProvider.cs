@@ -12,12 +12,17 @@ internal sealed class IdentityProvider : IIdentityProvider
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Guid? GetUserId()
+    public Guid? GetUserId() => GetClaimValue(ClaimTypes.NameIdentifier);
+    
+    public Guid? GetRoleId() => GetClaimValue(ClaimTypes.Role);
+    
+    private Guid? GetClaimValue(string claimType)
     {
-        var userId = _httpContextAccessor.HttpContext?.User.Claims
-            .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var claimValue = _httpContextAccessor.HttpContext?.User.Claims
+            .FirstOrDefault(c => c.Type == claimType)?.Value;
 
-        if (Guid.TryParse(userId, out var result)) return result;
+        if (Guid.TryParse(claimValue, out var result)) 
+            return result;
 
         return null;
     }
