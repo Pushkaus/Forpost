@@ -7,16 +7,16 @@ namespace Forpost.Application.FileStorage.Files;
 internal sealed class GetAllFileInfosByProductIdQueryHandler :
     IRequestHandler<GetAllFileInfosByProductIdQuery, IReadOnlyCollection<File>>
 {
-    private readonly IFileRepository _repository;
+    private readonly IFileDomainRepository _domainRepository;
 
-    public GetAllFileInfosByProductIdQueryHandler(IFileRepository repository)
+    public GetAllFileInfosByProductIdQueryHandler(IFileDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<IReadOnlyCollection<File>> Handle(GetAllFileInfosByProductIdQuery request,
         CancellationToken cancellationToken) =>
-        await _repository.GetAllByParentIdAsync(request.ParentId, cancellationToken);
+        await _domainRepository.GetAllByParentIdAsync(request.ParentId, cancellationToken);
 }
 
 public sealed record GetAllFileInfosByProductIdQuery(Guid ParentId) : IRequest<IReadOnlyCollection<File>>;

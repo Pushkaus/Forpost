@@ -6,16 +6,16 @@ namespace Forpost.Application.Catalogs.Storages;
 
 internal sealed class GetStorageByIdQueryHandler : IRequestHandler<GetStorageByIdQuery, Storage>
 {
-    private readonly IStorageRepository _repository;
+    private readonly IStorageDomainRepository _domainRepository;
 
-    public GetStorageByIdQueryHandler(IStorageRepository repository)
+    public GetStorageByIdQueryHandler(IStorageDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<Storage> Handle(GetStorageByIdQuery request, CancellationToken cancellationToken)
     {
-        var storage = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var storage = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         return storage.EnsureFoundBy(entity => entity.Id, request.Id);
     }
 }

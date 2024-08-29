@@ -6,19 +6,19 @@ namespace Forpost.Application.Catalogs.TechCards;
 
 internal sealed class TechCardCreateCommandHandler : IRequestHandler<AddTechCardCommand, Guid>
 {
-    private readonly ITechCardRepository _repository;
+    private readonly ITechCardDomainRepository _domainRepository;
     private readonly IMapper _mapper;
 
-    public TechCardCreateCommandHandler(ITechCardRepository repository, IMapper mapper)
+    public TechCardCreateCommandHandler(ITechCardDomainRepository domainRepository, IMapper mapper)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
         _mapper = mapper;
     }
 
     public Task<Guid> Handle(AddTechCardCommand command, CancellationToken cancellationToken)
     {
         var techCard = _mapper.Map<TechCard>(command);
-        return Task.FromResult(_repository.Add(techCard));
+        return Task.FromResult(_domainRepository.Add(techCard));
     }
 }
 

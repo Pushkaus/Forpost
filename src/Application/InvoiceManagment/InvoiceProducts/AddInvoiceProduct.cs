@@ -6,19 +6,19 @@ namespace Forpost.Application.InvoiceManagment.InvoiceProducts;
 
 internal sealed class AddInvoiceProductCommandHandler: IRequestHandler<AddInvoiceProductCommand>
 {
-    private readonly IInvoiceProductRepository _invoiceProductRepository;
+    private readonly IInvoiceProductDomainRepository _invoiceProductDomainRepository;
     private readonly IMapper _mapper;
     
-    public AddInvoiceProductCommandHandler(IInvoiceProductRepository invoiceProductRepository, IMapper mapper)
+    public AddInvoiceProductCommandHandler(IInvoiceProductDomainRepository invoiceProductDomainRepository, IMapper mapper)
     {
-        _invoiceProductRepository = invoiceProductRepository;
+        _invoiceProductDomainRepository = invoiceProductDomainRepository;
         _mapper = mapper;
     }
 
     public async Task Handle(AddInvoiceProductCommand request, CancellationToken cancellationToken)
     {
         var invoice = _mapper.Map<InvoiceProduct>(request);
-        _invoiceProductRepository.Add(invoice);
+        _invoiceProductDomainRepository.Add(invoice);
     }
 }
 

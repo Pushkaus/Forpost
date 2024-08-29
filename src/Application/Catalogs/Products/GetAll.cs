@@ -6,15 +6,15 @@ namespace Forpost.Application.Catalogs.Products;
 internal sealed class GetAllProductsQueryHandler :
     IRequestHandler<GetAllProductsQuery, IReadOnlyCollection<Product>>
 {
-    private readonly IProductRepository _repository;
+    private readonly IProductDomainRepository _domainRepository;
 
-    public GetAllProductsQueryHandler(IProductRepository repository)
+    public GetAllProductsQueryHandler(IProductDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<IReadOnlyCollection<Product>> Handle(GetAllProductsQuery request,
-        CancellationToken cancellationToken) => await _repository.GetAllAsync(cancellationToken);
+        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
 public sealed record GetAllProductsQuery : IRequest<IReadOnlyCollection<Product>>;

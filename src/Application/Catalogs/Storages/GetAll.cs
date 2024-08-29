@@ -6,15 +6,15 @@ namespace Forpost.Application.Catalogs.Storages;
 internal sealed class GetAllStoragesQueryHandler :
     IRequestHandler<GetAllStoragesQuery, IReadOnlyCollection<Storage>>
 {
-    private readonly IStorageRepository _repository;
+    private readonly IStorageDomainRepository _domainRepository;
 
-    public GetAllStoragesQueryHandler(IStorageRepository repository)
+    public GetAllStoragesQueryHandler(IStorageDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<IReadOnlyCollection<Storage>> Handle(GetAllStoragesQuery request,
-        CancellationToken cancellationToken) => await _repository.GetAllAsync(cancellationToken);
+        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
 public sealed record GetAllStoragesQuery : IRequest<IReadOnlyCollection<Storage>>;

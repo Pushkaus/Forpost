@@ -6,22 +6,22 @@ namespace Forpost.Application.ProductCreating.Issues;
 
 internal sealed class CompletedIssueCommandHandler: IRequestHandler<CompletedIssueCommand>
 {
-    private readonly IIssueRepository _issueRepository;
+    private readonly IIssueDomainRepository _issueDomainRepository;
 
-    public CompletedIssueCommandHandler(IIssueRepository issueRepository)
+    public CompletedIssueCommandHandler(IIssueDomainRepository issueDomainRepository)
     {
-        _issueRepository = issueRepository;
+        _issueDomainRepository = issueDomainRepository;
     }
 
     public async Task Handle(CompletedIssueCommand command, CancellationToken cancellationToken)
     {
-        var issue = await _issueRepository.GetByIdAsync(command.Id, cancellationToken);
+        var issue = await _issueDomainRepository.GetByIdAsync(command.Id, cancellationToken);
         if (issue.ExecutorId == Guid.Empty)
             throw new Exception("Невозможно завершить задачу без исполнителя");
         
         issue.EnsureFoundBy(issue => issue.Id, command.Id).Complete();
         
-        _issueRepository.Update(issue);
+        _issueDomainRepository.Update(issue);
     }
 }
 public record CompletedIssueCommand(Guid Id) : IRequest;

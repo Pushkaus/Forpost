@@ -6,19 +6,19 @@ namespace Forpost.Application.Catalogs.Products;
 
 internal sealed class ProductCreateCommandHandler : IRequestHandler<AddProductCommand, Guid>
 {
-    private readonly IProductRepository _repository;
+    private readonly IProductDomainRepository _domainRepository;
     private readonly IMapper _mapper;
 
-    public ProductCreateCommandHandler(IProductRepository repository, IMapper mapper)
+    public ProductCreateCommandHandler(IProductDomainRepository domainRepository, IMapper mapper)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
         _mapper = mapper;
     }
 
     public Task<Guid> Handle(AddProductCommand command, CancellationToken cancellationToken)
     {
         var product = _mapper.Map<Product>(command);
-        return Task.FromResult(_repository.Add(product));
+        return Task.FromResult(_domainRepository.Add(product));
     }
 }
 

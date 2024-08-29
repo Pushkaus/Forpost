@@ -6,19 +6,19 @@ namespace Forpost.Application.Catalogs.Steps;
 
 internal sealed class AddStepCommandHandler : IRequestHandler<AddStepCommand, Guid>
 {
-    private readonly IStepRepository _repository;
+    private readonly IStepDomainRepository _domainRepository;
     private readonly IMapper _mapper;
 
-    public AddStepCommandHandler(IStepRepository repository, IMapper mapper)
+    public AddStepCommandHandler(IStepDomainRepository domainRepository, IMapper mapper)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
         _mapper = mapper;
     }
 
     public Task<Guid> Handle(AddStepCommand command, CancellationToken cancellationToken)
     {
         var step = _mapper.Map<Step>(command);
-        return Task.FromResult(_repository.Add(step));
+        return Task.FromResult(_domainRepository.Add(step));
     }
 }
 

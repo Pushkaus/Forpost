@@ -7,22 +7,22 @@ namespace Forpost.Application.ProductCreating.ManufacturingProcesses;
 
 internal sealed class LauncherManufacturingProcessCommandHandler: IRequestHandler<LaunchManufacturingProcessCommand>
 {
-    private readonly IManufacturingProcessRepository _repository;
+    private readonly IManufacturingProcessDomainRepository _domainRepository;
     private readonly IMapper _mapper;
 
-    public LauncherManufacturingProcessCommandHandler(IManufacturingProcessRepository repository, IMapper mapper)
+    public LauncherManufacturingProcessCommandHandler(IManufacturingProcessDomainRepository domainRepository, IMapper mapper)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
         _mapper = mapper;
     }
 
     public async Task Handle(LaunchManufacturingProcessCommand command, CancellationToken cancellationToken)
     {
-        var manufacturingProcess = await _repository.GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
+        var manufacturingProcess = await _domainRepository.GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
         
         manufacturingProcess.EnsureFoundBy(entity => entity.Id, command.ManufacturingProcessId).Launch();
         
-        _repository.Update(manufacturingProcess);
+        _domainRepository.Update(manufacturingProcess);
     }
 }
 

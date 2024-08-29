@@ -8,14 +8,14 @@ namespace Forpost.Application.ProductCreating.ManufacturingProcesses;
 
 internal sealed class ScheduledManufacturingProcessCommandHandler: IRequestHandler<ScheduledManufacturingProcessCommand, Guid>
 {
-    private readonly IManufacturingProcessRepository _manufacturingProcessRepository;
-    private readonly IIssueRepository _issueRepository;
+    private readonly IManufacturingProcessDomainRepository _manufacturingProcessDomainRepository;
+    private readonly IIssueDomainRepository _issueDomainRepository;
     private readonly IMapper _mapper;
 
-    public ScheduledManufacturingProcessCommandHandler(IManufacturingProcessRepository manufacturingProcessRepository, IIssueRepository issueRepository, IMapper mapper)
+    public ScheduledManufacturingProcessCommandHandler(IManufacturingProcessDomainRepository manufacturingProcessDomainRepository, IIssueDomainRepository issueDomainRepository, IMapper mapper)
     {
-        _manufacturingProcessRepository = manufacturingProcessRepository;
-        _issueRepository = issueRepository;
+        _manufacturingProcessDomainRepository = manufacturingProcessDomainRepository;
+        _issueDomainRepository = issueDomainRepository;
         _mapper = mapper;
     }
 
@@ -28,13 +28,13 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: IRequestHandl
             command.TargetQuantity,
             command.StartTime);
         
-        var manufacturingProcessId = _manufacturingProcessRepository.Add(manufacturingProcess);
+        var manufacturingProcessId = _manufacturingProcessDomainRepository.Add(manufacturingProcess);
         foreach (var scheduledIssue in command.Issues)
         {
             var issue = _mapper.Map<Issue>(scheduledIssue);
             issue.ManufacturingProcessId = manufacturingProcessId;
             
-            _issueRepository.Add(Issue.Schedule(issue));
+            _issueDomainRepository.Add(Issue.Schedule(issue));
         }
         return await Task.FromResult(manufacturingProcessId);
     }

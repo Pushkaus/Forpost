@@ -6,20 +6,20 @@ namespace Forpost.Application.ProductCreating.Issues;
 
 internal sealed class AssignExecutorCommandHandler: IRequestHandler<AssignExecutorCommand>
 {
-    private readonly IIssueRepository _issueRepository;
+    private readonly IIssueDomainRepository _issueDomainRepository;
 
-    public AssignExecutorCommandHandler(IIssueRepository issueRepository)
+    public AssignExecutorCommandHandler(IIssueDomainRepository issueDomainRepository)
     {
-        _issueRepository = issueRepository;
+        _issueDomainRepository = issueDomainRepository;
     }
 
     public async Task Handle(AssignExecutorCommand command, CancellationToken cancellationToken)
     {
-        var issue = await _issueRepository.GetByIdAsync(command.IssueId, cancellationToken);
+        var issue = await _issueDomainRepository.GetByIdAsync(command.IssueId, cancellationToken);
         
         issue.EnsureFoundBy(issue => issue.Id, command.IssueId).AssignExecutor(command.ExecutorId);
 
-        _issueRepository.Update(issue);
+        _issueDomainRepository.Update(issue);
     }
 }
 public record AssignExecutorCommand(Guid IssueId, Guid ExecutorId): IRequest;

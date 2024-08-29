@@ -6,15 +6,15 @@ namespace Forpost.Application.Catalogs.Steps;
 internal sealed class GetAllStepsQueryHandler :
     IRequestHandler<GetAllStepsQuery, IReadOnlyCollection<Step>>
 {
-    private readonly IStepRepository _repository;
+    private readonly IStepDomainRepository _domainRepository;
 
-    public GetAllStepsQueryHandler(IStepRepository repository)
+    public GetAllStepsQueryHandler(IStepDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<IReadOnlyCollection<Step>> Handle(GetAllStepsQuery request,
-        CancellationToken cancellationToken) => await _repository.GetAllAsync(cancellationToken);
+        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
 public sealed record GetAllStepsQuery : IRequest<IReadOnlyCollection<Step>>;

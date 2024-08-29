@@ -5,16 +5,16 @@ namespace Forpost.Application.Catalogs.TechCardSteps;
 
 internal sealed class GetTechCardStepByIdQueryHandler : IRequestHandler<GetTechCardStepByIdQuery, IReadOnlyCollection<TechCardStep>>
 {
-    private readonly ITechCardStepRepository _repository;
+    private readonly ITechCardStepDomainRepository _domainRepository;
 
-    public GetTechCardStepByIdQueryHandler(ITechCardStepRepository repository)
+    public GetTechCardStepByIdQueryHandler(ITechCardStepDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<IReadOnlyCollection<TechCardStep>> Handle(GetTechCardStepByIdQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetAllStepsByTechCardId(request.TechCardId, cancellationToken);
+        return await _domainRepository.GetAllStepsByTechCardId(request.TechCardId, cancellationToken);
     }
 }
 

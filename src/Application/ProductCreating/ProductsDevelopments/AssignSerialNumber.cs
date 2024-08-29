@@ -6,22 +6,22 @@ namespace Forpost.Application.ProductCreating.ProductsDevelopments;
 
 internal sealed class AssignSerialNumberCommandHandler: IRequestHandler<AssignSerialNumberCommand>
 {
-    private readonly IProductDevelopmentRepository _productDevelopmentRepository;
+    private readonly IProductDevelopmentDomainRepository _productDevelopmentDomainRepository;
 
-    public AssignSerialNumberCommandHandler(IProductDevelopmentRepository productDevelopmentRepository)
+    public AssignSerialNumberCommandHandler(IProductDevelopmentDomainRepository productDevelopmentDomainRepository)
     {
-        _productDevelopmentRepository = productDevelopmentRepository;
+        _productDevelopmentDomainRepository = productDevelopmentDomainRepository;
     }
 
     public async Task Handle(AssignSerialNumberCommand command, CancellationToken cancellationToken)
     {
-        var productDevelopment = await _productDevelopmentRepository
+        var productDevelopment = await _productDevelopmentDomainRepository
             .GetByIdAsync(command.ProductDevelopmentId, cancellationToken);
         
         productDevelopment.EnsureFoundBy(entity => entity.Id, command.ProductDevelopmentId)
             .SetSerialNumber(command.SerialNumber);
         
-        _productDevelopmentRepository.Update(productDevelopment);
+        _productDevelopmentDomainRepository.Update(productDevelopment);
         
     }
 }

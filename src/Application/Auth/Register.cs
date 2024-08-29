@@ -9,30 +9,30 @@ namespace Forpost.Application.Auth;
 
 internal sealed class RegisterCommandHandler : IRequestHandler<RegisterUserCommand>
 {
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IEmployeeDomainRepository _employeeDomainRepository;
     private readonly IPasswordHasher<RegisterUserCommand> _passwordHasher;
-    private readonly IRoleRepository _roleRepository;
+    private readonly IRoleDomainRepository _roleDomainRepository;
 
-    public RegisterCommandHandler(IEmployeeRepository employeeRepository,
+    public RegisterCommandHandler(IEmployeeDomainRepository employeeDomainRepository,
         IPasswordHasher<RegisterUserCommand> passwordHasher,
-        IRoleRepository roleRepository)
+        IRoleDomainRepository roleDomainRepository)
     {
-        _employeeRepository = employeeRepository;
+        _employeeDomainRepository = employeeDomainRepository;
         _passwordHasher = passwordHasher;
-        _roleRepository = roleRepository;
+        _roleDomainRepository = roleDomainRepository;
     }
 
     public async Task Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         var passwordHash = _passwordHasher.HashPassword(request, request.Model.Password);
-        var role = await _roleRepository.GetByNameAsync(request.Model.Role, cancellationToken);
+        var role = await _roleDomainRepository.GetByNameAsync(request.Model.Role, cancellationToken);
         role.EnsureFoundBy(entity => entity.Name, request.Model.Role);
 
         var registeredUser = Employee.Register(request.Model.FirstName, request.Model.LastName, request.Model.Post,
             role!.Id, passwordHash,
             request.Model.PhoneNumber, request.Model.Patronymic, request.Model.Email);
 
-        _employeeRepository.Add(registeredUser);
+        _employeeDomainRepository.Add(registeredUser);
     }
 }
 

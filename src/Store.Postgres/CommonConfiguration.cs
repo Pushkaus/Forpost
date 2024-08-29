@@ -1,7 +1,5 @@
-using System.Linq.Expressions;
-using Forpost.Common.DomainAbstractions;
-using Forpost.Common.EntityAnnotations;
-using Forpost.Domain.ProductCreating.Issue;
+using Forpost.Domain.Primitives.DomainAbstractions;
+using Forpost.Domain.Primitives.EntityAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres;

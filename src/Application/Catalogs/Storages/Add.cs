@@ -6,19 +6,19 @@ namespace Forpost.Application.Catalogs.Storages;
 
 internal sealed class AddStorageCommandHandler : IRequestHandler<AddStorageCommand, Guid>
 {
-    private readonly IStorageRepository _repository;
+    private readonly IStorageDomainRepository _domainRepository;
     private readonly IMapper _mapper;
 
-    public AddStorageCommandHandler(IStorageRepository repository, IMapper mapper)
+    public AddStorageCommandHandler(IStorageDomainRepository domainRepository, IMapper mapper)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
         _mapper = mapper;
     }
 
     public Task<Guid> Handle(AddStorageCommand command, CancellationToken cancellationToken)
     {
         var storage = _mapper.Map<Storage>(command);
-        return Task.FromResult(_repository.Add(storage));
+        return Task.FromResult(_domainRepository.Add(storage));
     }
 }
 

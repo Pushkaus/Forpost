@@ -5,17 +5,17 @@ namespace Forpost.Application.InvoiceManagment.Invoices;
 
 internal sealed class GetAllInvoicesQueryHandler: IRequestHandler<GetAllInvoicesQuery, IReadOnlyCollection<Invoice>>
 {
-    private readonly IInvoiceRepository _invoiceRepository;
+    private readonly IInvoiceDomainRepository _invoiceDomainRepository;
 
-    public GetAllInvoicesQueryHandler(IInvoiceRepository invoiceRepository)
+    public GetAllInvoicesQueryHandler(IInvoiceDomainRepository invoiceDomainRepository)
     {
-        _invoiceRepository = invoiceRepository;
+        _invoiceDomainRepository = invoiceDomainRepository;
     }
 
     public async Task<IReadOnlyCollection<Invoice>> Handle(GetAllInvoicesQuery request,
         CancellationToken cancellationToken)
     {
-        return await _invoiceRepository.GetAllAsync(cancellationToken);
+        return await _invoiceDomainRepository.GetAllAsync(cancellationToken);
     }
 }
 public record GetAllInvoicesQuery() : IRequest<IReadOnlyCollection<Invoice>>;

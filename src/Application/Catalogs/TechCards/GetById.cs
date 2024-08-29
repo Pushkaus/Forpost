@@ -6,16 +6,16 @@ namespace Forpost.Application.Catalogs.TechCards;
 
 internal sealed class GetTechCardByIdQueryHandler : IRequestHandler<GetTechCardByIdQuery, TechCard>
 {
-    private readonly ITechCardRepository _repository;
+    private readonly ITechCardDomainRepository _domainRepository;
 
-    public GetTechCardByIdQueryHandler(ITechCardRepository repository)
+    public GetTechCardByIdQueryHandler(ITechCardDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<TechCard> Handle(GetTechCardByIdQuery request, CancellationToken cancellationToken)
     {
-        var techCard = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var techCard = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         return techCard.EnsureFoundBy(entity => entity.Id, request.Id);
     }
 }

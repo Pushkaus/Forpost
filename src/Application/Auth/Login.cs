@@ -16,17 +16,17 @@ namespace Forpost.Application.Auth;
 //TODO: вынести в базовые классы маппер, логгер, конфигурацию
 internal sealed class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, string>
 {
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IEmployeeDomainRepository _employeeDomainRepository;
     private readonly IPasswordHasher<Employee> _passwordHasher;
     private readonly IMapper _mapper;
     private readonly ILogger<LoginUserCommandHandler> _logger;
     private readonly IConfiguration _configuration;
 
-    public LoginUserCommandHandler(IEmployeeRepository employeeRepository, IMapper mapper,
+    public LoginUserCommandHandler(IEmployeeDomainRepository employeeDomainRepository, IMapper mapper,
         IPasswordHasher<Employee> passwordHasher, ILogger<LoginUserCommandHandler> logger,
         IConfiguration configuration)
     {
-        _employeeRepository = employeeRepository;
+        _employeeDomainRepository = employeeDomainRepository;
         _mapper = mapper;
         _passwordHasher = passwordHasher;
         _logger = logger;
@@ -39,7 +39,7 @@ internal sealed class LoginUserCommandHandler : IRequestHandler<LoginUserCommand
 
         // При добавлении нового пользователя его пароль хэшируется с добавлением соли
         var employee =
-            await _employeeRepository.GetAuthorizedByUsernameAsync(user.FirstName, user.LastName, cancellationToken);
+            await _employeeDomainRepository.GetAuthorizedByUsernameAsync(user.FirstName, user.LastName, cancellationToken);
 
         if (employee == null) throw ForpostErrors.Validation("Неверное имя пользователя или пароль.");
         var verificationResult = _passwordHasher.VerifyHashedPassword(employee, employee.PasswordHash, command.Password);

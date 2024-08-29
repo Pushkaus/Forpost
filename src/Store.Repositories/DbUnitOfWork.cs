@@ -1,6 +1,6 @@
-using Forpost.Common.EntityAnnotations;
 using Forpost.Common.Extensions;
 using Forpost.Common.Utils;
+using Forpost.Domain.Primitives.EntityAnnotations;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

@@ -1,5 +1,5 @@
-using Forpost.Common.EntityAnnotations;
-using Forpost.Common.EntityTemplates;
+using Forpost.Domain.Primitives.EntityAnnotations;
+using Forpost.Domain.Primitives.EntityTemplates;
 
 namespace Forpost.Domain.ProductCreating.ManufacturingProcesses;
 

@@ -6,12 +6,12 @@ namespace Forpost.Application.InvoiceManagment.Invoices;
 
 internal sealed class AddInvoiceCommandHandler: IRequestHandler<AddInvoiceCommand, Guid>
 {
-    private readonly IInvoiceRepository _invoiceRepository;
+    private readonly IInvoiceDomainRepository _invoiceDomainRepository;
     private readonly IMapper _mapper;
 
-    public AddInvoiceCommandHandler(IInvoiceRepository invoiceRepository, IMapper mapper)
+    public AddInvoiceCommandHandler(IInvoiceDomainRepository invoiceDomainRepository, IMapper mapper)
     {
-        _invoiceRepository = invoiceRepository;
+        _invoiceDomainRepository = invoiceDomainRepository;
         _mapper = mapper;
     }
 
@@ -21,7 +21,7 @@ internal sealed class AddInvoiceCommandHandler: IRequestHandler<AddInvoiceComman
         
         invoice.InitialAdd();
         
-        return Task.FromResult(_invoiceRepository.Add(invoice));
+        return Task.FromResult(_invoiceDomainRepository.Add(invoice));
     }
 }
 public record AddInvoiceCommand: IRequest<Guid>

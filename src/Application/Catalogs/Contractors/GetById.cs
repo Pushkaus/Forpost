@@ -6,16 +6,16 @@ namespace Forpost.Application.Catalogs.Contractors;
 
 internal sealed class GetContractorByIdQueryHandler : IRequestHandler<GetContractorByIdQuery, Contractor>
 {
-    private readonly IContractorRepository _repository;
+    private readonly IContractorDomainRepository _domainRepository;
 
-    public GetContractorByIdQueryHandler(IContractorRepository repository)
+    public GetContractorByIdQueryHandler(IContractorDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<Contractor> Handle(GetContractorByIdQuery request, CancellationToken cancellationToken)
     {
-        var contractor = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var contractor = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         return contractor.EnsureFoundBy(entity => entity.Id, request.Id);
     }
 }

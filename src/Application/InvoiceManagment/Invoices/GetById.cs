@@ -6,16 +6,16 @@ namespace Forpost.Application.InvoiceManagment.Invoices;
 
 internal sealed class GetInvoiceByIdQueryHandler: IRequestHandler<GetInvoiceByIdQuery, Invoice>
 {
-    private readonly IInvoiceRepository _invoiceRepository;
+    private readonly IInvoiceDomainRepository _invoiceDomainRepository;
 
-    public GetInvoiceByIdQueryHandler(IInvoiceRepository invoiceRepository)
+    public GetInvoiceByIdQueryHandler(IInvoiceDomainRepository invoiceDomainRepository)
     {
-        _invoiceRepository = invoiceRepository;
+        _invoiceDomainRepository = invoiceDomainRepository;
     }
 
     public async Task<Invoice> Handle(GetInvoiceByIdQuery request, CancellationToken cancellationToken)
     {
-        var invoice = await _invoiceRepository.GetByIdAsync(request.Id, cancellationToken);
+        var invoice = await _invoiceDomainRepository.GetByIdAsync(request.Id, cancellationToken);
         invoice.EnsureFoundBy(entity => entity.Id, request.Id);
         return invoice;
     }

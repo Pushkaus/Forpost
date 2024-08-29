@@ -6,15 +6,15 @@ namespace Forpost.Application.Catalogs.Roles;
 internal sealed class GetAllRolesQueryHandler :
     IRequestHandler<GetAllRolesQuery, IReadOnlyCollection<Role>>
 {
-    private readonly IRoleRepository _repository;
+    private readonly IRoleDomainRepository _domainRepository;
 
-    public GetAllRolesQueryHandler(IRoleRepository repository)
+    public GetAllRolesQueryHandler(IRoleDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<IReadOnlyCollection<Role>> Handle(GetAllRolesQuery request,
-        CancellationToken cancellationToken) => await _repository.GetAllAsync(cancellationToken);
+        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
 public sealed record GetAllRolesQuery : IRequest<IReadOnlyCollection<Role>>;

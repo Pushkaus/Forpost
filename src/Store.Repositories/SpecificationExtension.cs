@@ -1,4 +1,4 @@
-using Forpost.Common.EntityAnnotations;
+using Forpost.Domain.Primitives.EntityAnnotations;
 
 namespace Forpost.Store.Repositories;
 

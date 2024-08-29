@@ -8,21 +8,21 @@ namespace Forpost.Application.ProductCreating.ProductsDevelopments;
 
 internal sealed class BatchProductionInitializedCommandHandler: IRequestHandler<BatchProductionInitializedCommand>
 {
-    private readonly IManufacturingProcessRepository _manufacturingProcessRepository;
+    private readonly IManufacturingProcessDomainRepository _manufacturingProcessDomainRepository;
     private readonly IProductDevelopmentReadRepository _productDevelopmentReadRepository;
-    private readonly IProductDevelopmentRepository _productDevelopmentRepository;
+    private readonly IProductDevelopmentDomainRepository _productDevelopmentDomainRepository;
     private readonly IMapper _mapper;
-    public BatchProductionInitializedCommandHandler(IManufacturingProcessRepository manufacturingProcessRepository, IProductDevelopmentRepository productDevelopmentRepository, IProductDevelopmentReadRepository productDevelopmentReadRepository, IMapper mapper)
+    public BatchProductionInitializedCommandHandler(IManufacturingProcessDomainRepository manufacturingProcessDomainRepository, IProductDevelopmentDomainRepository productDevelopmentDomainRepository, IProductDevelopmentReadRepository productDevelopmentReadRepository, IMapper mapper)
     {
-        _manufacturingProcessRepository = manufacturingProcessRepository;
-        _productDevelopmentRepository = productDevelopmentRepository;
+        _manufacturingProcessDomainRepository = manufacturingProcessDomainRepository;
+        _productDevelopmentDomainRepository = productDevelopmentDomainRepository;
         _productDevelopmentReadRepository = productDevelopmentReadRepository;
         _mapper = mapper;
     }
 
     public async Task Handle(BatchProductionInitializedCommand command, CancellationToken cancellationToken)
     {
-        var manufacturingProcess = await _manufacturingProcessRepository
+        var manufacturingProcess = await _manufacturingProcessDomainRepository
             .GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
         
         var productDevelopmentSummary = await _productDevelopmentReadRepository
@@ -35,7 +35,7 @@ internal sealed class BatchProductionInitializedCommandHandler: IRequestHandler<
              currentSequencNumber++)
         {
            productDevelopment.GenerateInitialSerialNumber(productDevelopmentSummary.BatchNumber, currentSequencNumber);
-           _productDevelopmentRepository.Add(productDevelopment);
+           _productDevelopmentDomainRepository.Add(productDevelopment);
         }
     }
 }

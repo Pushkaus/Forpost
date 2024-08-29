@@ -6,16 +6,16 @@ namespace Forpost.Application.Catalogs.Steps;
 
 internal sealed class GetStepByIdQueryHandler : IRequestHandler<GetStepByIdQuery, Step>
 {
-    private readonly IStepRepository _repository;
+    private readonly IStepDomainRepository _domainRepository;
 
-    public GetStepByIdQueryHandler(IStepRepository repository)
+    public GetStepByIdQueryHandler(IStepDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<Step> Handle(GetStepByIdQuery request, CancellationToken cancellationToken)
     {
-        var step = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var step = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         return step.EnsureFoundBy(entity => entity.Id, request.Id);
     }
 }

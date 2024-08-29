@@ -7,12 +7,12 @@ namespace Forpost.Application.ProductCreating.ManufacturingProcesses;
 
 internal sealed class CompletedManufacturingProcessCommandHandler: IRequestHandler<CompletionManufacturingProcessCommand>
 {
-    private readonly IManufacturingProcessRepository _manufacturingProcessRepository;
+    private readonly IManufacturingProcessDomainRepository _manufacturingProcessDomainRepository;
     private readonly IIssueReadRepository _issueReadRepository;
 
-    public CompletedManufacturingProcessCommandHandler(IManufacturingProcessRepository manufacturingProcessRepository, IIssueReadRepository issueReadRepository)
+    public CompletedManufacturingProcessCommandHandler(IManufacturingProcessDomainRepository manufacturingProcessDomainRepository, IIssueReadRepository issueReadRepository)
     {
-        _manufacturingProcessRepository = manufacturingProcessRepository;
+        _manufacturingProcessDomainRepository = manufacturingProcessDomainRepository;
         _issueReadRepository = issueReadRepository;
     }
 
@@ -25,11 +25,11 @@ internal sealed class CompletedManufacturingProcessCommandHandler: IRequestHandl
             throw new Exception("Не все задачи завершены");
         }
         
-        var manufacturingProcess = await _manufacturingProcessRepository.GetByIdAsync(command.Id, cancellationToken);
+        var manufacturingProcess = await _manufacturingProcessDomainRepository.GetByIdAsync(command.Id, cancellationToken);
         
         manufacturingProcess.EnsureFoundBy(entity => entity.Id, command.Id).Complete();
         
-        _manufacturingProcessRepository.Update(manufacturingProcess);
+        _manufacturingProcessDomainRepository.Update(manufacturingProcess);
     }
 }
 

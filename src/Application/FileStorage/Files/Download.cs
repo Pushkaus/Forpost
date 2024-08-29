@@ -7,18 +7,18 @@ namespace Forpost.Application.FileStorage.Files;
 
 internal sealed class DownloadFileQueryHandler : IRequestHandler<DownloadFileQuery, FileModel>
 {
-    private readonly IFileRepository _repository;
+    private readonly IFileDomainRepository _domainRepository;
     private readonly IMapper _mapper;
 
-    public DownloadFileQueryHandler(IFileRepository repository, IMapper mapper)
+    public DownloadFileQueryHandler(IFileDomainRepository domainRepository, IMapper mapper)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
         _mapper = mapper;
     }
 
     public async Task<FileModel> Handle(DownloadFileQuery request, CancellationToken cancellationToken)
     {
-        var file = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var file = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         file.EnsureFoundBy(entity => entity.Id, request.Id);
 
         var fullPath = Path.Combine(file!.FilePath);

@@ -6,15 +6,15 @@ namespace Forpost.Application.Catalogs.Contractors;
 internal sealed class GetAllContractorsQueryHandler :
     IRequestHandler<GetAllContractorsQuery, IReadOnlyCollection<Contractor>>
 {
-    private readonly IContractorRepository _repository;
+    private readonly IContractorDomainRepository _domainRepository;
 
-    public GetAllContractorsQueryHandler(IContractorRepository repository)
+    public GetAllContractorsQueryHandler(IContractorDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<IReadOnlyCollection<Contractor>> Handle(GetAllContractorsQuery request,
-        CancellationToken cancellationToken) => await _repository.GetAllAsync(cancellationToken);
+        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
 public sealed record GetAllContractorsQuery : IRequest<IReadOnlyCollection<Contractor>>;

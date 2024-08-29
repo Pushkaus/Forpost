@@ -5,16 +5,16 @@ namespace Forpost.Application.InvoiceManagment.InvoiceProducts;
 
 internal sealed class GetProductsFromInvoice: IRequestHandler<GetCompositionInvoiceQuery, IReadOnlyCollection<InvoiceProduct>>
 {
-    private readonly IInvoiceProductRepository _invoiceProductRepository;
+    private readonly IInvoiceProductDomainRepository _invoiceProductDomainRepository;
     
-    public GetProductsFromInvoice(IInvoiceProductRepository invoiceProductRepository)
+    public GetProductsFromInvoice(IInvoiceProductDomainRepository invoiceProductDomainRepository)
     {
-        _invoiceProductRepository = invoiceProductRepository;
+        _invoiceProductDomainRepository = invoiceProductDomainRepository;
     }
 
     public async Task<IReadOnlyCollection<InvoiceProduct>> Handle
         (GetCompositionInvoiceQuery request, CancellationToken cancellationToken) 
-        => await _invoiceProductRepository.GetProductsByInvoiceIdAsync(request.InvoiceId, cancellationToken);
+        => await _invoiceProductDomainRepository.GetProductsByInvoiceIdAsync(request.InvoiceId, cancellationToken);
 }
 
 public record GetCompositionInvoiceQuery(Guid InvoiceId) : IRequest<IReadOnlyCollection<InvoiceProduct>>; 

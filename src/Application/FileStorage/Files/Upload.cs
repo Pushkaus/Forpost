@@ -8,13 +8,13 @@ namespace Forpost.Application.FileStorage.Files;
 
 internal sealed class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Guid>
 {
-    private readonly IFileRepository _repository;
+    private readonly IFileDomainRepository _domainRepository;
     private readonly IMapper _mapper;
     private readonly IConfiguration _configuration;
 
-    public UploadFileCommandHandler(IFileRepository repository, IMapper mapper, IConfiguration configuration)
+    public UploadFileCommandHandler(IFileDomainRepository domainRepository, IMapper mapper, IConfiguration configuration)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
         _mapper = mapper;
         _configuration = configuration;
     }
@@ -37,7 +37,7 @@ internal sealed class UploadFileCommandHandler : IRequestHandler<UploadFileComma
         var fileEntity = _mapper.Map<File>(command);
         fileEntity.FilePath = fullPath;
 
-        return await Task.FromResult(_repository.Add(fileEntity));
+        return await Task.FromResult(_domainRepository.Add(fileEntity));
     }
 }
 

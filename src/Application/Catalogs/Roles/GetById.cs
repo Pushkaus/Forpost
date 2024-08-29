@@ -6,16 +6,16 @@ namespace Forpost.Application.Catalogs.Roles;
 
 internal sealed class GetRoleByIdQueryHandler : IRequestHandler<GetRoleByIdQuery, Role>
 {
-    private readonly IRoleRepository _repository;
+    private readonly IRoleDomainRepository _domainRepository;
 
-    public GetRoleByIdQueryHandler(IRoleRepository repository)
+    public GetRoleByIdQueryHandler(IRoleDomainRepository domainRepository)
     {
-        _repository = repository;
+        _domainRepository = domainRepository;
     }
 
     public async Task<Role> Handle(GetRoleByIdQuery request, CancellationToken cancellationToken)
     {
-        var role = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var role = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         return role.EnsureFoundBy(entity => entity.Id, request.Id);
     }
 }
