@@ -5,6 +5,5 @@ public interface ManufacturingProcessAnalysisService
     /// <summary>
     /// Получение ожидаемого времени выполнения процесса
     /// </summary>
-    /// <returns></returns>
     public Task GetExecutionTime();
 }
