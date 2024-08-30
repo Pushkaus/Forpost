@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts;
 using Forpost.Common;
 using Forpost.Common.DataAccess;
 using Forpost.Domain.Primitives.DomainAbstractions;

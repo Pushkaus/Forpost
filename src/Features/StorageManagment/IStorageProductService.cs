@@ -2,9 +2,7 @@
 // using Forpost.Business.SortOut;
 // using Forpost.Domain.SortOut;
 //
-// namespace Forpost.Application.SortOut;
-//
-// public interface IStorageProductService : IBusinessService
+// namespace Forpost.Featuresc interface IStorageProductService : IBusinessService
 // {
 //     public Task<Guid> AddAsync(StorageProductCreateCommand model, CancellationToken cancellationToken);
 //     public Task<IReadOnlyList<StorageProduct>> GetAllProductsAsync(Guid id, CancellationToken cancellationToken);

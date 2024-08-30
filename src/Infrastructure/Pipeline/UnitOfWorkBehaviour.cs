@@ -1,7 +1,8 @@
+using Forpost.Application.Contracts;
 using Forpost.Store.Postgres;
 using MediatR;
 
-namespace Forpost.Pipeline;
+namespace Forpost.Infrastructure.Pipeline;
 
 public sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull

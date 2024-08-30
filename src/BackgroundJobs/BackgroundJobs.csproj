@@ -4,6 +4,6 @@
     <PackageReference Include="Quartz.Extensions.Hosting" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Features\Features.csproj" />
   </ItemGroup>
 </Project>

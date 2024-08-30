@@ -36,11 +36,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CA10D920-4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Migrations", "src\Store.Migrations\Store.Migrations.csproj", "{BBDD23C9-1E2C-406D-BFCB-5994A7707F4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{E9FF30CC-499B-434B-AEFA-A10E61E4B37E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Features", "src\Features\Features.csproj", "{E9FF30CC-499B-434B-AEFA-A10E61E4B37E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Contracts", "src\Application.Contracts\Application.Contracts.csproj", "{EBBCA1EB-598C-40DE-9E99-E0F7DFFE184E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pipeline", "src\Pipeline\Pipeline.csproj", "{7E17D453-FB78-4031-8BC4-980A106206BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{7E17D453-FB78-4031-8BC4-980A106206BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Primitives", "src\Domain.Primitives\Domain.Primitives.csproj", "{E0391095-564B-408D-8504-E222CFEFE977}"
 EndProject

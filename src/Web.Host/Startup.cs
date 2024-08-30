@@ -1,9 +1,10 @@
 using System.Text;
-using Forpost.Application;
 using Forpost.Application.Auth;
 using Forpost.BackgroundJobs;
 using Forpost.Common.Utils;
 using Forpost.Domain.Catalogs.Employees;
+using Forpost.Features;
+using Forpost.Infrastructure;
 using Forpost.Store.Postgres;
 using Forpost.Web.Contracts;
 using Forpost.Web.Host.Infrastructure;
@@ -30,6 +31,7 @@ internal sealed class Startup
         services.AddOpenTelemetryLogging(_configuration);
 
         services.AddBackgroundJobs();
+        services.AddInfrastructure();
 
         services.AddSingleton<IIdentityProvider, IdentityProvider>();
         services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
@@ -42,7 +44,7 @@ internal sealed class Startup
         services.AddControllers();
 
         services.AddAutoMapper(WebContractsAssemblyReference.Assembly);
-        services.AddAutoMapper(ApplicationAssemblyReference.Assembly);
+        services.AddAutoMapper(FeatureAssemblyReference.Assembly);
 
         services.AddHttpContextAccessor();
         services.AddControllers(options => options.Filters.Add<ForpostExceptionFilter>());
@@ -87,7 +89,7 @@ internal sealed class Startup
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "ForpostApi");
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", HostConstants.Name);
             options.RoutePrefix = string.Empty;
         });
         app.UseHttpRequestLoggingWithEmployeeId();
