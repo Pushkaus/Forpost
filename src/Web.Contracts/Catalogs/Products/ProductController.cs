@@ -1,4 +1,4 @@
-using Forpost.Application.Catalogs.Products;
+using Forpost.Features.Catalogs.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
-using Forpost.Common.EntityAnnotations;
 using Forpost.Common.Exceptions;
+using Forpost.Domain.Primitives.EntityAnnotations;
 
 namespace Forpost.Common;
 

@@ -1,4 +1,5 @@
 using Forpost.Common.DataAccess;
+using Forpost.Domain.Primitives.DomainAbstractions;
 
 namespace Forpost.Application.Contracts.Issues;
 

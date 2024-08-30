@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Application.FileStorage.Files;
+using Forpost.Features.FileStorage.Files;
 
 namespace Forpost.Web.Contracts.FIleStorage;
 

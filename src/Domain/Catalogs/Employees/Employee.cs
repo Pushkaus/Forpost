@@ -1,4 +1,4 @@
-﻿using Forpost.Common.EntityTemplates;
+﻿using Forpost.Domain.Primitives.EntityTemplates;
 
 namespace Forpost.Domain.Catalogs.Employees;
 

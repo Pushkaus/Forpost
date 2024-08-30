@@ -1,5 +1,5 @@
-using Forpost.Application.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Operations;
+using Forpost.Features.Catalogs.Operations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

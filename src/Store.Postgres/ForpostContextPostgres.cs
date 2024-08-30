@@ -47,6 +47,16 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<ProductDevelopment> ProductDevelopments => Set<ProductDevelopment>();
     public DbSet<ProductVersion> ProductVersions => Set<ProductVersion>();
 
+    #region ApplicationTables
+    
+    /// <summary>
+    /// Исходящие сообщения
+    /// </summary>
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+    
+    #endregion
+   
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

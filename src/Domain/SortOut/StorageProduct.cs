@@ -1,5 +1,5 @@
-using Forpost.Common.EntityTemplates;
 using Forpost.Domain.Catalogs.Steps;
+using Forpost.Domain.Primitives.EntityTemplates;
 
 namespace Forpost.Domain.SortOut;
 

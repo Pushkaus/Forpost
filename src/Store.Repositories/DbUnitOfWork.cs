@@ -1,6 +1,7 @@
-using Forpost.Common.EntityAnnotations;
+using Forpost.Application.Contracts;
 using Forpost.Common.Extensions;
 using Forpost.Common.Utils;
+using Forpost.Domain.Primitives.EntityAnnotations;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -15,7 +16,8 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
     private readonly TimeProvider _timeProvider;
 
     public DbUnitOfWork(ForpostContextPostgres dbContext,
-        IIdentityProvider identityProvider, TimeProvider timeProvider)
+        IIdentityProvider identityProvider, 
+        TimeProvider timeProvider)
     {
         _dbContext = dbContext;
         _identityProvider = identityProvider;
@@ -30,14 +32,14 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
 
         if (auditableEntries.IsNotEmpty())
             MarkAuditEntities(auditableEntries);
-
+        
         return await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     private void MarkAuditEntities(EntityEntry<IAuditableEntity>[] auditableEntries)
     {
-        var userId = _identityProvider.GetUserId() ??
-                     throw new InvalidOperationException("Пользователь, модифицирующий сущности обязан быть авторизованным");
+        var userId = _identityProvider.GetUserId() ?? Guid.Empty;
+            //throw new InvalidOperationException("Пользователь, модифицирующий сущности обязан быть авторизованным");
 
         foreach (var entry in auditableEntries)
             switch (entry.State)

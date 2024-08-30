@@ -1,4 +1,4 @@
-using Forpost.Application.InvoiceManagment.InvoiceProducts;
+using Forpost.Features.InvoiceManagment.InvoiceProducts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,5 +1,5 @@
-using Forpost.Application.Catalogs.Storages;
 using Forpost.Domain.Catalogs.Storages;
+using Forpost.Features.Catalogs.Storages;
 using Forpost.Web.Contracts.StorageManagement.StorageProduct;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

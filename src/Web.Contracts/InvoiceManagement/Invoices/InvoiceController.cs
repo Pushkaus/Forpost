@@ -1,5 +1,5 @@
-using Forpost.Application.InvoiceManagment.Invoices;
 using Forpost.Domain.InvoiceManagement;
+using Forpost.Features.InvoiceManagment.Invoices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
