@@ -1,4 +1,5 @@
 using Forpost.Pipeline;
+using Forpost.Store.Postgres;
 using Forpost.Store.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ public static class ServiceCollectionExtensions
             options.RegisterServicesFromAssemblyContaining<ApplicationAssemblyReference>();
             options.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
         });
+        
         return services.AddRepositories();
     }
 }

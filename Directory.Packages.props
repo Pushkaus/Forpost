@@ -23,11 +23,14 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.IdentityModel.Tokens" Version="7.1.2" />
     <PackageVersion Include="Moq" Version="4.20.70" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageVersion Include="NSwag.MSBuild" Version="14.0.7" />
     <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
+    <PackageVersion Include="Quartz" Version="3.13.0" />
+    <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.13.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.2" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />

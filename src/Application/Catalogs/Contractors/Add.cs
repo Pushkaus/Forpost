@@ -21,7 +21,7 @@ internal sealed class AddContractorCommandHandler : IRequestHandler<AddContracto
 
     public async Task<Guid> Handle(AddContractorCommand request, CancellationToken cancellationToken)
     {
-        var additionItemId = _domainRepository.Add(_mapper.Map<Contractor>(request));
+        var additionItemId = _domainRepository.Add(Contractor.New(request.Name));
         return await Task.FromResult(additionItemId);
     }
 }

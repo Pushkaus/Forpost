@@ -5,7 +5,7 @@ namespace Forpost.Domain.Catalogs.TechCards;
 /// <summary>
 /// Технологическая карта
 /// </summary>
-public sealed class TechCard : DomainEntity
+public sealed class TechCard : AggregateRoot
 {
     /// <summary>
     /// Номер тех.карты
@@ -21,9 +21,4 @@ public sealed class TechCard : DomainEntity
     /// Ссылка на продукт, относительно которого составляется тех.карта
     /// </summary>
     public Guid ProductId { get; set; }
-
-    /// <summary>
-    /// Создатель тех.карты
-    /// </summary>
-    public Guid CreatedById { get; set; }
 }

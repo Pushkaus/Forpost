@@ -1,3 +1,4 @@
+using Forpost.Store.Postgres.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,14 +12,18 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddForpostContextPostgres(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<ForpostContextPostgres>((_, options) =>
+        services.AddSingleton<DomainEventToOutboxMessageInterceptor>();
+        
+        services.AddDbContext<ForpostContextPostgres>((serviceProvider, options) =>
         {
             var connectionString = configuration.GetConnectionString(ConnectionName)
                                    ?? throw new InvalidOperationException(
                                        $"Не удалось получить строку подключения: {ConnectionName}");
-
+            
+            var interceptor = serviceProvider.GetRequiredService<DomainEventToOutboxMessageInterceptor>();
+            
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(connectionString).AddInterceptors(interceptor);
         });
 
         return services;

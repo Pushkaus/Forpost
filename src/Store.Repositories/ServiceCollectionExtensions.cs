@@ -10,8 +10,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddRepositories(this IServiceCollection services) =>
         services.AddDomainRepositories()
-            .AddApplicationRepositories()
-            .AddScoped<IDbUnitOfWork, DbUnitOfWork>();
+            .AddApplicationRepositories().AddScoped<IDbUnitOfWork, DbUnitOfWork>();
 
     private static IServiceCollection AddDomainRepositories(this IServiceCollection services) =>
         services.AddAllTypesAssignableMarkerInterfaceTo<IDomainRepository>(RepositoryAssemblyReference.Assembly,

@@ -1,5 +1,6 @@
 using Forpost.Store.Postgres;
 using MediatR;
+
 namespace Forpost.Pipeline;
 
 public sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>

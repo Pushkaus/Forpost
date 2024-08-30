@@ -7,7 +7,7 @@ namespace Forpost.Web.Contracts.Catalogs.Contractors;
 /// <summary>
 /// Справочник контрагентов
 /// </summary>
-[Route("api/v1/contragents")]
+[Route("api/v1/contractors")]
 //[Authorize]
 public sealed class ContractorController : ApiController
 {

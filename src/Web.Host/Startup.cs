@@ -1,6 +1,7 @@
 using System.Text;
 using Forpost.Application;
 using Forpost.Application.Auth;
+using Forpost.BackgroundJobs;
 using Forpost.Common.Utils;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Store.Postgres;
@@ -27,6 +28,8 @@ internal sealed class Startup
     {
         services.AddApplicationLayer();
         services.AddOpenTelemetryLogging(_configuration);
+
+        services.AddBackgroundJobs();
 
         services.AddSingleton<IIdentityProvider, IdentityProvider>();
         services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();

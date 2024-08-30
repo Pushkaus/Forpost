@@ -2,6 +2,7 @@
     
     <ItemGroup>
         <ProjectReference Include="..\Application\Application.csproj" />
+        <ProjectReference Include="..\BackgroundJobs\BackgroundJobs.csproj" />
         <ProjectReference Include="..\Store.Migrations\Store.Migrations.csproj" />
         <ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj"/>
         <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj"/>
