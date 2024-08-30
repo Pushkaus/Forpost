@@ -6,6 +6,7 @@ using Forpost.Application.Catalogs.Storages;
 using Forpost.Application.Catalogs.TechCardItems;
 using Forpost.Application.Catalogs.TechCards;
 using Forpost.Application.Catalogs.TechCardSteps;
+using Forpost.Application.Contracts.Catalogs.Steps;
 using Forpost.Domain.Catalogs.Contractors;
 using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.TechCardItems;
@@ -35,9 +36,10 @@ internal sealed class CatalogMappingProfile : Profile
         CreateMap<TechCardItem, TechCardItemsResponse>().ValidateMemberList(MemberList.Destination);
         CreateMap<TechCardItemRequest, AddTechCardItemCommand>().ValidateMemberList(MemberList.Destination);
         
-        CreateMap<StorageCreateRequest, AddStorageCommand>().ValidateMemberList(MemberList.Destination);
+        CreateMap<StorageCreateRequest, AddStorageCommand>().ValidateMemberList(MemberList.Source);
         
         CreateMap<StepCreateRequest, AddStepCommand>().ValidateMemberList(MemberList.Destination);
+        CreateMap<StepWithSummary, StepWithSummaryResponse>().ValidateMemberList(MemberList.Destination);
         
         CreateMap<OperationRequest, Operation>().ValidateMemberList(MemberList.Destination);
         

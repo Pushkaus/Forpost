@@ -24,8 +24,9 @@ internal sealed class AddStepCommandHandler : IRequestHandler<AddStepCommand, Gu
 
 public record AddStepCommand : IRequest<Guid>
 {
+    
     /// <summary>
-    ///     Ссылка на тех.карту
+    /// Ссылка на тех.карту
     /// </summary>
     public Guid TechCardId { get; set; }
 

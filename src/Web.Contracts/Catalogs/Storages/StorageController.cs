@@ -15,18 +15,18 @@ public sealed class StorageController : ApiController
     /// <param name="request"></param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult>
+    public Task<Guid>
         CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
     {
-        var storageId = Mediator.Send(new AddStorageCommand(request.Name, request.ResponsibleId), cancellationToken);
-        return Ok(storageId);
+        var storageId = Mediator.Send(new AddStorageCommand(request.Name,request.Description, request.ResponsibleId), cancellationToken);
+        return storageId;
     }
 
     /// <summary>
     /// Получить список всех складов
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(StorageReponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<Storage>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<Storage>> GetAllAsync(CancellationToken cancellationToken) 
         => await Mediator.Send(new GetAllStoragesQuery(), cancellationToken);
 }

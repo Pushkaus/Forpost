@@ -1,23 +1,26 @@
+using Forpost.Application.Contracts.Catalogs.Steps;
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Steps;
 using MediatR;
 
 namespace Forpost.Application.Catalogs.Steps;
 
-internal sealed class GetStepByIdQueryHandler : IRequestHandler<GetStepByIdQuery, Step>
+internal sealed class GetStepByIdQueryHandler : IRequestHandler<GetStepByIdQuery, StepWithSummary>
 {
     private readonly IStepRepository _repository;
 
-    public GetStepByIdQueryHandler(IStepRepository repository)
+    private readonly IStepReadRepository _readRepository;
+
+    public GetStepByIdQueryHandler(IStepRepository repository, IStepReadRepository readRepository)
     {
         _repository = repository;
+        _readRepository = readRepository;
     }
 
-    public async Task<Step> Handle(GetStepByIdQuery request, CancellationToken cancellationToken)
+    public async Task<StepWithSummary?> Handle(GetStepByIdQuery request, CancellationToken cancellationToken)
     {
-        var step = await _repository.GetByIdAsync(request.Id, cancellationToken);
-        return step.EnsureFoundBy(entity => entity.Id, request.Id);
+        return await _readRepository.GetStepWithSummaryByIdAsync(request.Id, cancellationToken);
     }
 }
 
-public sealed record GetStepByIdQuery(Guid Id) : IRequest<Step>;
+public sealed record GetStepByIdQuery(Guid Id) : IRequest<StepWithSummary>;

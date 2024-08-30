@@ -21,7 +21,7 @@ public sealed class OperationController: ApiController
     /// Получение всех операций
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(Operation), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<Operation>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<Operation>> GetAllAsync(CancellationToken cancellationToken)
         => await Mediator.Send(new GetAllOperationsQuery(), cancellationToken);
 

@@ -5,6 +5,7 @@ using Forpost.Application.Catalogs.Operations;
 using Forpost.Application.Catalogs.Products;
 using Forpost.Application.Catalogs.Steps;
 using Forpost.Application.Catalogs.Storages;
+using Forpost.Application.Catalogs.TechCardItems;
 using Forpost.Application.Catalogs.TechCards;
 using Forpost.Application.Catalogs.TechCardSteps;
 using Forpost.Application.Contracts.Catalogs.Employees;
@@ -13,6 +14,7 @@ using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.Catalogs.Storages;
+using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
 
@@ -29,12 +31,20 @@ internal sealed class CatalogMappingProfile : Profile
         MapProducts();
         MapOperations();
         MapAuth();
+        MapTechCardItems();
     }
 
     private void MapStorages()
     {
         CreateMap<AddStorageCommand, Storage>().ValidateMemberList(MemberList.Destination);
         CreateMap<AddContractorCommand, Contractor>().ValidateMemberList(MemberList.Destination);
+    }
+
+
+    private void MapTechCardItems()
+    {
+        CreateMap<AddTechCardItemCommand, TechCardItem>().ValidateMemberList(MemberList.Destination);
+
     }
 
     private void MapTechCardSteps()

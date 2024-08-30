@@ -29,7 +29,7 @@ internal sealed class IssueConfiguration: IEntityTypeConfiguration<Issue>
             .WithMany()
             .HasForeignKey(fk => fk.ResponsibleId);
 
-        builder.Property(x => x.IssueStatus)
-            .ConfigureSmartEnumerationAsEnum();
+        // builder.Property(x => x.IssueStatus)
+        //     .ConfigureSmartEnumerationAsEnum();
     }
 }

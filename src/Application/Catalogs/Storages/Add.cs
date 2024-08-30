@@ -15,11 +15,18 @@ internal sealed class AddStorageCommandHandler : IRequestHandler<AddStorageComma
         _mapper = mapper;
     }
 
-    public Task<Guid> Handle(AddStorageCommand command, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(AddStorageCommand command, CancellationToken cancellationToken)
     {
+        
         var storage = _mapper.Map<Storage>(command);
-        return Task.FromResult(_repository.Add(storage));
+        return _repository.Add(storage);
     }
 }
 
-public class AddStorageCommand(string Name, Guid ResponsibleId) : IRequest<Guid>;
+public class AddStorageCommand(string name, string? description, Guid responsibleId) : IRequest<Guid>
+{
+    public string Name { get; } = name;
+    public string? Description { get; } = description;
+    public Guid ResponsibleId { get; } = responsibleId;
+}
+

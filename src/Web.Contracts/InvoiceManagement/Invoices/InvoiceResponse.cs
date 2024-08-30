@@ -1,3 +1,4 @@
+using Forpost.Domain.InvoiceManagement;
 using Forpost.Domain.ProductCreating.Issue;
 
 namespace Forpost.Web.Contracts.InvoiceManagement.Invoices;
@@ -10,7 +11,8 @@ public class InvoiceResponse
     public string? Description { get; set; }
     public int PaymentPercentage { get; set; }
     public int DaysShipment { get; set; }
-    public IssueStatus IssueStatus { get; set; }
+    public InvoiceStatus Status { get; set; }
+    //public IssueStatus IssueStatus { get; set; }
     public DateTimeOffset? DateShipment { get; set; }
     public Guid? PaymentId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }

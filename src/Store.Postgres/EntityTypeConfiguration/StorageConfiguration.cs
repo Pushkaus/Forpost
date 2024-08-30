@@ -12,8 +12,8 @@ internal sealed class StorageConfiguration : IEntityTypeConfiguration<Storage>
         builder.ConfigureBaseEntity();
 
         builder.HasOne<Employee>()
-            .WithOne()
-            .HasForeignKey<Storage>(key => key.ResponsibleId);
+            .WithMany()
+            .HasForeignKey(key => key.ResponsibleId);
 
         builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
         builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);

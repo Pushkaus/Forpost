@@ -29,12 +29,15 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: IRequestHandl
             command.StartTime);
         
         var manufacturingProcessId = _manufacturingProcessRepository.Add(manufacturingProcess);
+
         foreach (var scheduledIssue in command.Issues)
         {
+            
             var issue = _mapper.Map<Issue>(scheduledIssue);
             issue.ManufacturingProcessId = manufacturingProcessId;
-            
-            _issueRepository.Add(Issue.Schedule(issue));
+            issue.ExecutorId = Guid.Parse("15492e30-8df3-132f-9de6-3fcd91e38923");
+            Issue.Schedule(issue);
+            _issueRepository.Add(issue);
         }
         return await Task.FromResult(manufacturingProcessId);
     }

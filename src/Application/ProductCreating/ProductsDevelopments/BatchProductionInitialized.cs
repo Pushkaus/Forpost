@@ -24,20 +24,20 @@ internal sealed class BatchProductionInitializedCommandHandler: IRequestHandler<
     {
         var manufacturingProcess = await _manufacturingProcessRepository
             .GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
-        
+    
         var productDevelopmentSummary = await _productDevelopmentReadRepository
             .GetSummaryByManufacturingProcessIdAsync(command.ManufacturingProcessId, cancellationToken);
-        
-        var productDevelopment = _mapper.Map<ProductDevelopment>(productDevelopmentSummary);
-
-        for (int currentSequencNumber = 1;
-             currentSequencNumber <= productDevelopmentSummary.TargetQuantity;
-             currentSequencNumber++)
+    
+        for (int currentSequenceNumber = 1; currentSequenceNumber <= productDevelopmentSummary.TargetQuantity; currentSequenceNumber++)
         {
-           productDevelopment.GenerateInitialSerialNumber(productDevelopmentSummary.BatchNumber, currentSequencNumber);
-           productDevelopment.IssueNumber = 1; // Указатель, что блок находится на первом этапе
-           _productDevelopmentRepository.Add(productDevelopment);
+            var productDevelopment = _mapper.Map<ProductDevelopment>(productDevelopmentSummary);
+
+            productDevelopment.GenerateInitialSerialNumber(productDevelopmentSummary.BatchNumber, currentSequenceNumber);
+            productDevelopment.IssueNumber = 1;
+
+            _productDevelopmentRepository.Add(productDevelopment);
         }
     }
+
 }
 public record BatchProductionInitializedCommand(Guid ManufacturingProcessId): IRequest;

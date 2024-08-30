@@ -10,7 +10,7 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     public void Launch()
     {
         StartTime = TimeProvider.System.GetUtcNow();
-        IssueStatus = IssueStatus.InProgress;
+        IssueStatus = IssueStatusEnum.InProgress;
     }
     public static Issue Schedule(Issue scheduledIssue)
     {
@@ -18,11 +18,10 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
         {
             ManufacturingProcessId = scheduledIssue.ManufacturingProcessId,
             StepId = scheduledIssue.StepId,
-            ExecutorId = default,
             ResponsibleId = scheduledIssue.ResponsibleId,
             Description = scheduledIssue.Description,
             CurrentQuantity = 0,
-            IssueStatus = IssueStatus.Pending,
+            IssueStatus = IssueStatusEnum.Pending,
             StartTime = default,
             EndTime = null
         };
@@ -31,7 +30,7 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
 
     public void Complete()
     {
-        IssueStatus = IssueStatus.Completed;
+        IssueStatus = IssueStatusEnum.Completed;
         EndTime = TimeProvider.System.GetUtcNow();
     }
 
@@ -68,8 +67,8 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     /// Текущее количество
     /// </summary>
     public int CurrentQuantity { get; set; }
-
-    public IssueStatus IssueStatus { get; set; } = default!;
+    public IssueStatusEnum IssueStatus { get; set; }
+    //public IssueStatus IssueStatus { get; set; } = default!;
     
     /// <summary>
     /// Дата начала выполнения задачи

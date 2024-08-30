@@ -9,8 +9,7 @@ public sealed class CompletedProduct : DomainEntity
 {
     public Guid ProductId { get; set; }
     public Guid ManufacturingProcessId { get; set; }
-
-
+    public Guid ProductDevelopmentId { get; set; }
     /// <summary>
     /// Номер счета, в который уйдет продукт
     /// </summary>

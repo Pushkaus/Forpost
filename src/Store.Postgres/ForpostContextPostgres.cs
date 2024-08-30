@@ -11,6 +11,7 @@ using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
 using Forpost.Domain.InvoiceManagement;
 using Forpost.Domain.ProductCreating.CompletedProduct;
+using Forpost.Domain.ProductCreating.CompositionCompletedProduct;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
@@ -35,7 +36,6 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
     public DbSet<Contractor> Contractors => Set<Contractor>();
     public DbSet<File> Files => Set<File>();
-    public DbSet<Category> Categories => Set<Category>();
     public DbSet<Issue> Issues => Set<Issue>();
     public DbSet<TechCard> TechCards => Set<TechCard>();
     public DbSet<TechCardItem> TechCardItems => Set<TechCardItem>();
@@ -46,7 +46,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<ManufacturingProcess> ManufacturingProcesses => Set<ManufacturingProcess>();
     public DbSet<ProductDevelopment> ProductDevelopments => Set<ProductDevelopment>();
     public DbSet<ProductVersion> ProductVersions => Set<ProductVersion>();
-
+    public DbSet<CompositionCompletedProduct> CompositionCompletedProducts => Set<CompositionCompletedProduct>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

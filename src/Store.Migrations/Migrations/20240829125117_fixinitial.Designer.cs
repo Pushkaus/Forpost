@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forpost.Store.Migrations.Migrations
 {
     [DbContext(typeof(ForpostContextPostgres))]
-    [Migration("20240828200217_Initial")]
-    partial class Initial
+    [Migration("20240829125117_fixinitial")]
+    partial class fixinitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,7 @@ namespace Forpost.Store.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("Forpost.Domain.Catalogs.Contractors.Contractor", b =>
@@ -188,8 +188,6 @@ namespace Forpost.Store.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
                 });
 
@@ -281,8 +279,7 @@ namespace Forpost.Store.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResponsibleId")
-                        .IsUnique();
+                    b.HasIndex("ResponsibleId");
 
                     b.ToTable("Storages");
                 });
@@ -458,6 +455,9 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<Guid>("ManufacturingProcessId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("ProductDevelopmentId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
@@ -469,6 +469,23 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CompletedProducts");
+                });
+
+            modelBuilder.Entity("Forpost.Domain.ProductCreating.CompositionCompletedProduct.CompositionCompletedProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompletedItemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompletedProductId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CompositionCompletedProducts");
                 });
 
             modelBuilder.Entity("Forpost.Domain.ProductCreating.Issue.Issue", b =>
@@ -595,6 +612,9 @@ namespace Forpost.Store.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("IssueNumber")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("ManufacturingProcessId")
                         .HasColumnType("uuid");
 
@@ -718,13 +738,6 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Catalogs.Products.Product", b =>
-                {
-                    b.HasOne("Forpost.Domain.Catalogs.Category.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-                });
-
             modelBuilder.Entity("Forpost.Domain.Catalogs.Steps.Step", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.Operations.Operation", null)
@@ -743,8 +756,8 @@ namespace Forpost.Store.Migrations.Migrations
             modelBuilder.Entity("Forpost.Domain.Catalogs.Storages.Storage", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.Employees.Employee", null)
-                        .WithOne()
-                        .HasForeignKey("Forpost.Domain.Catalogs.Storages.Storage", "ResponsibleId")
+                        .WithMany()
+                        .HasForeignKey("ResponsibleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

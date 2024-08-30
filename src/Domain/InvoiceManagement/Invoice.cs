@@ -7,13 +7,14 @@ public sealed class Invoice : DomainAuditableEntity
 {
     public void InitialAdd()
     {
-        IssueStatus = IssueStatus.InProgress;
+        Status = InvoiceStatus.InProgress;
     }
     public string Number { get; set; } = null!;
     public Guid ContragentId { get; set; }
     public string? Description { get; set; }
     public int PaymentPercentage { get; set; }
     public int DaysShipment { get; set; }
-    public IssueStatus IssueStatus { get; set; }
+    public InvoiceStatus Status { get; set; }
+    //public IssueStatus IssueStatus { get; set; }
     public DateTimeOffset? DateShipment { get; set; }
 }

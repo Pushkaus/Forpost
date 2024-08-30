@@ -13,9 +13,12 @@ public sealed class StepController: ApiController
     /// </summary>
     /// <param name="id"></param>
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(Step), StatusCodes.Status200OK)]
-    public async Task<Step?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
-        => await Mediator.Send(new GetStepByIdQuery(id), cancellationToken);
+    [ProducesResponseType(typeof(StepWithSummaryResponse), StatusCodes.Status200OK)]
+    public async Task<StepWithSummaryResponse?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+       var step = await Mediator.Send(new GetStepByIdQuery(id), cancellationToken);
+       return Mapper.Map<StepWithSummaryResponse>(step);
+    } 
 
     /// <summary>
     /// Получение всех этапов

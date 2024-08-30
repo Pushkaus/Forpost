@@ -29,15 +29,17 @@ public sealed class TechCardController: ApiController
     /// </summary>
     /// <param name="card"></param>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     public async Task<Guid> CreateAsync(TechCardCreateRequest card, CancellationToken cancellationToken)
     {
+        var userId = IdentityProvider.GetUserId();
        var techCardId = await Mediator.Send(new AddTechCardCommand
        {
            Number = card.Number,
            Description = card.Description,
            ProductId = card.ProductId,
-           CreatedById = card.CreatedById,
+           CreatedById = (Guid)userId!,
        }, cancellationToken);
        
        return techCardId;

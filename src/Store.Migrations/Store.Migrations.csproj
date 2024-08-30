@@ -24,4 +24,8 @@
       <Link>AddSchemeMigration.ps1</Link>
     </Content>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
 </Project>
