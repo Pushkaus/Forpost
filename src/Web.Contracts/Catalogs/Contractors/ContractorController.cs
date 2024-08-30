@@ -1,4 +1,4 @@
-using Forpost.Application.Catalogs.Contractors;
+using Forpost.Features.Catalogs.Contractors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

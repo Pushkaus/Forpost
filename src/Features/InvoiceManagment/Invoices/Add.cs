@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.InvoiceManagement;
 using MediatR;
 
-namespace Forpost.Application.InvoiceManagment.Invoices;
+namespace Forpost.Features.InvoiceManagment.Invoices;
 
 internal sealed class AddInvoiceCommandHandler: IRequestHandler<AddInvoiceCommand, Guid>
 {

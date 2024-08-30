@@ -1,7 +1,7 @@
 using Forpost.Application.Contracts.Catalogs.Employees;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Employees;
+namespace Forpost.Features.Catalogs.Employees;
 
 internal sealed class GetAllEmployeesWithRoleQueryHandler :
     IRequestHandler<GetAllEmployeesWithRoleQuery, IReadOnlyCollection<EmployeeWithRoleModel>>

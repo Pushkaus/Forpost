@@ -1,7 +1,7 @@
 using Forpost.Domain.InvoiceManagement;
 using MediatR;
 
-namespace Forpost.Application.InvoiceManagment.Invoices;
+namespace Forpost.Features.InvoiceManagment.Invoices;
 
 internal sealed class GetAllInvoicesQueryHandler: IRequestHandler<GetAllInvoicesQuery, IReadOnlyCollection<Invoice>>
 {

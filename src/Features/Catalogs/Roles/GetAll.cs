@@ -1,7 +1,7 @@
 using Forpost.Domain.Catalogs.Roles;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Roles;
+namespace Forpost.Features.Catalogs.Roles;
 
 internal sealed class GetAllRolesQueryHandler :
     IRequestHandler<GetAllRolesQuery, IReadOnlyCollection<Role>>

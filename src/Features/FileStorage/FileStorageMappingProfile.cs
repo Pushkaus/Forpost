@@ -1,9 +1,9 @@
 using AutoMapper;
-using Forpost.Application.FileStorage.Files;
+using Forpost.Features.FileStorage.Files;
 using File = Forpost.Domain.FileStorage.File;
 
 
-namespace Forpost.Application.FileStorage;
+namespace Forpost.Features.FileStorage;
 
 internal sealed class FileStorageMappingProfile : Profile
 {

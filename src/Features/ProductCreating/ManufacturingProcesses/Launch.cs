@@ -3,7 +3,7 @@ using Forpost.Common;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using MediatR;
 
-namespace Forpost.Application.ProductCreating.ManufacturingProcesses;
+namespace Forpost.Features.ProductCreating.ManufacturingProcesses;
 
 internal sealed class LauncherManufacturingProcessCommandHandler: IRequestHandler<LaunchManufacturingProcessCommand>
 {

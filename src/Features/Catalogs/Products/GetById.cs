@@ -2,7 +2,7 @@ using Forpost.Common;
 using Forpost.Domain.Catalogs.Products;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Products;
+namespace Forpost.Features.Catalogs.Products;
 
 internal sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Product>
 {

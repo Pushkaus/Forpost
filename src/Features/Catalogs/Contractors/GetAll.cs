@@ -1,7 +1,7 @@
 using Forpost.Domain.Catalogs.Contractors;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Contractors;
+namespace Forpost.Features.Catalogs.Contractors;
 
 internal sealed class GetAllContractorsQueryHandler :
     IRequestHandler<GetAllContractorsQuery, IReadOnlyCollection<Contractor>>

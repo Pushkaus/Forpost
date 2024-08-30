@@ -2,7 +2,7 @@ using Forpost.Common;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using MediatR;
 
-namespace Forpost.Application.ProductCreating.ProductsDevelopments;
+namespace Forpost.Features.ProductCreating.ProductsDevelopments;
 
 internal sealed class AssignSettingOptionCommandHandler: IRequestHandler<AssignSettingOptionCommand>
 {

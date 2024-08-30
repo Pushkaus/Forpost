@@ -1,9 +1,7 @@
 using Forpost.Common.Extensions;
-using Forpost.Domain;
-using Forpost.Domain.Catalogs.Contractors;
 using Forpost.Domain.Primitives.DomainAbstractions;
-using Forpost.Domain.Primitives.EventHandling;
 using Forpost.Store.Postgres;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -18,34 +16,19 @@ namespace Forpost.BackgroundJobs;
 internal sealed class OutboxMessagesJob : IJob
 {
     private const int BatchSize = 10;
-
-    private static readonly Dictionary<string, Type> EventTypes;
-    
-    static OutboxMessagesJob()
-    {
-        var eventTypes = DomainAssemblyReference.Assembly.GetTypes()
-            .Where(type => !type.IsAbstract && type.IsAssignableTo(typeof(IDomainEvent)))
-            .ToList();
-        EventTypes = new Dictionary<string, Type>();
-        
-        foreach (var eventType in eventTypes)
-        {
-            EventTypes.Add(eventType.Name, eventType);
-        }
-    }
     
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
         TypeNameHandling = TypeNameHandling.Auto
     };
-    
+
     private readonly ForpostContextPostgres _dbContext;
     private readonly TimeProvider _timeProvider;
     private readonly ILogger<OutboxMessagesJob> _logger;
-    private readonly IDomainEventPublisher _publisher;
+    private readonly IPublisher _publisher;
 
     public OutboxMessagesJob(ForpostContextPostgres dbContext,
-        IDomainEventPublisher publisher, 
+        IPublisher publisher,
         TimeProvider timeProvider,
         ILogger<OutboxMessagesJob> logger)
     {
@@ -61,28 +44,33 @@ internal sealed class OutboxMessagesJob : IJob
             .Where(message => message.ProcessedOnUtc == null && string.IsNullOrEmpty(message.Error))
             .Take(BatchSize)
             .ToListAsync();
-        
-        if(outboxMessages.IsEmpty())
+
+        if (outboxMessages.IsEmpty())
             return;
 
         foreach (var outboxMessage in outboxMessages)
         {
-            EventTypes.TryGetValue(outboxMessage.Type, out var eventType);
-            
-            var domainEvent = JsonConvert.DeserializeObject<ContractorAdded>(outboxMessage.Content, JsonSerializerSettings);
-            
-            if (domainEvent is not null)
+            try
             {
+                var domainEvent = JsonConvert.DeserializeObject<IDomainEvent>(outboxMessage.Content, JsonSerializerSettings)!;
                 await _publisher.Publish(domainEvent, context.CancellationToken);
-                outboxMessage.ProcessedOnUtc = _timeProvider.GetUtcNow();
             }
-            else
+            catch (Exception exception)
             {
-                outboxMessage.Error = "Ошибка десериализации события";
+                outboxMessage.Error = exception.Message;
+                _logger.LogError("Произошла ошибка обработки OutboxMessage {outboxMessageId}", outboxMessage.Id);
             }
-            outboxMessage.ProcessedOnUtc = _timeProvider.GetUtcNow();
-            _dbContext.Update(outboxMessage);
+            finally
+            {
+                outboxMessage.ProcessedOnUtc = _timeProvider.GetUtcNow();
+                _dbContext.Update(outboxMessage);
+            }
         }
+
+        var handledMessages = outboxMessages.Where(message =>
+            string.IsNullOrEmpty(message.Error) && message.ProcessedOnUtc.HasValue);
+        
+        _dbContext.RemoveRange(handledMessages);
         
         await _dbContext.SaveChangesAsync();
     }

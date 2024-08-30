@@ -1,7 +1,7 @@
 using Forpost.Domain.Catalogs.Steps;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Steps;
+namespace Forpost.Features.Catalogs.Steps;
 
 internal sealed class GetAllStepsQueryHandler :
     IRequestHandler<GetAllStepsQuery, IReadOnlyCollection<Step>>

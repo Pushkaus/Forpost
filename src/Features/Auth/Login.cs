@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Forpost.Application.Auth;
+namespace Forpost.Features.Auth;
 
 //TODO: вынести в базовые классы маппер, логгер, конфигурацию
 internal sealed class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, string>

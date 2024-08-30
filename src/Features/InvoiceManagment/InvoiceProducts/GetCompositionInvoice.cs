@@ -1,7 +1,7 @@
 using Forpost.Domain.SortOut;
 using MediatR;
 
-namespace Forpost.Application.InvoiceManagment.InvoiceProducts;
+namespace Forpost.Features.InvoiceManagment.InvoiceProducts;
 
 internal sealed class GetProductsFromInvoice: IRequestHandler<GetCompositionInvoiceQuery, IReadOnlyCollection<InvoiceProduct>>
 {

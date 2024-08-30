@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.Catalogs.Steps;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Steps;
+namespace Forpost.Features.Catalogs.Steps;
 
 internal sealed class AddStepCommandHandler : IRequestHandler<AddStepCommand, Guid>
 {

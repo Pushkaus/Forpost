@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.SortOut;
 using MediatR;
 
-namespace Forpost.Application.InvoiceManagment.InvoiceProducts;
+namespace Forpost.Features.InvoiceManagment.InvoiceProducts;
 
 internal sealed class AddInvoiceProductCommandHandler: IRequestHandler<AddInvoiceProductCommand>
 {

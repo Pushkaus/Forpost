@@ -4,7 +4,7 @@ using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using MediatR;
 
-namespace Forpost.Application.ProductCreating.ManufacturingProcesses;
+namespace Forpost.Features.ProductCreating.ManufacturingProcesses;
 
 internal sealed class ScheduledManufacturingProcessCommandHandler: IRequestHandler<ScheduledManufacturingProcessCommand, Guid>
 {

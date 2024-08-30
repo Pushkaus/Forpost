@@ -1,4 +1,4 @@
-namespace Forpost.Application.ProductCreating.ManufacturingProcesses.Services.Abstract;
+namespace Forpost.Features.ProductCreating.ManufacturingProcesses.Services.Abstract;
 
 public interface ManufacturingProcessAnalysisService
 {

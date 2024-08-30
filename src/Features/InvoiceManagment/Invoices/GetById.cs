@@ -2,7 +2,7 @@ using Forpost.Common;
 using Forpost.Domain.InvoiceManagement;
 using MediatR;
 
-namespace Forpost.Application.InvoiceManagment.Invoices;
+namespace Forpost.Features.InvoiceManagment.Invoices;
 
 internal sealed class GetInvoiceByIdQueryHandler: IRequestHandler<GetInvoiceByIdQuery, Invoice>
 {

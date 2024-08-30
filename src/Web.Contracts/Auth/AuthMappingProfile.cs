@@ -1,6 +1,6 @@
 using AutoMapper;
-using Forpost.Application.Auth;
 using Forpost.Application.Contracts.Catalogs.Employees;
+using Forpost.Features.Auth;
 
 namespace Forpost.Web.Contracts.Auth;
 

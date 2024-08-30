@@ -3,7 +3,7 @@ using Forpost.Common;
 using Forpost.Domain.FileStorage;
 using MediatR;
 
-namespace Forpost.Application.FileStorage.Files;
+namespace Forpost.Features.FileStorage.Files;
 
 internal sealed class DownloadFileQueryHandler : IRequestHandler<DownloadFileQuery, FileModel>
 {

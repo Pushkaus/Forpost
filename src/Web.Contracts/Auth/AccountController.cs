@@ -1,5 +1,5 @@
-using Forpost.Application.Auth;
 using Forpost.Application.Contracts.Catalogs.Employees;
+using Forpost.Features.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

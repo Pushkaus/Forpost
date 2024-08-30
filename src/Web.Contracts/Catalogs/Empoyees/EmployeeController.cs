@@ -1,4 +1,4 @@
-using Forpost.Application.Catalogs.Employees;
+using Forpost.Features.Catalogs.Employees;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

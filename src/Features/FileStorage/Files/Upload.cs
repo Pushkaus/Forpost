@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using File = Forpost.Domain.FileStorage.File;
 
-namespace Forpost.Application.FileStorage.Files;
+namespace Forpost.Features.FileStorage.Files;
 
 internal sealed class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Guid>
 {

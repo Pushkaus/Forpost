@@ -1,7 +1,7 @@
 using Forpost.Domain.Catalogs.Products;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Products;
+namespace Forpost.Features.Catalogs.Products;
 
 internal sealed class GetAllProductsQueryHandler :
     IRequestHandler<GetAllProductsQuery, IReadOnlyCollection<Product>>

@@ -1,5 +1,5 @@
 using Forpost.Application.Contracts.Issues;
-using Forpost.Application.ProductCreating.Issues;
+using Forpost.Features.ProductCreating.Issues;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.ProductCreating;

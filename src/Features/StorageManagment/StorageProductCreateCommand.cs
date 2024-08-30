@@ -1,6 +1,6 @@
 using Forpost.Domain.Catalogs.Steps;
 
-namespace Forpost.Application.StorageManagment;
+namespace Forpost.Features.StorageManagment;
 
 public class StorageProductCreateCommand
 {

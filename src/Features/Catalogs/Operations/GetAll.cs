@@ -1,7 +1,7 @@
 using Forpost.Domain.Catalogs.Operations;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Operations;
+namespace Forpost.Features.Catalogs.Operations;
 
 internal sealed class GetAllOperationsQueryHandler :
     IRequestHandler<GetAllOperationsQuery, IReadOnlyCollection<Operation>>

@@ -4,7 +4,7 @@ using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using MediatR;
 
-namespace Forpost.Application.ProductCreating.ProductsDevelopments;
+namespace Forpost.Features.ProductCreating.ProductsDevelopments;
 
 internal sealed class BatchProductionInitializedCommandHandler: IRequestHandler<BatchProductionInitializedCommand>
 {

@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.Catalogs.Operations;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Operations;
+namespace Forpost.Features.Catalogs.Operations;
 
 //TODO: вынести круды для каталогов в базовый класс
 internal sealed class AddOperationCommandHandler : IRequestHandler<AddOperationCommand, Guid>

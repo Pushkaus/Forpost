@@ -4,7 +4,7 @@ using Forpost.Application.Contracts.ProductsDevelopments;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 
-namespace Forpost.Application.ProductCreating;
+namespace Forpost.Features.ProductCreating;
 
 internal sealed class ProductCreatingMappingProfile : Profile
 {

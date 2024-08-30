@@ -1,11 +1,11 @@
 using Forpost.Domain.Catalogs.Contractors;
-using Forpost.Domain.Primitives.EventHandling;
+using MediatR;
 
 namespace Forpost.Features.Catalogs.Contractors;
 
-public sealed class ContractorAddedNotificationHandler : IDomainEventHandler<ContractorAdded>
+internal sealed class ContractorAddedNotificationHandler : INotificationHandler<ContractorAdded>
 {
-    public Task Handle(ContractorAdded domainEvent, CancellationToken cancellationToken = default)
+    public Task Handle(ContractorAdded notification, CancellationToken cancellationToken)
     {
         Console.WriteLine("Handled");
         return Task.CompletedTask;

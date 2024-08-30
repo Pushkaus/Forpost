@@ -2,7 +2,7 @@ using Forpost.Domain.FileStorage;
 using MediatR;
 using File = Forpost.Domain.FileStorage.File;
 
-namespace Forpost.Application.FileStorage.Files;
+namespace Forpost.Features.FileStorage.Files;
 
 internal sealed class GetAllFileInfosByProductIdQueryHandler :
     IRequestHandler<GetAllFileInfosByProductIdQuery, IReadOnlyCollection<File>>

@@ -1,7 +1,7 @@
 using Forpost.Domain.Catalogs.TechCards;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.TechCards;
+namespace Forpost.Features.Catalogs.TechCards;
 
 internal sealed class GetAllTechCardsQueryHandler :
     IRequestHandler<GetAllTechCardsQuery, IReadOnlyCollection<TechCard>>

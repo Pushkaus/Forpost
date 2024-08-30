@@ -1,11 +1,4 @@
 using AutoMapper;
-using Forpost.Application.Catalogs.Contractors;
-using Forpost.Application.Catalogs.Operations;
-using Forpost.Application.Catalogs.Products;
-using Forpost.Application.Catalogs.Steps;
-using Forpost.Application.Catalogs.Storages;
-using Forpost.Application.Catalogs.TechCards;
-using Forpost.Application.Catalogs.TechCardSteps;
 using Forpost.Domain.Catalogs.Contractors;
 using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Products;
@@ -13,8 +6,15 @@ using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.Catalogs.Storages;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
+using Forpost.Features.Catalogs.Contractors;
+using Forpost.Features.Catalogs.Operations;
+using Forpost.Features.Catalogs.Products;
+using Forpost.Features.Catalogs.Steps;
+using Forpost.Features.Catalogs.Storages;
+using Forpost.Features.Catalogs.TechCards;
+using Forpost.Features.Catalogs.TechCardSteps;
 
-namespace Forpost.Application.Catalogs;
+namespace Forpost.Features.Catalogs;
 
 internal sealed class CatalogMappingProfile : Profile
 {

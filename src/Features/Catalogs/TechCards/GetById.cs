@@ -2,7 +2,7 @@ using Forpost.Common;
 using Forpost.Domain.Catalogs.TechCards;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.TechCards;
+namespace Forpost.Features.Catalogs.TechCards;
 
 internal sealed class GetTechCardByIdQueryHandler : IRequestHandler<GetTechCardByIdQuery, TechCard>
 {

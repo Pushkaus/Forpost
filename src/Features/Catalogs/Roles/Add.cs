@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.Catalogs.Roles;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Roles;
+namespace Forpost.Features.Catalogs.Roles;
 
 //TODO: вынести круды для каталогов в базовый класс
 internal sealed class AddRoleCommandHandler : IRequestHandler<AddRoleCommand, Guid>

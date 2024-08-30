@@ -2,7 +2,7 @@ using Forpost.Common;
 using Forpost.Domain.Catalogs.Contractors;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Contractors;
+namespace Forpost.Features.Catalogs.Contractors;
 
 internal sealed class GetContractorByIdQueryHandler : IRequestHandler<GetContractorByIdQuery, Contractor>
 {

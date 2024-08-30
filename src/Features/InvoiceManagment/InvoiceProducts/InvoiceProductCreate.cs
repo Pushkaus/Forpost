@@ -1,4 +1,4 @@
-namespace Forpost.Application.InvoiceManagment.InvoiceProducts;
+namespace Forpost.Features.InvoiceManagment.InvoiceProducts;
 
 public class InvoiceProductCreate
 {

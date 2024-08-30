@@ -1,9 +1,9 @@
 using System.Text;
-using Forpost.Application.Auth;
 using Forpost.BackgroundJobs;
 using Forpost.Common.Utils;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Features;
+using Forpost.Features.Auth;
 using Forpost.Infrastructure;
 using Forpost.Store.Postgres;
 using Forpost.Web.Contracts;
@@ -20,10 +20,7 @@ internal sealed class Startup
 {
     private readonly IConfiguration _configuration;
 
-    public Startup(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
+    public Startup(IConfiguration configuration) => _configuration = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {

@@ -1,7 +1,7 @@
 using Forpost.Domain.Catalogs.Storages;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Storages;
+namespace Forpost.Features.Catalogs.Storages;
 
 internal sealed class GetAllStoragesQueryHandler :
     IRequestHandler<GetAllStoragesQuery, IReadOnlyCollection<Storage>>

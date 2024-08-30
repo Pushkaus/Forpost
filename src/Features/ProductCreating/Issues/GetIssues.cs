@@ -1,7 +1,7 @@
 using Forpost.Application.Contracts.Issues;
 using MediatR;
 
-namespace Forpost.Application.ProductCreating.Issues;
+namespace Forpost.Features.ProductCreating.Issues;
 
 internal sealed class GetAllIssuesQueryHandler: 
     IRequestHandler<IssuesFromManufacturingProcessQuery,

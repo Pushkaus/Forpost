@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.Catalogs.TechCardItems;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.TechCardItems;
+namespace Forpost.Features.Catalogs.TechCardItems;
 
 internal sealed class AddTechCardItemCommandHandler : IRequestHandler<AddTechCardItemCommand, Guid>
 {

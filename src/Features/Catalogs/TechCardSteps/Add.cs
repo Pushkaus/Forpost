@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.Catalogs.TechCardSteps;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.TechCardSteps;
+namespace Forpost.Features.Catalogs.TechCardSteps;
 
 internal sealed class AddTechCardStepCommandHandler : IRequestHandler<TechCardStepCreateCommand, Guid>
 {

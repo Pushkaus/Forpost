@@ -3,7 +3,7 @@ using Forpost.Domain.Catalogs.Contractors;
 using Forpost.Store.Postgres;
 using MediatR;
 
-namespace Forpost.Application.Catalogs.Contractors;
+namespace Forpost.Features.Catalogs.Contractors;
 
 //TODO: вынести круды для каталогов в базовый класс
 internal sealed class AddContractorCommandHandler : IRequestHandler<AddContractorCommand, Guid>

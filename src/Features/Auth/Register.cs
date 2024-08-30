@@ -5,7 +5,7 @@ using Forpost.Domain.Catalogs.Roles;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Forpost.Application.Auth;
+namespace Forpost.Features.Auth;
 
 internal sealed class RegisterCommandHandler : IRequestHandler<RegisterUserCommand>
 {

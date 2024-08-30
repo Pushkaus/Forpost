@@ -1,4 +1,4 @@
-using Forpost.Application.ProductCreating.ManufacturingProcesses;
+using Forpost.Features.ProductCreating.ManufacturingProcesses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.ProductCreating;

@@ -2,7 +2,7 @@ using Forpost.Common;
 using Forpost.Domain.ProductCreating.Issue;
 using MediatR;
 
-namespace Forpost.Application.ProductCreating.Issues;
+namespace Forpost.Features.ProductCreating.Issues;
 
 internal sealed class LauncherIssueCommandHandler: IRequestHandler<LaunchIssueCommand>
 {
