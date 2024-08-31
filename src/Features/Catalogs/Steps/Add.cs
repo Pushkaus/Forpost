@@ -1,10 +1,10 @@
 using AutoMapper;
 using Forpost.Domain.Catalogs.Steps;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Steps;
 
-internal sealed class AddStepCommandHandler : IRequestHandler<AddStepCommand, Guid>
+internal sealed class AddStepCommandHandler : ICommandHandler<AddStepCommand, Guid>
 {
     private readonly IStepDomainRepository _domainRepository;
     private readonly IMapper _mapper;
@@ -15,14 +15,14 @@ internal sealed class AddStepCommandHandler : IRequestHandler<AddStepCommand, Gu
         _mapper = mapper;
     }
 
-    public Task<Guid> Handle(AddStepCommand command, CancellationToken cancellationToken)
+    public ValueTask<Guid> Handle(AddStepCommand command, CancellationToken cancellationToken)
     {
         var step = _mapper.Map<Step>(command);
-        return Task.FromResult(_domainRepository.Add(step));
+        return ValueTask.FromResult(_domainRepository.Add(step));
     }
 }
 
-public record AddStepCommand : IRequest<Guid>
+public record AddStepCommand : ICommand<Guid>
 {
     /// <summary>
     ///     Ссылка на тех.карту

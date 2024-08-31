@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Roles;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Roles;
 
-internal sealed class GetRoleByIdQueryHandler : IRequestHandler<GetRoleByIdQuery, Role>
+internal sealed class GetRoleByIdQueryHandler : IQueryHandler<GetRoleByIdQuery, Role>
 {
     private readonly IRoleDomainRepository _domainRepository;
 
@@ -13,11 +13,11 @@ internal sealed class GetRoleByIdQueryHandler : IRequestHandler<GetRoleByIdQuery
         _domainRepository = domainRepository;
     }
 
-    public async Task<Role> Handle(GetRoleByIdQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Role> Handle(GetRoleByIdQuery request, CancellationToken cancellationToken)
     {
         var role = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         return role.EnsureFoundBy(entity => entity.Id, request.Id);
     }
 }
 
-public sealed record GetRoleByIdQuery(Guid Id) : IRequest<Role>;
+public sealed record GetRoleByIdQuery(Guid Id) : IQuery<Role>;

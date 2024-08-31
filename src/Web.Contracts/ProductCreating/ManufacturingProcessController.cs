@@ -10,19 +10,19 @@ public sealed class ManufacturingProcessController : ApiController
     public async Task<IActionResult> Schedule(ScheduledManufacturingProcessCommand command,
         CancellationToken cancellationToken)
     {
-        var manufacturingProcessId = await Mediator.Send(command, cancellationToken);
+        var manufacturingProcessId = await Sender.Send(command, cancellationToken);
         return Ok(manufacturingProcessId);
     }
     [HttpPut("launch/{id}")]
     public async Task<IActionResult> Launch(Guid id, CancellationToken cancellationToken)
     {
-        await Mediator.Send(new LaunchManufacturingProcessCommand(id), cancellationToken);
+        await Sender.Send(new LaunchManufacturingProcessCommand(id), cancellationToken);
         return Ok();
     }
     [HttpPut("complete/{id}")]
     public async Task<IActionResult> Complete(Guid id, CancellationToken cancellationToken)
     {
-        await Mediator.Send(new CompletionManufacturingProcessCommand(id), cancellationToken);
+        await Sender.Send(new CompletionManufacturingProcessCommand(id), cancellationToken);
         return Ok();
     }
 }

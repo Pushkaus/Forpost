@@ -1,10 +1,10 @@
 using Forpost.Application.Contracts.Issues;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.ProductCreating.Issues;
 
 internal sealed class GetAllIssuesQueryHandler: 
-    IRequestHandler<IssuesFromManufacturingProcessQuery,
+    IQueryHandler<IssuesFromManufacturingProcessQuery,
     IReadOnlyCollection<IssueFromManufacturingProcess>>
 {
     private readonly IIssueReadRepository _issueReadRepository;
@@ -13,9 +13,9 @@ internal sealed class GetAllIssuesQueryHandler:
         _issueReadRepository = issueReadRepository;
     }
 
-    public async Task<IReadOnlyCollection<IssueFromManufacturingProcess>>
+    public async ValueTask<IReadOnlyCollection<IssueFromManufacturingProcess>>
         Handle(IssuesFromManufacturingProcessQuery request, CancellationToken cancellationToken) =>
         await _issueReadRepository.GetAllFromManufacturingProcessId(request.ManufacturingProcessId, cancellationToken);
 }
 public sealed record IssuesFromManufacturingProcessQuery(Guid ManufacturingProcessId): 
-    IRequest<IReadOnlyCollection<IssueFromManufacturingProcess>>;
+    IQuery<IReadOnlyCollection<IssueFromManufacturingProcess>>;

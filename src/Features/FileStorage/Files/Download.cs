@@ -1,11 +1,11 @@
 using AutoMapper;
 using Forpost.Common;
 using Forpost.Domain.FileStorage;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.FileStorage.Files;
 
-internal sealed class DownloadFileQueryHandler : IRequestHandler<DownloadFileQuery, FileModel>
+internal sealed class DownloadFileQueryHandler : IQueryHandler<DownloadFileQuery, FileModel>
 {
     private readonly IFileDomainRepository _domainRepository;
     private readonly IMapper _mapper;
@@ -16,7 +16,7 @@ internal sealed class DownloadFileQueryHandler : IRequestHandler<DownloadFileQue
         _mapper = mapper;
     }
 
-    public async Task<FileModel> Handle(DownloadFileQuery request, CancellationToken cancellationToken)
+    public async ValueTask<FileModel> Handle(DownloadFileQuery request, CancellationToken cancellationToken)
     {
         var file = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         file.EnsureFoundBy(entity => entity.Id, request.Id);
@@ -30,7 +30,7 @@ internal sealed class DownloadFileQueryHandler : IRequestHandler<DownloadFileQue
     }
 }
 
-public record DownloadFileQuery(Guid Id) : IRequest<FileModel>;
+public record DownloadFileQuery(Guid Id) : IQuery<FileModel>;
 
 public record FileModel()
 {

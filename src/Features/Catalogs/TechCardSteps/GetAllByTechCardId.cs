@@ -1,9 +1,9 @@
 using Forpost.Domain.Catalogs.TechCardSteps;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.TechCardSteps;
 
-internal sealed class GetTechCardStepByIdQueryHandler : IRequestHandler<GetTechCardStepByIdQuery, IReadOnlyCollection<TechCardStep>>
+internal sealed class GetTechCardStepByIdQueryHandler : IQueryHandler<GetTechCardStepByIdQuery, IReadOnlyCollection<TechCardStep>>
 {
     private readonly ITechCardStepDomainRepository _domainRepository;
 
@@ -12,10 +12,10 @@ internal sealed class GetTechCardStepByIdQueryHandler : IRequestHandler<GetTechC
         _domainRepository = domainRepository;
     }
 
-    public async Task<IReadOnlyCollection<TechCardStep>> Handle(GetTechCardStepByIdQuery request, CancellationToken cancellationToken)
+    public async ValueTask<IReadOnlyCollection<TechCardStep>> Handle(GetTechCardStepByIdQuery request, CancellationToken cancellationToken)
     {
         return await _domainRepository.GetAllStepsByTechCardId(request.TechCardId, cancellationToken);
     }
 }
 
-public sealed record GetTechCardStepByIdQuery(Guid TechCardId) : IRequest<IReadOnlyCollection<TechCardStep>>;
+public sealed record GetTechCardStepByIdQuery(Guid TechCardId) : IQuery<IReadOnlyCollection<TechCardStep>>;

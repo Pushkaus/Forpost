@@ -1,10 +1,10 @@
 using AutoMapper;
 using Forpost.Domain.Catalogs.TechCards;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.TechCards;
 
-internal sealed class TechCardCreateCommandHandler : IRequestHandler<AddTechCardCommand, Guid>
+internal sealed class TechCardCreateCommandHandler : ICommandHandler<AddTechCardCommand, Guid>
 {
     private readonly ITechCardDomainRepository _domainRepository;
     private readonly IMapper _mapper;
@@ -15,14 +15,14 @@ internal sealed class TechCardCreateCommandHandler : IRequestHandler<AddTechCard
         _mapper = mapper;
     }
 
-    public Task<Guid> Handle(AddTechCardCommand command, CancellationToken cancellationToken)
+    public ValueTask<Guid> Handle(AddTechCardCommand command, CancellationToken cancellationToken)
     {
         var techCard = _mapper.Map<TechCard>(command);
-        return Task.FromResult(_domainRepository.Add(techCard));
+        return ValueTask.FromResult(_domainRepository.Add(techCard));
     }
 }
 
-public record AddTechCardCommand : IRequest<Guid>
+public record AddTechCardCommand : ICommand<Guid>
 {
     /// <summary>
     ///     Номер тех.карты

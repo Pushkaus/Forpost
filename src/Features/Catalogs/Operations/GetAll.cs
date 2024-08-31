@@ -1,10 +1,10 @@
 using Forpost.Domain.Catalogs.Operations;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Operations;
 
 internal sealed class GetAllOperationsQueryHandler :
-    IRequestHandler<GetAllOperationsQuery, IReadOnlyCollection<Operation>>
+    IQueryHandler<GetAllOperationsQuery, IReadOnlyCollection<Operation>>
 {
     private readonly IOperationDomainRepository _domainRepository;
 
@@ -13,8 +13,8 @@ internal sealed class GetAllOperationsQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async Task<IReadOnlyCollection<Operation>> Handle(GetAllOperationsQuery request,
+    public async ValueTask<IReadOnlyCollection<Operation>> Handle(GetAllOperationsQuery request,
         CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
-public sealed record GetAllOperationsQuery : IRequest<IReadOnlyCollection<Operation>>;
+public sealed record GetAllOperationsQuery : IQuery<IReadOnlyCollection<Operation>>;

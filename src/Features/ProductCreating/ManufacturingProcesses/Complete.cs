@@ -1,11 +1,11 @@
 using Forpost.Application.Contracts.Issues;
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.ProductCreating.ManufacturingProcesses;
 
-internal sealed class CompletedManufacturingProcessCommandHandler: IRequestHandler<CompletionManufacturingProcessCommand>
+internal sealed class CompletedManufacturingProcessCommandHandler: ICommandHandler<CompletionManufacturingProcessCommand>
 {
     private readonly IManufacturingProcessDomainRepository _manufacturingProcessDomainRepository;
     private readonly IIssueReadRepository _issueReadRepository;
@@ -16,7 +16,7 @@ internal sealed class CompletedManufacturingProcessCommandHandler: IRequestHandl
         _issueReadRepository = issueReadRepository;
     }
 
-    public async Task Handle(CompletionManufacturingProcessCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(CompletionManufacturingProcessCommand command, CancellationToken cancellationToken)
     {
         var issues = await _issueReadRepository.GetAllFromManufacturingProcessId(command.Id, cancellationToken);
 
@@ -30,7 +30,8 @@ internal sealed class CompletedManufacturingProcessCommandHandler: IRequestHandl
         manufacturingProcess.EnsureFoundBy(entity => entity.Id, command.Id).Complete();
         
         _manufacturingProcessDomainRepository.Update(manufacturingProcess);
+        return Unit.Value;
     }
 }
 
-public record CompletionManufacturingProcessCommand(Guid Id) : IRequest;
+public record CompletionManufacturingProcessCommand(Guid Id) : ICommand;

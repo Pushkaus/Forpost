@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.Issue;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.ProductCreating.Issues;
 
-internal sealed class CompletedIssueCommandHandler: IRequestHandler<CompletedIssueCommand>
+internal sealed class CompletedIssueCommandHandler: ICommandHandler<CompletedIssueCommand>
 {
     private readonly IIssueDomainRepository _issueDomainRepository;
 
@@ -13,7 +13,7 @@ internal sealed class CompletedIssueCommandHandler: IRequestHandler<CompletedIss
         _issueDomainRepository = issueDomainRepository;
     }
 
-    public async Task Handle(CompletedIssueCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(CompletedIssueCommand command, CancellationToken cancellationToken)
     {
         var issue = await _issueDomainRepository.GetByIdAsync(command.Id, cancellationToken);
         if (issue.ExecutorId == Guid.Empty)
@@ -22,6 +22,8 @@ internal sealed class CompletedIssueCommandHandler: IRequestHandler<CompletedIss
         issue.EnsureFoundBy(issue => issue.Id, command.Id).Complete();
         
         _issueDomainRepository.Update(issue);
+        
+        return Unit.Value;
     }
 }
-public record CompletedIssueCommand(Guid Id) : IRequest;
+public record CompletedIssueCommand(Guid Id) : ICommand;

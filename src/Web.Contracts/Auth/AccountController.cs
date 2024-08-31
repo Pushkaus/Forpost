@@ -8,10 +8,7 @@ namespace Forpost.Web.Contracts.Auth;
 
 [Route("api/v1/accounts")]
 public sealed class AccountController : ApiController
-
 {
-  
-
     /// <summary>
     /// Регистрация сотрудника (регистрирует только админ)
     /// </summary>
@@ -22,7 +19,7 @@ public sealed class AccountController : ApiController
     public async Task<IActionResult> RegisterAsync([FromQuery] RegisterUserRequest request, CancellationToken cancellationToken)
     {
         var user = Mapper.Map<RegisterUserModel>(request);
-        await Mediator.Send(new RegisterUserCommand(user), cancellationToken);
+        await Sender.Send(new RegisterUserCommand(user), cancellationToken);
         return Ok();
     }
 
@@ -35,7 +32,7 @@ public sealed class AccountController : ApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<string> LoginAsync([FromQuery] LoginUserRequest request, CancellationToken cancellationToken)
     {
-        var token = await Mediator.Send(new LoginUserCommand(
+        var token = await Sender.Send(new LoginUserCommand(
             request.FirstName,
             request.LastName,
             request.Password), cancellationToken);

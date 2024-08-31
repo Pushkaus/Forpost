@@ -18,7 +18,7 @@ public sealed class StorageController : ApiController
     public async Task<IActionResult>
         CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
     {
-        var storageId = Mediator.Send(new AddStorageCommand(request.Name, request.ResponsibleId), cancellationToken);
+        var storageId = Sender.Send(new AddStorageCommand(request.Name, request.ResponsibleId), cancellationToken);
         return Ok(storageId);
     }
 
@@ -28,5 +28,5 @@ public sealed class StorageController : ApiController
     [HttpGet]
     [ProducesResponseType(typeof(StorageReponse), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<Storage>> GetAllAsync(CancellationToken cancellationToken) 
-        => await Mediator.Send(new GetAllStoragesQuery(), cancellationToken);
+        => await Sender.Send(new GetAllStoragesQuery(), cancellationToken);
 }

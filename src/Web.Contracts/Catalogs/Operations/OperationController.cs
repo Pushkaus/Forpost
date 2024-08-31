@@ -15,7 +15,7 @@ public sealed class OperationController: ApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<Guid> AddAsync([FromBody] string operationName, CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new AddOperationCommand(operationName), cancellationToken);
+        return await Sender.Send(new AddOperationCommand(operationName), cancellationToken);
     }
     /// <summary>
     /// Получение всех операций
@@ -23,6 +23,6 @@ public sealed class OperationController: ApiController
     [HttpGet]
     [ProducesResponseType(typeof(Operation), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<Operation>> GetAllAsync(CancellationToken cancellationToken)
-        => await Mediator.Send(new GetAllOperationsQuery(), cancellationToken);
+        => await Sender.Send(new GetAllOperationsQuery(), cancellationToken);
 
 }

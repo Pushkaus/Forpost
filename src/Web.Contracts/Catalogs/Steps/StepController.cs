@@ -15,7 +15,7 @@ public sealed class StepController: ApiController
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(Step), StatusCodes.Status200OK)]
     public async Task<Step?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
-        => await Mediator.Send(new GetStepByIdQuery(id), cancellationToken);
+        => await Sender.Send(new GetStepByIdQuery(id), cancellationToken);
 
     /// <summary>
     /// Получение всех этапов
@@ -24,7 +24,7 @@ public sealed class StepController: ApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<Step>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<Step>> GetAllAsync(CancellationToken cancellationToken) 
-        => await Mediator.Send(new GetAllStepsQuery(), cancellationToken);
+        => await Sender.Send(new GetAllStepsQuery(), cancellationToken);
 
     /// <summary>
     /// Создание этапа
@@ -34,7 +34,7 @@ public sealed class StepController: ApiController
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync([FromBody] StepCreateRequest step, CancellationToken cancellationToken) 
-        => await Mediator.Send(new AddStepCommand
+        => await Sender.Send(new AddStepCommand
         {
             TechCardId = step.TechCardId,
             OperationId = step.OperationId,

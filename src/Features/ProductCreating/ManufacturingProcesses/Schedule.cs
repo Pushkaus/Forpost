@@ -2,11 +2,11 @@ using AutoMapper;
 using Forpost.Application.Contracts.Issues;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.ProductCreating.ManufacturingProcesses;
 
-internal sealed class ScheduledManufacturingProcessCommandHandler: IRequestHandler<ScheduledManufacturingProcessCommand, Guid>
+internal sealed class ScheduledManufacturingProcessCommandHandler: ICommandHandler<ScheduledManufacturingProcessCommand, Guid>
 {
     private readonly IManufacturingProcessDomainRepository _manufacturingProcessDomainRepository;
     private readonly IIssueDomainRepository _issueDomainRepository;
@@ -19,7 +19,7 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: IRequestHandl
         _mapper = mapper;
     }
 
-    public async Task<Guid> Handle(ScheduledManufacturingProcessCommand command, CancellationToken cancellationToken)
+    public ValueTask<Guid> Handle(ScheduledManufacturingProcessCommand command, CancellationToken cancellationToken)
     {
         //TODO; Вызывать BatchProductionInitializedCommand
         var manufacturingProcess = ManufacturingProcess.Schedule(
@@ -36,11 +36,11 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: IRequestHandl
             
             _issueDomainRepository.Add(Issue.Schedule(issue));
         }
-        return await Task.FromResult(manufacturingProcessId);
+        return ValueTask.FromResult(manufacturingProcessId);
     }
 }
 
-public record ScheduledManufacturingProcessCommand(): IRequest<Guid>
+public record ScheduledManufacturingProcessCommand(): ICommand<Guid>
 {
     public Guid TechnologicalCardId { get; set; }
     /// <summary>

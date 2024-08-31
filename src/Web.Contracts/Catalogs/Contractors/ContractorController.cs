@@ -19,7 +19,7 @@ public sealed class ContractorController : ApiController
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateAsync(string name, CancellationToken cancellationToken)
     {
-        var id = await Mediator.Send(new AddContractorCommand(name), cancellationToken);
+        var id = await Sender.Send(new AddContractorCommand(name), cancellationToken);
         return Ok(id);
     }
 
@@ -30,7 +30,7 @@ public sealed class ContractorController : ApiController
     [ProducesResponseType(typeof(IReadOnlyCollection<ContractorResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var contractors = await Mediator.Send(new GetAllContractorsQuery(), cancellationToken);
+        var contractors = await Sender.Send(new GetAllContractorsQuery(), cancellationToken);
 
         return Ok(Mapper.Map<IReadOnlyCollection<ContractorResponse>>(contractors));
     }
@@ -43,7 +43,7 @@ public sealed class ContractorController : ApiController
     [ProducesResponseType(typeof(ContractorResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var contractor = await Mediator.Send(new GetContractorByIdQuery(id), cancellationToken);
+        var contractor = await Sender.Send(new GetContractorByIdQuery(id), cancellationToken);
 
         return Ok(Mapper.Map<ContractorResponse>(contractor));
     }

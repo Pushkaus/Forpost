@@ -1,10 +1,10 @@
 using Forpost.Domain.Catalogs.Steps;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Steps;
 
 internal sealed class GetAllStepsQueryHandler :
-    IRequestHandler<GetAllStepsQuery, IReadOnlyCollection<Step>>
+    IQueryHandler<GetAllStepsQuery, IReadOnlyCollection<Step>>
 {
     private readonly IStepDomainRepository _domainRepository;
 
@@ -13,8 +13,8 @@ internal sealed class GetAllStepsQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async Task<IReadOnlyCollection<Step>> Handle(GetAllStepsQuery request,
+    public async ValueTask<IReadOnlyCollection<Step>> Handle(GetAllStepsQuery request,
         CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
-public sealed record GetAllStepsQuery : IRequest<IReadOnlyCollection<Step>>;
+public sealed record GetAllStepsQuery : IQuery<IReadOnlyCollection<Step>>;

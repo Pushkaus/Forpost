@@ -1,10 +1,10 @@
 using Forpost.Domain.Catalogs.Contractors;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Contractors;
 
 internal sealed class GetAllContractorsQueryHandler :
-    IRequestHandler<GetAllContractorsQuery, IReadOnlyCollection<Contractor>>
+    IQueryHandler<GetAllContractorsQuery, IReadOnlyCollection<Contractor>>
 {
     private readonly IContractorDomainRepository _domainRepository;
 
@@ -13,8 +13,8 @@ internal sealed class GetAllContractorsQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async Task<IReadOnlyCollection<Contractor>> Handle(GetAllContractorsQuery request,
+    public async ValueTask<IReadOnlyCollection<Contractor>> Handle(GetAllContractorsQuery request,
         CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
-public sealed record GetAllContractorsQuery : IRequest<IReadOnlyCollection<Contractor>>;
+public sealed record GetAllContractorsQuery : IQuery<IReadOnlyCollection<Contractor>>;

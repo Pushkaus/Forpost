@@ -1,7 +1,7 @@
 using Forpost.Common.Extensions;
 using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Store.Postgres;
-using MediatR;
+using Mediator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -15,7 +15,7 @@ namespace Forpost.BackgroundJobs;
 [DisallowConcurrentExecution]
 internal sealed class OutboxMessagesJob : IJob
 {
-    private const int BatchSize = 10;
+    private const int BatchSize = 100;
     
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {

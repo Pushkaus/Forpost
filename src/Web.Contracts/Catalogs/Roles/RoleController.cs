@@ -14,7 +14,7 @@ public sealed class RoleController : ApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateAsync(string name, CancellationToken cancellationToken)
     {
-        var roleId = await Mediator.Send(new AddRoleCommand(name), cancellationToken);
+        var roleId = await Sender.Send(new AddRoleCommand(name), cancellationToken);
         return Ok(roleId);
     }
 
@@ -25,7 +25,7 @@ public sealed class RoleController : ApiController
     [ProducesResponseType(typeof(IReadOnlyCollection<RoleResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var roles = await Mediator.Send(new GetAllRolesQuery(), cancellationToken);
+        var roles = await Sender.Send(new GetAllRolesQuery(), cancellationToken);
         return Ok(roles);
     }
 
@@ -37,7 +37,7 @@ public sealed class RoleController : ApiController
     [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var role = await Mediator.Send(new GetRoleByIdQuery(id), cancellationToken);
+        var role = await Sender.Send(new GetRoleByIdQuery(id), cancellationToken);
         return Ok(role);
     }
 }

@@ -39,7 +39,7 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
     private void MarkAuditEntities(EntityEntry<IAuditableEntity>[] auditableEntries)
     {
         var userId = _identityProvider.GetUserId() ?? Guid.Empty;
-            //throw new InvalidOperationException("Пользователь, модифицирующий сущности обязан быть авторизованным");
+                    // throw new InvalidOperationException("Пользователь, модифицирующий сущности обязан быть авторизованным");
 
         foreach (var entry in auditableEntries)
             switch (entry.State)

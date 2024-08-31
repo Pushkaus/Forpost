@@ -1,10 +1,10 @@
 using AutoMapper;
 using Forpost.Domain.InvoiceManagement;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.Invoices;
 
-internal sealed class AddInvoiceCommandHandler: IRequestHandler<AddInvoiceCommand, Guid>
+internal sealed class AddInvoiceCommandHandler: ICommandHandler<AddInvoiceCommand, Guid>
 {
     private readonly IInvoiceDomainRepository _invoiceDomainRepository;
     private readonly IMapper _mapper;
@@ -15,16 +15,16 @@ internal sealed class AddInvoiceCommandHandler: IRequestHandler<AddInvoiceComman
         _mapper = mapper;
     }
 
-    public Task<Guid> Handle(AddInvoiceCommand command, CancellationToken cancellationToken)
+    public ValueTask<Guid> Handle(AddInvoiceCommand command, CancellationToken cancellationToken)
     {
         var invoice = _mapper.Map<Invoice>(command);
         
         invoice.InitialAdd();
         
-        return Task.FromResult(_invoiceDomainRepository.Add(invoice));
+        return ValueTask.FromResult(_invoiceDomainRepository.Add(invoice));
     }
 }
-public record AddInvoiceCommand: IRequest<Guid>
+public record AddInvoiceCommand: ICommand<Guid>
 {
     public string Number { get; set; } = default!;
     public Guid ContragentId { get; set; }

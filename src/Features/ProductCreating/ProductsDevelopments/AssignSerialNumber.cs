@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.ProductCreating.ProductsDevelopments;
 
-internal sealed class AssignSerialNumberCommandHandler: IRequestHandler<AssignSerialNumberCommand>
+internal sealed class AssignSerialNumberCommandHandler: ICommandHandler<AssignSerialNumberCommand>
 {
     private readonly IProductDevelopmentDomainRepository _productDevelopmentDomainRepository;
 
@@ -13,7 +13,7 @@ internal sealed class AssignSerialNumberCommandHandler: IRequestHandler<AssignSe
         _productDevelopmentDomainRepository = productDevelopmentDomainRepository;
     }
 
-    public async Task Handle(AssignSerialNumberCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(AssignSerialNumberCommand command, CancellationToken cancellationToken)
     {
         var productDevelopment = await _productDevelopmentDomainRepository
             .GetByIdAsync(command.ProductDevelopmentId, cancellationToken);
@@ -23,7 +23,8 @@ internal sealed class AssignSerialNumberCommandHandler: IRequestHandler<AssignSe
         
         _productDevelopmentDomainRepository.Update(productDevelopment);
         
+        return Unit.Value;
     }
 }
 
-public record AssignSerialNumberCommand(Guid ProductDevelopmentId, string SerialNumber) : IRequest;
+public record AssignSerialNumberCommand(Guid ProductDevelopmentId, string SerialNumber) : ICommand;

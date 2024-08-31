@@ -15,7 +15,7 @@ public sealed class TechCardItemController: ApiController
     public async Task<IReadOnlyCollection<Domain.Catalogs.TechCardItems.TechCardItem>> GetTechCardItems(Guid techCardId,
         CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new GetTechCardItemByIdQuery(techCardId), cancellationToken);
+        return await Sender.Send(new GetTechCardItemByIdQuery(techCardId), cancellationToken);
     }
     /// <summary>
     /// Добавления компонента в тех.карту
@@ -25,7 +25,7 @@ public sealed class TechCardItemController: ApiController
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync(TechCardItemRequest model, CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new AddTechCardItemCommand(
+        return await Sender.Send(new AddTechCardItemCommand(
             model.TechCardId,
             model.ProductId,
             model.Quantity), cancellationToken);

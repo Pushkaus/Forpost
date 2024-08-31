@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Products;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Products;
 
-internal sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Product>
+internal sealed class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQuery, Product>
 {
     private readonly IProductDomainRepository _domainRepository;
 
@@ -13,11 +13,11 @@ internal sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByI
         _domainRepository = domainRepository;
     }
 
-    public async Task<Product> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Product> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
     {
         var product = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         return product.EnsureFoundBy(entity => entity.Id, request.Id);
     }
 }
 
-public sealed record GetProductByIdQuery(Guid Id) : IRequest<Product>;
+public sealed record GetProductByIdQuery(Guid Id) : IQuery<Product>;

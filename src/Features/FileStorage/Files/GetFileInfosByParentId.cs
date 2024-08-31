@@ -1,11 +1,11 @@
 using Forpost.Domain.FileStorage;
-using MediatR;
+using Mediator;
 using File = Forpost.Domain.FileStorage.File;
 
 namespace Forpost.Features.FileStorage.Files;
 
 internal sealed class GetAllFileInfosByProductIdQueryHandler :
-    IRequestHandler<GetAllFileInfosByProductIdQuery, IReadOnlyCollection<File>>
+    IQueryHandler<GetAllFileInfosByProductIdQuery, IReadOnlyCollection<File>>
 {
     private readonly IFileDomainRepository _domainRepository;
 
@@ -14,9 +14,9 @@ internal sealed class GetAllFileInfosByProductIdQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async Task<IReadOnlyCollection<File>> Handle(GetAllFileInfosByProductIdQuery request,
+    public async ValueTask<IReadOnlyCollection<File>> Handle(GetAllFileInfosByProductIdQuery request,
         CancellationToken cancellationToken) =>
         await _domainRepository.GetAllByParentIdAsync(request.ParentId, cancellationToken);
 }
 
-public sealed record GetAllFileInfosByProductIdQuery(Guid ParentId) : IRequest<IReadOnlyCollection<File>>;
+public sealed record GetAllFileInfosByProductIdQuery(Guid ParentId) : IQuery<IReadOnlyCollection<File>>;

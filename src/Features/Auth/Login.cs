@@ -5,7 +5,7 @@ using AutoMapper;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Employees;
-using MediatR;
+using Mediator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,8 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Forpost.Features.Auth;
 
-//TODO: вынести в базовые классы маппер, логгер, конфигурацию
-internal sealed class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, string>
+internal sealed class LoginUserCommandHandler : ICommandHandler<LoginUserCommand, string>
 {
     private readonly IEmployeeDomainRepository _employeeDomainRepository;
     private readonly IPasswordHasher<Employee> _passwordHasher;
@@ -33,7 +32,7 @@ internal sealed class LoginUserCommandHandler : IRequestHandler<LoginUserCommand
         _configuration = configuration;
     }
 
-    public async Task<string> Handle(LoginUserCommand command, CancellationToken cancellationToken)
+    public async ValueTask<string> Handle(LoginUserCommand command, CancellationToken cancellationToken)
     {
         var user = _mapper.Map<EmployeeWithRoleModel>(command);
 
@@ -73,4 +72,4 @@ internal sealed class LoginUserCommandHandler : IRequestHandler<LoginUserCommand
     }
 }
 
-public sealed record LoginUserCommand(string FirstName, string LastName, string Password) : IRequest<string>;
+public sealed record LoginUserCommand(string FirstName, string LastName, string Password) : ICommand<string>;

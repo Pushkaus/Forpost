@@ -16,7 +16,7 @@ public sealed class ProductController : ApiController
     [ProducesResponseType(typeof(IReadOnlyCollection<ProductResponse>), 200)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var products = await Mediator.Send(new GetAllProductsQuery(), cancellationToken);
+        var products = await Sender.Send(new GetAllProductsQuery(), cancellationToken);
         return Ok(products);
     }
 
@@ -28,7 +28,7 @@ public sealed class ProductController : ApiController
     [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var product = await Mediator.Send(new GetProductByIdQuery(id), cancellationToken);
+        var product = await Sender.Send(new GetProductByIdQuery(id), cancellationToken);
         return Ok(product);
     }
 
@@ -41,7 +41,7 @@ public sealed class ProductController : ApiController
     public async Task<IActionResult>
         CreateAsync([FromBody] ProductCreateRequest request, CancellationToken cancellationToken)
     {
-        var productId = await Mediator.Send(new AddProductCommand(request.Name, request.Version), cancellationToken);
+        var productId = await Sender.Send(new AddProductCommand(request.Name, request.Version), cancellationToken);
         return Ok(productId);
     }
     /// <summary>
@@ -53,7 +53,7 @@ public sealed class ProductController : ApiController
     public async Task<IActionResult>
         UpdateAsync([FromBody] ProductUpdateRequest request, CancellationToken cancellationToken)
     {
-        await Mediator.Send(new UpdateProductCommand(
+        await Sender.Send(new UpdateProductCommand(
             request.Id,
             request.Name,
             request.Version), cancellationToken);

@@ -2,12 +2,12 @@ using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Roles;
-using MediatR;
+using Mediator;
 using Microsoft.AspNetCore.Identity;
 
 namespace Forpost.Features.Auth;
 
-internal sealed class RegisterCommandHandler : IRequestHandler<RegisterUserCommand>
+internal sealed class RegisterCommandHandler : ICommandHandler<RegisterUserCommand>
 {
     private readonly IEmployeeDomainRepository _employeeDomainRepository;
     private readonly IPasswordHasher<RegisterUserCommand> _passwordHasher;
@@ -22,7 +22,7 @@ internal sealed class RegisterCommandHandler : IRequestHandler<RegisterUserComma
         _roleDomainRepository = roleDomainRepository;
     }
 
-    public async Task Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         var passwordHash = _passwordHasher.HashPassword(request, request.Model.Password);
         var role = await _roleDomainRepository.GetByNameAsync(request.Model.Role, cancellationToken);
@@ -33,7 +33,9 @@ internal sealed class RegisterCommandHandler : IRequestHandler<RegisterUserComma
             request.Model.PhoneNumber, request.Model.Patronymic, request.Model.Email);
 
         _employeeDomainRepository.Add(registeredUser);
+        
+        return Unit.Value;
     }
 }
 
-public sealed record RegisterUserCommand(RegisterUserModel Model) : IRequest;
+public sealed record RegisterUserCommand(RegisterUserModel Model) : ICommand;
