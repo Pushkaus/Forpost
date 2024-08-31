@@ -1,10 +1,10 @@
 using Forpost.Application.Contracts.Catalogs.Employees;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Employees;
 
 internal sealed class GetAllEmployeesWithRoleQueryHandler :
-    IRequestHandler<GetAllEmployeesWithRoleQuery, IReadOnlyCollection<EmployeeWithRoleModel>>
+    IQueryHandler<GetAllEmployeesWithRoleQuery, IReadOnlyCollection<EmployeeWithRoleModel>>
 {
     private readonly IEmployeeReadRepository _employeeReadRepository;
 
@@ -13,10 +13,10 @@ internal sealed class GetAllEmployeesWithRoleQueryHandler :
         _employeeReadRepository = employeeReadRepository;
     }
 
-    public async Task<IReadOnlyCollection<EmployeeWithRoleModel>> Handle(GetAllEmployeesWithRoleQuery request,
+    public async ValueTask<IReadOnlyCollection<EmployeeWithRoleModel>> Handle(GetAllEmployeesWithRoleQuery request,
         CancellationToken cancellationToken) =>
         await _employeeReadRepository.GetAllEmployeesWithRoleAsync(cancellationToken);
 }
 
-public sealed record GetAllEmployeesWithRoleQuery : IRequest<IReadOnlyCollection<EmployeeWithRoleModel>>;
+public sealed record GetAllEmployeesWithRoleQuery : IQuery<IReadOnlyCollection<EmployeeWithRoleModel>>;
 

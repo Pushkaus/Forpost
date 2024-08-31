@@ -1,10 +1,10 @@
 using AutoMapper;
 using Forpost.Domain.Catalogs.Products;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Products;
 
-internal sealed class ProductCreateCommandHandler : IRequestHandler<AddProductCommand, Guid>
+internal sealed class ProductCreateCommandHandler : ICommandHandler<AddProductCommand, Guid>
 {
     private readonly IProductDomainRepository _domainRepository;
     private readonly IMapper _mapper;
@@ -15,11 +15,11 @@ internal sealed class ProductCreateCommandHandler : IRequestHandler<AddProductCo
         _mapper = mapper;
     }
 
-    public Task<Guid> Handle(AddProductCommand command, CancellationToken cancellationToken)
+    public ValueTask<Guid> Handle(AddProductCommand command, CancellationToken cancellationToken)
     {
         var product = _mapper.Map<Product>(command);
-        return Task.FromResult(_domainRepository.Add(product));
+        return ValueTask.FromResult(_domainRepository.Add(product));
     }
 }
 
-public record AddProductCommand(string Name, string? Version) : IRequest<Guid>;
+public record AddProductCommand(string Name, string? Version) : ICommand<Guid>;

@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.FileStorage;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.FileStorage.Files;
 
-internal sealed class DeleteFileByIdCommandHandler : IRequestHandler<DeleteFileByIdCommand>
+internal sealed class DeleteFileByIdCommandHandler : ICommandHandler<DeleteFileByIdCommand>
 {
     private readonly IFileDomainRepository _domainRepository;
 
@@ -13,7 +13,7 @@ internal sealed class DeleteFileByIdCommandHandler : IRequestHandler<DeleteFileB
         _domainRepository = domainRepository;
     }
 
-    public async Task Handle(DeleteFileByIdCommand request, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(DeleteFileByIdCommand request, CancellationToken cancellationToken)
     {
         var fileId = request.Id;
 
@@ -24,7 +24,9 @@ internal sealed class DeleteFileByIdCommandHandler : IRequestHandler<DeleteFileB
         _domainRepository.DeleteById(fileId);
 
         if (System.IO.File.Exists(fullPath)) System.IO.File.Delete(fullPath);
+        
+        return await ValueTask.FromResult(Unit.Value);
     }
 }
 
-public sealed record DeleteFileByIdCommand(Guid Id) : IRequest;
+public sealed record DeleteFileByIdCommand(Guid Id) : ICommand;

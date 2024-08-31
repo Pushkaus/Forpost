@@ -1,10 +1,10 @@
 using Forpost.Domain.Catalogs.Products;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Products;
 
 internal sealed class GetAllProductsQueryHandler :
-    IRequestHandler<GetAllProductsQuery, IReadOnlyCollection<Product>>
+    IQueryHandler<GetAllProductsQuery, IReadOnlyCollection<Product>>
 {
     private readonly IProductDomainRepository _domainRepository;
 
@@ -13,8 +13,8 @@ internal sealed class GetAllProductsQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async Task<IReadOnlyCollection<Product>> Handle(GetAllProductsQuery request,
+    public async ValueTask<IReadOnlyCollection<Product>> Handle(GetAllProductsQuery request,
         CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
-public sealed record GetAllProductsQuery : IRequest<IReadOnlyCollection<Product>>;
+public sealed record GetAllProductsQuery : IQuery<IReadOnlyCollection<Product>>;

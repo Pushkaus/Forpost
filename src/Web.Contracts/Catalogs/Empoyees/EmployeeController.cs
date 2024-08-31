@@ -14,7 +14,7 @@ public sealed class EmployeeController : ApiController
     [ProducesResponseType(typeof(IReadOnlyCollection<EmployeeResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-       var employees = await Mediator.Send(new GetAllEmployeesWithRoleQuery(), cancellationToken);
+       var employees = await Sender.Send(new GetAllEmployeesWithRoleQuery(), cancellationToken);
        return Ok(employees);
     }
 }

@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.Issue;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.ProductCreating.Issues;
 
-internal sealed class LauncherIssueCommandHandler: IRequestHandler<LaunchIssueCommand>
+internal sealed class LauncherIssueCommandHandler: ICommandHandler<LaunchIssueCommand>
 {
     private readonly IIssueDomainRepository _issueDomainRepository;
 
@@ -13,7 +13,7 @@ internal sealed class LauncherIssueCommandHandler: IRequestHandler<LaunchIssueCo
         _issueDomainRepository = issueDomainRepository;
     }
 
-    public async Task Handle(LaunchIssueCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(LaunchIssueCommand command, CancellationToken cancellationToken)
     {
         //TODO; Меняет статус продукта в разработке на "В работе"
         var issue = await _issueDomainRepository.GetByIdAsync(command.IssueId, cancellationToken);
@@ -24,6 +24,7 @@ internal sealed class LauncherIssueCommandHandler: IRequestHandler<LaunchIssueCo
             throw new Exception("Невозможно запустить задачу без исполнителя.");
         
         _issueDomainRepository.Update(issue);
+        return Unit.Value;
     }
 }
-public record LaunchIssueCommand(Guid IssueId) : IRequest;
+public record LaunchIssueCommand(Guid IssueId) : ICommand;

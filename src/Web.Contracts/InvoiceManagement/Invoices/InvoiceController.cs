@@ -14,7 +14,7 @@ public sealed class InvoiceController : ApiController
     [HttpGet("{number}")]
     [ProducesResponseType(typeof(InvoiceResponse), StatusCodes.Status200OK)]
     public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken) 
-        => await Mediator.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
+        => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
 
     /// <summary>
     /// Получить все счета
@@ -22,7 +22,7 @@ public sealed class InvoiceController : ApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceResponse>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<Invoice>> GetAllAsync(CancellationToken cancellationToken) 
-        => await Mediator.Send(new GetAllInvoicesQuery(), cancellationToken);
+        => await Sender.Send(new GetAllInvoicesQuery(), cancellationToken);
 
     /// <summary>
     /// Создать счет
@@ -32,7 +32,7 @@ public sealed class InvoiceController : ApiController
     public async Task<Guid>
         ExposeAsync([FromBody] InvoiceCreateRequest request, CancellationToken cancellationToken)
     {
-        return await Mediator.Send(new AddInvoiceCommand
+        return await Sender.Send(new AddInvoiceCommand
         {
             Number = request.Number,
             ContragentId = request.ContragentId,

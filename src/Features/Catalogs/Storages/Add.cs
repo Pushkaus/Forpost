@@ -1,10 +1,10 @@
 using AutoMapper;
 using Forpost.Domain.Catalogs.Storages;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.Storages;
 
-internal sealed class AddStorageCommandHandler : IRequestHandler<AddStorageCommand, Guid>
+internal sealed class AddStorageCommandHandler : ICommandHandler<AddStorageCommand, Guid>
 {
     private readonly IStorageDomainRepository _domainRepository;
     private readonly IMapper _mapper;
@@ -15,11 +15,11 @@ internal sealed class AddStorageCommandHandler : IRequestHandler<AddStorageComma
         _mapper = mapper;
     }
 
-    public Task<Guid> Handle(AddStorageCommand command, CancellationToken cancellationToken)
+    public ValueTask<Guid> Handle(AddStorageCommand command, CancellationToken cancellationToken)
     {
         var storage = _mapper.Map<Storage>(command);
-        return Task.FromResult(_domainRepository.Add(storage));
+        return ValueTask.FromResult(_domainRepository.Add(storage));
     }
 }
 
-public class AddStorageCommand(string Name, Guid ResponsibleId) : IRequest<Guid>;
+public class AddStorageCommand(string Name, Guid ResponsibleId) : ICommand<Guid>;

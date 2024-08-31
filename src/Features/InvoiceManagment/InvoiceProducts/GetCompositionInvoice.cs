@@ -1,20 +1,20 @@
 using Forpost.Domain.SortOut;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.InvoiceProducts;
 
-internal sealed class GetProductsFromInvoice: IRequestHandler<GetCompositionInvoiceQuery, IReadOnlyCollection<InvoiceProduct>>
+internal sealed class GetProductsFromInvoiceQueryHandler: IQueryHandler<GetCompositionInvoiceQuery, IReadOnlyCollection<InvoiceProduct>>
 {
     private readonly IInvoiceProductDomainRepository _invoiceProductDomainRepository;
     
-    public GetProductsFromInvoice(IInvoiceProductDomainRepository invoiceProductDomainRepository)
+    public GetProductsFromInvoiceQueryHandler(IInvoiceProductDomainRepository invoiceProductDomainRepository)
     {
         _invoiceProductDomainRepository = invoiceProductDomainRepository;
     }
 
-    public async Task<IReadOnlyCollection<InvoiceProduct>> Handle
+    public async ValueTask<IReadOnlyCollection<InvoiceProduct>> Handle
         (GetCompositionInvoiceQuery request, CancellationToken cancellationToken) 
         => await _invoiceProductDomainRepository.GetProductsByInvoiceIdAsync(request.InvoiceId, cancellationToken);
 }
 
-public record GetCompositionInvoiceQuery(Guid InvoiceId) : IRequest<IReadOnlyCollection<InvoiceProduct>>; 
+public record GetCompositionInvoiceQuery(Guid InvoiceId) : IQuery<IReadOnlyCollection<InvoiceProduct>>; 

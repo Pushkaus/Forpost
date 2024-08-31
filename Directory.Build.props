@@ -12,4 +12,6 @@
         <RootNamespace>$(CommonPrefix).$(MSBuildProjectName)</RootNamespace>
         <AssemblyName>$(CommonPrefix).$(MSBuildProjectName)</AssemblyName>
     </PropertyGroup>
+
+    <Import Project="$(MSBuildThisFileDirectory)Directory.Testing.targets"/>
 </Project>

@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.Catalogs.TechCards;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.TechCards;
 
-internal sealed class GetTechCardByIdQueryHandler : IRequestHandler<GetTechCardByIdQuery, TechCard>
+internal sealed class GetTechCardByIdQueryHandler : IQueryHandler<GetTechCardByIdQuery, TechCard>
 {
     private readonly ITechCardDomainRepository _domainRepository;
 
@@ -13,11 +13,11 @@ internal sealed class GetTechCardByIdQueryHandler : IRequestHandler<GetTechCardB
         _domainRepository = domainRepository;
     }
 
-    public async Task<TechCard> Handle(GetTechCardByIdQuery request, CancellationToken cancellationToken)
+    public async ValueTask<TechCard> Handle(GetTechCardByIdQuery request, CancellationToken cancellationToken)
     {
         var techCard = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
         return techCard.EnsureFoundBy(entity => entity.Id, request.Id);
     }
 }
 
-public sealed record GetTechCardByIdQuery(Guid Id) : IRequest<TechCard>;
+public sealed record GetTechCardByIdQuery(Guid Id) : IQuery<TechCard>;

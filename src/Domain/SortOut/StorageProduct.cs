@@ -3,7 +3,7 @@ using Forpost.Domain.Primitives.EntityTemplates;
 
 namespace Forpost.Domain.SortOut;
 
-public class StorageProduct : DomainEntity
+public sealed class StorageProduct : DomainEntity
 {
     public Guid ProductId { get; set; }
     public string ProductName { get; set; } = default!;

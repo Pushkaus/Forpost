@@ -1,10 +1,10 @@
 using Forpost.Domain.Catalogs.TechCardItems;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.Catalogs.TechCardItems;
 
 internal sealed class GetAllTechCardItemsQueryHandler :
-    IRequestHandler<GetAllTechCardItemsQuery, IReadOnlyCollection<TechCardItem>>
+    IQueryHandler<GetAllTechCardItemsQuery, IReadOnlyCollection<TechCardItem>>
 {
     private readonly ITechCardItemDomainRepository _domainRepository;
 
@@ -13,8 +13,8 @@ internal sealed class GetAllTechCardItemsQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async Task<IReadOnlyCollection<TechCardItem>> Handle(GetAllTechCardItemsQuery request,
+    public async ValueTask<IReadOnlyCollection<TechCardItem>> Handle(GetAllTechCardItemsQuery request,
         CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
 }
 
-public sealed record GetAllTechCardItemsQuery : IRequest<IReadOnlyCollection<TechCardItem>>;
+public sealed record GetAllTechCardItemsQuery : IQuery<IReadOnlyCollection<TechCardItem>>;

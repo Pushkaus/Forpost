@@ -1,12 +1,12 @@
 using AutoMapper;
 using Forpost.Domain.FileStorage;
-using MediatR;
+using Mediator;
 using Microsoft.Extensions.Configuration;
 using File = Forpost.Domain.FileStorage.File;
 
 namespace Forpost.Features.FileStorage.Files;
 
-internal sealed class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Guid>
+internal sealed class UploadFileCommandHandler : ICommandHandler<UploadFileCommand, Guid>
 {
     private readonly IFileDomainRepository _domainRepository;
     private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ internal sealed class UploadFileCommandHandler : IRequestHandler<UploadFileComma
         _configuration = configuration;
     }
 
-    public async Task<Guid> Handle(UploadFileCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Guid> Handle(UploadFileCommand command, CancellationToken cancellationToken)
     {
         // ParentId - это любой ID из БД, к которому нужно привязать файл.
         // Путь к файлу Files/ParentId/FileName
@@ -41,4 +41,4 @@ internal sealed class UploadFileCommandHandler : IRequestHandler<UploadFileComma
     }
 }
 
-public record UploadFileCommand(string FileName, byte[] Content, string ContentType, Guid ParentId) : IRequest<Guid>;
+public record UploadFileCommand(string FileName, byte[] Content, string ContentType, Guid ParentId) : ICommand<Guid>;

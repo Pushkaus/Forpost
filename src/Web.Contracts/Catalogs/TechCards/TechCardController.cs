@@ -14,7 +14,7 @@ public sealed class TechCardController: ApiController
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(Domain.Catalogs.TechCards.TechCard), StatusCodes.Status200OK)]
     public async Task<Domain.Catalogs.TechCards.TechCard?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
-        => await Mediator.Send(new GetTechCardByIdQuery(id), cancellationToken);
+        => await Sender.Send(new GetTechCardByIdQuery(id), cancellationToken);
     
     /// <summary>
     /// Получение всех тех.карт
@@ -22,7 +22,7 @@ public sealed class TechCardController: ApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<Domain.Catalogs.TechCards.TechCard>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<Domain.Catalogs.TechCards.TechCard>> GetAllAsync(CancellationToken cancellationToken) 
-        => await Mediator.Send(new GetAllTechCardsQuery(), cancellationToken);
+        => await Sender.Send(new GetAllTechCardsQuery(), cancellationToken);
     
     /// <summary>
     /// Создание тех.карты
@@ -32,7 +32,7 @@ public sealed class TechCardController: ApiController
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync(TechCardCreateRequest card, CancellationToken cancellationToken)
     {
-       var techCardId = await Mediator.Send(new AddTechCardCommand
+       var techCardId = await Sender.Send(new AddTechCardCommand
        {
            Number = card.Number,
            Description = card.Description,

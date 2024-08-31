@@ -16,7 +16,7 @@ public sealed class InvoiceProductController : ApiController
     public async Task<IActionResult>
         CreateAsync([FromBody] InvoiceProductRequest request, CancellationToken cancellationToken)
     {
-        await Mediator.Send(new AddInvoiceProductCommand(
+        await Sender.Send(new AddInvoiceProductCommand(
             request.InvoiceId,
             request.ProductId,
             request.Quantity), cancellationToken);
@@ -31,7 +31,7 @@ public sealed class InvoiceProductController : ApiController
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceProductResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCompositionInvoiceAsync(Guid id, CancellationToken cancellationToken)
     {
-        var compositionInvoice = await Mediator.Send(new GetCompositionInvoiceQuery(id), cancellationToken);
+        var compositionInvoice = await Sender.Send(new GetCompositionInvoiceQuery(id), cancellationToken);
         return Ok(compositionInvoice);
     }
     //TODO;

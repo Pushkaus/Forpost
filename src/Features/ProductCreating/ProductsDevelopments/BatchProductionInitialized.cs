@@ -2,16 +2,17 @@ using AutoMapper;
 using Forpost.Application.Contracts.ProductsDevelopments;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.ProductCreating.ProductsDevelopments;
 
-internal sealed class BatchProductionInitializedCommandHandler: IRequestHandler<BatchProductionInitializedCommand>
+internal sealed class BatchProductionInitializedCommandHandler: ICommandHandler<BatchProductionInitializedCommand>
 {
     private readonly IManufacturingProcessDomainRepository _manufacturingProcessDomainRepository;
     private readonly IProductDevelopmentReadRepository _productDevelopmentReadRepository;
     private readonly IProductDevelopmentDomainRepository _productDevelopmentDomainRepository;
     private readonly IMapper _mapper;
+    
     public BatchProductionInitializedCommandHandler(IManufacturingProcessDomainRepository manufacturingProcessDomainRepository, IProductDevelopmentDomainRepository productDevelopmentDomainRepository, IProductDevelopmentReadRepository productDevelopmentReadRepository, IMapper mapper)
     {
         _manufacturingProcessDomainRepository = manufacturingProcessDomainRepository;
@@ -20,7 +21,7 @@ internal sealed class BatchProductionInitializedCommandHandler: IRequestHandler<
         _mapper = mapper;
     }
 
-    public async Task Handle(BatchProductionInitializedCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(BatchProductionInitializedCommand command, CancellationToken cancellationToken)
     {
         var manufacturingProcess = await _manufacturingProcessDomainRepository
             .GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
@@ -37,6 +38,8 @@ internal sealed class BatchProductionInitializedCommandHandler: IRequestHandler<
            productDevelopment.GenerateInitialSerialNumber(productDevelopmentSummary.BatchNumber, currentSequencNumber);
            _productDevelopmentDomainRepository.Add(productDevelopment);
         }
+        
+        return Unit.Value;
     }
 }
-public record BatchProductionInitializedCommand(Guid ManufacturingProcessId): IRequest;
+public record BatchProductionInitializedCommand(Guid ManufacturingProcessId): ICommand;

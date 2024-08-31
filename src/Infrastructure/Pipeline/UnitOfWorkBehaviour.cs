@@ -1,11 +1,9 @@
 using Forpost.Application.Contracts;
-using Forpost.Store.Postgres;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Infrastructure.Pipeline;
 
-public sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : notnull
+internal sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IMessage
 {
     private readonly IDbUnitOfWork _unitOfWork;
 
@@ -13,22 +11,20 @@ public sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<
     {
         _unitOfWork = unitOfWork;
     }
-
-    public async Task<TResponse> Handle(TRequest request,
-        RequestHandlerDelegate<TResponse> next,
-        CancellationToken cancellationToken)
+    
+    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
     {
         if (IsWriteOperation() is false)
         {
-            return await next();
+            return await next(message, cancellationToken);
         }
 
-        var response = await next();
+        var response = await next(message, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return response;
     }
-
+    
     private static bool IsWriteOperation() => typeof(TRequest).Name.EndsWith("Command");
 }

@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.ProductCreating.ProductsDevelopments;
 
-internal sealed class AssignSettingOptionCommandHandler: IRequestHandler<AssignSettingOptionCommand>
+internal sealed class AssignSettingOptionCommandHandler: ICommandHandler<AssignSettingOptionCommand>
 {
     private readonly IProductDevelopmentDomainRepository _productDevelopmentDomainRepository;
 
@@ -13,7 +13,7 @@ internal sealed class AssignSettingOptionCommandHandler: IRequestHandler<AssignS
         _productDevelopmentDomainRepository = productDevelopmentDomainRepository;
     }
 
-    public async Task Handle(AssignSettingOptionCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(AssignSettingOptionCommand command, CancellationToken cancellationToken)
     {
         var productDevelopment = await _productDevelopmentDomainRepository
             .GetByIdAsync(command.ProductDevelopmentId, cancellationToken);
@@ -22,6 +22,8 @@ internal sealed class AssignSettingOptionCommandHandler: IRequestHandler<AssignS
             .SetSettingOption(command.SettingOption);
         
         _productDevelopmentDomainRepository.Update(productDevelopment);
+        
+        return Unit.Value;
     }
 }
-public record AssignSettingOptionCommand(Guid ProductDevelopmentId, SettingOption SettingOption): IRequest;
+public record AssignSettingOptionCommand(Guid ProductDevelopmentId, SettingOption SettingOption): ICommand;

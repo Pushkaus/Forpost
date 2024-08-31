@@ -1,10 +1,10 @@
 using Forpost.Common;
 using Forpost.Domain.InvoiceManagement;
-using MediatR;
+using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.Invoices;
 
-internal sealed class GetInvoiceByNumberQueryHandler: IRequestHandler<GetInvoiceByNumberQuery, Invoice>
+internal sealed class GetInvoiceByNumberQueryHandler: IQueryHandler<GetInvoiceByNumberQuery, Invoice>
 {
     private readonly IInvoiceDomainRepository _invoiceDomainRepository;
 
@@ -13,11 +13,11 @@ internal sealed class GetInvoiceByNumberQueryHandler: IRequestHandler<GetInvoice
         _invoiceDomainRepository = invoiceDomainRepository;
     }
 
-    public async Task<Invoice> Handle(GetInvoiceByNumberQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Invoice> Handle(GetInvoiceByNumberQuery request, CancellationToken cancellationToken)
     {
         var invoice = await _invoiceDomainRepository.GetByNumberAsync(request.Number, cancellationToken);
         invoice.EnsureFoundBy(entity => entity.Number, request.Number);
         return invoice;
     }
 }
-public record GetInvoiceByNumberQuery(string Number): IRequest<Invoice>;
+public record GetInvoiceByNumberQuery(string Number): IQuery<Invoice>;
