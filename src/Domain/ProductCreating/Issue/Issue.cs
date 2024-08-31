@@ -18,7 +18,7 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
         {
             ManufacturingProcessId = scheduledIssue.ManufacturingProcessId,
             StepId = scheduledIssue.StepId,
-            ExecutorId = default,
+            ExecutorId = scheduledIssue.ResponsibleId,
             ResponsibleId = scheduledIssue.ResponsibleId,
             Description = scheduledIssue.Description,
             CurrentQuantity = 0,
