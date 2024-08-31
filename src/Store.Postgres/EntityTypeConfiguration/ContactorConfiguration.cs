@@ -9,6 +9,9 @@ internal sealed class ContactorConfiguration : IEntityTypeConfiguration<Contract
     public void Configure(EntityTypeBuilder<Contractor> builder)
     {
         builder.ConfigureBaseEntity();
-        builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
+        builder.Property(entity => entity.Name)
+            .HasMaxLength(DatabaseConstrains.MaxLength);
+        
+        builder.HasIndex(contractor => contractor.Name).IsUnique();
     }
 }

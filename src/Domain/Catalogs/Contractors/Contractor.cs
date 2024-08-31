@@ -9,7 +9,6 @@ public sealed class Contractor : AggregateRoot
 {
     private Contractor(string name)
     {
-        Id = Guid.NewGuid();
         Name = name;
     }
 

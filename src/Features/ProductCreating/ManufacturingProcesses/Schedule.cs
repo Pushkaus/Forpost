@@ -28,6 +28,7 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: ICommandHandl
             command.TargetQuantity,
             command.StartTime);
         
+        
         var manufacturingProcessId = _manufacturingProcessDomainRepository.Add(manufacturingProcess);
         foreach (var scheduledIssue in command.Issues)
         {

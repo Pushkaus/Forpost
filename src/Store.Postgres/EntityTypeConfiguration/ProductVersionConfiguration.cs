@@ -10,6 +10,7 @@ internal sealed class ProductVersionConfiguration : IEntityTypeConfiguration<Pro
     public void Configure(EntityTypeBuilder<ProductVersion> builder)
     {
         builder.ConfigureBaseEntity();
+        
         builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);

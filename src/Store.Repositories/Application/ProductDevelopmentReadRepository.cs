@@ -1,6 +1,7 @@
 using Forpost.Application.Contracts.ProductsDevelopments;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Forpost.Store.Repositories.Application;
 
