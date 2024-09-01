@@ -1,4 +1,5 @@
 using Forpost.Web.Contracts;
+using Forpost.Web.Host.Infrastructure.DocumentGeneration;
 using Microsoft.OpenApi.Models;
 
 namespace Forpost.Web.Host.Infrastructure;
@@ -44,6 +45,11 @@ internal static class SwaggerExtensions
             var xmlFile = $"{WebContractsAssemblyReference.Assembly.GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             options.IncludeXmlComments(xmlPath);
+        });
+        
+        services.AddOpenApiDocument(documentSettings =>
+        {
+            documentSettings.OperationProcessors.Add(new OperationIdControllerPrefixRemoveProcessor());
         });
 
         return services;

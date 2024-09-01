@@ -8,8 +8,6 @@ namespace Forpost.Store.Migrations;
 
 internal abstract class ContextFactory<TDbContext> : IDesignTimeDbContextFactory<TDbContext> where TDbContext : DbContext
 {
-    private const string ConnectionName = "ErpDatabase";
-
     private TDbContext CreateContext(DbContextOptionsBuilder<TDbContext> options)
         => (TDbContext?)Activator.CreateInstance(typeof(TDbContext), options.Options)
            ?? throw new InvalidOperationException();
@@ -20,18 +18,8 @@ internal abstract class ContextFactory<TDbContext> : IDesignTimeDbContextFactory
     public TDbContext CreateDbContext(string[] args) => CreateContext(CreateDbContextOptions());
 
     protected DbContextOptionsBuilder<TDbContext> CreateDbContextOptions() =>
-        new DbContextOptionsBuilder<TDbContext>().UseNpgsql(GetConnectionString(), PostgresOptions);
-
-    protected string GetConnectionString()
-        => Configuration.GetConnectionString(ConnectionName) ?? throw new InvalidOperationException(
-               $"Не удалось получить строку подключения {ConnectionName}");
-
-    protected IConfiguration Configuration =>
-        new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
-
+        new DbContextOptionsBuilder<TDbContext>().UseNpgsql(PostgresOptions);
+    
 }
 
 /// <summary>
