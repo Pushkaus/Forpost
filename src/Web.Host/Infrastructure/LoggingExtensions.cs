@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging.Console;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Resources;
@@ -12,6 +13,7 @@ internal static class LoggingExtensions
 
             .AddSimpleConsole(options =>
             {
+                options.ColorBehavior = LoggerColorBehavior.Enabled;
                 options.IncludeScopes = true;
                 options.SingleLine = true;
                 options.TimestampFormat = "HH:mm:ss ";

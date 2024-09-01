@@ -8,14 +8,15 @@ internal sealed class Program
     {
         var host = CreateHostBuilder(args, ConfigureWebHostBuilder).Build();
         var logger = host.Services.GetRequiredService<ILogger<Program>>();
+        var configuration = host.Services.GetRequiredService<IConfiguration>();
 
         try
         {
             logger.LogDebug("Старт миграции БД ErpDatabase");
-            await MigrationManager.MigrateSchema();
+            await MigrationManager.MigrateSchema(configuration);
             logger.LogDebug("Миграция схемы произошла успешно!");
             logger.LogDebug("Старт миграции данных");
-            await MigrationManager.MigrateData();
+            await MigrationManager.MigrateData(configuration);
             logger.LogDebug("Старт миграции прошла успешно");
         }
         catch (Exception ex)
