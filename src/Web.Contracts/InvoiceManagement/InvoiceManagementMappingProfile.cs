@@ -11,8 +11,6 @@ internal sealed class InvoiceManagementMappingProfile : Profile
 {
     public InvoiceManagementMappingProfile()
     {
-        CreateMap<InvoiceCreateRequest, InvoiceCreateCommand>().ValidateMemberList(MemberList.Destination);
-        CreateMap<InvoiceUpdateRequest, InvoiceUpdateCommand>().ValidateMemberList(MemberList.Destination);
         
         CreateMap<InvoiceProductRequest, InvoiceProductCreate>().ValidateMemberList(MemberList.Destination);
         CreateMap<InvoiceProduct, InvoiceProductResponse>().ValidateMemberList(MemberList.Destination);

@@ -2,7 +2,7 @@ using Forpost.Web.Client.Implementations;
 
 namespace Forpost.Web.Client;
 
-internal sealed class ForpostApiClient : IForpostApiClient
+public sealed class ForpostApiClient : IForpostApiClient
 {
     public ForpostApiClient(IIssueClient issueClient,
         IManufacturingProcessClient manufacturingProcessClient,

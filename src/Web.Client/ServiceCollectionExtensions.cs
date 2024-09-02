@@ -7,23 +7,23 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddForpostClients(this IServiceCollection services)
     {
-        services.AddHttpClient<IIssueClient, IssueClient>();
-        services.AddHttpClient<IManufacturingProcessClient, ManufacturingProcessClient>();
-        services.AddHttpClient<IInvoiceClient, InvoiceClient>();
-        services.AddHttpClient<IInvoiceProductClient, InvoiceProductClient>();
-        services.AddHttpClient<IInvoiceProductClient, InvoiceProductClient>();
-        services.AddHttpClient<ITechCardClient, TechCardClient>();
-        services.AddHttpClient<ITechCardStepClient, TechCardStepClient>();
-        services.AddHttpClient<ITechCardItemClient, TechCardItemClient>();
-        services.AddHttpClient<IStorageClient, StorageClient>();
-        services.AddHttpClient<IStepClient, StepClient>();
-        services.AddHttpClient<IRoleClient, RoleClient>();
-        services.AddHttpClient<IProductClient, ProductClient>();
-        services.AddHttpClient<IOperationClient, OperationClient>();
-        services.AddHttpClient<IEmployeeClient, EmployeeClient>();
-        services.AddHttpClient<IContractorClient, ContractorClient>();
-        services.AddHttpClient<IAccountClient, AccountClient>();
-        services.AddHttpClient<IContractorClient, ContractorClient>();
+        var baseAddress = new Uri(BaseConstants.BaseUrl);
+        
+        services.AddHttpClient<IIssueClient, IssueClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IManufacturingProcessClient, ManufacturingProcessClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IInvoiceClient, InvoiceClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IInvoiceProductClient, InvoiceProductClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<ITechCardClient, TechCardClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<ITechCardStepClient, TechCardStepClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<ITechCardItemClient, TechCardItemClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IStorageClient, StorageClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IStepClient, StepClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IRoleClient, RoleClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IProductClient, ProductClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IOperationClient, OperationClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IEmployeeClient, EmployeeClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IContractorClient, ContractorClient>(client => client.BaseAddress = baseAddress);
+        services.AddHttpClient<IAccountClient, AccountClient>(client => client.BaseAddress = baseAddress);
         
         services.AddSingleton<IForpostApiClient, ForpostApiClient>();
         return services;

@@ -13,7 +13,7 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
 
         builder.HasOne<Contractor>()
             .WithMany()
-            .HasForeignKey(key => key.ContragentId);
+            .HasForeignKey(key => key.ContractorId);
 
         builder.Property(entity => entity.Number).HasMaxLength(DatabaseConstrains.MaxLength);
         builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);

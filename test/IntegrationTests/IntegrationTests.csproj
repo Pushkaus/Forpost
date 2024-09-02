@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Domain.Primitives\Domain.Primitives.csproj" />
+        <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
+        <ProjectReference Include="..\..\src\Web.Client\Web.Client.csproj" />
+        <ProjectReference Include="..\..\src\Web.Contracts\Web.Contracts.csproj" />
+        <ProjectReference Include="..\..\src\Web.Host\Web.Host.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="AutoFixture" />
+      <PackageReference Include="AutoFixture.AutoMoq" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+      <PackageReference Include="Testcontainers.PostgreSql" />
+    </ItemGroup>
+</Project>
