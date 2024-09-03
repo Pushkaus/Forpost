@@ -46,7 +46,7 @@ public sealed class TestApplication: WebApplicationFactory<IApiMarker>, IAsyncLi
             { "ConnectionStrings:ErpDatabase", _dbContainer.GetConnectionString() }
         };
 
-        builder.ConfigureHostConfiguration(x => x.AddInMemoryCollection(overridenConfiguration!));
+        builder.ConfigureAppConfiguration(x => x.AddInMemoryCollection(overridenConfiguration!));
 
         return base.CreateHost(builder);
     }
