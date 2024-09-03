@@ -6812,10 +6812,10 @@ namespace Forpost.Web.Client.Implementations
         public string? Description { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("daysShipment")]
-        public int? DaysShipment { get; set; } = default!;
+        public int DaysShipment { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
-        public int? PaymentPercentage { get; set; } = default!;
+        public int PaymentPercentage { get; set; } = default!;
 
     }
 

@@ -17,5 +17,8 @@ internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
 
         builder.Property(entity => entity.Number).HasMaxLength(DatabaseConstrains.MaxLength);
         builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);
+        
+        builder.Property(x => x.Status)
+            .ConfigureSmartEnumerationAsEnum();
     }
 }

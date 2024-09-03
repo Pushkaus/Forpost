@@ -1664,13 +1664,11 @@
           },
           "daysShipment": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
           "paymentPercentage": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           }
         }
       },

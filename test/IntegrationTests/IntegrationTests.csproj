@@ -18,5 +18,7 @@
       <PackageReference Include="AutoFixture.AutoMoq" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
       <PackageReference Include="Testcontainers.PostgreSql" />
+        <PackageReference Include="xunit" />
+        
     </ItemGroup>
 </Project>
