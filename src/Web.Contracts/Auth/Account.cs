@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Forpost.Web.Contracts.Auth;
 
 [Route("api/v1/accounts")]
-public sealed class AccountController : ApiController
+public sealed class Account : ApiController
 {
     /// <summary>
     /// Регистрация сотрудника (регистрирует только админ)

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Contractors;
 using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Products;
@@ -6,6 +7,7 @@ using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.Catalogs.Storages;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
+using Forpost.Features.Auth;
 using Forpost.Features.Catalogs.Contractors;
 using Forpost.Features.Catalogs.Operations;
 using Forpost.Features.Catalogs.Products;
@@ -26,6 +28,7 @@ internal sealed class CatalogMappingProfile : Profile
         MapSteps();
         MapProducts();
         MapOperations();
+        MapAuth();
     }
 
     private void MapStorages()
@@ -58,5 +61,9 @@ internal sealed class CatalogMappingProfile : Profile
     private void MapOperations()
     {
         CreateMap<AddOperationCommand, Operation>().ValidateMemberList(MemberList.Destination);
+    }
+    private void MapAuth()
+    {
+        CreateMap<LoginUserCommand, EmployeeWithRoleModel>().ValidateMemberList(MemberList.Destination);
     }
 }

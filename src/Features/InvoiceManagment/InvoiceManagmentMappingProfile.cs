@@ -10,11 +10,7 @@ internal sealed class InvoiceMappingProfile : Profile
 {
     public InvoiceMappingProfile()
     {
-        //
         CreateMap<AddInvoiceCommand, Invoice>().ValidateMemberList(MemberList.Destination);
-        CreateMap<InvoiceUpdateCommand, Invoice>().ValidateMemberList(MemberList.Destination);
-        //
         CreateMap<AddInvoiceProductCommand, InvoiceProduct>().ValidateMemberList(MemberList.Source);
-
     }
 }
