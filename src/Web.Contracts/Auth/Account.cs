@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Features.Auth;
 using Microsoft.AspNetCore.Authorization;
@@ -30,7 +32,7 @@ public sealed class Account : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<string> LoginAsync([FromQuery] LoginUserRequest request, CancellationToken cancellationToken)
+    public async Task<string> LoginAsync([Required][FromBody] LoginUserRequest request, CancellationToken cancellationToken)
     {
         var token = await Sender.Send(new LoginUserCommand(
             request.FirstName,

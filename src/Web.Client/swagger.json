@@ -1382,32 +1382,18 @@
         ],
         "summary": "Логин сотрудника",
         "operationId": "Login",
-        "parameters": [
-          {
-            "name": "FirstName",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUserRequest"
+              }
+            }
           },
-          {
-            "name": "LastName",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 2
-          },
-          {
-            "name": "Password",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 3
-          }
-        ],
+          "required": true,
+          "x-position": 1
+        },
         "responses": {
           "200": {
             "description": "",
@@ -2343,6 +2329,21 @@
           "instance": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "LoginUserRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
           }
         }
       }

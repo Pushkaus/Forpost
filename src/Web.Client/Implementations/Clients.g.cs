@@ -6252,14 +6252,14 @@ namespace Forpost.Web.Client.Implementations
         /// Логин сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<string> LoginAsync(string? firstName, string? lastName, string? password);
+        System.Threading.Tasks.Task<string> LoginAsync(LoginUserRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Логин сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<string> LoginAsync(string? firstName, string? lastName, string? password, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<string> LoginAsync(LoginUserRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -6416,9 +6416,9 @@ namespace Forpost.Web.Client.Implementations
         /// Логин сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<string> LoginAsync(string? firstName, string? lastName, string? password)
+        public virtual System.Threading.Tasks.Task<string> LoginAsync(LoginUserRequest request)
         {
-            return LoginAsync(firstName, lastName, password, System.Threading.CancellationToken.None);
+            return LoginAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6426,15 +6426,21 @@ namespace Forpost.Web.Client.Implementations
         /// Логин сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<string> LoginAsync(string? firstName, string? lastName, string? password, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<string> LoginAsync(LoginUserRequest request, System.Threading.CancellationToken cancellationToken)
         {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -6442,20 +6448,6 @@ namespace Forpost.Web.Client.Implementations
                 
                     // Operation Path: "api/v1/accounts/login"
                     urlBuilder_.Append("api/v1/accounts/login");
-                    urlBuilder_.Append('?');
-                    if (firstName != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("FirstName")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(firstName, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (lastName != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("LastName")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(lastName, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (password != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("Password")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(password, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    urlBuilder_.Length--;
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -7416,6 +7408,21 @@ namespace Forpost.Web.Client.Implementations
             get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
             set { _additionalProperties = value; }
         }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class LoginUserRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("firstName")]
+        public string FirstName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("lastName")]
+        public string LastName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("password")]
+        public string Password { get; set; } = default!;
 
     }
 

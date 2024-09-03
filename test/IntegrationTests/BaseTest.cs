@@ -4,16 +4,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Forpost.IntegrationTests;
 
-public abstract class BaseTests:IClassFixture<TestApplication>, IAsyncLifetime
+public abstract class BaseTest:IClassFixture<TestApplication>, IAsyncLifetime
 {
     protected readonly IForpostApiClient Client;
 
     protected readonly ForpostContextPostgres DbContext;
 
-    protected BaseTests(TestApplication application)
+    protected BaseTest(TestApplication application)
     {
         Client = application.Services.GetRequiredService<IForpostApiClient>();
-        DbContext = application.Services.GetRequiredService<ForpostContextPostgres>();
+        //DbContext = application.Services.GetRequiredService<ForpostContextPostgres>();
     }
 
     public Task InitializeAsync() => Task.CompletedTask;
