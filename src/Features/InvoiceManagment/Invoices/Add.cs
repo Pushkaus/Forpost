@@ -1,5 +1,7 @@
 using AutoMapper;
+using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.InvoiceManagement;
+using Forpost.Domain.SortOut;
 using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.Invoices;
@@ -7,12 +9,14 @@ namespace Forpost.Features.InvoiceManagment.Invoices;
 internal sealed class AddInvoiceCommandHandler: ICommandHandler<AddInvoiceCommand, Guid>
 {
     private readonly IInvoiceDomainRepository _invoiceDomainRepository;
+    private readonly IInvoiceProductDomainRepository _invoiceProductDomainRepository;
     private readonly IMapper _mapper;
 
-    public AddInvoiceCommandHandler(IInvoiceDomainRepository invoiceDomainRepository, IMapper mapper)
+    public AddInvoiceCommandHandler(IInvoiceDomainRepository invoiceDomainRepository, IMapper mapper, IInvoiceProductDomainRepository invoiceProductDomainRepository)
     {
         _invoiceDomainRepository = invoiceDomainRepository;
         _mapper = mapper;
+        _invoiceProductDomainRepository = invoiceProductDomainRepository;
     }
 
     public ValueTask<Guid> Handle(AddInvoiceCommand command, CancellationToken cancellationToken)
@@ -24,6 +28,11 @@ internal sealed class AddInvoiceCommandHandler: ICommandHandler<AddInvoiceComman
             command.PaymentPercentage,
             command.DaysShipment));
         
+        foreach (var product in command.Products)
+        {
+            product.InvoiceId = invoiceId;
+            _invoiceProductDomainRepository.Add(product);
+        }
         return ValueTask.FromResult(invoiceId);
     }
 }
@@ -33,5 +42,6 @@ public record AddInvoiceCommand: ICommand<Guid>
     public Guid ContragentId { get; set; }
     public string? Description { get; set; }
     public int DaysShipment { get; set; }
-    public int PaymentPercentage { get; set; }
+    public decimal PaymentPercentage { get; set; }
+    public IReadOnlyList<InvoiceProduct>? Products { get; set; }
 }

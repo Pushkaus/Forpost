@@ -1,4 +1,5 @@
 using Forpost.Domain.InvoiceManagement;
+using Forpost.Domain.InvoiceManagement.Events;
 using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.Invoices;

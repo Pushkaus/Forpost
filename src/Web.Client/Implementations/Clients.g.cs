@@ -223,8 +223,6 @@ namespace Forpost.Web.Client.Implementations
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
-                    
-                  
                     finally
                     {
                         if (disposeResponse_)
@@ -837,27 +835,27 @@ namespace Forpost.Web.Client.Implementations
         /// Получить счет по его номеру
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<InvoiceResponse> GetByNumberAsync(string number);
+        System.Threading.Tasks.Task<Invoice> GetByNumberAsync(string number);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить счет по его номеру
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<InvoiceResponse> GetByNumberAsync(string number, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Invoice> GetByNumberAsync(string number, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить все счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceResponse>> GetAllAllAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAllAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceResponse>> GetAllAllAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAllAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создать счет
@@ -873,17 +871,30 @@ namespace Forpost.Web.Client.Implementations
         System.Threading.Tasks.Task<System.Guid> ExposeAsync(InvoiceCreateRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
-        /// Закрытие счета, смена статуса и выставление даты отгрузки
+        /// Закрытие счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task ClosingAsync(string id, InvoiceUpdateRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Закрытие счета, смена статуса и выставление даты отгрузки
+        /// Закрытие счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task ClosingAsync(string id, InvoiceUpdateRequest request, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Закрытие счета, смена статуса и выставление даты отгрузки
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task ShipAsync(System.Guid invoiceId, System.DateTimeOffset? shipDate);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Закрытие счета, смена статуса и выставление даты отгрузки
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task ShipAsync(System.Guid invoiceId, System.DateTimeOffset? shipDate, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление счета
@@ -945,7 +956,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить счет по его номеру
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<InvoiceResponse> GetByNumberAsync(string number)
+        public virtual System.Threading.Tasks.Task<Invoice> GetByNumberAsync(string number)
         {
             return GetByNumberAsync(number, System.Threading.CancellationToken.None);
         }
@@ -955,7 +966,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить счет по его номеру
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<InvoiceResponse> GetByNumberAsync(string number, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Invoice> GetByNumberAsync(string number, System.Threading.CancellationToken cancellationToken)
         {
             if (number == null)
                 throw new System.ArgumentNullException("number");
@@ -971,8 +982,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/invoices/{number}"
-                    urlBuilder_.Append("api/v1/invoices/");
+                    // Operation Path: "api/v1/invoices/number/{number}"
+                    urlBuilder_.Append("api/v1/invoices/number/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(number, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -1000,7 +1011,7 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<InvoiceResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<Invoice>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1031,7 +1042,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceResponse>> GetAllAllAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAllAsync()
         {
             return GetAllAllAsync(System.Threading.CancellationToken.None);
         }
@@ -1041,7 +1052,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceResponse>> GetAllAllAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1082,7 +1093,7 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<InvoiceResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Invoice>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1199,7 +1210,7 @@ namespace Forpost.Web.Client.Implementations
         }
 
         /// <summary>
-        /// Закрытие счета, смена статуса и выставление даты отгрузки
+        /// Закрытие счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task ClosingAsync(string id, InvoiceUpdateRequest request)
@@ -1209,7 +1220,7 @@ namespace Forpost.Web.Client.Implementations
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Закрытие счета, смена статуса и выставление даты отгрузки
+        /// Закрытие счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task ClosingAsync(string id, InvoiceUpdateRequest request, System.Threading.CancellationToken cancellationToken)
@@ -1262,6 +1273,93 @@ namespace Forpost.Web.Client.Implementations
 
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Закрытие счета, смена статуса и выставление даты отгрузки
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task ShipAsync(System.Guid invoiceId, System.DateTimeOffset? shipDate)
+        {
+            return ShipAsync(invoiceId, shipDate, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Закрытие счета, смена статуса и выставление даты отгрузки
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task ShipAsync(System.Guid invoiceId, System.DateTimeOffset? shipDate, System.Threading.CancellationToken cancellationToken)
+        {
+            if (invoiceId == null)
+                throw new System.ArgumentNullException("invoiceId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/invoices/ship/{invoiceId}"
+                    urlBuilder_.Append("api/v1/invoices/ship/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(invoiceId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append('?');
+                    if (shipDate != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("shipDate")).Append('=').Append(System.Uri.EscapeDataString(shipDate.Value.ToString("O", System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 202)
                         {
                             return;
                         }
@@ -6721,104 +6819,8 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class InvoiceResponse
+    public partial class Invoice : AggregateRoot
     {
-
-        [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid Id { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("number")]
-        public string Number { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("contragentId")]
-        public System.Guid ContragentId { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
-        public int PaymentPercentage { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("daysShipment")]
-        public int DaysShipment { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("issueStatus")]
-        public IssueStatus IssueStatus { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("dateShipment")]
-        public System.DateTimeOffset? DateShipment { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("paymentId")]
-        public System.Guid? PaymentId { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("createdAt")]
-        public System.DateTimeOffset CreatedAt { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("createdById")]
-        public System.Guid CreatedById { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("updatedAt")]
-        public System.DateTimeOffset UpdatedAt { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("updatedById")]
-        public System.Guid UpdatedById { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("deletedAt")]
-        public System.DateTimeOffset? DeletedAt { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("deletedById")]
-        public System.Guid? DeletedById { get; set; } = default!;
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class IssueStatus : SmartEnumerationOfIssueStatus
-    {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public abstract partial class SmartEnumerationOfIssueStatus
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("value")]
-        public int Value { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string Name { get; set; } = default!;
-
-    }
-
-    /// <summary>
-    /// Модель запроса на создание счета
-    /// </summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class InvoiceCreateRequest
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("number")]
-        public string Number { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("contragentId")]
-        public System.Guid ContragentId { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("daysShipment")]
-        public int DaysShipment { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
-        public int PaymentPercentage { get; set; } = default!;
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class InvoiceUpdateRequest
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid Id { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("number")]
         public string Number { get; set; } = default!;
@@ -6826,17 +6828,17 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("contractorId")]
         public System.Guid ContractorId { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("issueStatus")]
-        public IssueStatus IssueStatus { get; set; } = default!;
-
         [System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("daysShipment")]
-        public int? DaysShipment { get; set; } = default!;
-
         [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
-        public int? PaymentPercentage { get; set; } = default!;
+        public decimal PaymentPercentage { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("daysShipment")]
+        public int DaysShipment { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("status")]
+        public InvoiceStatus Status { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("dateShipment")]
         public System.DateTimeOffset? DateShipment { get; set; } = default!;
@@ -6844,50 +6846,20 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class InvoiceProductRequest
+    public partial class InvoiceStatus : SmartEnumerationOfInvoiceStatus
     {
-
-        [System.Text.Json.Serialization.JsonPropertyName("invoiceId")]
-        public System.Guid InvoiceId { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("productId")]
-        public System.Guid ProductId { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("quantity")]
-        public int Quantity { get; set; } = default!;
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class InvoiceProductResponse
+    public abstract partial class SmartEnumerationOfInvoiceStatus
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("invoiceId")]
-        public System.Guid InvoiceId { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("productId")]
-        public System.Guid ProductId { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("value")]
+        public int Value { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
         public string Name { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("quantity")]
-        public int Quantity { get; set; } = default!;
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TechCard : AggregateRoot
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("number")]
-        public string Number { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("productId")]
-        public System.Guid ProductId { get; set; } = default!;
 
     }
 
@@ -6936,6 +6908,144 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
         public System.Guid Id { get; set; } = default!;
+
+    }
+
+    /// <summary>
+    /// Модель запроса на создание счета
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class InvoiceCreateRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("number")]
+        public string Number { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("contragentId")]
+        public System.Guid ContragentId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string? Description { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("daysShipment")]
+        public int DaysShipment { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
+        public decimal PaymentPercentage { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("products")]
+        public System.Collections.Generic.ICollection<InvoiceProduct> Products { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class InvoiceProduct : DomainEntity
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("invoiceId")]
+        public System.Guid InvoiceId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productId")]
+        public System.Guid ProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("quantity")]
+        public int Quantity { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class InvoiceUpdateRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("number")]
+        public string Number { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("contractorId")]
+        public System.Guid ContractorId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("issueStatus")]
+        public IssueStatus IssueStatus { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string? Description { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("daysShipment")]
+        public int? DaysShipment { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
+        public int? PaymentPercentage { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("dateShipment")]
+        public System.DateTimeOffset? DateShipment { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class IssueStatus : SmartEnumerationOfIssueStatus
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class SmartEnumerationOfIssueStatus
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("value")]
+        public int Value { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class InvoiceProductRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("invoiceId")]
+        public System.Guid InvoiceId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productId")]
+        public System.Guid ProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("quantity")]
+        public int Quantity { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class InvoiceProductResponse
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("invoiceId")]
+        public System.Guid InvoiceId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productId")]
+        public System.Guid ProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("quantity")]
+        public int Quantity { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TechCard : AggregateRoot
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("number")]
+        public string Number { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string? Description { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productId")]
+        public System.Guid ProductId { get; set; } = default!;
 
     }
 

@@ -206,7 +206,7 @@
         }
       }
     },
-    "/api/v1/invoices/{number}": {
+    "/api/v1/invoices/number/{number}": {
       "get": {
         "tags": [
           "Invoice"
@@ -230,7 +230,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InvoiceResponse"
+                  "$ref": "#/components/schemas/Invoice"
                 }
               }
             }
@@ -253,7 +253,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/InvoiceResponse"
+                    "$ref": "#/components/schemas/Invoice"
                   }
                 }
               }
@@ -299,7 +299,7 @@
         "tags": [
           "Invoice"
         ],
-        "summary": "Закрытие счета, смена статуса и выставление даты отгрузки",
+        "summary": "Закрытие счета",
         "operationId": "Closing",
         "parameters": [
           {
@@ -326,6 +326,41 @@
         },
         "responses": {
           "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/invoices/ship/{invoiceId}": {
+      "put": {
+        "tags": [
+          "Invoice"
+        ],
+        "summary": "Закрытие счета, смена статуса и выставление даты отгрузки",
+        "operationId": "Ship",
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "shipDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "202": {
             "description": ""
           }
         }
@@ -1539,78 +1574,50 @@
           }
         }
       },
-      "InvoiceResponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "guid"
-          },
-          "number": {
-            "type": "string"
-          },
-          "contragentId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "paymentPercentage": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "daysShipment": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "issueStatus": {
-            "$ref": "#/components/schemas/IssueStatus"
-          },
-          "dateShipment": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "paymentId": {
-            "type": "string",
-            "format": "guid",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdById": {
-            "type": "string",
-            "format": "guid"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedById": {
-            "type": "string",
-            "format": "guid"
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "deletedById": {
-            "type": "string",
-            "format": "guid",
-            "nullable": true
-          }
-        }
-      },
-      "IssueStatus": {
+      "Invoice": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/SmartEnumerationOfIssueStatus"
+            "$ref": "#/components/schemas/AggregateRoot"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "number": {
+                "type": "string"
+              },
+              "contractorId": {
+                "type": "string",
+                "format": "guid"
+              },
+              "description": {
+                "type": "string",
+                "nullable": true
+              },
+              "paymentPercentage": {
+                "type": "number",
+                "format": "decimal"
+              },
+              "daysShipment": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "status": {
+                "$ref": "#/components/schemas/InvoiceStatus"
+              },
+              "dateShipment": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "InvoiceStatus": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SmartEnumerationOfInvoiceStatus"
           },
           {
             "type": "object",
@@ -1618,7 +1625,7 @@
           }
         ]
       },
-      "SmartEnumerationOfIssueStatus": {
+      "SmartEnumerationOfInvoiceStatus": {
         "type": "object",
         "x-abstract": true,
         "additionalProperties": false,
@@ -1631,134 +1638,6 @@
             "type": "string"
           }
         }
-      },
-      "InvoiceCreateRequest": {
-        "type": "object",
-        "description": "Модель запроса на создание счета",
-        "additionalProperties": false,
-        "properties": {
-          "number": {
-            "type": "string"
-          },
-          "contragentId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "daysShipment": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "paymentPercentage": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "InvoiceUpdateRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "guid"
-          },
-          "number": {
-            "type": "string"
-          },
-          "contractorId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "issueStatus": {
-            "$ref": "#/components/schemas/IssueStatus"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "daysShipment": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "paymentPercentage": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "dateShipment": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        }
-      },
-      "InvoiceProductRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "invoiceId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "productId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "InvoiceProductResponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "invoiceId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "productId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "name": {
-            "type": "string"
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "TechCard": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/AggregateRoot"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "number": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string",
-                "nullable": true
-              },
-              "productId": {
-                "type": "string",
-                "format": "guid"
-              }
-            }
-          }
-        ]
       },
       "AggregateRoot": {
         "allOf": [
@@ -1835,6 +1714,190 @@
             "format": "guid"
           }
         }
+      },
+      "InvoiceCreateRequest": {
+        "type": "object",
+        "description": "Модель запроса на создание счета",
+        "additionalProperties": false,
+        "properties": {
+          "number": {
+            "type": "string"
+          },
+          "contragentId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "daysShipment": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paymentPercentage": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceProduct"
+            }
+          }
+        }
+      },
+      "InvoiceProduct": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DomainEntity"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "invoiceId": {
+                "type": "string",
+                "format": "guid"
+              },
+              "productId": {
+                "type": "string",
+                "format": "guid"
+              },
+              "quantity": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "InvoiceUpdateRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "number": {
+            "type": "string"
+          },
+          "contractorId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "issueStatus": {
+            "$ref": "#/components/schemas/IssueStatus"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "daysShipment": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "paymentPercentage": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "dateShipment": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "IssueStatus": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SmartEnumerationOfIssueStatus"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "SmartEnumerationOfIssueStatus": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "InvoiceProductRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "invoiceId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "InvoiceProductResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "invoiceId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TechCard": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AggregateRoot"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "number": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string",
+                "nullable": true
+              },
+              "productId": {
+                "type": "string",
+                "format": "guid"
+              }
+            }
+          }
+        ]
       },
       "TechCardCreateRequest": {
         "type": "object",

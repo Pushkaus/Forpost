@@ -1,3 +1,5 @@
+using Forpost.Domain.SortOut;
+
 namespace Forpost.Web.Contracts.InvoiceManagement.Invoices;
 
 /// <summary>
@@ -9,5 +11,6 @@ public class InvoiceCreateRequest
     public Guid ContragentId { get; set; }
     public string? Description { get; set; }
     public int DaysShipment { get; set; }
-    public int PaymentPercentage { get; set; }
+    public decimal PaymentPercentage { get; set; }
+    public IReadOnlyList<InvoiceProduct> Products { get; set; } = Array.Empty<InvoiceProduct>();
 }

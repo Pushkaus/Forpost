@@ -34,6 +34,7 @@ public sealed class Account : ApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<string> LoginAsync([Required][FromBody] LoginUserRequest request, CancellationToken cancellationToken)
     {
+        ///TODO; Убрать JSON.Parse в клиенте
         var token = await Sender.Send(new LoginUserCommand(
             request.FirstName,
             request.LastName,

@@ -10,7 +10,14 @@ public sealed class ManufacturingProcessController : ApiController
     public async Task<IActionResult> Schedule(ScheduledManufacturingProcessCommand command,
         CancellationToken cancellationToken)
     {
-        var manufacturingProcessId = await Sender.Send(command, cancellationToken);
+        var manufacturingProcessId = await Sender.Send(new ScheduledManufacturingProcessCommand
+        {
+            TechnologicalCardId = command.TechnologicalCardId,
+            BatchNumber = command.BatchNumber,
+            TargetQuantity = command.TargetQuantity,
+            StartTime = command.StartTime,
+            Issues = command.Issues
+        }, cancellationToken);
         return Ok(manufacturingProcessId);
     }
     [HttpPut("launch/{id}")]

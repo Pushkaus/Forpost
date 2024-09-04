@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Forpost.Domain.InvoiceManagement;
 using Forpost.Features.InvoiceManagment.Invoices;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +12,8 @@ public sealed class InvoiceController : ApiController
     /// <summary>
     /// Получить счет по его номеру
     /// </summary>
-    [HttpGet("{number}")]
-    [ProducesResponseType(typeof(InvoiceResponse), StatusCodes.Status200OK)]
+    [HttpGet("number/{number}")]
+    [ProducesResponseType(typeof(Invoice), StatusCodes.Status200OK)]
     public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken) 
         => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
 
@@ -20,7 +21,7 @@ public sealed class InvoiceController : ApiController
     /// Получить все счета
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<Invoice>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<Invoice>> GetAllAsync(CancellationToken cancellationToken) 
         => await Sender.Send(new GetAllInvoicesQuery(), cancellationToken);
 
@@ -39,19 +40,30 @@ public sealed class InvoiceController : ApiController
             Description = request.Description,
             DaysShipment = request.DaysShipment,
             PaymentPercentage = request.PaymentPercentage,
+            Products = request.Products,
         }, cancellationToken);
     }
 
     /// <summary>
-    /// Закрытие счета, смена статуса и выставление даты отгрузки
+    /// Закрытие счета
     /// </summary>
-    /// <param name="request"></param>
     [HttpPut("close/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult>
         ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
     {
         //Todo;
+        return Ok();
+    } 
+    /// <summary>
+    /// Закрытие счета, смена статуса и выставление даты отгрузки
+    /// </summary>
+    [HttpPut("ship/{invoiceId}")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    public async Task<IActionResult>
+        ShipAsync(Guid invoiceId, DateTimeOffset shipDate, CancellationToken cancellationToken)
+    {
+        await Sender.Send(new ShipInvoiceCommand(invoiceId, shipDate), cancellationToken);
         return Ok();
     }
 

@@ -3,12 +3,13 @@ using Forpost.Domain.Primitives.EntityTemplates;
 
 namespace Forpost.Domain.ProductCreating.ManufacturingProcesses;
 
-public sealed class ManufacturingProcess : DomainAuditableEntity, ITimeFrameEntity
+public sealed class ManufacturingProcess : AggregateRoot,  ITimeFrameEntity
 {
-    public void Launch()
+    public void Launch(Guid manufacturingProcessId)
     { 
         StartTime = TimeProvider.System.GetUtcNow();
         Status = ManufacturingProcessStatus.InProgress;
+        Raise(new ManufacturingProcessLaunched(manufacturingProcessId));
     }
 
     public void Complete()

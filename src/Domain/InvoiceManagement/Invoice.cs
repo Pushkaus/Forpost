@@ -1,3 +1,4 @@
+using Forpost.Domain.InvoiceManagement.Events;
 using Forpost.Domain.Primitives.EntityTemplates;
 using Forpost.Domain.ProductCreating.Issue;
 
@@ -14,7 +15,7 @@ public sealed class Invoice : AggregateRoot
         string number,
         Guid contractorId,
         string? description,
-        int paymentPercentage,
+        decimal paymentPercentage,
         int daysShipment)
     {
         Number = number;
@@ -23,11 +24,14 @@ public sealed class Invoice : AggregateRoot
         PaymentPercentage = paymentPercentage;
         DaysShipment = daysShipment;
     }
+    /// <summary>
+    /// Завести счёт
+    /// </summary>
     public static Invoice Expose(
         string number,
         Guid contractorId,
         string? description,
-        int paymentPercentage,
+        decimal paymentPercentage,
         int daysShipment)
     {
         var invoice = new Invoice(number, contractorId, description, paymentPercentage, daysShipment);
@@ -38,13 +42,21 @@ public sealed class Invoice : AggregateRoot
         
         return invoice;
     }
+    /// <summary>
+    /// Выставление даты отгрузки счета
+    /// </summary>
+    public void Ship(DateTimeOffset dateShipment)
+    {
+        DateShipment = dateShipment;
+        Status = InvoiceStatus.Completed;
+    }
     public string Number { get; set; } = null!;
     public Guid ContractorId { get; set; }
     public string? Description { get; set; }
     /// <summary>
     /// Процент оплаты
     /// </summary>
-    public int PaymentPercentage { get; set; }
+    public decimal PaymentPercentage { get; set; }
     /// <summary>
     /// Количество дней до отгрузки
     /// </summary>
