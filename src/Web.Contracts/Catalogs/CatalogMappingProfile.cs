@@ -1,4 +1,5 @@
 using AutoMapper;
+using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.Contractors;
 using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.TechCardItems;
@@ -27,13 +28,19 @@ internal sealed class CatalogMappingProfile : Profile
     {
         CreateMap<Contractor, ContractorResponse>().ValidateMemberList(MemberList.Destination);
         
-        CreateMap<TechCardStep, StepsInTechCardResponse>().ValidateMemberList(MemberList.Destination);
+        CreateMap<TechCardStep, StepInTechCardResponse>().ValidateMemberList(MemberList.Destination);
         CreateMap<TechCardStepRequest, TechCardStepCreateCommand>().ValidateMemberList(MemberList.Destination);
         
         CreateMap<TechCardCreateRequest, AddTechCardCommand>().ValidateMemberList(MemberList.Destination);
         
         CreateMap<TechCardItem, TechCardItemsResponse>().ValidateMemberList(MemberList.Destination);
         CreateMap<TechCardItemRequest, AddTechCardItemCommand>().ValidateMemberList(MemberList.Destination);
+        CreateMap<CompositionTechCard, CompositionTechCardResponse>()
+            .ValidateMemberList(MemberList.Source);
+        CreateMap<StepSummary, StepSummaryResponse>()
+            .ValidateMemberList(MemberList.Source);
+        CreateMap<ItemSummary, ItemSummaryResponse>()
+            .ValidateMemberList(MemberList.Source);
         
         CreateMap<StorageCreateRequest, AddStorageCommand>().ValidateMemberList(MemberList.Destination);
         
@@ -45,6 +52,8 @@ internal sealed class CatalogMappingProfile : Profile
         CreateMap<ProductUpdateRequest, UpdateProductCommand>().ValidateMemberList(MemberList.Destination);
         
         CreateMap<OperationCreateRequest, AddOperationCommand>().ValidateMemberList(MemberList.Destination);
+        
+        
         
     }
 }

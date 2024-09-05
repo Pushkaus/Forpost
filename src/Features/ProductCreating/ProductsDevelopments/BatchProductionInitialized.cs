@@ -23,9 +23,6 @@ internal sealed class BatchProductionInitializedCommandHandler: ICommandHandler<
 
     public async ValueTask<Unit> Handle(BatchProductionInitializedCommand command, CancellationToken cancellationToken)
     {
-        var manufacturingProcess = await _manufacturingProcessDomainRepository
-            .GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
-        
         var productDevelopmentSummary = await _productDevelopmentReadRepository
             .GetSummaryByManufacturingProcessIdAsync(command.ManufacturingProcessId, cancellationToken);
         

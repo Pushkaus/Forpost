@@ -1,4 +1,5 @@
 using Forpost.Features.Catalogs.TechCards;
+using Forpost.Web.Contracts.Catalogs.TechCardSteps;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,17 @@ namespace Forpost.Web.Contracts.Catalogs.TechCards;
 [Route("v1/api/techcard")]
 public sealed class TechCardController: ApiController
 {
+    /// <summary>
+    /// Получение состава тех.карты по Id 
+    /// </summary>
+    /// <param name="techCardId"></param>
+    [HttpGet("composition/{techCardId}")]
+    [ProducesResponseType(typeof(CompositionTechCardResponse),StatusCodes.Status200OK)]
+    public async Task<CompositionTechCardResponse> GetCompositionTechCardAsync(Guid techCardId,
+        CancellationToken cancellationToken) =>
+        Mapper.Map<CompositionTechCardResponse>(await Sender.Send(new GetCompositionTechCardQuery(techCardId),
+            cancellationToken));
+    
     /// <summary>
     /// Получение тех.карты по Id
     /// </summary>
