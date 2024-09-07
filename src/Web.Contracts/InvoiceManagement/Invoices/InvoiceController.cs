@@ -36,7 +36,7 @@ public sealed class InvoiceController : ApiController
         return await Sender.Send(new AddInvoiceCommand
         {
             Number = request.Number,
-            ContragentId = request.ContragentId,
+            ContractorId = request.ContragentId,
             Description = request.Description,
             DaysShipment = request.DaysShipment,
             PaymentPercentage = request.PaymentPercentage,

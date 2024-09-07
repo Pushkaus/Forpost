@@ -1,5 +1,6 @@
 using Forpost.Domain.Primitives.EntityAnnotations;
 using Forpost.Domain.Primitives.EntityTemplates;
+using Forpost.Domain.ProductCreating.ManufacturingProcesses.Events;
 
 namespace Forpost.Domain.ProductCreating.ManufacturingProcesses;
 
@@ -56,7 +57,7 @@ public sealed class ManufacturingProcess : AggregateRoot,  ITimeFrameEntity
     /// <summary>
     /// Дата начала выполнения производственного процесса
     /// </summary>
-    public DateTimeOffset StartTime { get; set; }
+    public DateTimeOffset? StartTime { get; set; }
 
     /// <summary>
     /// Дата завершения выполнения производственного процесса

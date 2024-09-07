@@ -16,8 +16,5 @@ public sealed class ScheduledIssue
     /// Комментарий по работе
     /// </summary>
     public string? Description { get; set; }
-    /// <summary>
-    /// Время старта задачи
-    /// </summary>
-    public DateTimeOffset StartTime { get; set; }
+
 }

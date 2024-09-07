@@ -1,3 +1,4 @@
+using AutoMapper;
 using Forpost.Store.Postgres;
 using Forpost.Web.Client;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,6 @@ public abstract class BaseTest:IClassFixture<TestApplication>, IAsyncLifetime
     protected readonly ForpostContextPostgres DbContext;
     
     protected readonly IServiceProvider ServiceProvider;
-
     protected BaseTest(TestApplication application)
     {
         Client = application.Services.GetRequiredService<IForpostApiClient>();

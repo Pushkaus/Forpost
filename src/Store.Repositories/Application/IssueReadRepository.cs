@@ -32,6 +32,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
                 {
                     Id = combined.Issue.Id,
                     OperationName = operation.Name,
+                    IssueNumber = combined.Issue.IssueNumber,
                     ExecutorId = combined.Issue.ExecutorId,
                     ResponsibleId = combined.Issue.ResponsibleId,
                     Description = combined.Issue.Description,

@@ -11,6 +11,7 @@
         "tags": [
           "Issue"
         ],
+        "summary": "Получение всех задач производственного процесса",
         "operationId": "GetIssuesFromManufacturingProcess",
         "parameters": [
           {
@@ -46,6 +47,7 @@
         "tags": [
           "Issue"
         ],
+        "summary": "Запуск задачи",
         "operationId": "Launch",
         "parameters": [
           {
@@ -60,13 +62,15 @@
           }
         ],
         "responses": {
-          "200": {
+          "202": {
+            "description": ""
+          },
+          "400": {
             "description": "",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -74,12 +78,58 @@
         }
       }
     },
-    "/api/v1/issues/{id}/complete": {
+    "/api/v1/issues/{issueId}/assign-executor": {
       "put": {
         "tags": [
           "Issue"
         ],
-        "operationId": "Complete",
+        "summary": "Назначение исполнителя задачи",
+        "operationId": "AssignExecutor",
+        "parameters": [
+          {
+            "name": "issueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "executorId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/issues/{id}/close": {
+      "put": {
+        "tags": [
+          "Issue"
+        ],
+        "summary": "Завершение задачи",
+        "operationId": "Close",
         "parameters": [
           {
             "name": "id",
@@ -93,13 +143,15 @@
           }
         ],
         "responses": {
-          "200": {
+          "202": {
+            "description": ""
+          },
+          "400": {
             "description": "",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -178,7 +230,7 @@
         "tags": [
           "ManufacturingProcess"
         ],
-        "operationId": "Complete2",
+        "operationId": "Complete",
         "parameters": [
           {
             "name": "id",
@@ -199,6 +251,30 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-development": {
+      "get": {
+        "tags": [
+          "ProductDevelopment"
+        ],
+        "summary": "Получение всех продуктов в разработке",
+        "operationId": "GetAllAll",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductDevelopment"
+                  }
                 }
               }
             }
@@ -244,7 +320,7 @@
           "Invoice"
         ],
         "summary": "Получить все счета",
-        "operationId": "GetAllAll",
+        "operationId": "GetAllAll2",
         "responses": {
           "200": {
             "description": "",
@@ -489,6 +565,39 @@
         }
       }
     },
+    "/v1/api/techcard/composition/{techCardId}": {
+      "get": {
+        "tags": [
+          "TechCard"
+        ],
+        "summary": "Получение состава тех.карты по Id",
+        "operationId": "GetCompositionTechCard",
+        "parameters": [
+          {
+            "name": "techCardId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompositionTechCardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/api/techcard/{id}": {
       "get": {
         "tags": [
@@ -552,7 +661,7 @@
           "TechCard"
         ],
         "summary": "Получение всех тех.карт",
-        "operationId": "GetAllAll2",
+        "operationId": "GetAllAll3",
         "responses": {
           "200": {
             "description": "",
@@ -629,7 +738,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/StepsInTechCardResponse"
+                    "$ref": "#/components/schemas/TechCardStep"
                   }
                 }
               }
@@ -903,7 +1012,7 @@
           "Step"
         ],
         "summary": "Получение всех этапов",
-        "operationId": "GetAllAll3",
+        "operationId": "GetAllAll4",
         "responses": {
           "200": {
             "description": "",
@@ -981,7 +1090,7 @@
           "Role"
         ],
         "summary": "Получить все роли",
-        "operationId": "GetAllAll4",
+        "operationId": "GetAllAll5",
         "responses": {
           "200": {
             "description": "",
@@ -1038,7 +1147,7 @@
           "Product"
         ],
         "summary": "Получение всех продуктов",
-        "operationId": "GetAllAll5",
+        "operationId": "GetAllAll6",
         "responses": {
           "200": {
             "description": "",
@@ -1220,7 +1329,7 @@
           "Employee"
         ],
         "summary": "Получить список всех сотрудников",
-        "operationId": "GetAllAll6",
+        "operationId": "GetAllAll7",
         "responses": {
           "200": {
             "description": "",
@@ -1267,7 +1376,7 @@
           "Contractor"
         ],
         "summary": "Получить всех контрагентов",
-        "operationId": "GetAllAll7",
+        "operationId": "GetAllAll8",
         "responses": {
           "200": {
             "description": "",
@@ -1477,6 +1586,10 @@
           "operationName": {
             "type": "string"
           },
+          "issueNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
           "executorId": {
             "type": "string",
             "format": "guid"
@@ -1498,7 +1611,8 @@
           },
           "startTime": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "endTime": {
             "type": "string",
@@ -1524,6 +1638,35 @@
           300,
           400
         ]
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "additionalProperties": {
+          "nullable": true
+        },
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        }
       },
       "ScheduledManufacturingProcessCommand": {
         "type": "object",
@@ -1567,10 +1710,92 @@
           "description": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "ProductDevelopment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DomainEntity"
           },
-          "startTime": {
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "productId": {
+                "type": "string",
+                "format": "guid"
+              },
+              "manufacturingProcessId": {
+                "type": "string",
+                "format": "guid"
+              },
+              "issueId": {
+                "type": "string",
+                "format": "guid"
+              },
+              "serialNumber": {
+                "type": "string"
+              },
+              "settingOption": {
+                "nullable": true,
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/SettingOption"
+                  }
+                ]
+              },
+              "status": {
+                "$ref": "#/components/schemas/ProductStatus"
+              }
+            }
+          }
+        ]
+      },
+      "SettingOption": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "ЗВУ",
+          "R",
+          "ВДК",
+          "Триада",
+          "DC_DC"
+        ],
+        "enum": [
+          100,
+          200,
+          300,
+          400,
+          500
+        ]
+      },
+      "ProductStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Initial",
+          "InPaused",
+          "InProgress",
+          "Completed",
+          "Cancelled"
+        ],
+        "enum": [
+          100,
+          101,
+          200,
+          300,
+          400
+        ]
+      },
+      "DomainEntity": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "id": {
             "type": "string",
-            "format": "date-time"
+            "format": "guid"
           }
         }
       },
@@ -1703,17 +1928,6 @@
             }
           }
         ]
-      },
-      "DomainEntity": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "guid"
-          }
-        }
       },
       "InvoiceCreateRequest": {
         "type": "object",
@@ -1875,6 +2089,96 @@
           }
         }
       },
+      "CompositionTechCardResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "number": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "steps": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/StepSummaryResponse"
+            }
+          },
+          "items": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/ItemSummaryResponse"
+            }
+          }
+        }
+      },
+      "StepSummaryResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "techCardId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "operationName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "duration": {
+            "type": "string",
+            "format": "duration"
+          },
+          "cost": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "unitOfMeasure": {
+            "$ref": "#/components/schemas/UnitOfMeasure"
+          }
+        }
+      },
+      "UnitOfMeasure": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Piece"
+        ],
+        "enum": [
+          1
+        ]
+      },
+      "ItemSummaryResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "techCardId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "TechCard": {
         "allOf": [
           {
@@ -1924,31 +2228,30 @@
           }
         }
       },
-      "StepsInTechCardResponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "techCardId": {
-            "type": "string",
-            "format": "guid"
+      "TechCardStep": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DomainEntity"
           },
-          "stepId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "stepName": {
-            "type": "string"
-          },
-          "stepDescription": {
-            "type": "string",
-            "nullable": true
-          },
-          "number": {
-            "type": "integer",
-            "description": "Номер в очереди\n            ",
-            "format": "int32"
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "techCardId": {
+                "type": "string",
+                "format": "guid"
+              },
+              "stepId": {
+                "type": "string",
+                "format": "guid"
+              },
+              "number": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
           }
-        }
+        ]
       },
       "TechCardStepRequest": {
         "type": "object",
@@ -2104,16 +2407,6 @@
               }
             }
           }
-        ]
-      },
-      "UnitOfMeasure": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Piece"
-        ],
-        "enum": [
-          1
         ]
       },
       "StepCreateRequest": {
@@ -2363,35 +2656,6 @@
           },
           "name": {
             "type": "string"
-          }
-        }
-      },
-      "ProblemDetails": {
-        "type": "object",
-        "additionalProperties": {
-          "nullable": true
-        },
-        "properties": {
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
-            "type": "string",
-            "nullable": true
           }
         }
       },

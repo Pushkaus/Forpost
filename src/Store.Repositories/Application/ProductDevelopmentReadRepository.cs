@@ -14,7 +14,7 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
         _dbContext = dbContext;
     }
 
-    public async Task<ProductDevelopmentSummary?> 
+    public async Task<InizializationProductDevelopment?> 
         GetSummaryByManufacturingProcessIdAsync(Guid manufacturingProcessId, CancellationToken cancellationToken)
     {
         return await _dbContext.ProductDevelopments
@@ -26,7 +26,7 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
             .Join(_dbContext.ManufacturingProcesses,
                 combined => combined.productDevelopment.ManufacturingProcessId,
                 process => process.Id,
-                (combined, process) => new ProductDevelopmentSummary
+                (combined, process) => new InizializationProductDevelopment
                 {
                     ManufacturingProcessId = combined.productDevelopment.ManufacturingProcessId,
                     ProductId = combined.productDevelopment.ProductId,

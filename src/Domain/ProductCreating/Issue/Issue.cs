@@ -18,21 +18,27 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
         {
             ManufacturingProcessId = scheduledIssue.ManufacturingProcessId,
             StepId = scheduledIssue.StepId,
+            IssueNumber = scheduledIssue.IssueNumber,
             ExecutorId = scheduledIssue.ResponsibleId,
             ResponsibleId = scheduledIssue.ResponsibleId,
             Description = scheduledIssue.Description,
             CurrentQuantity = 0,
             IssueStatus = IssueStatus.Pending,
-            StartTime = default,
+            StartTime = scheduledIssue.StartTime,
             EndTime = null
         };
         return issue;
     }
 
-    public void Complete()
+    public void Close()
     {
         IssueStatus = IssueStatus.Completed;
         EndTime = TimeProvider.System.GetUtcNow();
+    }
+
+    public void Complete()
+    {
+        CurrentQuantity += 1;
     }
 
     public void AssignExecutor(Guid executorId)
@@ -48,7 +54,10 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     /// Ссылка на этап из тех.карты
     /// </summary>
     public Guid StepId { get; set; }
-
+    /// <summary>
+    /// Номер задачи в производственном процессе
+    /// </summary>
+    public int IssueNumber { get; set; }
     /// <summary>
     /// Исполнитель задачи
     /// </summary>
@@ -74,7 +83,7 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     /// <summary>
     /// Дата начала выполнения задачи
     /// </summary>
-    public DateTimeOffset StartTime { get; set; }
+    public DateTimeOffset? StartTime { get; set; }
 
     /// <summary>
     /// Дата завершения выполнения задачи

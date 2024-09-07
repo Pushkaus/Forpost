@@ -1,6 +1,6 @@
 namespace Forpost.Application.Contracts.ProductsDevelopments;
 
-public sealed class ProductDevelopmentSummary
+public sealed class InizializationProductDevelopment
 {
     public Guid ManufacturingProcessId { get; set; }
     public Guid ProductId { get; set; }

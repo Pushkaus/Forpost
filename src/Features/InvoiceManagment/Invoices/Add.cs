@@ -22,14 +22,16 @@ internal sealed class AddInvoiceCommandHandler: ICommandHandler<AddInvoiceComman
     public ValueTask<Guid> Handle(AddInvoiceCommand command, CancellationToken cancellationToken)
     {
         
-        var invoiceId = _invoiceDomainRepository.Add(Invoice.Expose(command.Number,
-            command.ContragentId,
+        var invoiceId = _invoiceDomainRepository.Add(Invoice.Expose(
+            command.Number,
+            command.ContractorId,
             command.Description,
             command.PaymentPercentage,
             command.DaysShipment));
         
         foreach (var product in command.Products)
         {
+            product.Id = Guid.NewGuid();
             product.InvoiceId = invoiceId;
             _invoiceProductDomainRepository.Add(product);
         }
@@ -39,7 +41,7 @@ internal sealed class AddInvoiceCommandHandler: ICommandHandler<AddInvoiceComman
 public record AddInvoiceCommand: ICommand<Guid>
 {
     public string Number { get; set; } = default!;
-    public Guid ContragentId { get; set; }
+    public Guid ContractorId { get; set; }
     public string? Description { get; set; }
     public int DaysShipment { get; set; }
     public decimal PaymentPercentage { get; set; }

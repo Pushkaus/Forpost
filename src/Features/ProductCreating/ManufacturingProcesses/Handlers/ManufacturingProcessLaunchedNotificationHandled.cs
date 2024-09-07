@@ -1,4 +1,5 @@
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
+using Forpost.Domain.ProductCreating.ManufacturingProcesses.Events;
 using Forpost.Features.ProductCreating.ProductsDevelopments;
 using Mediator;
 

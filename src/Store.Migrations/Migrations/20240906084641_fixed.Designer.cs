@@ -3,6 +3,7 @@ using System;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forpost.Store.Migrations.Migrations
 {
     [DbContext(typeof(ForpostContextPostgres))]
-    partial class ForpostContextPostgresModelSnapshot : ModelSnapshot
+    [Migration("20240906084641_fixed")]
+    partial class @fixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -537,9 +540,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<Guid>("ExecutorId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("IssueNumber")
-                        .HasColumnType("integer");
-
                     b.Property<int>("IssueStatus")
                         .HasColumnType("integer");
 
@@ -549,7 +549,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<Guid>("ResponsibleId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset?>("StartTime")
+                    b.Property<DateTimeOffset>("StartTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("StepId")
@@ -603,7 +603,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<DateTimeOffset?>("EndTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTimeOffset?>("StartTime")
+                    b.Property<DateTimeOffset>("StartTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")
@@ -632,9 +632,6 @@ namespace Forpost.Store.Migrations.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("IssueId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("ManufacturingProcessId")

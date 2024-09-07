@@ -8,6 +8,10 @@ public class IssueFromManufacturingProcess
     /// </summary>
     public string OperationName { get; set; } = null!;
     /// <summary>
+    /// Номер задачи в очереди
+    /// </summary>
+    public int IssueNumber { get; set; }
+    /// <summary>
     /// Исполнитель задачи
     /// </summary>
     public Guid ExecutorId { get; set; }
@@ -32,7 +36,7 @@ public class IssueFromManufacturingProcess
     /// <summary>
     /// Дата начала выполнения задачи
     /// </summary>
-    public DateTimeOffset StartTime { get; set; }
+    public DateTimeOffset? StartTime { get; set; }
 
     /// <summary>
     /// Дата завершения выполнения задачи

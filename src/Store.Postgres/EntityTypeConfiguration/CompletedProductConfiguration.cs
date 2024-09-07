@@ -1,6 +1,7 @@
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
+using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,9 +13,9 @@ internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<C
     {
         builder.ConfigureBaseEntity();
 
-        builder.HasOne<Product>()
+        builder.HasOne<ProductDevelopment>()
             .WithMany()
-            .HasForeignKey(key => key.ProductId);
+            .HasForeignKey(key => key.ProductDevelopmentId);
 
         builder.HasOne<ManufacturingProcess>()
             .WithOne()

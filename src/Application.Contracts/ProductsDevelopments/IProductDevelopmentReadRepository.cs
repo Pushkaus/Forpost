@@ -5,6 +5,6 @@ namespace Forpost.Application.Contracts.ProductsDevelopments;
 
 public interface IProductDevelopmentReadRepository: IApplicationReadRepository
 {
-    public Task<ProductDevelopmentSummary?>
+    public Task<InizializationProductDevelopment?>
         GetSummaryByManufacturingProcessIdAsync(Guid manufacturingProcessId, CancellationToken cancellationToken);
 }

@@ -31,7 +31,7 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
         var auditableEntries = _dbContext.ChangeTracker.Entries<IAuditableEntity>().ToArray();
 
         if (auditableEntries.IsNotEmpty())
-            MarkAuditEntities(auditableEntries);
+                MarkAuditEntities(auditableEntries);
         
         return await _dbContext.SaveChangesAsync(cancellationToken);
     }

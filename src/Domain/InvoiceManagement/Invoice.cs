@@ -11,7 +11,7 @@ public sealed class Invoice : AggregateRoot
         Status = InvoiceStatus.Pending;
     }
 
-    private Invoice(
+    public Invoice(
         string number,
         Guid contractorId,
         string? description,
