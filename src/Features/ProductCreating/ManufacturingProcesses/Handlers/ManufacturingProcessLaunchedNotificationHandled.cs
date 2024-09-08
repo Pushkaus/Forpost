@@ -18,6 +18,7 @@ internal sealed class ManufacturingProcessLaunchedHandler: INotificationHandler<
     {
         var valueTask = _sender.Send(new BatchProductionInitializedCommand(notification.ManufacturingProcessId),
             cancellationToken);
+        
         return ValueTask.CompletedTask;
     }
 }

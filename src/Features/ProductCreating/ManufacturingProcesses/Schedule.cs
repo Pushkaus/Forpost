@@ -35,11 +35,12 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: ICommandHandl
         var manufacturingProcessId = _manufacturingProcessDomainRepository.Add(manufacturingProcess);
         foreach (var scheduledIssue in command.Issues)
         {
-            
             var issue = _mapper.Map<Issue>(scheduledIssue);
             issue.ManufacturingProcessId = manufacturingProcessId;
+            
             issue.IssueNumber = await _sender.Send(new GetIssueNumberQuery(command.TechnologicalCardId,
                 issue.StepId), cancellationToken);
+            
             _issueDomainRepository.Add(Issue.Schedule(issue));
         }
         return await ValueTask.FromResult(manufacturingProcessId);

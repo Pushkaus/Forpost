@@ -43,8 +43,10 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
         }
         else
         {
-            var completedProduct = new CompletedProduct()
+            ///TODO;
+            var completedProduct = CompletedProduct
                 .Create(productDevelopment.ManufacturingProcessId, productDevelopment.Id);
+            
             _completedProductDomainRepository.Add(completedProduct);
         }
 

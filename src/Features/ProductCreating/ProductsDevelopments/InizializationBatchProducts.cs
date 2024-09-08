@@ -38,6 +38,7 @@ internal sealed class BatchProductionInitializedCommandHandler: ICommandHandler<
         {
            productDevelopment.GenerateInitialSerialNumber(productDevelopmentSummary.BatchNumber, currentSequencNumber);
            var issue = _mapper.Map<Issue>(_issueDomainRepository.GetFirstIssue(command.ManufacturingProcessId, cancellationToken));
+           
            productDevelopment.IssueId = issue.Id;
            _productDevelopmentDomainRepository.Add(productDevelopment);
         }
