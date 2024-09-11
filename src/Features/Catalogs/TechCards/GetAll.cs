@@ -4,7 +4,7 @@ using Mediator;
 namespace Forpost.Features.Catalogs.TechCards;
 
 internal sealed class GetAllTechCardsQueryHandler :
-    IQueryHandler<GetAllTechCardsQuery, IReadOnlyCollection<TechCard>>
+    IQueryHandler<GetAllTechCardsQuery, (IReadOnlyCollection<TechCard> TechCards, int TotalCount)>
 {
     private readonly ITechCardDomainRepository _domainRepository;
 
@@ -13,8 +13,9 @@ internal sealed class GetAllTechCardsQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<TechCard>> Handle(GetAllTechCardsQuery request,
-        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
+    public async ValueTask<(IReadOnlyCollection<TechCard> TechCards, int TotalCount)> Handle(GetAllTechCardsQuery request,
+        CancellationToken cancellationToken) =>
+        await _domainRepository.GetAllAsync(cancellationToken, request.Skip, request.Limit);
 }
 
-public sealed record GetAllTechCardsQuery : IQuery<IReadOnlyCollection<TechCard>>;
+public sealed record GetAllTechCardsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<TechCard> TechCards, int TotalCount)>;

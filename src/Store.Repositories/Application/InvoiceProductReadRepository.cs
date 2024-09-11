@@ -2,6 +2,7 @@ using Forpost.Application.Contracts.InvoiceProducts;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Models.InvoiceProduct;
 using Microsoft.EntityFrameworkCore;
+using InvoiceWithProductsModel = Forpost.Application.Contracts.InvoiceProducts.InvoiceWithProductsModel;
 
 namespace Forpost.Store.Repositories.Application;
 
@@ -14,7 +15,7 @@ internal sealed class InvoiceProductReadRepository: IInvoiceProductReadRepositor
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyList<InvoiceWithProducts>>
+    public async Task<IReadOnlyList<InvoiceWithProductsModel>>
         GetProductsByInvoiceIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await _dbContext.InvoiceProducts.Where(entity => entity.InvoiceId == id)
@@ -32,7 +33,7 @@ internal sealed class InvoiceProductReadRepository: IInvoiceProductReadRepositor
                 _dbContext.Invoices,
                 combined => combined.Entity.InvoiceId,
                 invoice => invoice.Id,
-                (combined, invoice) => new InvoiceWithProducts
+                (combined, invoice) => new InvoiceWithProductsModel
                 {
                     ProductId = combined.Entity.Id,
                     InvoiceId = combined.Entity.InvoiceId,

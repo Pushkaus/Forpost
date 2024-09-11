@@ -21,8 +21,17 @@ internal abstract class DomainRepository<TEntity> : IDomainRepository<TEntity> w
         DbSet = dbContext.Set<TEntity>();
     }
 
-    public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken) =>
-        await DbSet.ToListAsync(cancellationToken);
+    public async Task<(IReadOnlyList<TEntity> Items, int TotalCount)> GetAllAsync(CancellationToken cancellationToken,
+        int skip = 0, int limit = 100)
+    {
+        var totalCount = await DbSet.CountAsync(cancellationToken);
+        var items = await DbSet
+            .Skip(skip)
+            .Take(limit)
+            .ToListAsync(cancellationToken);
+
+        return (items, totalCount);
+    }
 
     public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
         await DbSet.ById(id).FirstOrDefaultAsync(cancellationToken);

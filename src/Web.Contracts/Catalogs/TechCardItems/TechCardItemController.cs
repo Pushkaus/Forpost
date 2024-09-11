@@ -1,9 +1,10 @@
+using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Features.Catalogs.TechCardItems;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Catalogs.TechCardItems;
-[Route("v1/api/tech-card-item")]
+[Route("api/v1/tech-card-item")]
 public sealed class TechCardItemController: ApiController
 {
     /// <summary>
@@ -11,8 +12,8 @@ public sealed class TechCardItemController: ApiController
     /// </summary>
     /// <param name="techCardId">id тех.карты</param>
     [HttpGet("{techCardId}")]
-    [ProducesResponseType(typeof(IReadOnlyCollection<Domain.Catalogs.TechCardItems.TechCardItem>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<Domain.Catalogs.TechCardItems.TechCardItem>> GetTechCardItems(Guid techCardId,
+    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardItem>), StatusCodes.Status200OK)]
+    public async Task<IReadOnlyCollection<TechCardItem>> GetTechCardItems(Guid techCardId,
         CancellationToken cancellationToken)
     {
         return await Sender.Send(new GetTechCardItemByIdQuery(techCardId), cancellationToken);

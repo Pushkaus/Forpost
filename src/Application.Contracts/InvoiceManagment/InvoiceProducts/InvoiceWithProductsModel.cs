@@ -1,6 +1,6 @@
 namespace Forpost.Application.Contracts.InvoiceProducts;
 
-public sealed class InvoiceWithProducts
+public sealed class InvoiceWithProductsModel
 {
     public Guid InvoiceId { get; set; }
     public Guid ProductId { get; set; }

@@ -8,6 +8,6 @@ namespace Forpost.Application.Contracts.Catalogs.Employees;
 /// </summary>
 public interface IEmployeeReadRepository : IApplicationReadRepository
 {
-    public Task<IReadOnlyCollection<EmployeeWithRoleModel>> GetAllEmployeesWithRoleAsync(
-        CancellationToken cancellationToken);
+    public Task<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)>  GetAllEmployeesWithRoleAsync(
+        CancellationToken cancellationToken, int skip = 0, int limit = 100);
 }

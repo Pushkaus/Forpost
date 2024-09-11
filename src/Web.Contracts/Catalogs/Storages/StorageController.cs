@@ -18,7 +18,7 @@ public sealed class StorageController : ApiController
     public async Task<IActionResult>
         CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
     {
-        var storageId = Sender.Send(new AddStorageCommand(request.Name, request.ResponsibleId), cancellationToken);
+        var storageId = await Sender.Send(new AddStorageCommand(request.Name, request.ResponsibleId), cancellationToken);
         return Ok(storageId);
     }
 
@@ -27,6 +27,6 @@ public sealed class StorageController : ApiController
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(StorageReponse), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<Storage>> GetAllAsync(CancellationToken cancellationToken) 
+    public async Task<(IReadOnlyCollection<Storage>, int)> GetAllAsync(CancellationToken cancellationToken) 
         => await Sender.Send(new GetAllStoragesQuery(), cancellationToken);
 }

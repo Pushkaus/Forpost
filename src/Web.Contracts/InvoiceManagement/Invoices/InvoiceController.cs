@@ -20,10 +20,16 @@ public sealed class InvoiceController : ApiController
     /// <summary>
     /// Получить все счета
     /// </summary>
+    /// <returns>Список счетов</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<Invoice>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<Invoice>> GetAllAsync(CancellationToken cancellationToken) 
-        => await Sender.Send(new GetAllInvoicesQuery(), cancellationToken);
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken, 
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+    {
+        var result = await Sender.Send(new GetAllInvoicesQuery(skip, limit), cancellationToken);
+        return Ok(new { Invoices = result.Invoices , TotalCount = result.TotalCount });
+    }
 
     /// <summary>
     /// Создать счет
@@ -44,17 +50,17 @@ public sealed class InvoiceController : ApiController
         }, cancellationToken);
     }
 
-    /// <summary>
-    /// Закрытие счета
-    /// </summary>
-    [HttpPut("close/{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult>
-        ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
-    {
-        //Todo;
-        return Ok();
-    } 
+    // /// <summary>
+    // /// Закрытие счета
+    // /// </summary>
+    // [HttpPut("close/{id}")]
+    // [ProducesResponseType(StatusCodes.Status200OK)]
+    // public async Task<IActionResult>
+    //     ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
+    // {
+    //     //Todo;
+    //     return Ok();
+    // } 
     /// <summary>
     /// Закрытие счета, смена статуса и выставление даты отгрузки
     /// </summary>

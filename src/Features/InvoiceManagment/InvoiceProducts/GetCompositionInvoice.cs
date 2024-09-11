@@ -4,7 +4,7 @@ using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.InvoiceProducts;
 
-internal sealed class GetProductsFromInvoiceQueryHandler: IQueryHandler<GetCompositionInvoiceQuery, IReadOnlyCollection<InvoiceWithProducts>>
+internal sealed class GetProductsFromInvoiceQueryHandler: IQueryHandler<GetCompositionInvoiceQuery, IReadOnlyCollection<InvoiceWithProductsModel>>
 {
     private readonly IInvoiceProductReadRepository _invoiceProductReadRepository;    
     public GetProductsFromInvoiceQueryHandler(IInvoiceProductReadRepository invoiceProductReadRepository)
@@ -12,9 +12,9 @@ internal sealed class GetProductsFromInvoiceQueryHandler: IQueryHandler<GetCompo
         _invoiceProductReadRepository = invoiceProductReadRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<InvoiceWithProducts>> Handle
+    public async ValueTask<IReadOnlyCollection<InvoiceWithProductsModel>> Handle
         (GetCompositionInvoiceQuery request, CancellationToken cancellationToken) 
         => await _invoiceProductReadRepository.GetProductsByInvoiceIdAsync(request.InvoiceId, cancellationToken);
 }
 
-public record GetCompositionInvoiceQuery(Guid InvoiceId) : IQuery<IReadOnlyCollection<InvoiceWithProducts>>; 
+public record GetCompositionInvoiceQuery(Guid InvoiceId) : IQuery<IReadOnlyCollection<InvoiceWithProductsModel>>; 

@@ -21,8 +21,4 @@
     <InternalsVisibleTo Include="Forpost.Infrastructure" />
   </ItemGroup>
   
-  <ItemGroup>
-    <Folder Include="InvoiceManagment\CompositionInvoice\" />
-  </ItemGroup>
-  
 </Project>

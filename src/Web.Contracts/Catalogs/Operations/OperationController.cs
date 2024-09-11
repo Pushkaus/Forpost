@@ -21,8 +21,11 @@ public sealed class OperationController: ApiController
     /// Получение всех операций
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(Operation), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<Operation>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IReadOnlyCollection<Operation>> GetAllAsync(CancellationToken cancellationToken)
-        => await Sender.Send(new GetAllOperationsQuery(), cancellationToken);
-
+    {
+        var result =  await Sender.Send(new GetAllOperationsQuery(), cancellationToken);
+        return result.Operations;
+    }
 }

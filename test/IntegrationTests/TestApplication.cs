@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Forpost.Store.Postgres;
 using Forpost.Web.Client;
 using Forpost.Web.Host;
@@ -34,22 +35,33 @@ public sealed class TestApplication: WebApplicationFactory<IApiMarker>, IAsyncLi
             .Build();
 
     
-    protected override IHost CreateHost(IHostBuilder builder)
-    {
-        builder.ConfigureServices(services =>
-        {   
-            services.AddForpostClients(CreateClient);
-        });
-        
-        var overridenConfiguration = new Dictionary<string, string>()
+        protected override IHost CreateHost(IHostBuilder builder)
         {
-            { "ConnectionStrings:ErpDatabase", _dbContainer.GetConnectionString() }
-        };
+            builder.ConfigureServices(services =>
+            {
+                services.AddForpostClients(AuthorizedClient);
+            });
+            
+            var overridenConfiguration = new Dictionary<string, string>()
+            {
+                { "ConnectionStrings:ErpDatabase", _dbContainer.GetConnectionString() }
+            };
 
-        builder.ConfigureAppConfiguration(x => x.AddInMemoryCollection(overridenConfiguration!));
+            builder.ConfigureAppConfiguration(x => x.AddInMemoryCollection(overridenConfiguration!));
 
-        return base.CreateHost(builder);
-    }
+            return base.CreateHost(builder);
+        }
+
+        private HttpClient AuthorizedClient()
+        {
+            var client = CreateClient();
+
+            const string token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlc3QiLCJmYW1pbHlfbmFtZSI6InRlc3QiLCJuYW1laWQiOiIxNTQ5MmUzMC04ZGYzLTEzMmYtOWRlNi0zZmNkOTFlMzg5MjMiLCJyb2xlIjoiMDU0OTJlMzAtOGRmMy00MzJmLTlkZTYtM2ZjZDkxZTM4OWY1IiwibmJmIjoxNzI2MDQxNjI2LCJleHAiOjE3MjY2NDY0MjYsImlhdCI6MTcyNjA0MTYyNn0.-u4dyiiKw6JZYyTwRKKKXsp2bsDl5HzKj0XH9vgPZKk";
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            return client;
+        }
+
     public async Task InitializeAsync()
     {
         await _dbContainer.StartAsync();

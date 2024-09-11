@@ -2,7 +2,7 @@ using Forpost.Domain.Catalogs.Contractors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.Catalogs;
 
 internal sealed class ContactorConfiguration : IEntityTypeConfiguration<Contractor>
 {

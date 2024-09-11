@@ -7,12 +7,13 @@ namespace Forpost.Domain.ProductCreating.CompletedProduct;
 /// </summary>
 public sealed class CompletedProduct : DomainEntity
 {
-    public static CompletedProduct Create(Guid manufacturingProcessId, Guid productDevelopmentId)
+    public static CompletedProduct Create(Guid manufacturingProcessId, Guid productDevelopmentId, Guid productId)
     {
         var completedProduct = new CompletedProduct()
         {
             ManufacturingProcessId = manufacturingProcessId,
             ProductDevelopmentId = productDevelopmentId,
+            ProductId = productId,
             Status = CompletedProductStatus.OnStorage
         };
         return completedProduct;
@@ -29,5 +30,6 @@ public sealed class CompletedProduct : DomainEntity
     
     public Guid ManufacturingProcessId { get; set; }
     public Guid ProductDevelopmentId { get; set; }
+    public Guid ProductId { get; set; }
     public CompletedProductStatus Status { get; set; }
 }

@@ -3,7 +3,8 @@ using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.Invoices;
 
-internal sealed class GetAllInvoicesQueryHandler: IQueryHandler<GetAllInvoicesQuery, IReadOnlyCollection<Invoice>>
+internal sealed class GetAllInvoicesQueryHandler :
+    IQueryHandler<GetAllInvoicesQuery, (IReadOnlyCollection<Invoice> Invoices, int TotalCount)>
 {
     private readonly IInvoiceDomainRepository _invoiceDomainRepository;
 
@@ -12,10 +13,11 @@ internal sealed class GetAllInvoicesQueryHandler: IQueryHandler<GetAllInvoicesQu
         _invoiceDomainRepository = invoiceDomainRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<Invoice>> Handle(GetAllInvoicesQuery request,
+    public async ValueTask<(IReadOnlyCollection<Invoice> Invoices, int TotalCount)> Handle(GetAllInvoicesQuery request,
         CancellationToken cancellationToken)
     {
-        return await _invoiceDomainRepository.GetAllAsync(cancellationToken);
+        var invoices = await _invoiceDomainRepository.GetAllAsync(cancellationToken, request.Skip, request.Limit);
+        return (invoices);
     }
 }
-public record GetAllInvoicesQuery() : IQuery<IReadOnlyCollection<Invoice>>;
+public record GetAllInvoicesQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<Invoice> Invoices, int TotalCount)>;

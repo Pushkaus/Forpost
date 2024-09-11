@@ -45,7 +45,7 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
         {
             ///TODO;
             var completedProduct = CompletedProduct
-                .Create(productDevelopment.ManufacturingProcessId, productDevelopment.Id);
+                .Create(productDevelopment.ManufacturingProcessId, productDevelopment.Id, productDevelopment.ProductId);
             
             _completedProductDomainRepository.Add(completedProduct);
         }

@@ -3,6 +3,7 @@
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Invoices\" />
+    <Folder Include="InvoiceManagment\Invoices\" />
+    <Folder Include="ProductCreating\" />
   </ItemGroup>
 </Project>

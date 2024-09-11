@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Catalogs.Steps;
-[Route("v1/api/steps")]
+[Route("api/v1/steps")]
 public sealed class StepController: ApiController
 {
 
@@ -23,8 +23,17 @@ public sealed class StepController: ApiController
     /// <param name="cancellationToken"></param>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<Step>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<Step>> GetAllAsync(CancellationToken cancellationToken) 
-        => await Sender.Send(new GetAllStepsQuery(), cancellationToken);
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+    {
+        var result = await Sender.Send(new GetAllStepsQuery(skip, limit), cancellationToken);
+        return Ok(new
+        {
+            Steps = result.Steps,
+            TotalCount = result.TotalCount
+        });
+    }
 
     /// <summary>
     /// Создание этапа

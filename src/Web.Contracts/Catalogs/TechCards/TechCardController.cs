@@ -1,3 +1,4 @@
+using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Features.Catalogs.TechCards;
 using Forpost.Web.Contracts.Catalogs.TechCardSteps;
 using Microsoft.AspNetCore.Http;
@@ -5,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Catalogs.TechCards;
 
-[Route("v1/api/techcard")]
+[Route("api/v1/techcard")]
 public sealed class TechCardController: ApiController
 {
     /// <summary>
@@ -24,17 +25,28 @@ public sealed class TechCardController: ApiController
     /// </summary>
     /// <param name="id"></param>
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(Domain.Catalogs.TechCards.TechCard), StatusCodes.Status200OK)]
-    public async Task<Domain.Catalogs.TechCards.TechCard?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+    [ProducesResponseType(typeof(TechCard), StatusCodes.Status200OK)]
+    public async Task<TechCard?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
         => await Sender.Send(new GetTechCardByIdQuery(id), cancellationToken);
     
     /// <summary>
     /// Получение всех тех.карт
     /// </summary>
+    /// <returns>Список тех.карт и общее количество</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<Domain.Catalogs.TechCards.TechCard>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<Domain.Catalogs.TechCards.TechCard>> GetAllAsync(CancellationToken cancellationToken) 
-        => await Sender.Send(new GetAllTechCardsQuery(), cancellationToken);
+    [ProducesResponseType(typeof(IReadOnlyCollection<TechCard>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken, 
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+    {
+        var result = await Sender.Send(new GetAllTechCardsQuery(skip, limit), cancellationToken);
+        return Ok(new 
+        {
+            TechCards = result.TechCards,
+            TotalCount = result.TotalCount
+        });
+    }
     
     /// <summary>
     /// Создание тех.карты
