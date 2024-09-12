@@ -1,4 +1,4 @@
-namespace Forpost.Application.Contracts.InvoiceManagment.CompositionInvoice;
+namespace Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 
 public sealed class CompletedProductModel
 {

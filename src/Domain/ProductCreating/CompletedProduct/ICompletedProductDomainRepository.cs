@@ -4,5 +4,4 @@ namespace Forpost.Domain.ProductCreating.CompletedProduct;
 
 public interface ICompletedProductDomainRepository : IDomainRepository<CompletedProduct>
 {
-
 }

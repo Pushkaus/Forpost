@@ -1,5 +1,5 @@
-using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoice;
 using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
+using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.CompositionInvoice;

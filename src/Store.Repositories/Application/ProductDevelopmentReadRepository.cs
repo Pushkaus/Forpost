@@ -1,4 +1,5 @@
 using Forpost.Application.Contracts.ProductsDevelopments;
+using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,5 +34,26 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
                     BatchNumber = process.BatchNumber,
                     TargetQuantity = process.TargetQuantity
                 }).FirstOrDefaultAsync(cancellationToken);
+    }
+    
+    public async Task<IReadOnlyCollection<TechCardItem>>
+        GetTechCardItemsById(Guid productDevelopmentId, CancellationToken cancellationToken)
+    {
+        return await _dbContext.ProductDevelopments.Where(p => p.Id == productDevelopmentId)
+            .Join(_dbContext.ManufacturingProcesses,
+                productDevelopment => productDevelopment.ManufacturingProcessId,
+                manufacturingProcess => manufacturingProcess.Id,
+                (productDevelopment, manufacturingProcess) => new { productDevelopment, manufacturingProcess })
+            .Join(_dbContext.TechCardItems,
+                combined => combined.manufacturingProcess.TechnologicalCardId,
+                techCardItems => techCardItems.TechCardId,
+                (combined, techCardItems) => new TechCardItem
+                {
+                    Id = techCardItems.Id,
+                    TechCardId = techCardItems.TechCardId,
+                    ProductId = techCardItems.ProductId,
+                    Quantity = techCardItems.Quantity
+                })
+            .ToListAsync(cancellationToken);
     }
 }

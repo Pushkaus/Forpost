@@ -29,7 +29,7 @@ internal abstract class DomainRepository<TEntity> : IDomainRepository<TEntity> w
             .Skip(skip)
             .Take(limit)
             .ToListAsync(cancellationToken);
-
+        
         return (items, totalCount);
     }
 

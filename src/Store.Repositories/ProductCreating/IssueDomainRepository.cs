@@ -38,4 +38,10 @@ internal sealed class IssueDomainRepository : DomainRepository<Issue>, IIssueDom
             .Where(entity => entity.IssueNumber == issue.IssueNumber + 1)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<IReadOnlyCollection<Issue>> GetIssuesByExecutorId(Guid executorId, CancellationToken cancellationToken) 
+        => await DbContext.Issues.Where(entity => entity.ExecutorId == executorId).ToListAsync(cancellationToken);
+
+    public async Task<IReadOnlyCollection<Issue>> GetIssuesByResponsibleId(Guid responsibleId, CancellationToken cancellationToken) 
+        => await DbContext.Issues.Where(entity => entity.ResponsibleId == responsibleId).ToListAsync(cancellationToken);
 }

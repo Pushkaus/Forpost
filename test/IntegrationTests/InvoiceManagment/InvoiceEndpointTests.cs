@@ -14,39 +14,30 @@ public sealed class InvoiceEndpointTests: BaseTest
     [Fact(DisplayName = "Добавление счета, успешное добавление")]
     public async Task AddInvoice_ValidInput_Return201()
     {
-        var a = IdentityProvider.GetUserId();
-        var b = IdentityProvider.GetRoleId();
-        ///TODO;
-        // Arrange
-        var invoiceProduct = new List<InvoiceProduct>();
-        var productEntity = new Product
+        var contractor = Contractor.New("contractor");
+        DbContext.Contractors.Add(contractor);
+        var product = Product.Create("product");
+        DbContext.Products.Add(product);
+        var invoiceProducts = new List<InvoiceProduct>
         {
-            Name = "BPS",
-            Version = "v1",
+            new InvoiceProduct
+            {
+                ProductId = product.Id,
+                Quantity = 10
+            }
         };
-        var product = DbContext.Products.Add(productEntity);
-        invoiceProduct.Add(new()
-        {
-            ProductId = product.Entity.Id,
-            Quantity = 10
-        });
-        var contragent = DbContext.Contractors.Add(Contractor.New("SGEP"));
-        var invoice = new InvoiceCreateRequest()
+        var invoice = new InvoiceCreateRequest
         {
             Number = "1",
-            ContragentId = contragent.Entity.Id,
-            Description = "Тестовый счет",
+            ContragentId = contractor.Id,
+            Description = null,
             DaysShipment = 10,
-            PaymentPercentage = 20,
-            Products = invoiceProduct
+            PaymentPercentage = 10,
+            Products = invoiceProducts 
         };
-        // // Act
-        // ..var invoiceId = await Client.InvoiceClient.ExposeAsync(invoice);
-        // // Assert
-        // invoiceId.Should().NotBeEmpty();
-        // invoiceId.Should().NotBe(Guid.Empty);
-        var contragentId = Client.ContractorClient.Create9Async("Толик");
-        contragentId.Should().NotBeNull();
+        var result = await Client.InvoiceClient.ExposeAsync(invoice);
+        
+        result.Should().NotBeEmpty();
     }
     
 }

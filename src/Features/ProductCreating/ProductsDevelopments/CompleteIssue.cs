@@ -1,4 +1,5 @@
 using AutoMapper;
+using Forpost.Common;
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.CompositionProduct;
@@ -34,6 +35,8 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
         var productDevelopment = 
             await _productDevelopmentDomainRepository.GetByIdAsync(command.ProductDevelopmentId, cancellationToken);
 
+        productDevelopment.EnsureFoundBy(entity=>entity.Id, command.ProductDevelopmentId);
+        
         var currentIssue = await _issueDomainRepository.GetByIdAsync(command.IssueId, cancellationToken);
         var nextIssue = await _issueDomainRepository.GetNextIssue(command.IssueId, cancellationToken);
         var compositionProduct = await _compositionProductRepository.GetCompositionProductsAsync(productDevelopment.Id, cancellationToken);
@@ -53,8 +56,7 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
         else
         {
             ///TODO;
-            var completedProduct = CompletedProduct
-                .Create(productDevelopment.ManufacturingProcessId, productDevelopment.Id, productDevelopment.ProductId);
+            var completedProduct = CompletedProduct.Create(productDevelopment.ManufacturingProcessId, productDevelopment.Id, productDevelopment.ProductId);
             
             _completedProductDomainRepository.Add(completedProduct);
         }

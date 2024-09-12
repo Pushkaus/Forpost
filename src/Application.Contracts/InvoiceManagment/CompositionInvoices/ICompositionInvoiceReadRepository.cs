@@ -1,4 +1,4 @@
-using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoice;
+using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 using Forpost.Common.DataAccess;
 
 namespace Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;

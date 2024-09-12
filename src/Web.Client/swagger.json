@@ -977,17 +977,23 @@
           "Storage"
         ],
         "summary": "Получить список всех складов",
-        "operationId": "GetAll",
+        "operationId": "GetAllAll4",
         "responses": {
           "200": {
-            "description": "",
+            "description": "Список складов и общее количество",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StorageReponse"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Storage"
+                  }
                 }
               }
             }
+          },
+          "204": {
+            "description": "Список складов и общее количество"
           }
         }
       }
@@ -1055,7 +1061,7 @@
           "Step"
         ],
         "summary": "Получение всех этапов",
-        "operationId": "GetAllAll4",
+        "operationId": "GetAllAll5",
         "parameters": [
           {
             "name": "skip",
@@ -1167,7 +1173,7 @@
           "Role"
         ],
         "summary": "Получить все роли",
-        "operationId": "GetAllAll5",
+        "operationId": "GetAllAll6",
         "responses": {
           "200": {
             "description": "",
@@ -1234,7 +1240,7 @@
           "Product"
         ],
         "summary": "Получение всех продуктов",
-        "operationId": "GetAllAll6",
+        "operationId": "GetAll",
         "parameters": [
           {
             "name": "skip",
@@ -1263,10 +1269,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProductResponse"
-                  }
+                  "$ref": "#/components/schemas/ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger"
                 }
               }
             }
@@ -2480,48 +2483,29 @@
           }
         }
       },
-      "StorageReponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "guid"
+      "Storage": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DomainAuditableEntity"
           },
-          "name": {
-            "type": "string"
-          },
-          "responsibleId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "createdById": {
-            "type": "string",
-            "format": "guid"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedById": {
-            "type": "string",
-            "format": "guid"
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "deletedById": {
-            "type": "string",
-            "format": "guid",
-            "nullable": true
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string",
+                "nullable": true
+              },
+              "responsibleId": {
+                "type": "string",
+                "format": "guid"
+              }
+            }
           }
-        }
+        ]
       },
       "Step": {
         "allOf": [
@@ -2610,6 +2594,10 @@
             "type": "string"
           }
         }
+      },
+      "ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger": {
+        "type": "object",
+        "additionalProperties": false
       },
       "ProductResponse": {
         "type": "object",
