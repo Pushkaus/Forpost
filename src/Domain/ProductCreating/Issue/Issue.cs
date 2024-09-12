@@ -24,8 +24,9 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
             Description = scheduledIssue.Description,
             CurrentQuantity = 0,
             IssueStatus = IssueStatus.Pending,
-            StartTime = scheduledIssue.StartTime,
-            EndTime = null
+            StartTime = null,
+            EndTime = null,
+            ProductCompositionSettingFlag = scheduledIssue.ProductCompositionSettingFlag
         };
         return issue;
     }
@@ -39,6 +40,10 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     public void Complete()
     {
         CurrentQuantity += 1;
+        if (ProductCompositionSettingFlag)
+        {
+            
+        }
     }
 
     public void AssignExecutor(Guid executorId)
@@ -89,4 +94,6 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     /// Дата завершения выполнения задачи
     /// </summary>
     public DateTimeOffset? EndTime { get; set; }
+
+    public bool ProductCompositionSettingFlag { get; set; } = default;
 }

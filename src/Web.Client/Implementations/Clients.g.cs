@@ -1253,6 +1253,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить все счета
         /// </summary>
+        /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll2Async(int? skip, int? limit);
 
@@ -1260,6 +1261,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить все счета
         /// </summary>
+        /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll2Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
@@ -1275,19 +1277,6 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Guid> ExposeAsync(InvoiceCreateRequest request, System.Threading.CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Закрытие счета
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ClosingAsync(string id, InvoiceUpdateRequest request);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Закрытие счета
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ClosingAsync(string id, InvoiceUpdateRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Закрытие счета, смена статуса и выставление даты отгрузки
@@ -1447,6 +1436,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить все счета
         /// </summary>
+        /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll2Async(int? skip, int? limit)
         {
@@ -1457,6 +1447,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить все счета
         /// </summary>
+        /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll2Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
@@ -1515,6 +1506,12 @@ namespace Forpost.Web.Client.Implementations
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 204)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u0441\u0447\u0435\u0442\u043e\u0432", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -1604,93 +1601,6 @@ namespace Forpost.Web.Client.Implementations
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Закрытие счета
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ClosingAsync(string id, InvoiceUpdateRequest request)
-        {
-            return ClosingAsync(id, request, System.Threading.CancellationToken.None);
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Закрытие счета
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ClosingAsync(string id, InvoiceUpdateRequest request, System.Threading.CancellationToken cancellationToken)
-        {
-            if (id == null)
-                throw new System.ArgumentNullException("id");
-
-            if (request == null)
-                throw new System.ArgumentNullException("request");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
-                    var content_ = new System.Net.Http.ByteArrayContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("PUT");
-
-                    var urlBuilder_ = new System.Text.StringBuilder();
-                
-                    // Operation Path: "api/v1/invoices/close/{id}"
-                    urlBuilder_.Append("api/v1/invoices/close/");
-                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
-                        foreach (var item_ in response_.Headers)
-                            headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            return;
                         }
                         else
                         {
@@ -2457,6 +2367,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
+        /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCard>> GetAllAll3Async(int? skip, int? limit);
 
@@ -2464,6 +2375,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
+        /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCard>> GetAllAll3Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
@@ -2765,6 +2677,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
+        /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCard>> GetAllAll3Async(int? skip, int? limit)
         {
@@ -2775,6 +2688,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
+        /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCard>> GetAllAll3Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
@@ -2833,6 +2747,22 @@ namespace Forpost.Web.Client.Implementations
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 204)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u0442\u0435\u0445.\u043a\u0430\u0440\u0442 \u0438 \u043e\u0431\u0449\u0435\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -4585,6 +4515,16 @@ namespace Forpost.Web.Client.Implementations
                             return objectResponse_.Object;
                         }
                         else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
@@ -4809,14 +4749,14 @@ namespace Forpost.Web.Client.Implementations
         /// Создать новую роль
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create7Async(string? name);
+        System.Threading.Tasks.Task Create7Async(string name);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создать новую роль
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create7Async(string? name, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Create7Async(string name, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить все роли
@@ -4878,7 +4818,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создать новую роль
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Create7Async(string? name)
+        public virtual System.Threading.Tasks.Task Create7Async(string name)
         {
             return Create7Async(name, System.Threading.CancellationToken.None);
         }
@@ -4888,27 +4828,27 @@ namespace Forpost.Web.Client.Implementations
         /// Создать новую роль
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Create7Async(string? name, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Create7Async(string name, System.Threading.CancellationToken cancellationToken)
         {
+            if (name == null)
+                throw new System.ArgumentNullException("name");
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(name, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
                     // Operation Path: "api/v1/role"
                     urlBuilder_.Append("api/v1/role");
-                    urlBuilder_.Append('?');
-                    if (name != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("name")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    urlBuilder_.Length--;
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -5018,6 +4958,16 @@ namespace Forpost.Web.Client.Implementations
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -5240,6 +5190,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
+        /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductResponse>> GetAllAll6Async(int? skip, int? limit);
 
@@ -5247,6 +5198,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
+        /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductResponse>> GetAllAll6Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
@@ -5335,6 +5287,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
+        /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductResponse>> GetAllAll6Async(int? skip, int? limit)
         {
@@ -5345,6 +5298,7 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
+        /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductResponse>> GetAllAll6Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
@@ -5403,6 +5357,22 @@ namespace Forpost.Web.Client.Implementations
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 204)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -5885,14 +5855,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех операций
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Operation> GetAll2Async();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> GetAllAll7Async();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех операций
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Operation> GetAll2Async(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> GetAllAll7Async(System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -6017,9 +5987,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех операций
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Operation> GetAll2Async()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> GetAllAll7Async()
         {
-            return GetAll2Async(System.Threading.CancellationToken.None);
+            return GetAllAll7Async(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6027,7 +5997,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех операций
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Operation> GetAll2Async(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> GetAllAll7Async(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -6068,12 +6038,22 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Operation>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Operation>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -6210,15 +6190,17 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
+        /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EmployeeResponse>> GetAllAll7Async(int? skip, int? limit);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
+        /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EmployeeResponse>> GetAllAll7Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -6253,18 +6235,20 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
+        /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EmployeeResponse>> GetAllAll7Async(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit)
         {
-            return GetAllAll7Async(skip, limit, System.Threading.CancellationToken.None);
+            return GetAll2Async(skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
+        /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EmployeeResponse>> GetAllAll7Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -6315,12 +6299,28 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<EmployeeResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 204)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u043e\u0432 \u0438 \u043e\u0431\u0449\u0435\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -6457,7 +6457,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Добавление контрагента
         /// </summary>
-        /// <param name="name">Наименование контрагента</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task Create9Async(string name);
 
@@ -6465,7 +6464,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Добавление контрагента
         /// </summary>
-        /// <param name="name">Наименование контрагента</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task Create9Async(string name, System.Threading.CancellationToken cancellationToken);
 
@@ -6530,7 +6528,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Добавление контрагента
         /// </summary>
-        /// <param name="name">Наименование контрагента</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task Create9Async(string name)
         {
@@ -6541,7 +6538,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Добавление контрагента
         /// </summary>
-        /// <param name="name">Наименование контрагента</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task Create9Async(string name, System.Threading.CancellationToken cancellationToken)
         {
@@ -6924,14 +6920,14 @@ namespace Forpost.Web.Client.Implementations
         /// Регистрация сотрудника (регистрирует только админ)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task RegisterAsync(string? firstName, string? lastName, string? patronymic, string? post, string? role, string? email, string? phoneNumber, string? password);
+        System.Threading.Tasks.Task RegisterAsync(RegisterUserRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Регистрация сотрудника (регистрирует только админ)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task RegisterAsync(string? firstName, string? lastName, string? patronymic, string? post, string? role, string? email, string? phoneNumber, string? password, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task RegisterAsync(RegisterUserRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Логин сотрудника
@@ -6980,9 +6976,9 @@ namespace Forpost.Web.Client.Implementations
         /// Регистрация сотрудника (регистрирует только админ)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task RegisterAsync(string? firstName, string? lastName, string? patronymic, string? post, string? role, string? email, string? phoneNumber, string? password)
+        public virtual System.Threading.Tasks.Task RegisterAsync(RegisterUserRequest request)
         {
-            return RegisterAsync(firstName, lastName, patronymic, post, role, email, phoneNumber, password, System.Threading.CancellationToken.None);
+            return RegisterAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6990,55 +6986,27 @@ namespace Forpost.Web.Client.Implementations
         /// Регистрация сотрудника (регистрирует только админ)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task RegisterAsync(string? firstName, string? lastName, string? patronymic, string? post, string? role, string? email, string? phoneNumber, string? password, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task RegisterAsync(RegisterUserRequest request, System.Threading.CancellationToken cancellationToken)
         {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
                     // Operation Path: "api/v1/accounts"
                     urlBuilder_.Append("api/v1/accounts");
-                    urlBuilder_.Append('?');
-                    if (firstName != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("FirstName")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(firstName, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (lastName != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("LastName")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(lastName, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (patronymic != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("Patronymic")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(patronymic, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (post != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("Post")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(post, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (role != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("Role")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(role, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (email != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("Email")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(email, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (phoneNumber != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("PhoneNumber")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(phoneNumber, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (password != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("Password")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(password, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    urlBuilder_.Length--;
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -7430,6 +7398,9 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productCompositionSettingFlag")]
+        public bool ProductCompositionSettingFlag { get; set; } = default!;
 
     }
 
@@ -8129,78 +8100,8 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class EmployeeResponse
+    public partial class ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger
     {
-
-        [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid Id { get; set; } = default!;
-
-        /// <summary>
-        /// Имя сотрудника
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("firstName")]
-        public string FirstName { get; set; } = default!;
-
-        /// <summary>
-        /// Фамилия сотрудника
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("lastName")]
-        public string LastName { get; set; } = default!;
-
-        /// <summary>
-        /// Отчество сотрудника
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("patronymic")]
-        public string? Patronymic { get; set; } = default!;
-
-        /// <summary>
-        /// Должность сотрудника
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("post")]
-        public string Post { get; set; } = default!;
-
-        /// <summary>
-        /// Id на роль в приложении
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("roleId")]
-        public System.Guid RoleId { get; set; } = default!;
-
-        /// <summary>
-        /// Почта сотрудника
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("email")]
-        public string? Email { get; set; } = default!;
-
-        /// <summary>
-        /// Номер телефона сотрудника
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("phoneNumber")]
-        public string PhoneNumber { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("createdAt")]
-        public System.DateTimeOffset CreatedAt { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("createdById")]
-        public System.Guid CreatedById { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("updatedAt")]
-        public System.DateTimeOffset UpdatedAt { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("updatedById")]
-        public System.Guid UpdatedById { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("deletedAt")]
-        public System.DateTimeOffset? DeletedAt { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("deletedById")]
-        public System.Guid? DeletedById { get; set; } = default!;
 
     }
 
@@ -8213,6 +8114,36 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
         public string Name { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class RegisterUserRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("firstName")]
+        public string FirstName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("lastName")]
+        public string LastName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("patronymic")]
+        public string? Patronymic { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("post")]
+        public string Post { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("role")]
+        public string Role { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("email")]
+        public string? Email { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("phoneNumber")]
+        public string PhoneNumber { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("password")]
+        public string Password { get; set; } = default!;
 
     }
 

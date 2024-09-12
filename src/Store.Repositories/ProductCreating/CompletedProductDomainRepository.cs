@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Store.Postgres;
 
-namespace Forpost.Store.Repositories.CreatingProducts;
+namespace Forpost.Store.Repositories.ProductCreating;
 
 internal sealed class CompletedProductDomainRepository : DomainRepository<CompletedProduct>, ICompletedProductDomainRepository
 {

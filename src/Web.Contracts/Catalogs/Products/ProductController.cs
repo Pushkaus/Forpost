@@ -14,18 +14,20 @@ public sealed class ProductController : ApiController
     /// </summary>
     /// <returns>Список продуктов</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<ProductResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof((IReadOnlyCollection<ProductResponse> Products, int TotalCount)), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+    public async Task<ActionResult<(IReadOnlyCollection<ProductResponse> Products, int TotalCount)>> 
+        GetAllAsync(CancellationToken cancellationToken, [FromQuery] int skip = 0, [FromQuery] int limit = 100)
     {
         var result = await Sender.Send(new GetAllProductsQuery(skip, limit), cancellationToken);
-        return Ok(new 
+
+        var productResponses = Mapper.Map<IReadOnlyCollection<ProductResponse>>(result.Products);
+        return Ok(new
         {
-            Products = Mapper.Map<IReadOnlyCollection<ProductResponse>>(result.Products),
+            Products = productResponses,
             TotalCount = result.TotalCount
-        });
+        }); 
     }
 
     /// <summary>

@@ -25,8 +25,17 @@ public sealed class StorageController : ApiController
     /// <summary>
     /// Получить список всех складов
     /// </summary>
+    /// <returns>Список складов и общее количество</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(StorageReponse), StatusCodes.Status200OK)]
-    public async Task<(IReadOnlyCollection<Storage>, int)> GetAllAsync(CancellationToken cancellationToken) 
-        => await Sender.Send(new GetAllStoragesQuery(), cancellationToken);
+    [ProducesResponseType(typeof(IReadOnlyCollection<Storage>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+    {
+        var result = await Sender.Send(new GetAllStoragesQuery(), cancellationToken);
+        return Ok(new
+        {
+            result.Storages,
+            result.TotalCount
+        });
+    }
 }

@@ -50,7 +50,9 @@ internal sealed class CatalogMappingProfile : Profile
         CreateMap<StepCreateRequest, AddStepCommand>().ValidateMemberList(MemberList.Destination);
         
         CreateMap<OperationRequest, Operation>().ValidateMemberList(MemberList.Destination);
+        
         CreateMap<Product, ProductResponse>().ValidateMemberList(MemberList.Destination);
+        
         CreateMap<ProductCreateRequest, AddProductCommand>().ValidateMemberList(MemberList.Destination);
         CreateMap<ProductUpdateRequest, UpdateProductCommand>().ValidateMemberList(MemberList.Destination);
         

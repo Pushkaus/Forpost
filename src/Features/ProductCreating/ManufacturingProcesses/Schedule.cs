@@ -35,6 +35,7 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: ICommandHandl
         var manufacturingProcessId = _manufacturingProcessDomainRepository.Add(manufacturingProcess);
         foreach (var scheduledIssue in command.Issues)
         {
+            ///TODO; Флаг, указывающий на состав продукта должен быть <= 1
             var issue = _mapper.Map<Issue>(scheduledIssue);
             issue.ManufacturingProcessId = manufacturingProcessId;
             

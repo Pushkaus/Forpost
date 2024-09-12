@@ -1,6 +1,6 @@
 namespace Forpost.Web.Contracts.Catalogs.Products;
 
-internal sealed class ProductResponse
+public sealed class ProductResponse
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

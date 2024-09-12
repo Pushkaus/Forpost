@@ -14,7 +14,6 @@ public sealed class ContractorController : ApiController
     /// <summary>
     /// Добавление контрагента
     /// </summary>
-    /// <param name="name">Наименование контрагента</param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateAsync([FromBody] string name, CancellationToken cancellationToken)
@@ -22,7 +21,6 @@ public sealed class ContractorController : ApiController
         var id = await Sender.Send(new AddContractorCommand(name), cancellationToken);
         return Ok(id);
     }
-
     /// <summary>
     /// Получить всех контрагентов
     /// </summary>
@@ -38,8 +36,6 @@ public sealed class ContractorController : ApiController
         return Ok(new {Contractors = Mapper.Map<IReadOnlyCollection<ContractorResponse>>(result.Contractors)
                 ,TotalCount = result.TotalCount});
     }
-
-
     /// <summary>
     /// Получить контрагента по id
     /// </summary>

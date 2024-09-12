@@ -17,4 +17,8 @@ public sealed class ScheduledIssue
     /// </summary>
     public string? Description { get; set; }
 
+    /// <summary>
+    /// Флаг, указывающий нужно ли указывать состав продукта после завершения задачи
+    /// </summary>
+    public bool ProductCompositionSettingFlag { get; set; } = default;
 }
