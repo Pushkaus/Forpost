@@ -12,7 +12,7 @@ public sealed class RoleController : ApiController
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> CreateAsync(string name, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateAsync([FromBody] string name, CancellationToken cancellationToken)
     {
         var roleId = await Sender.Send(new AddRoleCommand(name), cancellationToken);
         return Ok(roleId);
@@ -23,10 +23,11 @@ public sealed class RoleController : ApiController
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<RoleResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
-        var roles = await Sender.Send(new GetAllRolesQuery(), cancellationToken);
-        return Ok(roles);
+        var result = await Sender.Send(new GetAllRolesQuery(), cancellationToken);
+        return Ok(result.Roles);
     }
 
     /// <summary>

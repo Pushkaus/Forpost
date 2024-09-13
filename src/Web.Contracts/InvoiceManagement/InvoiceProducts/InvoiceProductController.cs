@@ -32,7 +32,8 @@ public sealed class InvoiceProductController : ApiController
     public async Task<IActionResult> GetCompositionInvoiceAsync(Guid id, CancellationToken cancellationToken)
     {
         var compositionInvoice = await Sender.Send(new GetCompositionInvoiceQuery(id), cancellationToken);
-        return Ok(compositionInvoice);
+        var result = Mapper.Map<IReadOnlyCollection<InvoiceProductResponse>>(compositionInvoice);
+        return Ok(result);
     }
     //TODO;
     // /// <summary>

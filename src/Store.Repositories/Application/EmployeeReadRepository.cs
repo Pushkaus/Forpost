@@ -13,8 +13,11 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyCollection<EmployeeWithRoleModel>> GetAllEmployeesWithRoleAsync(CancellationToken cancellationToken)
+    public async Task<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)> GetAllEmployeesWithRoleAsync(
+        CancellationToken cancellationToken,
+        int skip = 0, int limit = 100)
     {
+        var totalcount = await _dbContext.Employees.CountAsync(cancellationToken);
         var usersWithRole = await _dbContext.Employees
             .Join(
                 _dbContext.Roles,
@@ -32,8 +35,10 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
                     PhoneNumber = employee.PhoneNumber,
                 }
             )
+            .Skip(skip)
+            .Take(limit)
             .ToListAsync(cancellationToken);
-
-        return usersWithRole;
+        
+        return (usersWithRole, totalcount);
     }
 }

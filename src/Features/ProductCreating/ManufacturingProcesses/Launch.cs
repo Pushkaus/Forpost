@@ -20,7 +20,8 @@ internal sealed class LauncherManufacturingProcessCommandHandler: ICommandHandle
     {
         var manufacturingProcess = await _domainRepository.GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
         
-        manufacturingProcess.EnsureFoundBy(entity => entity.Id, command.ManufacturingProcessId).Launch();
+        manufacturingProcess.EnsureFoundBy(entity => entity.Id, command.ManufacturingProcessId)
+            .Launch(command.ManufacturingProcessId);
         
         _domainRepository.Update(manufacturingProcess);
         

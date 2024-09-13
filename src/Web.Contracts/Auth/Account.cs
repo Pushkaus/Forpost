@@ -18,7 +18,7 @@ public sealed class Account : ApiController
     [Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> RegisterAsync([FromQuery] RegisterUserRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> RegisterAsync([FromBody] RegisterUserRequest request, CancellationToken cancellationToken)
     {
         var user = Mapper.Map<RegisterUserModel>(request);
         await Sender.Send(new RegisterUserCommand(user), cancellationToken);
@@ -34,6 +34,7 @@ public sealed class Account : ApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<string> LoginAsync([Required][FromBody] LoginUserRequest request, CancellationToken cancellationToken)
     {
+        ///TODO; Убрать JSON.Parse в клиенте
         var token = await Sender.Send(new LoginUserCommand(
             request.FirstName,
             request.LastName,

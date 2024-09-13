@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using Forpost.Domain.InvoiceManagement;
 using Forpost.Features.InvoiceManagment.Invoices;
 using Microsoft.AspNetCore.Http;
@@ -11,18 +12,24 @@ public sealed class InvoiceController : ApiController
     /// <summary>
     /// Получить счет по его номеру
     /// </summary>
-    [HttpGet("{number}")]
-    [ProducesResponseType(typeof(InvoiceResponse), StatusCodes.Status200OK)]
+    [HttpGet("number/{number}")]
+    [ProducesResponseType(typeof(Invoice), StatusCodes.Status200OK)]
     public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken) 
         => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
 
     /// <summary>
     /// Получить все счета
     /// </summary>
+    /// <returns>Список счетов</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceResponse>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<Invoice>> GetAllAsync(CancellationToken cancellationToken) 
-        => await Sender.Send(new GetAllInvoicesQuery(), cancellationToken);
+    [ProducesResponseType(typeof(IReadOnlyCollection<Invoice>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken, 
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+    {
+        var result = await Sender.Send(new GetAllInvoicesQuery(skip, limit), cancellationToken);
+        return Ok(new { Invoices = result.Invoices , TotalCount = result.TotalCount });
+    }
 
     /// <summary>
     /// Создать счет
@@ -35,23 +42,34 @@ public sealed class InvoiceController : ApiController
         return await Sender.Send(new AddInvoiceCommand
         {
             Number = request.Number,
-            ContragentId = request.ContragentId,
+            ContractorId = request.ContragentId,
             Description = request.Description,
             DaysShipment = request.DaysShipment,
             PaymentPercentage = request.PaymentPercentage,
+            Products = request.Products,
         }, cancellationToken);
     }
 
+    // /// <summary>
+    // /// Закрытие счета
+    // /// </summary>
+    // [HttpPut("close/{id}")]
+    // [ProducesResponseType(StatusCodes.Status200OK)]
+    // public async Task<IActionResult>
+    //     ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
+    // {
+    //     //Todo;
+    //     return Ok();
+    // } 
     /// <summary>
     /// Закрытие счета, смена статуса и выставление даты отгрузки
     /// </summary>
-    /// <param name="request"></param>
-    [HttpPut("close/{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [HttpPut("ship/{invoiceId}")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
     public async Task<IActionResult>
-        ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
+        ShipAsync(Guid invoiceId, DateTimeOffset shipDate, CancellationToken cancellationToken)
     {
-        //Todo;
+        await Sender.Send(new ShipInvoiceCommand(invoiceId, shipDate), cancellationToken);
         return Ok();
     }
 

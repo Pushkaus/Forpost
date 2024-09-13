@@ -4,7 +4,7 @@ using Mediator;
 namespace Forpost.Features.Catalogs.Contractors;
 
 internal sealed class GetAllContractorsQueryHandler :
-    IQueryHandler<GetAllContractorsQuery, IReadOnlyCollection<Contractor>>
+    IQueryHandler<GetAllContractorsQuery, (IReadOnlyList<Contractor> Contractors, int TotalCount)>
 {
     private readonly IContractorDomainRepository _domainRepository;
 
@@ -13,8 +13,8 @@ internal sealed class GetAllContractorsQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<Contractor>> Handle(GetAllContractorsQuery request,
-        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
+    public async ValueTask<(IReadOnlyList<Contractor> Contractors, int TotalCount)> Handle(GetAllContractorsQuery request,
+        CancellationToken cancellationToken) =>
+        await _domainRepository.GetAllAsync(cancellationToken, request.Skip, request.Limit); 
 }
-
-public sealed record GetAllContractorsQuery : IQuery<IReadOnlyCollection<Contractor>>;
+public sealed record GetAllContractorsQuery(int Skip, int Limit) : IQuery<(IReadOnlyList<Contractor> Contractors, int TotalCount)>;

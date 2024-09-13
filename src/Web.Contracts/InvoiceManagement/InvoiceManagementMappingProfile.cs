@@ -1,4 +1,5 @@
 using AutoMapper;
+using Forpost.Application.Contracts.InvoiceProducts;
 using Forpost.Domain.SortOut;
 using Forpost.Features.InvoiceManagment.InvoiceProducts;
 using Forpost.Features.InvoiceManagment.Invoices;
@@ -14,5 +15,6 @@ internal sealed class InvoiceManagementMappingProfile : Profile
         
         CreateMap<InvoiceProductRequest, InvoiceProductCreate>().ValidateMemberList(MemberList.Destination);
         CreateMap<InvoiceProduct, InvoiceProductResponse>().ValidateMemberList(MemberList.Destination);
+        CreateMap<InvoiceWithProductsModel, InvoiceProductResponse>().ValidateMemberList(MemberList.Destination);
     }
 }

@@ -4,7 +4,7 @@ using Mediator;
 namespace Forpost.Features.Catalogs.Storages;
 
 internal sealed class GetAllStoragesQueryHandler :
-    IQueryHandler<GetAllStoragesQuery, IReadOnlyCollection<Storage>>
+    IQueryHandler<GetAllStoragesQuery, (IReadOnlyCollection<Storage> Storages, int TotalCount)>
 {
     private readonly IStorageDomainRepository _domainRepository;
 
@@ -13,8 +13,11 @@ internal sealed class GetAllStoragesQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<Storage>> Handle(GetAllStoragesQuery request,
-        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken);
+    public async ValueTask<(IReadOnlyCollection<Storage> Storages, int TotalCount)> Handle(GetAllStoragesQuery request,
+        CancellationToken cancellationToken)
+    {
+        var storages = await _domainRepository.GetAllAsync(cancellationToken);
+        return storages;
+    }
 }
-
-public sealed record GetAllStoragesQuery : IQuery<IReadOnlyCollection<Storage>>;
+public sealed record GetAllStoragesQuery : IQuery<(IReadOnlyCollection<Storage> Storages, int TotalCount)>;

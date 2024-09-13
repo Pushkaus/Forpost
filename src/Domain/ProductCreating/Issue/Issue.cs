@@ -18,21 +18,32 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
         {
             ManufacturingProcessId = scheduledIssue.ManufacturingProcessId,
             StepId = scheduledIssue.StepId,
+            IssueNumber = scheduledIssue.IssueNumber,
             ExecutorId = scheduledIssue.ResponsibleId,
             ResponsibleId = scheduledIssue.ResponsibleId,
             Description = scheduledIssue.Description,
             CurrentQuantity = 0,
             IssueStatus = IssueStatus.Pending,
-            StartTime = default,
-            EndTime = null
+            StartTime = null,
+            EndTime = null,
+            ProductCompositionSettingFlag = scheduledIssue.ProductCompositionSettingFlag
         };
         return issue;
     }
 
-    public void Complete()
+    public void Close()
     {
         IssueStatus = IssueStatus.Completed;
         EndTime = TimeProvider.System.GetUtcNow();
+    }
+
+    public void Complete()
+    {
+        CurrentQuantity += 1;
+        if (ProductCompositionSettingFlag)
+        {
+            
+        }
     }
 
     public void AssignExecutor(Guid executorId)
@@ -48,7 +59,10 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     /// Ссылка на этап из тех.карты
     /// </summary>
     public Guid StepId { get; set; }
-
+    /// <summary>
+    /// Номер задачи в производственном процессе
+    /// </summary>
+    public int IssueNumber { get; set; }
     /// <summary>
     /// Исполнитель задачи
     /// </summary>
@@ -74,10 +88,12 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
     /// <summary>
     /// Дата начала выполнения задачи
     /// </summary>
-    public DateTimeOffset StartTime { get; set; }
+    public DateTimeOffset? StartTime { get; set; }
 
     /// <summary>
     /// Дата завершения выполнения задачи
     /// </summary>
     public DateTimeOffset? EndTime { get; set; }
+
+    public bool ProductCompositionSettingFlag { get; set; } = default;
 }

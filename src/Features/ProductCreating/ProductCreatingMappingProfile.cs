@@ -11,6 +11,6 @@ internal sealed class ProductCreatingMappingProfile : Profile
     public ProductCreatingMappingProfile()
     {
         CreateMap<ScheduledIssue, Issue>().ValidateMemberList(MemberList.Source);
-        CreateMap<ProductDevelopmentSummary, ProductDevelopment>().ValidateMemberList(MemberList.Source);
+        CreateMap<InizializationProductDevelopment, ProductDevelopment>().ValidateMemberList(MemberList.Source);
     }
 }

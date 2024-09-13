@@ -2,6 +2,7 @@ using AutoMapper;
 using Forpost.Application.Contracts.Issues;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
+using Forpost.Features.ProductCreating.Issues;
 using Mediator;
 
 namespace Forpost.Features.ProductCreating.ManufacturingProcesses;
@@ -11,15 +12,17 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: ICommandHandl
     private readonly IManufacturingProcessDomainRepository _manufacturingProcessDomainRepository;
     private readonly IIssueDomainRepository _issueDomainRepository;
     private readonly IMapper _mapper;
+    private readonly ISender _sender;
 
-    public ScheduledManufacturingProcessCommandHandler(IManufacturingProcessDomainRepository manufacturingProcessDomainRepository, IIssueDomainRepository issueDomainRepository, IMapper mapper)
+    public ScheduledManufacturingProcessCommandHandler(IManufacturingProcessDomainRepository manufacturingProcessDomainRepository, IIssueDomainRepository issueDomainRepository, IMapper mapper, ISender sender)
     {
         _manufacturingProcessDomainRepository = manufacturingProcessDomainRepository;
         _issueDomainRepository = issueDomainRepository;
         _mapper = mapper;
+        _sender = sender;
     }
 
-    public ValueTask<Guid> Handle(ScheduledManufacturingProcessCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Guid> Handle(ScheduledManufacturingProcessCommand command, CancellationToken cancellationToken)
     {
         //TODO; Вызывать BatchProductionInitializedCommand
         var manufacturingProcess = ManufacturingProcess.Schedule(
@@ -32,12 +35,16 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: ICommandHandl
         var manufacturingProcessId = _manufacturingProcessDomainRepository.Add(manufacturingProcess);
         foreach (var scheduledIssue in command.Issues)
         {
+            ///TODO; Флаг, указывающий на состав продукта должен быть <= 1
             var issue = _mapper.Map<Issue>(scheduledIssue);
             issue.ManufacturingProcessId = manufacturingProcessId;
             
+            issue.IssueNumber = await _sender.Send(new GetIssueNumberQuery(command.TechnologicalCardId,
+                issue.StepId), cancellationToken);
+            
             _issueDomainRepository.Add(Issue.Schedule(issue));
         }
-        return ValueTask.FromResult(manufacturingProcessId);
+        return await ValueTask.FromResult(manufacturingProcessId);
     }
 }
 

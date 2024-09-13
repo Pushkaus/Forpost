@@ -9,14 +9,10 @@ namespace Forpost.Features.Catalogs.Contractors;
 internal sealed class AddContractorCommandHandler : ICommandHandler<AddContractorCommand, Guid>
 {
     private readonly IContractorDomainRepository _domainRepository;
-    private readonly IMapper _mapper;
-    private readonly ForpostContextPostgres _context;
 
-    public AddContractorCommandHandler(IContractorDomainRepository domainRepository, IMapper mapper, ForpostContextPostgres context)
+    public AddContractorCommandHandler(IContractorDomainRepository domainRepository)
     {
         _domainRepository = domainRepository;
-        _mapper = mapper;
-        _context = context;
     }
 
     public async ValueTask<Guid> Handle(AddContractorCommand request, CancellationToken cancellationToken)

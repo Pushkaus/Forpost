@@ -17,9 +17,13 @@ internal sealed class AddStorageCommandHandler : ICommandHandler<AddStorageComma
 
     public ValueTask<Guid> Handle(AddStorageCommand command, CancellationToken cancellationToken)
     {
-        var storage = _mapper.Map<Storage>(command);
+        var storage = new Storage()
+        {
+            Name = command.Name,
+            ResponsibleId = command.ResponsibleId,
+        };
         return ValueTask.FromResult(_domainRepository.Add(storage));
     }
 }
 
-public class AddStorageCommand(string Name, Guid ResponsibleId) : ICommand<Guid>;
+public record AddStorageCommand(string Name, Guid ResponsibleId) : ICommand<Guid>;

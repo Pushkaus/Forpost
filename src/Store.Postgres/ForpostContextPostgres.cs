@@ -11,6 +11,7 @@ using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
 using Forpost.Domain.InvoiceManagement;
 using Forpost.Domain.ProductCreating.CompletedProduct;
+using Forpost.Domain.ProductCreating.CompositionProduct;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
@@ -46,6 +47,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<ManufacturingProcess> ManufacturingProcesses => Set<ManufacturingProcess>();
     public DbSet<ProductDevelopment> ProductDevelopments => Set<ProductDevelopment>();
     public DbSet<ProductVersion> ProductVersions => Set<ProductVersion>();
+    public DbSet<CompositionProduct> CompositionProducts => Set<CompositionProduct>();
 
     #region ApplicationTables
     

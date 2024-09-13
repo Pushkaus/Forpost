@@ -1,4 +1,5 @@
 using Forpost.Application.Contracts.Issues;
+using Forpost.Application.Contracts.ProductCreating.Issues;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +33,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
                 {
                     Id = combined.Issue.Id,
                     OperationName = operation.Name,
+                    IssueNumber = combined.Issue.IssueNumber,
                     ExecutorId = combined.Issue.ExecutorId,
                     ResponsibleId = combined.Issue.ResponsibleId,
                     Description = combined.Issue.Description,

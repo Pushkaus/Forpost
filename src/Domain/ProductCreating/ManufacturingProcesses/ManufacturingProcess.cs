@@ -1,14 +1,16 @@
 using Forpost.Domain.Primitives.EntityAnnotations;
 using Forpost.Domain.Primitives.EntityTemplates;
+using Forpost.Domain.ProductCreating.ManufacturingProcesses.Events;
 
 namespace Forpost.Domain.ProductCreating.ManufacturingProcesses;
 
-public sealed class ManufacturingProcess : DomainAuditableEntity, ITimeFrameEntity
+public sealed class ManufacturingProcess : AggregateRoot,  ITimeFrameEntity
 {
-    public void Launch()
+    public void Launch(Guid manufacturingProcessId)
     { 
         StartTime = TimeProvider.System.GetUtcNow();
         Status = ManufacturingProcessStatus.InProgress;
+        Raise(new ManufacturingProcessLaunched(manufacturingProcessId));
     }
 
     public void Complete()
@@ -55,7 +57,7 @@ public sealed class ManufacturingProcess : DomainAuditableEntity, ITimeFrameEnti
     /// <summary>
     /// Дата начала выполнения производственного процесса
     /// </summary>
-    public DateTimeOffset StartTime { get; set; }
+    public DateTimeOffset? StartTime { get; set; }
 
     /// <summary>
     /// Дата завершения выполнения производственного процесса

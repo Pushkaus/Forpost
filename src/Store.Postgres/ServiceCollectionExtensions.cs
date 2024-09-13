@@ -23,7 +23,7 @@ public static class ServiceCollectionExtensions
             var interceptor = serviceProvider.GetRequiredService<DomainEventToOutboxMessageInterceptor>();
             
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            options.UseNpgsql(connectionString).AddInterceptors(interceptor);
+            options.UseNpgsql(connectionString).AddInterceptors(interceptor).EnableSensitiveDataLogging();
         });
 
         return services;

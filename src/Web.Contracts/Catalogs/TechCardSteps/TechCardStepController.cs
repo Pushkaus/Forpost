@@ -13,7 +13,7 @@ public sealed class TechCardStepController: ApiController
     /// </summary>
     /// <param name="techCardId"></param>
     [HttpGet("{techCardId}")]
-    [ProducesResponseType(typeof(IReadOnlyCollection<StepsInTechCardResponse>),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardStep>),StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<TechCardStep>> GetStepsByTechCardIdAsync(Guid techCardId,
         CancellationToken cancellationToken) =>
         await Sender.Send(new GetTechCardStepByIdQuery(techCardId), cancellationToken);
