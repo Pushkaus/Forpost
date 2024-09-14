@@ -35,11 +35,10 @@ public sealed class InvoiceController : ApiController
     /// Создать счет
     /// </summary>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<Guid>
-        ExposeAsync([FromBody] InvoiceCreateRequest request, CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    public async Task<ActionResult<Guid>> ExposeAsync([FromBody] InvoiceCreateRequest request, CancellationToken cancellationToken)
     {
-        return await Sender.Send(new AddInvoiceCommand
+        var id = await Sender.Send(new AddInvoiceCommand
         {
             Number = request.Number,
             ContractorId = request.ContragentId,
@@ -48,7 +47,10 @@ public sealed class InvoiceController : ApiController
             PaymentPercentage = request.PaymentPercentage,
             Products = request.Products,
         }, cancellationToken);
+        return Created("", id);
     }
+
+
 
     // /// <summary>
     // /// Закрытие счета

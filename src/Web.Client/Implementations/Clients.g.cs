@@ -6468,14 +6468,14 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create9Async(string name);
+        System.Threading.Tasks.Task Create9Async(ContractorRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create9Async(string name, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Create9Async(ContractorRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить всех контрагентов
@@ -6539,9 +6539,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Create9Async(string name)
+        public virtual System.Threading.Tasks.Task Create9Async(ContractorRequest request)
         {
-            return Create9Async(name, System.Threading.CancellationToken.None);
+            return Create9Async(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6549,10 +6549,10 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Create9Async(string name, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Create9Async(ContractorRequest request, System.Threading.CancellationToken cancellationToken)
         {
-            if (name == null)
-                throw new System.ArgumentNullException("name");
+            if (request == null)
+                throw new System.ArgumentNullException("request");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -6560,7 +6560,7 @@ namespace Forpost.Web.Client.Implementations
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(name, _settings.Value);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
                     var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
@@ -8100,6 +8100,15 @@ namespace Forpost.Web.Client.Implementations
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger
     {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ContractorRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; } = default!;
 
     }
 
