@@ -18,6 +18,7 @@ public sealed class InvoiceEndpointTests: BaseTest
         DbContext.Contractors.Add(contractor);
         var product = Product.Create("product");
         DbContext.Products.Add(product);
+        await DbContext.SaveChangesAsync();
         var invoiceProducts = new List<InvoiceProduct>
         {
             new InvoiceProduct
@@ -37,7 +38,7 @@ public sealed class InvoiceEndpointTests: BaseTest
         };
         var result = await Client.InvoiceClient.ExposeAsync(invoice);
         
-        result.Should().NotBeEmpty();
+       result.Should().NotBeEmpty();
     }
     
 }
