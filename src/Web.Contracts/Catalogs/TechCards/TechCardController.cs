@@ -15,11 +15,19 @@ public sealed class TechCardController: ApiController
     /// <param name="techCardId"></param>
     [HttpGet("composition/{techCardId}")]
     [ProducesResponseType(typeof(CompositionTechCardResponse),StatusCodes.Status200OK)]
-    public async Task<CompositionTechCardResponse> GetCompositionTechCardAsync(Guid techCardId,
-        CancellationToken cancellationToken) =>
-        Mapper.Map<CompositionTechCardResponse>(await Sender.Send(new GetCompositionTechCardQuery(techCardId),
-            cancellationToken));
-    
+    public async Task<IActionResult?> GetCompositionTechCardAsync(Guid techCardId,
+        CancellationToken cancellationToken)
+    {
+        var techCard = await Sender.Send(new GetCompositionTechCardQuery(techCardId), cancellationToken);
+
+        // Если техкарта не найдена, возвращаем пустой ответ с пустыми коллекциями
+        var result = (techCard != null)
+            ? Mapper.Map<CompositionTechCardResponse>(techCard)
+            : new CompositionTechCardResponse { Id = techCardId, Steps = Array.Empty<StepSummaryResponse>(), Items = Array.Empty<ItemSummaryResponse>() };
+
+        return Ok(result);
+    }
+
     /// <summary>
     /// Получение тех.карты по Id
     /// </summary>

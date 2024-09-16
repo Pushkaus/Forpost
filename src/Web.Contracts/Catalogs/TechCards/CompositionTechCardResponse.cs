@@ -7,8 +7,8 @@ public sealed class CompositionTechCardResponse
     public Guid Id { get; set; }
     public string Number { get; set; }
     public string? Description { get; set; }
-    public IReadOnlyCollection<StepSummaryResponse>? Steps { get; set; }
-    public IReadOnlyCollection<ItemSummaryResponse>? Items { get; set; }
+    public IReadOnlyCollection<StepSummaryResponse>? Steps { get; set; } = Array.Empty<StepSummaryResponse>();
+    public IReadOnlyCollection<ItemSummaryResponse>? Items { get; set; } = Array.Empty<ItemSummaryResponse>();
 }
 
 public sealed class StepSummaryResponse
