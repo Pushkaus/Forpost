@@ -42,7 +42,7 @@ public sealed class TechCardController: ApiController
     /// </summary>
     /// <returns>Список тех.карт и общее количество</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<TechCard>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken, 

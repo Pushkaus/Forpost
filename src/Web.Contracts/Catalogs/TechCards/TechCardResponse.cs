@@ -2,6 +2,7 @@ namespace Forpost.Web.Contracts.Catalogs.TechCards;
 
 public sealed class TechCardResponse
 {
+    public Guid Id { get; set; }
     /// <summary>
     /// Номер тех.карты
     /// </summary>
