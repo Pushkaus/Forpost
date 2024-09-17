@@ -219,5 +219,7 @@ namespace Forpost.Store.Migrations.DataMigrations
             migrationBuilder.Sql(insertStepsSql);
             migrationBuilder.Sql(insertTechCardStepsSql);
         }
+
+        
     }
 }
