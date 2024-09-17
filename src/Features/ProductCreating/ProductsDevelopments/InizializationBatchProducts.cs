@@ -1,4 +1,5 @@
 using AutoMapper;
+using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 using Forpost.Application.Contracts.ProductsDevelopments;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
@@ -15,7 +16,12 @@ internal sealed class BatchProductionInitializedCommandHandler: ICommandHandler<
     private readonly IIssueDomainRepository _issueDomainRepository;
     private readonly IMapper _mapper;
     
-    public BatchProductionInitializedCommandHandler(IManufacturingProcessDomainRepository manufacturingProcessDomainRepository, IProductDevelopmentDomainRepository productDevelopmentDomainRepository, IProductDevelopmentReadRepository productDevelopmentReadRepository, IMapper mapper, IIssueDomainRepository issueDomainRepository)
+    public BatchProductionInitializedCommandHandler(
+        IManufacturingProcessDomainRepository manufacturingProcessDomainRepository,
+        IProductDevelopmentDomainRepository productDevelopmentDomainRepository,
+        IProductDevelopmentReadRepository productDevelopmentReadRepository,
+        IMapper mapper,
+        IIssueDomainRepository issueDomainRepository)
     {
         _manufacturingProcessDomainRepository = manufacturingProcessDomainRepository;
         _productDevelopmentDomainRepository = productDevelopmentDomainRepository;
@@ -31,15 +37,16 @@ internal sealed class BatchProductionInitializedCommandHandler: ICommandHandler<
             .GetSummaryByManufacturingProcessIdAsync(command.ManufacturingProcessId, cancellationToken);
         
         var productDevelopment = _mapper.Map<ProductDevelopment>(productDevelopmentSummary);
+        var issue = await _issueDomainRepository.GetFirstIssue(command.ManufacturingProcessId, cancellationToken);
 
         for (int currentSequencNumber = 1;
              currentSequencNumber <= productDevelopmentSummary.TargetQuantity;
              currentSequencNumber++)
         {
            productDevelopment.GenerateInitialSerialNumber(productDevelopmentSummary.BatchNumber, currentSequencNumber);
-           var issue = _mapper.Map<Issue>(_issueDomainRepository.GetFirstIssue(command.ManufacturingProcessId, cancellationToken));
-           
-           productDevelopment.IssueId = issue.Id;
+           var test = await _manufacturingProcessDomainRepository.GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
+
+           if (issue != null) productDevelopment.IssueId = issue.Id;
            _productDevelopmentDomainRepository.Add(productDevelopment);
         }
         

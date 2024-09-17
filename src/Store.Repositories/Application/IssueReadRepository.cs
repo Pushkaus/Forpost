@@ -41,6 +41,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
                     Status = (IssueStatusModel)combined.Issue.IssueStatus.Value,
                     StartTime = combined.Issue.StartTime,
                     EndTime = combined.Issue.EndTime,
+                    ProductCompositionFlag = combined.Issue.ProductCompositionSettingFlag
                 }
             ).ToListAsync(cancellationToken);
     }

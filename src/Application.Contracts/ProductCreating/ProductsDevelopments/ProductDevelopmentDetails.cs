@@ -1,8 +1,8 @@
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 
-namespace Forpost.Application.Contracts.ProductsDevelopments;
+namespace Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 
-internal sealed class ProductDevelopmentDetails
+public sealed class ProductDevelopmentDetails
 {
     public Guid ProductId { get; set; }
     public string ProductName { get; set; } = string.Empty;
