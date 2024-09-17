@@ -7,6 +7,9 @@ namespace Forpost.Web.Contracts.ProductCreating;
 [Route("api/v1/manufacturingProcesses")]
 public sealed class ManufacturingProcessController : ApiController
 {
+    /// <summary>
+    /// Планирование производственного процесса
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Schedule(ScheduledManufacturingProcessCommand command,
         CancellationToken cancellationToken)
@@ -21,14 +24,18 @@ public sealed class ManufacturingProcessController : ApiController
         }, cancellationToken);
         return Ok(manufacturingProcessId);
     }
-
+    /// <summary>
+    /// Запуск производственного процесса
+    /// </summary>
     [HttpPut("{id}/launch")]
     public async Task<IActionResult> Launch(Guid id, CancellationToken cancellationToken)
     {
         await Sender.Send(new LaunchManufacturingProcessCommand(id), cancellationToken);
         return Ok();
     }
-
+    /// <summary>
+    /// Завершение производственного процесса
+    /// </summary>
     [HttpPut("{id}/complete")]
     public async Task<IActionResult> Complete(Guid id, CancellationToken cancellationToken)
     {
