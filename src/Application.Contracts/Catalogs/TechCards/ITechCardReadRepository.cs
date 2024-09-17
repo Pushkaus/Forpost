@@ -4,6 +4,8 @@ namespace Forpost.Application.Contracts.Catalogs.TechCards;
 
 public interface ITechCardReadRepository: IApplicationReadRepository
 {
-    public Task<CompositionTechCard?> GetCompositionTechCardsAsync(Guid techCardId,
+    public Task<CompositionTechCardModel?> GetCompositionTechCardsAsync(Guid techCardId,
         CancellationToken cancellationToken);
+    
+    public Task<(IReadOnlyCollection<TechCardModel>, int)> GetAllAsync(int skip, int limit, CancellationToken cancellationToken);
 }

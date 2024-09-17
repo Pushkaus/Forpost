@@ -31,14 +31,14 @@ internal sealed class CatalogMappingProfile : Profile
     {
         CreateMap<Contractor, ContractorResponse>().ValidateMemberList(MemberList.Destination);
         CreateMap<EmployeeWithRoleModel, EmployeeResponse>().ValidateMemberList(MemberList.Destination);
+        
         CreateMap<TechCardStep, StepInTechCardResponse>().ValidateMemberList(MemberList.Destination);
         CreateMap<TechCardStepRequest, TechCardStepCreateCommand>().ValidateMemberList(MemberList.Destination);
-        
         CreateMap<TechCardCreateRequest, AddTechCardCommand>().ValidateMemberList(MemberList.Destination);
-        
+        CreateMap<TechCardModel, TechCardResponse>().ValidateMemberList(MemberList.Destination);
         CreateMap<TechCardItem, TechCardItemsResponse>().ValidateMemberList(MemberList.Destination);
         CreateMap<TechCardItemRequest, AddTechCardItemCommand>().ValidateMemberList(MemberList.Destination);
-        CreateMap<CompositionTechCard, CompositionTechCardResponse>()
+        CreateMap<CompositionTechCardModel, CompositionTechCardResponse>()
             .ValidateMemberList(MemberList.Source);
         CreateMap<StepSummary, StepSummaryResponse>()
             .ValidateMemberList(MemberList.Source);

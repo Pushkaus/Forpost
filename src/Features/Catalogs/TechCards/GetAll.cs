@@ -1,21 +1,24 @@
+using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCards;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.TechCards;
 
 internal sealed class GetAllTechCardsQueryHandler :
-    IQueryHandler<GetAllTechCardsQuery, (IReadOnlyCollection<TechCard> TechCards, int TotalCount)>
+    IQueryHandler<GetAllTechCardsQuery, (IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)>
 {
-    private readonly ITechCardDomainRepository _domainRepository;
+    private readonly ITechCardReadRepository _domainRepository;
 
-    public GetAllTechCardsQueryHandler(ITechCardDomainRepository domainRepository)
+    public GetAllTechCardsQueryHandler(ITechCardReadRepository domainRepository)
     {
         _domainRepository = domainRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<TechCard> TechCards, int TotalCount)> Handle(GetAllTechCardsQuery request,
-        CancellationToken cancellationToken) =>
-        await _domainRepository.GetAllAsync(cancellationToken, request.Skip, request.Limit);
+    public async ValueTask<(IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)> Handle(GetAllTechCardsQuery request,
+        CancellationToken cancellationToken)
+    {
+        return await _domainRepository.GetAllAsync(request.Skip, request.Limit, cancellationToken);
+    }
 }
 
-public sealed record GetAllTechCardsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<TechCard> TechCards, int TotalCount)>;
+public sealed record GetAllTechCardsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)>;

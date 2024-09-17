@@ -51,7 +51,7 @@ public sealed class TechCardController: ApiController
         var result = await Sender.Send(new GetAllTechCardsQuery(skip, limit), cancellationToken);
         return Ok(new 
         {
-            TechCards = result.TechCards,
+            TechCards = Mapper.Map<IReadOnlyCollection<TechCardResponse>>(result.TechCards),
             TotalCount = result.TotalCount
         });
     }

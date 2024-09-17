@@ -13,7 +13,7 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
         _dbContext = dbContext;
     }
 
-   public async Task<CompositionTechCard?> GetCompositionTechCardsAsync(Guid techCardId, CancellationToken cancellationToken)
+   public async Task<CompositionTechCardModel?> GetCompositionTechCardsAsync(Guid techCardId, CancellationToken cancellationToken)
 {
     var queryResults = await _dbContext.TechCards
         .Where(tc => tc.Id == techCardId)
@@ -30,7 +30,7 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
         .ToListAsync(cancellationToken);
 
     var techCard = queryResults
-        .Select(result => new CompositionTechCard
+        .Select(result => new CompositionTechCardModel
         {
             Id = result.TechCard.Id,
             Number = result.TechCard.Number,
@@ -62,4 +62,24 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
     return techCard;
 }
 
+    public async Task<(IReadOnlyCollection<TechCardModel>, int)> GetAllAsync(int skip, int limit, CancellationToken cancellationToken)
+    {
+        var techCards = await _dbContext.TechCards
+            .Join(_dbContext.Products,
+                techCard => techCard.ProductId,
+                product => product.Id,
+                (techCard, product) => new TechCardModel
+                {
+                    Id = techCard.Id,
+                    Number = techCard.Number,
+                    Description = techCard.Description,
+                    ProductId = techCard.ProductId,
+                    ProductName = product.Name
+                })
+            .Skip(skip)
+            .Take(limit)
+            .ToListAsync(cancellationToken);
+        var totalCount = techCards.Count;
+        return (techCards, totalCount);
+    }
 }

@@ -1,6 +1,6 @@
 namespace Forpost.Application.Contracts.Catalogs.TechCards;
 
-public sealed class CompositionTechCard
+public sealed class CompositionTechCardModel
 {
     public Guid Id { get; set; }
     public string Number { get; set; }
