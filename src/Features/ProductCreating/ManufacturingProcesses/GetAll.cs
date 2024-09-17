@@ -5,7 +5,7 @@ using Mediator;
 namespace Forpost.Features.ProductCreating.ManufacturingProcesses;
 
 internal sealed class GetAllManufacturingProcessesQueryHandler:
-    IQueryHandler<GetAllManufacturingProcessesQuery, (IReadOnlyCollection<ManufacturingProcessWithDetailsModel>, int TotalCount)>
+    IQueryHandler<GetAllManufacturingProcessesQuery, (IReadOnlyCollection<ManufacturingProcessWithDetailsModel> ManufacturingProcesses, int TotalCount)>
 {
     private readonly IManufacturingProcessReadRepository _manufacturingProcessReadRepository;
 
@@ -14,9 +14,9 @@ internal sealed class GetAllManufacturingProcessesQueryHandler:
         _manufacturingProcessReadRepository = manufacturingProcessReadRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<ManufacturingProcessWithDetailsModel>, int TotalCount)> 
+    public async ValueTask<(IReadOnlyCollection<ManufacturingProcessWithDetailsModel> ManufacturingProcesses, int TotalCount)> 
         Handle(GetAllManufacturingProcessesQuery query, CancellationToken cancellationToken) =>
         await _manufacturingProcessReadRepository.GetAllAsync(query.Skip, query.Limit, cancellationToken);
 }
 public record GetAllManufacturingProcessesQuery(int Skip, int Limit): 
-    IQuery<(IReadOnlyCollection<ManufacturingProcessWithDetailsModel>, int TotalCount)>;
+    IQuery<(IReadOnlyCollection<ManufacturingProcessWithDetailsModel> ManufacturingProcesses, int TotalCount)>;

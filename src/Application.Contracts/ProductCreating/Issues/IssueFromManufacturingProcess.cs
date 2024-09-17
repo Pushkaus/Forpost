@@ -44,4 +44,5 @@ public class IssueFromManufacturingProcess
     /// Дата завершения выполнения задачи
     /// </summary>
     public DateTimeOffset? EndTime { get; set; }
+    public bool ProductCompositionFlag { get; set; }
 }
