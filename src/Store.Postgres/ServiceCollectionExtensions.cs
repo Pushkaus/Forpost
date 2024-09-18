@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<DomainEventToOutboxMessageInterceptor>();
         
-        services.AddDbContextPool<ForpostContextPostgres>((serviceProvider, options) =>
+        services.AddDbContext<ForpostContextPostgres>((serviceProvider, options) =>
         {
             var connectionString = configuration.GetConnectionString(ConnectionName)
                                    ?? throw new InvalidOperationException(

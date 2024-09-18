@@ -7,6 +7,7 @@ public sealed class ManufacturingProcessWithDetailsModel
     public string ProductName { get; set; } = null!;
     public Guid TechCardId { get; set; }
     public string TechCardNumber { get; set; } = null!;
+
     /// <summary>
     /// Номер партии
     /// </summary>

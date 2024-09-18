@@ -26,5 +26,6 @@ internal sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavio
         return response;
     }
     
-    private static bool IsWriteOperation() => typeof(TRequest).Name.EndsWith("Command");
+    private static bool IsWriteOperation() => typeof(TRequest).Name.EndsWith("Command") 
+                                              || typeof(TRequest).Name.EndsWith("Handler");
 }

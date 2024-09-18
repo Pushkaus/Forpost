@@ -31,6 +31,6 @@ internal sealed class ProductCreatingMappingProfile : Profile
 {
     public ProductCreatingMappingProfile()
     {
-        CreateMap<ManufacturingProcessWithDetailsModel, ManufacturingProcessResponse>(MemberList.Destination);
+        CreateMap<ManufacturingProcessWithDetailsModel, ManufacturingProcessResponse>(MemberList.Source);
     }
 }

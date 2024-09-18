@@ -3,6 +3,7 @@ using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Store.Postgres;
 using Mediator;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quartz;
@@ -22,25 +23,30 @@ internal sealed class OutboxMessagesJob : IJob
         TypeNameHandling = TypeNameHandling.Auto
     };
 
-    private readonly ForpostContextPostgres _dbContext;
     private readonly TimeProvider _timeProvider;
     private readonly ILogger<OutboxMessagesJob> _logger;
     private readonly IPublisher _publisher;
+    private readonly IServiceProvider _serviceProvider;
 
-    public OutboxMessagesJob(ForpostContextPostgres dbContext,
+    public OutboxMessagesJob(
         IPublisher publisher,
         TimeProvider timeProvider,
-        ILogger<OutboxMessagesJob> logger)
+        ILogger<OutboxMessagesJob> logger, 
+        IServiceProvider serviceProvider)
     {
-        _dbContext = dbContext;
         _publisher = publisher;
         _timeProvider = timeProvider;
         _logger = logger;
+        _serviceProvider = serviceProvider;
     }
 
     public async Task Execute(IJobExecutionContext context)
     {
-        var outboxMessages = await _dbContext.Set<OutboxMessage>()
+        await using var scope = _serviceProvider.CreateAsyncScope();
+        var options = scope.ServiceProvider.GetRequiredService<DbContextOptions<ForpostContextPostgres>>();
+        
+        var dbContext = new ForpostContextPostgres(options);
+        var outboxMessages = await dbContext.Set<OutboxMessage>()
             .Where(message => message.ProcessedOnUtc == null && string.IsNullOrEmpty(message.Error))
             .Take(BatchSize)
             .ToListAsync();
@@ -63,15 +69,16 @@ internal sealed class OutboxMessagesJob : IJob
             finally
             {
                 outboxMessage.ProcessedOnUtc = _timeProvider.GetUtcNow();
-                _dbContext.Update(outboxMessage);
+                dbContext.Update(outboxMessage);
             }
         }
 
         var handledMessages = outboxMessages.Where(message =>
             string.IsNullOrEmpty(message.Error) && message.ProcessedOnUtc.HasValue);
         
-        _dbContext.RemoveRange(handledMessages);
+        dbContext.RemoveRange(handledMessages);
         
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
     }
+    
 }

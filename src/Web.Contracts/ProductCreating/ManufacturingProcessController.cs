@@ -44,7 +44,7 @@ public sealed class ManufacturingProcessController : ApiController
     }
 
     /// <summary>
-    /// 
+    /// Получить все производственные процессы
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <param name="skip"></param>
@@ -57,7 +57,7 @@ public sealed class ManufacturingProcessController : ApiController
         var result = await Sender.Send(new GetAllManufacturingProcessesQuery(skip, take), cancellationToken);
         return Ok(new
         {
-            ManufacturingProcesses = result.ManufacturingProcesses,
+            ManufacturingProcesses = Mapper.Map<IReadOnlyCollection<ManufacturingProcessResponse>>(result.ManufacturingProcesses),
             TotalCount = result.TotalCount,
         });
     }

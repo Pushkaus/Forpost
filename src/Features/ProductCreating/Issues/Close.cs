@@ -19,6 +19,7 @@ internal sealed class CloseIssueCommandHandler: ICommandHandler<CloseIssueComman
     {
         ///TODO; проверить, что текущее количество == целевому из производственного процесса
         var issue = await _issueDomainRepository.GetByIdAsync(command.Id, cancellationToken);
+        
         if (issue.ExecutorId == Guid.Empty)
             throw new Exception("Невозможно завершить задачу без исполнителя");
         

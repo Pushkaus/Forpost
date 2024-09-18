@@ -32,21 +32,20 @@ internal sealed class BatchProductionInitializedCommandHandler: ICommandHandler<
 
     public async ValueTask<Unit> Handle(BatchProductionInitializedCommand command, CancellationToken cancellationToken)
     {
-        
         var productDevelopmentSummary = await _productDevelopmentReadRepository
             .GetSummaryByManufacturingProcessIdAsync(command.ManufacturingProcessId, cancellationToken);
-        
+
         var productDevelopment = _mapper.Map<ProductDevelopment>(productDevelopmentSummary);
         var issue = await _issueDomainRepository.GetFirstIssue(command.ManufacturingProcessId, cancellationToken);
+
 
         for (int currentSequencNumber = 1;
              currentSequencNumber <= productDevelopmentSummary.TargetQuantity;
              currentSequencNumber++)
         {
            productDevelopment.GenerateInitialSerialNumber(productDevelopmentSummary.BatchNumber, currentSequencNumber);
-           var test = await _manufacturingProcessDomainRepository.GetByIdAsync(command.ManufacturingProcessId, cancellationToken);
-
-           if (issue != null) productDevelopment.IssueId = issue.Id;
+           productDevelopment.IssueId = issue.Id;
+           productDevelopment.Id = Guid.NewGuid();
            _productDevelopmentDomainRepository.Add(productDevelopment);
         }
         
