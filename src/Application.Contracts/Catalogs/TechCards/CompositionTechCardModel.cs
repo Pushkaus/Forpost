@@ -4,6 +4,7 @@ public sealed class CompositionTechCardModel
 {
     public Guid Id { get; set; }
     public string Number { get; set; }
+    public string ProductName { get; set; }
     public string? Description { get; set; }
     public IReadOnlyCollection<StepSummary>? Steps { get; set; }
     public IReadOnlyCollection<ItemSummary>? Items { get; set; }

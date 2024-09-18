@@ -5,6 +5,7 @@ namespace Forpost.Web.Contracts.Catalogs.TechCardSteps;
 public sealed class CompositionTechCardResponse
 {
     public Guid Id { get; set; }
+    public string ProductName { get; set; }
     public string Number { get; set; }
     public string? Description { get; set; }
     public IReadOnlyCollection<StepSummaryResponse>? Steps { get; set; } = Array.Empty<StepSummaryResponse>();

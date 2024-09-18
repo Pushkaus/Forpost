@@ -25,7 +25,8 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
                      join step in _dbContext.Steps on techCardStep.StepId equals step.Id into gj
                      from subStep in gj.DefaultIfEmpty()
                      where techCardStep.TechCardId == techCard.Id
-                     select new { techCardStep, SubStep = subStep }).ToList()
+                     select new { techCardStep, SubStep = subStep }).ToList(),
+            Product = _dbContext.Products.FirstOrDefault(p => p.Id == techCard.ProductId),
         })
         .ToListAsync(cancellationToken);
 
@@ -34,6 +35,7 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
         {
             Id = result.TechCard.Id,
             Number = result.TechCard.Number,
+            ProductName = result.Product.Name,
             Description = result.TechCard.Description,
             Steps = result.Steps
                 .Where(s => s.SubStep != null) // Поддержка шагов
