@@ -39,6 +39,7 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
                 .Where(s => s.SubStep != null) // Поддержка шагов
                 .Select(item => new StepSummary
                 {
+                    Id = item.SubStep.Id,
                     TechCardId = item.techCardStep.TechCardId,
                     OperationName = item.SubStep != null ? _dbContext.Operations.FirstOrDefault(o => o.Id == item.SubStep.OperationId)?.Name : string.Empty,
                     Description = item.SubStep?.Description ?? string.Empty,
@@ -50,6 +51,7 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
             Items = result.TechCardItems
                 .Select(item => new ItemSummary
                 {
+                    Id = item.Id,
                     TechCardId = item.TechCardId,
                     ProductId = item.ProductId,
                     ProductName = _dbContext.Products.FirstOrDefault(p => p.Id == item.ProductId)?.Name ?? string.Empty,

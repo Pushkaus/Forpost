@@ -46,10 +46,6 @@ public sealed class ManufacturingProcessController : ApiController
     /// <summary>
     /// Получить все производственные процессы
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <param name="skip"></param>
-    /// <param name="take"></param>
-    /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ManufacturingProcessResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken, int skip = 0, int take = 100)

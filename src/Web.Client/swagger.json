@@ -164,6 +164,7 @@
         "tags": [
           "ManufacturingProcess"
         ],
+        "summary": "Планирование производственного процесса",
         "operationId": "Schedule",
         "requestBody": {
           "x-name": "command",
@@ -190,13 +191,58 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "ManufacturingProcess"
+        ],
+        "summary": "Получить все производственные процессы",
+        "operationId": "GetAllAll",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            },
+            "x-position": 1
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ManufacturingProcessResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/api/v1/manufacturingProcesses/launch/{id}": {
+    "/api/v1/manufacturingProcesses/{id}/launch": {
       "put": {
         "tags": [
           "ManufacturingProcess"
         ],
+        "summary": "Запуск производственного процесса",
         "operationId": "Launch2",
         "parameters": [
           {
@@ -225,11 +271,12 @@
         }
       }
     },
-    "/api/v1/manufacturingProcesses/complete/{id}": {
+    "/api/v1/manufacturingProcesses/{id}/complete": {
       "put": {
         "tags": [
           "ManufacturingProcess"
         ],
+        "summary": "Завершение производственного процесса",
         "operationId": "Complete",
         "parameters": [
           {
@@ -264,7 +311,7 @@
           "ProductDevelopment"
         ],
         "summary": "Получение всех продуктов в разработке",
-        "operationId": "GetAllAll",
+        "operationId": "GetAllAll2",
         "parameters": [
           {
             "name": "skip",
@@ -340,7 +387,7 @@
           "Invoice"
         ],
         "summary": "Получить все счета",
-        "operationId": "GetAllAll2",
+        "operationId": "GetAllAll3",
         "parameters": [
           {
             "name": "skip",
@@ -669,7 +716,7 @@
           "TechCard"
         ],
         "summary": "Получение всех тех.карт",
-        "operationId": "GetAllAll3",
+        "operationId": "GetAllAll4",
         "parameters": [
           {
             "name": "skip",
@@ -700,7 +747,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TechCard"
+                    "$ref": "#/components/schemas/TechCardResponse"
                   }
                 }
               }
@@ -977,7 +1024,7 @@
           "Storage"
         ],
         "summary": "Получить список всех складов",
-        "operationId": "GetAllAll4",
+        "operationId": "GetAllAll5",
         "responses": {
           "200": {
             "description": "Список складов и общее количество",
@@ -1061,7 +1108,7 @@
           "Step"
         ],
         "summary": "Получение всех этапов",
-        "operationId": "GetAllAll5",
+        "operationId": "GetAllAll6",
         "parameters": [
           {
             "name": "skip",
@@ -1173,7 +1220,7 @@
           "Role"
         ],
         "summary": "Получить все роли",
-        "operationId": "GetAllAll6",
+        "operationId": "GetAllAll7",
         "responses": {
           "200": {
             "description": "",
@@ -1433,7 +1480,7 @@
           "Operation"
         ],
         "summary": "Получение всех операций",
-        "operationId": "GetAllAll7",
+        "operationId": "GetAllAll8",
         "responses": {
           "200": {
             "description": "",
@@ -1547,7 +1594,7 @@
           "Contractor"
         ],
         "summary": "Получить всех контрагентов",
-        "operationId": "GetAllAll8",
+        "operationId": "GetAllAll9",
         "parameters": [
           {
             "name": "skip",
@@ -1768,6 +1815,9 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          },
+          "productCompositionFlag": {
+            "type": "boolean"
           }
         }
       },
@@ -1865,6 +1915,77 @@
             "type": "boolean"
           }
         }
+      },
+      "ManufacturingProcessResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "techCardId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "techCardNumber": {
+            "type": "string"
+          },
+          "batchNumber": {
+            "type": "string",
+            "description": "Номер партии"
+          },
+          "currentQuantity": {
+            "type": "integer",
+            "description": "Текущее количество продукта из производственного процесса",
+            "format": "int32"
+          },
+          "targetQuantity": {
+            "type": "integer",
+            "description": "Целевое количество продукта в производственном процессе",
+            "format": "int32"
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Дата начала выполнения производственного процесса",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endTime": {
+            "type": "string",
+            "description": "Дата завершения выполнения производственного процесса",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/ManufacturingProcessStatus"
+          }
+        }
+      },
+      "ManufacturingProcessStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Pending",
+          "InPaused",
+          "InProgress",
+          "Completed",
+          "Cancelled"
+        ],
+        "enum": [
+          100,
+          101,
+          200,
+          300,
+          400
+        ]
       },
       "ProductDevelopment": {
         "allOf": [
@@ -2277,6 +2398,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
           "techCardId": {
             "type": "string",
             "format": "guid"
@@ -2315,6 +2440,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
           "techCardId": {
             "type": "string",
             "format": "guid"
@@ -2355,6 +2484,33 @@
             }
           }
         ]
+      },
+      "TechCardResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "number": {
+            "type": "string",
+            "description": "Номер тех.карты"
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "description": "Ссылка на продукт, относительно которого составляется тех.карта",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          }
+        }
       },
       "TechCardCreateRequest": {
         "type": "object",

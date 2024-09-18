@@ -13,6 +13,7 @@ public sealed class CompositionTechCardResponse
 
 public sealed class StepSummaryResponse
 {
+    public Guid Id { get; set; }
     public Guid TechCardId { get; set; }
     public string OperationName { get; set; }
     public string? Description { get; set; }
@@ -23,6 +24,7 @@ public sealed class StepSummaryResponse
 
 public sealed class ItemSummaryResponse
 {
+    public Guid Id { get; set; }
     public Guid TechCardId { get; set; }
 
     public Guid ProductId { get; set; }

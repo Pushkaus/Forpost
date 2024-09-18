@@ -11,6 +11,7 @@ public sealed class CompositionTechCardModel
 
 public sealed class StepSummary
 {
+    public Guid Id { get; set; }
     public Guid TechCardId { get; set; }
     public string OperationName { get; set; }
     public string? Description { get; set; }
@@ -21,6 +22,7 @@ public sealed class StepSummary
 
 public sealed class ItemSummary
 {
+    public Guid Id { get; set; }
     public Guid TechCardId { get; set; }
 
     public Guid ProductId { get; set; }
