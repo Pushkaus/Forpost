@@ -7,7 +7,7 @@ namespace Forpost.Features.ProductCreating.Issues;
 
 internal sealed class GetAllIssuesQueryHandler: 
     IQueryHandler<IssuesFromManufacturingProcessQuery,
-    IReadOnlyCollection<IssueFromManufacturingProcess>>
+    IReadOnlyCollection<IssueFromManufacturingProcessModel>>
 {
     private readonly IIssueReadRepository _issueReadRepository;
 
@@ -21,7 +21,7 @@ internal sealed class GetAllIssuesQueryHandler:
         _issueDomainRepository = issueDomainRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<IssueFromManufacturingProcess>>
+    public async ValueTask<IReadOnlyCollection<IssueFromManufacturingProcessModel>>
         Handle(IssuesFromManufacturingProcessQuery request, CancellationToken cancellationToken)
     {
         return await _issueReadRepository.GetAllFromManufacturingProcessId(request.ManufacturingProcessId,
@@ -29,4 +29,4 @@ internal sealed class GetAllIssuesQueryHandler:
     }
 }
 public sealed record IssuesFromManufacturingProcessQuery(Guid ManufacturingProcessId): 
-    IQuery<IReadOnlyCollection<IssueFromManufacturingProcess>>;
+    IQuery<IReadOnlyCollection<IssueFromManufacturingProcessModel>>;

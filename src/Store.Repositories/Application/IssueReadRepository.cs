@@ -14,7 +14,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
         _dbContext = dbContext;
     }
 
-    public Task<List<IssueFromManufacturingProcess>> GetAllFromManufacturingProcessId(Guid manufacturingProcessId,
+    public Task<List<IssueFromManufacturingProcessModel>> GetAllFromManufacturingProcessId(Guid manufacturingProcessId,
         CancellationToken cancellationToken)
     {
         return _dbContext.Issues.Where(i => i.ManufacturingProcessId == manufacturingProcessId)
@@ -29,7 +29,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
             .Join(_dbContext.Operations,
                 combined => combined.Step.OperationId,
                 operation => operation.Id,
-                (combined, operation) => new IssueFromManufacturingProcess
+                (combined, operation) => new IssueFromManufacturingProcessModel
                 {
                     Id = combined.Issue.Id,
                     OperationName = operation.Name,
@@ -44,5 +44,101 @@ internal sealed class IssueReadRepository: IIssueReadRepository
                     ProductCompositionFlag = combined.Issue.ProductCompositionSettingFlag
                 }
             ).ToListAsync(cancellationToken);
+    }
+
+    public async Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)>
+        GetIssuesByExecutorId(Guid executorId, CancellationToken cancellationToken, int skip, int limit)
+    {
+        var totalCount = await _dbContext.Issues.CountAsync(cancellationToken);
+        var issues = await _dbContext.Issues.Where(i => i.ExecutorId == executorId)
+            .Join(_dbContext.Steps,
+                issue => issue.StepId,
+                step => step.Id,
+                (issue, step) => new
+                {
+                    Issue = issue,
+                    Step = step
+                })
+            .Join(_dbContext.Operations,
+                combined => combined.Step.OperationId,
+                operation => operation.Id,
+                (combined, operation) => new { combined, operation })
+            .Join(_dbContext.ManufacturingProcesses,
+                combined => combined.combined.Issue.ManufacturingProcessId,
+                manufacturingProcess => manufacturingProcess.Id,
+                (combined, manufacturingProcess) => new { combined, manufacturingProcess })
+            .Join(_dbContext.TechCards,
+                combined => combined.manufacturingProcess.TechnologicalCardId,
+                techCard => techCard.Id,
+                (combined, techCard) => new { combined, techCard })
+            .Join(_dbContext.Products,
+                combined => combined.techCard.ProductId,
+                product => product.Id,
+                (combined, product) => new IssueModel
+                {
+                    Id = combined.combined.combined.combined.Issue.Id,
+                    ProductName = product.Name,
+                    OperationName = combined.combined.combined.operation.Name,
+                    IssueNumber = combined.combined.combined.combined.Issue.IssueNumber,
+                    ExecutorId = combined.combined.combined.combined.Issue.ExecutorId,
+                    ResponsibleId = combined.combined.combined.combined.Issue.ResponsibleId,
+                    Description = combined.combined.combined.combined.Issue.Description,
+                    CurrentQuantity = combined.combined.combined.combined.Issue.CurrentQuantity,
+                    StartTime = combined.combined.combined.combined.Issue.StartTime,
+                    EndTime = combined.combined.combined.combined.Issue.EndTime,
+                    ProductCompositionFlag = combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
+                })
+            .Skip(skip)
+            .Take(limit)
+            .ToListAsync(cancellationToken);
+        return (issues, totalCount);
+    }
+
+    public async Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)>
+        GetIssuesByResponsibleId(Guid responsibleId, CancellationToken cancellationToken, int skip, int limit)
+    {
+        var totalCount = await _dbContext.Issues.CountAsync(cancellationToken);
+        var issues = await _dbContext.Issues.Where(i => i.ExecutorId == responsibleId)
+            .Join(_dbContext.Steps,
+                issue => issue.StepId,
+                step => step.Id,
+                (issue, step) => new
+                {
+                    Issue = issue,
+                    Step = step
+                })
+            .Join(_dbContext.Operations,
+                combined => combined.Step.OperationId,
+                operation => operation.Id,
+                (combined, operation) => new { combined, operation })
+            .Join(_dbContext.ManufacturingProcesses,
+                combined => combined.combined.Issue.ManufacturingProcessId,
+                manufacturingProcess => manufacturingProcess.Id,
+                (combined, manufacturingProcess) => new { combined, manufacturingProcess })
+            .Join(_dbContext.TechCards,
+                combined => combined.manufacturingProcess.TechnologicalCardId,
+                techCard => techCard.Id,
+                (combined, techCard) => new { combined, techCard })
+            .Join(_dbContext.Products,
+                combined => combined.techCard.ProductId,
+                product => product.Id,
+                (combined, product) => new IssueModel
+                {
+                    Id = combined.combined.combined.combined.Issue.Id,
+                    ProductName = product.Name,
+                    OperationName = combined.combined.combined.operation.Name,
+                    IssueNumber = combined.combined.combined.combined.Issue.IssueNumber,
+                    ExecutorId = combined.combined.combined.combined.Issue.ExecutorId,
+                    ResponsibleId = combined.combined.combined.combined.Issue.ResponsibleId,
+                    Description = combined.combined.combined.combined.Issue.Description,
+                    CurrentQuantity = combined.combined.combined.combined.Issue.CurrentQuantity,
+                    StartTime = combined.combined.combined.combined.Issue.StartTime,
+                    EndTime = combined.combined.combined.combined.Issue.EndTime,
+                    ProductCompositionFlag = combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
+                })
+            .Skip(skip)
+            .Take(limit)
+            .ToListAsync(cancellationToken);
+        return (issues, totalCount);
     }
 }

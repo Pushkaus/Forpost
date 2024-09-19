@@ -1,18 +1,27 @@
+using Forpost.Application.Contracts.ProductCreating.Issues;
 using Forpost.Domain.ProductCreating.Issue;
 using Mediator;
 
 namespace Forpost.Features.ProductCreating.Issues;
 
-internal sealed class GetIssueByExecutorIdQueryHandler: IQueryHandler<GetIssuesByExecutorIdQuery, IReadOnlyCollection<Issue>>
+internal sealed class GetIssueByExecutorIdQueryHandler: 
+    IQueryHandler<GetIssuesByExecutorIdQuery, (IReadOnlyCollection<IssueModel> Issues, int TotalCount)>
 {
-    private readonly IIssueDomainRepository _issueDomainRepository;
-
-    public GetIssueByExecutorIdQueryHandler(IIssueDomainRepository issueDomainRepository)
+    private readonly IIssueReadRepository _issueReadRepository;
+    
+    public GetIssueByExecutorIdQueryHandler(
+        IIssueReadRepository issueReadRepository)
     {
-        _issueDomainRepository = issueDomainRepository;
+        _issueReadRepository = issueReadRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<Issue>> Handle(GetIssuesByExecutorIdQuery query, CancellationToken cancellationToken) 
-        => await _issueDomainRepository.GetIssuesByExecutorId(query.ExecutorId, cancellationToken);
+    public async ValueTask<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)> 
+        Handle(GetIssuesByExecutorIdQuery query, CancellationToken cancellationToken)
+    {
+        var result = await _issueReadRepository.GetIssuesByExecutorId(query.ExecutorId, cancellationToken, query.Skip,
+            query.Limit);
+        return (result.Issues, result.TotalCount);
+    }
 }
-public record GetIssuesByExecutorIdQuery(Guid ExecutorId): IQuery<IReadOnlyCollection<Issue>>;
+public record GetIssuesByExecutorIdQuery(Guid ExecutorId, int Skip, int Limit): 
+    IQuery<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)>;
