@@ -1,4 +1,5 @@
 using Forpost.Application.Contracts;
+using Forpost.Domain.Primitives.DomainAbstractions;
 using Mediator;
 
 namespace Forpost.Infrastructure.Pipeline;
@@ -14,11 +15,12 @@ internal sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavio
     
     public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
     {
+
         if (IsWriteOperation() is false)
         {
             return await next(message, cancellationToken);
         }
-
+        
         var response = await next(message, cancellationToken);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);

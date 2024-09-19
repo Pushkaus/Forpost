@@ -11,8 +11,15 @@ public sealed class ProductDevelopmentController: ApiController
     /// Получение всех продуктов в разработке
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<ProductDevelopment>), StatusCodes.Status200OK)]
-    public async Task<(IReadOnlyCollection<ProductDevelopment>, int)> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip, [FromQuery] int limit) 
-        => await Sender.Send(new GetAllDevelopmentProductsQuery(skip, limit), cancellationToken);
+    [ProducesResponseType(typeof(IReadOnlyCollection<ProductDevelopmentResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+    {
+        var result = await Sender.Send(new GetAllDevelopmentProductsQuery(skip, limit), cancellationToken);
+        return Ok(new
+        {
+            Developments = Mapper.Map<IReadOnlyCollection<ProductDevelopmentResponse>>(result.Developments),
+            TotalCount = result.TotalCount
+        });
+    }
 }

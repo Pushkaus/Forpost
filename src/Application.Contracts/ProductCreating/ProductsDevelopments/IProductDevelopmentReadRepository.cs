@@ -11,7 +11,10 @@ public interface IProductDevelopmentReadRepository: IApplicationReadRepository
     
     public Task<IReadOnlyCollection<TechCardItem>>
         GetTechCardItemsById(Guid productDevelopmentId, CancellationToken cancellationToken);
+
+    public Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)>
+        GetAllByIssueId(Guid issueId, CancellationToken cancellationToken, int skip, int limit);
     
-    public Task<IReadOnlyCollection<ProductDevelopmentDetails>> 
-        GetAllByIssueId(Guid issueId, CancellationToken cancellationToken);
+    public Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)>
+        GetAllAsync(CancellationToken cancellationToken, int skip, int limit);
 }

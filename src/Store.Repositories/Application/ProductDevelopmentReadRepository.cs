@@ -30,6 +30,7 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
                     ProductId = techCard.ProductId,
                     BatchNumber = manufacturingProcess.BatchNumber,
                     TargetQuantity = manufacturingProcess.TargetQuantity,
+                    Status = (ProductStatus)manufacturingProcess.Status,
                 })
             .FirstOrDefaultAsync(cancellationToken);
     }
@@ -55,30 +56,95 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<IReadOnlyCollection<ProductDevelopmentDetails>> 
-        GetAllByIssueId(Guid issueId, CancellationToken cancellationToken)
+    public async Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)> 
+        GetAllByIssueId(Guid issueId, CancellationToken cancellationToken, int skip, int limit)
     {
-        return await _dbContext.ProductDevelopments
+        var result = await _dbContext.ProductDevelopments
             .Where(entity => entity.IssueId == issueId 
                              && entity.Status == ProductStatus.InProgress)
-            .Join(_dbContext.Products,
-                productDevelopment => productDevelopment.ProductId,
-                product => product.Id,
-                (productDevelopment, product) => new {productDevelopment, product})
             .Join(_dbContext.ManufacturingProcesses,
-                combined => combined.productDevelopment.ManufacturingProcessId,
+                productDevelopment => productDevelopment.ManufacturingProcessId,
                 manufacturingProcess => manufacturingProcess.Id,
-                (combined, manufacturingProcess) => new ProductDevelopmentDetails
+                (productDevelopment, manufacturingProcess) => new { productDevelopment, manufacturingProcess })
+            .Join(_dbContext.Products,
+                combined => combined.productDevelopment.ProductId,
+                product => product.Id,
+                (combined, product) => new {combined, product})
+            .Join(_dbContext.Issues,
+                combined => combined.combined.productDevelopment.IssueId,
+                issue => issue.Id,
+                (combined, issue) => new {combined, issue})
+            .Join(_dbContext.Steps,
+                combined => combined.issue.StepId,
+                step => step.Id,
+                (combined, step) => new {combined, step})
+            .Join(_dbContext.Operations,
+                combined => combined.step.OperationId,
+                operation => operation.Id,
+                (combined, operation) => new ProductDevelopmentModel
                 {
-                    ProductId = combined.product.Id,
-                    ProductName = combined.product.Name,
-                    ManufacturingProcessId = combined.productDevelopment.ManufacturingProcessId,
-                    IssueId = combined.productDevelopment.IssueId,
-                    BatchNumber = manufacturingProcess.BatchNumber,
-                    SerialNumber = combined.productDevelopment.SerialNumber,
-                    SettingOption = (SettingOptionRead?)combined.productDevelopment.SettingOption,
-                    StatusRead = (ProductStatusRead)combined.productDevelopment.Status,
+                    Id = combined.combined.combined.combined.productDevelopment.Id,
+                    ProductId = combined.combined.combined.combined.productDevelopment.ProductId,
+                    ProductName = combined.combined.combined.product.Name,
+                    ManufacturingProcessId = combined.combined.combined.combined.productDevelopment.ManufacturingProcessId,
+                    IssueId = combined.combined.combined.combined.productDevelopment.IssueId,
+                    OperationName = operation.Name,
+                    BatchNumber = combined.combined.combined.combined.manufacturingProcess.BatchNumber,
+                    SerialNumber = combined.combined.combined.combined.productDevelopment.SerialNumber,
+                    SettingOption = (SettingOptionRead?)combined.combined.combined.combined.productDevelopment.SettingOption,
+                    StatusRead = (ProductStatusRead)combined.combined.combined.combined.productDevelopment.Status,
                 })
+            .Skip(skip)
+            .Take(limit)
+            .Where(entity => entity.StatusRead != ProductStatusRead.Completed 
+                             && entity.StatusRead != ProductStatusRead.Cancelled)
             .ToListAsync(cancellationToken);
+        var totalCount = result.Count;
+        return (result, totalCount);
+    }
+    
+    public async Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)> 
+        GetAllAsync(CancellationToken cancellationToken, int skip, int limit)
+    {
+        var result = await _dbContext.ProductDevelopments
+            .Join(_dbContext.ManufacturingProcesses,
+                productDevelopment => productDevelopment.ManufacturingProcessId,
+                manufacturingProcess => manufacturingProcess.Id,
+                (productDevelopment, manufacturingProcess) => new { productDevelopment, manufacturingProcess })
+            .Join(_dbContext.Products,
+                combined => combined.productDevelopment.ProductId,
+                product => product.Id,
+                (combined, product) => new {combined, product})
+            .Join(_dbContext.Issues,
+                combined => combined.combined.productDevelopment.IssueId,
+                issue => issue.Id,
+                (combined, issue) => new {combined, issue})
+            .Join(_dbContext.Steps,
+                combined => combined.issue.StepId,
+                step => step.Id,
+                (combined, step) => new {combined, step})
+            .Join(_dbContext.Operations,
+                combined => combined.step.OperationId,
+                operation => operation.Id,
+                (combined, operation) => new ProductDevelopmentModel
+                {
+                    Id = combined.combined.combined.combined.productDevelopment.Id,
+                    ProductId = combined.combined.combined.combined.productDevelopment.ProductId,
+                    ProductName = combined.combined.combined.product.Name,
+                    ManufacturingProcessId = combined.combined.combined.combined.productDevelopment.ManufacturingProcessId,
+                    IssueId = combined.combined.combined.combined.productDevelopment.IssueId,
+                    OperationName = operation.Name,
+                    BatchNumber = combined.combined.combined.combined.manufacturingProcess.BatchNumber,
+                    SerialNumber = combined.combined.combined.combined.productDevelopment.SerialNumber,
+                    SettingOption = (SettingOptionRead?)combined.combined.combined.combined.productDevelopment.SettingOption,
+                    StatusRead = (ProductStatusRead)combined.combined.combined.combined.productDevelopment.Status,
+                })
+            .Skip(skip)
+            .Take(limit)
+            .Where(entity => entity.StatusRead != ProductStatusRead.Completed 
+                             && entity.StatusRead != ProductStatusRead.Cancelled)
+            .ToListAsync(cancellationToken);
+        var totalCount = result.Count;
+        return (result, totalCount);
     }
 }

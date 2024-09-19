@@ -28,25 +28,23 @@ internal sealed class OutboxMessagesJob : IJob
     private readonly IPublisher _publisher;
     private readonly IServiceProvider _serviceProvider;
 
+    private readonly ForpostContextPostgres _context;
     public OutboxMessagesJob(
         IPublisher publisher,
         TimeProvider timeProvider,
         ILogger<OutboxMessagesJob> logger, 
-        IServiceProvider serviceProvider)
+        IServiceProvider serviceProvider, ForpostContextPostgres context)
     {
         _publisher = publisher;
         _timeProvider = timeProvider;
         _logger = logger;
         _serviceProvider = serviceProvider;
+        _context = context;
     }
 
     public async Task Execute(IJobExecutionContext context)
     {
-        await using var scope = _serviceProvider.CreateAsyncScope();
-        var options = scope.ServiceProvider.GetRequiredService<DbContextOptions<ForpostContextPostgres>>();
-        
-        var dbContext = new ForpostContextPostgres(options);
-        var outboxMessages = await dbContext.Set<OutboxMessage>()
+        var outboxMessages = await _context.Set<OutboxMessage>()
             .Where(message => message.ProcessedOnUtc == null && string.IsNullOrEmpty(message.Error))
             .Take(BatchSize)
             .ToListAsync();
@@ -69,16 +67,16 @@ internal sealed class OutboxMessagesJob : IJob
             finally
             {
                 outboxMessage.ProcessedOnUtc = _timeProvider.GetUtcNow();
-                dbContext.Update(outboxMessage);
+                _context.Update(outboxMessage);
             }
         }
 
         var handledMessages = outboxMessages.Where(message =>
             string.IsNullOrEmpty(message.Error) && message.ProcessedOnUtc.HasValue);
         
-        dbContext.RemoveRange(handledMessages);
+        _context.RemoveRange(handledMessages);
         
-        await dbContext.SaveChangesAsync();
+        await _context.SaveChangesAsync();
     }
     
 }

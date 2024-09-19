@@ -21,4 +21,8 @@
     <InternalsVisibleTo Include="Forpost.Infrastructure" />
   </ItemGroup>
   
+  <ItemGroup>
+    <Folder Include="ProductCreating\ManufacturingProcesses\Handlers\" />
+  </ItemGroup>
+  
 </Project>

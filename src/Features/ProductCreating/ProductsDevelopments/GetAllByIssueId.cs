@@ -4,7 +4,7 @@ using Mediator;
 namespace Forpost.Features.ProductCreating.ProductsDevelopments;
 
 internal sealed class GetAllByIssueIdQueryHandler: 
-    IQueryHandler<GetAllByIssueIdQuery, IReadOnlyCollection<ProductDevelopmentDetails>>
+    IQueryHandler<GetAllByIssueIdQuery, (IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)>
 {
     private readonly IProductDevelopmentReadRepository _productDevelopmentReadRepository;
 
@@ -13,8 +13,13 @@ internal sealed class GetAllByIssueIdQueryHandler:
         _productDevelopmentReadRepository = productDevelopmentReadRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<ProductDevelopmentDetails>>
-        Handle(GetAllByIssueIdQuery query, CancellationToken cancellationToken) =>
-        await _productDevelopmentReadRepository.GetAllByIssueId(query.IssueId, cancellationToken);
+    public async ValueTask<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)>
+        Handle(GetAllByIssueIdQuery query, CancellationToken cancellationToken)
+    {
+        var result = await _productDevelopmentReadRepository.GetAllByIssueId(query.IssueId, cancellationToken, query.Skip,
+            query.Limit);
+        return (result.ProductDevelopments, result.TotalCount);
+    }
 }
-public record GetAllByIssueIdQuery(Guid IssueId): IQuery<IReadOnlyCollection<ProductDevelopmentDetails>>;
+public record GetAllByIssueIdQuery(Guid IssueId, int Skip, int Limit): 
+    IQuery<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)>;
