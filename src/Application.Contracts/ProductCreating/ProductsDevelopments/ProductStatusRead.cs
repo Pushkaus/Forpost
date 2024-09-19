@@ -1,4 +1,4 @@
-namespace Forpost.Domain.ProductCreating.ProductDevelopment;
+namespace Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 
 public enum ProductStatusRead
 {

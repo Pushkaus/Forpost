@@ -7,7 +7,7 @@ public sealed class ProductDevelopment : DomainEntity
     public void GenerateInitialSerialNumber(string batchNumber, int sequenceNumber)
     {
         SerialNumber = $"{batchNumber}-{sequenceNumber:D2}";
-        Status = ProductStatus.Initial;
+        Status = ProductStatus.InProgress;
     }
 
     public void SetSerialNumber(string serialNumber)

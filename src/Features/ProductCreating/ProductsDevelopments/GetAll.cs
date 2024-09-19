@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Mediator;
@@ -5,21 +6,23 @@ using Mediator;
 namespace Forpost.Features.ProductCreating.ProductsDevelopments;
 
 internal sealed class GetAllDevelopmentProductsQueryHandler : 
-    IQueryHandler<GetAllDevelopmentProductsQuery, (IReadOnlyCollection<ProductDevelopment> Developments, int TotalCount)>
+    IQueryHandler<GetAllDevelopmentProductsQuery, (IReadOnlyCollection<ProductDevelopmentModel> Developments, int TotalCount)>
 {
-    private readonly IProductDevelopmentDomainRepository _productDevelopmentDomainRepository;
 
-    public GetAllDevelopmentProductsQueryHandler(IProductDevelopmentDomainRepository productDevelopmentDomainRepository)
+    private readonly IProductDevelopmentReadRepository _productDevelopmentReadRepository;
+
+    public GetAllDevelopmentProductsQueryHandler(IProductDevelopmentReadRepository productDevelopmentReadRepository)
     {
-        _productDevelopmentDomainRepository = productDevelopmentDomainRepository;
+        _productDevelopmentReadRepository = productDevelopmentReadRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<ProductDevelopment> Developments, int TotalCount)> Handle(GetAllDevelopmentProductsQuery query, CancellationToken cancellationToken)
+    public async ValueTask<(IReadOnlyCollection<ProductDevelopmentModel> Developments, int TotalCount)> 
+        Handle(GetAllDevelopmentProductsQuery query, CancellationToken cancellationToken)
     {
-        var developments = await _productDevelopmentDomainRepository.GetAllAsync(cancellationToken);
-        return developments;
+        var result = await _productDevelopmentReadRepository.GetAllAsync(cancellationToken, query.Skip, query.Limit);
+        return (result.ProductDevelopments, result.TotalCount);
     }
 }
 
 // Запрос для получения всех продуктов разработки
-public record GetAllDevelopmentProductsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<ProductDevelopment> Developments, int TotalCount)>;
+public record GetAllDevelopmentProductsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<ProductDevelopmentModel> Developments, int TotalCount)>;

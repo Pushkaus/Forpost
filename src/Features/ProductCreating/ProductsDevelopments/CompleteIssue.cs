@@ -45,7 +45,7 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
 
         if (currentIssue.ProductCompositionSettingFlag && compositionProduct is null)
         {
-            throw new InvalidOperationException("Состав продукта не указан, невозможно завершить задачу");
+            throw new Exception("Состав продукта не указан, невозможно завершить задачу");
         }
 
         if (nextIssue != null)
