@@ -1,4 +1,5 @@
 using Forpost.Application.Contracts.Issues;
+using Forpost.Application.Contracts.ProductCreating.Issues;
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Mediator;

@@ -12,11 +12,43 @@ public sealed class IssueController: ApiController
     /// Получение всех задач производственного процесса
     /// </summary>
     [HttpGet("{manufacturingProcessId}")]
-    [ProducesResponseType(typeof(IReadOnlyCollection<IssueFromManufacturingProcess>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<IssueFromManufacturingProcess>> 
+    [ProducesResponseType(typeof(IReadOnlyCollection<IssueFromManufacturingProcessModel>), StatusCodes.Status200OK)]
+    public async Task<IReadOnlyCollection<IssueFromManufacturingProcessModel>> 
         GetIssuesFromManufacturingProcess(Guid manufacturingProcessId, CancellationToken cancellationToken) 
         => await Sender.Send(new IssuesFromManufacturingProcessQuery(manufacturingProcessId), cancellationToken);
 
+    /// <summary>
+    /// Получение задач для исполнителя
+    /// </summary>
+    [HttpGet("for-executor")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<IssueModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetIssuesForExecutor(
+        CancellationToken cancellationToken, int skip = 0, int limit = 10)
+    {
+        var userId = IdentityProvider.GetUserId();
+        var result = await Sender.Send(new GetIssuesByExecutorIdQuery(userId.Value, skip, limit), cancellationToken);
+        return Ok(new
+        {
+            Issues = result.Issues,
+            TotalCount = result.TotalCount
+        });
+    } 
+    /// <summary>
+    /// Получение задач для исполнителя
+    /// </summary>
+    [HttpGet("for-responsible")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<IssueModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetIssuesForResponsible(
+        CancellationToken cancellationToken, int skip = 0, int limit = 10)
+    {
+        var userId = IdentityProvider.GetUserId();
+        var result = await Sender.Send(new GetIssuesByResponsibleIdQuery(userId.Value, skip, limit), cancellationToken);
+        return Ok(new
+        {
+            Issues = result.Issues,
+            TotalCount = result.TotalCount
+        });
+    }
     /// <summary>
     /// Запуск задачи
     /// </summary>
