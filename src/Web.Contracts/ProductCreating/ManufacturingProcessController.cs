@@ -1,6 +1,8 @@
+using Forpost.Application.Contracts.ProductCreating.ManufacturingProcesses;
 using Forpost.Features.ProductCreating.ManufacturingProcesses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace Forpost.Web.Contracts.ProductCreating;
 
@@ -23,6 +25,13 @@ public sealed class ManufacturingProcessController : ApiController
             Issues = command.Issues
         }, cancellationToken);
         return Ok(manufacturingProcessId);
+    }
+
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ManufacturingProcessWithDetailsModel), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
+    {
+        return Ok(await Sender.Send(new GetManufacturingProcessByIdQuery(id), cancellationToken));
     }
     /// <summary>
     /// Запуск производственного процесса
