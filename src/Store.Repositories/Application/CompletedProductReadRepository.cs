@@ -32,7 +32,7 @@ internal sealed class CompletedProductReadRepository: ICompletedProductReadRepos
                 {
                     Id = combined.completed.Id,
                     Name = product.Name,
-                    ProductId = combined.completed.ProductDevelopmentId,
+                    ProductDevelopmentId = combined.completed.ProductDevelopmentId,
                     SerialNumber = combined.productDevelopment.SerialNumber
                 })
             .ToListAsync(cancellationToken);
@@ -53,7 +53,7 @@ internal sealed class CompletedProductReadRepository: ICompletedProductReadRepos
                 {
                     Id = combined.completed.Id,
                     Name = product.Name,
-                    ProductId = combined.completed.ProductDevelopmentId,
+                    ProductDevelopmentId = combined.completed.ProductDevelopmentId,
                     SerialNumber = combined.productDevelopment.SerialNumber
                 })
             .Skip(skip)
