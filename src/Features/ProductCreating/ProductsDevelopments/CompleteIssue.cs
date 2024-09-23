@@ -38,8 +38,8 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
 
         productDevelopment.EnsureFoundBy(entity => entity.Id, command.ProductDevelopmentId);
 
-        var currentIssue = await _issueDomainRepository.GetByIdAsync(command.IssueId, cancellationToken);
-        var nextIssue = await _issueDomainRepository.GetNextIssue(command.IssueId, cancellationToken);
+        var currentIssue = await _issueDomainRepository.GetByIdAsync(productDevelopment.IssueId, cancellationToken);
+        var nextIssue = await _issueDomainRepository.GetNextIssue(productDevelopment.IssueId, cancellationToken);
         var compositionProduct =
             await _compositionProductRepository.GetCompositionProductsAsync(productDevelopment.Id, cancellationToken);
 
@@ -57,6 +57,8 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
         }
         else
         {
+            productDevelopment.Status = ProductStatus.Completed;
+            _productDevelopmentDomainRepository.Update(productDevelopment);
             ///TODO;
             var completedProduct = CompletedProduct.Create(productDevelopment.ManufacturingProcessId,
                 productDevelopment.Id, productDevelopment.ProductId);
@@ -68,4 +70,4 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
     }
 }
 
-public record CompleteIssueCommand(Guid ProductDevelopmentId, Guid IssueId) : ICommand;
+public record CompleteIssueCommand(Guid ProductDevelopmentId) : ICommand;
