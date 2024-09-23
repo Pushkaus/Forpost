@@ -74,4 +74,13 @@ public sealed class ProductDevelopmentController: ApiController
     {
         return Ok(await Sender.Send(new GetCompositionByIdQuery(productDevelopmentId), cancellationToken));
     }
+    /// <summary>
+    /// Получение состава тех.карты по ProductDevelopmentId
+    /// </summary>
+    [HttpGet("{productDevelopmentId}/techcard-items")]
+    public async Task<IActionResult> GetTechCardItemsByProductDevelopmentId
+        (Guid productDevelopmentId, CancellationToken cancellationToken)
+    {
+        return Ok(await Sender.Send(new GetTechCardItemsByIdQuery(productDevelopmentId), cancellationToken));
+    }
 }

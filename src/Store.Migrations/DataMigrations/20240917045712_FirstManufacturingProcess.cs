@@ -89,7 +89,7 @@ namespace Forpost.Store.Migrations.DataMigrations
                 '{userId}', -- ResponsibleId
                 'Initial issue description',
                 0,
-                0, -- IssueStatus: Pending
+                200, -- IssueStatus: Pending
                 FALSE,
                 NULL,
                 NULL,

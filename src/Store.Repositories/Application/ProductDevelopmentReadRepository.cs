@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 using Forpost.Application.Contracts.ProductsDevelopments;
 using Forpost.Domain.Catalogs.TechCardItems;
@@ -35,8 +36,8 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
             .FirstOrDefaultAsync(cancellationToken);
     }
     
-    public async Task<IReadOnlyCollection<TechCardItem>>
-        GetTechCardItemsById(Guid productDevelopmentId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<TechCardItemModel>>
+        GetTechCardItemsByProductDevelopmentId(Guid productDevelopmentId, CancellationToken cancellationToken)
     {
         return await _dbContext.ProductDevelopments.Where(p => p.Id == productDevelopmentId)
             .Join(_dbContext.ManufacturingProcesses,
@@ -46,12 +47,16 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
             .Join(_dbContext.TechCardItems,
                 combined => combined.manufacturingProcess.TechnologicalCardId,
                 techCardItems => techCardItems.TechCardId,
-                (combined, techCardItems) => new TechCardItem
+                (combined, techCardItems) => new {combined, techCardItems})
+            .Join(_dbContext.Products,
+                combined => combined.techCardItems.ProductId,
+                product => product.Id,
+                (combined, product) => new TechCardItemModel
                 {
-                    Id = techCardItems.Id,
-                    TechCardId = techCardItems.TechCardId,
-                    ProductId = techCardItems.ProductId,
-                    Quantity = techCardItems.Quantity
+                    TechCardId = combined.combined.manufacturingProcess.TechnologicalCardId,
+                    ProductId = combined.techCardItems.ProductId,
+                    ProductName = product.Name,
+                    Quantity = combined.techCardItems.Quantity
                 })
             .ToListAsync(cancellationToken);
     }
