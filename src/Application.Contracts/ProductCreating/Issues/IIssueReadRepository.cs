@@ -16,4 +16,6 @@ public interface IIssueReadRepository: IApplicationReadRepository
     /// </summary>
     public Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)> 
         GetIssuesByResponsibleId(Guid responsibleId, CancellationToken cancellationToken, int skip, int limit);
+    
+    public Task<IssueModel?> GetById(Guid id, CancellationToken cancellationToken);
 }

@@ -164,4 +164,57 @@ internal sealed class IssueReadRepository: IIssueReadRepository
         var totalCount = issues.Count();
         return (issues, totalCount);
     }
+
+    public async Task<IssueModel?> GetById(Guid id, CancellationToken cancellationToken)
+    {
+        return await _dbContext.Issues.Where(i => i.Id == id)
+            .Join(_dbContext.Steps,
+                issue => issue.StepId,
+                step => step.Id,
+                (issue, step) => new
+                {
+                    Issue = issue,
+                    Step = step
+                })
+            .Join(_dbContext.Operations,
+                combined => combined.Step.OperationId,
+                operation => operation.Id,
+                (combined, operation) => new { combined, operation })
+            .Join(_dbContext.ManufacturingProcesses,
+                combined => combined.combined.Issue.ManufacturingProcessId,
+                manufacturingProcess => manufacturingProcess.Id,
+                (combined, manufacturingProcess) => new { combined, manufacturingProcess })
+            .Join(_dbContext.TechCards,
+                combined => combined.manufacturingProcess.TechnologicalCardId,
+                techCard => techCard.Id,
+                (combined, techCard) => new { combined, techCard })
+            .Join(_dbContext.Products,
+                combined => combined.techCard.ProductId,
+                product => product.Id,
+                (combined, product) => new { combined, product })
+            .Join(_dbContext.Employees,
+                combined => combined.combined.combined.combined.combined.Issue.ExecutorId,
+                executor => executor.Id,
+                (combined, executor) => new { combined, executor })
+            .Join(_dbContext.Employees,
+                combined => combined.combined.combined.combined.combined.combined.Issue.ResponsibleId,
+                responsible => responsible.Id,
+                (combined, responsible) => new IssueModel
+                {
+                    Id = combined.combined.combined.combined.combined.combined.Issue.Id,
+                    ProductName = combined.combined.product.Name,
+                    OperationName = combined.combined.combined.combined.combined.operation.Name,
+                    IssueNumber = combined.combined.combined.combined.combined.combined.Issue.IssueNumber,
+                    ExecutorId = combined.combined.combined.combined.combined.combined.Issue.ExecutorId,
+                    ExecutorName = combined.executor.FirstName + " " + combined.executor.LastName,
+                    ResponsibleId = combined.combined.combined.combined.combined.combined.Issue.ResponsibleId,
+                    ResponsibleName = responsible.FirstName + " " + responsible.LastName,
+                    Description = combined.combined.combined.combined.combined.combined.Issue.Description,
+                    CurrentQuantity = combined.combined.combined.combined.combined.combined.Issue.CurrentQuantity,
+                    StartTime = combined.combined.combined.combined.combined.combined.Issue.StartTime,
+                    EndTime = combined.combined.combined.combined.combined.combined.Issue.EndTime,
+                    ProductCompositionFlag = combined.combined.combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
+                })
+            .FirstOrDefaultAsync(cancellationToken);
+    }
 }

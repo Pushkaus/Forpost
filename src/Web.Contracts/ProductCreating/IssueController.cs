@@ -83,5 +83,11 @@ public sealed class IssueController: ApiController
         await Sender.Send(new CloseIssueCommand(id), cancellationToken);
         return Ok();
     }
-    
+    /// <summary>
+    /// Получение задачи по ID
+    /// </summary>
+    [ProducesResponseType(typeof(IssueModel), StatusCodes.Status200OK)]
+    [HttpGet("{issueId}")]
+    public async Task<IssueModel> GetById(Guid issueId, CancellationToken cancellationToken) 
+        => await Sender.Send(new GetByIdQuery(issueId), cancellationToken);
 }
