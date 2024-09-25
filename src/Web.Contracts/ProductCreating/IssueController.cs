@@ -11,7 +11,7 @@ public sealed class IssueController: ApiController
     /// <summary>
     /// Получение всех задач производственного процесса
     /// </summary>
-    [HttpGet("{manufacturingProcessId}")]
+    [HttpGet("manufacturing-process/{manufacturingProcessId}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<IssueFromManufacturingProcessModel>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<IssueFromManufacturingProcessModel>> 
         GetIssuesFromManufacturingProcess(Guid manufacturingProcessId, CancellationToken cancellationToken) 
