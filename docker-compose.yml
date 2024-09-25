@@ -29,18 +29,18 @@ services:
     ports:
       - "8080:8080"
       - "8081:8081"
-  front:
-    container_name: 'ForpostFrontend'
-    build:
-      context: ../Frontend
-      dockerfile: Dockerfile
-    restart: always
-    pull_policy: always
-    env_file:
-      - ../Frontend/.env
-    ports:
-      - 5173:5173
-      
+#  front:
+#    container_name: 'ForpostFrontend'
+#    build:
+#      context: ../Frontend
+#      dockerfile: Dockerfile
+#    restart: always
+#    pull_policy: always
+#    env_file:
+#      - ../Frontend/.env
+#    ports:
+#      - 5173:5173
+#      
   seq:
     image: datalust/seq:latest
     ports:
