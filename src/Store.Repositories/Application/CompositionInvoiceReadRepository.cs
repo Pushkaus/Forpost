@@ -34,10 +34,10 @@ internal sealed class CompositionInvoiceReadRepository: ICompositionInvoiceReadR
                 {
                     Id = combined.completedProduct.Id,
                     Name = product.Name,
-                    ProductId = product.Id,
+                    ProductDevelopmentId = product.Id,
                     SerialNumber = combined.productDevelopment.SerialNumber
                 })
-            .Where(entity => entity.ProductId == productId)
+            .Where(entity => entity.ProductDevelopmentId == productId)
             .ToListAsync(cancellationToken);
 
         return completedProducts;

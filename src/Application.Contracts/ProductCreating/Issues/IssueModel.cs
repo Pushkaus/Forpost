@@ -18,10 +18,12 @@ public sealed class IssueModel
     /// Исполнитель задачи
     /// </summary>
     public Guid ExecutorId { get; set; }
+    public string ExecutorName { get; set; } = null!;
     /// <summary>
     /// Ответственный над исполнителем
     /// </summary>
     public Guid ResponsibleId { get; set; }
+    public string ResponsibleName { get; set; } = null!;
     /// <summary>
     /// Комментарий по работе
     /// </summary>

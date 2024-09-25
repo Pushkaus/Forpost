@@ -11,7 +11,7 @@ public sealed class IssueController: ApiController
     /// <summary>
     /// Получение всех задач производственного процесса
     /// </summary>
-    [HttpGet("{manufacturingProcessId}")]
+    [HttpGet("manufacturing-process/{manufacturingProcessId}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<IssueFromManufacturingProcessModel>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<IssueFromManufacturingProcessModel>> 
         GetIssuesFromManufacturingProcess(Guid manufacturingProcessId, CancellationToken cancellationToken) 
@@ -83,5 +83,11 @@ public sealed class IssueController: ApiController
         await Sender.Send(new CloseIssueCommand(id), cancellationToken);
         return Ok();
     }
-    
+    /// <summary>
+    /// Получение задачи по ID
+    /// </summary>
+    [ProducesResponseType(typeof(IssueModel), StatusCodes.Status200OK)]
+    [HttpGet("{issueId}")]
+    public async Task<IssueModel> GetById(Guid issueId, CancellationToken cancellationToken) 
+        => await Sender.Send(new GetByIdQuery(issueId), cancellationToken);
 }
