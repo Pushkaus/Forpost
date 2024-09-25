@@ -106,6 +106,7 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
     public async Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)> 
         GetAllAsync(CancellationToken cancellationToken, int skip, int limit)
     {
+        var totalCount = await _dbContext.ProductDevelopments.CountAsync(cancellationToken);
         var result = await _dbContext.ProductDevelopments
             .Join(_dbContext.ManufacturingProcesses,
                 productDevelopment => productDevelopment.ManufacturingProcessId,
@@ -144,7 +145,6 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
             .Where(entity => entity.StatusRead != ProductStatusRead.Completed 
                              && entity.StatusRead != ProductStatusRead.Cancelled)
             .ToListAsync(cancellationToken);
-        var totalCount = result.Count;
         return (result, totalCount);
     }
 }
