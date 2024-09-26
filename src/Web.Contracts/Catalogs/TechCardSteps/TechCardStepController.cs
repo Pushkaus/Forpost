@@ -27,8 +27,8 @@ public sealed class TechCardStepController: ApiController
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync(TechCardStepRequest model, CancellationToken cancellationToken)
     {
-        var techCardStepId = await Sender.Send(new 
-            TechCardStepCreateCommand(model.TechCardId, model.StepId, model.Number),
+        var techCardStepId = await Sender.Send(
+            new TechCardStepCreateCommand(model.TechCardId, model.StepId, model.Number),
             cancellationToken);
         return techCardStepId;
     }

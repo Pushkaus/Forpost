@@ -67,7 +67,7 @@ internal sealed class CompositionProductReadRepository: ICompositionProductReadR
             ProductDevelopmentId = g.Key.ProductId,
             ParentProductName = g.Key.Name,
             SerialNumber = g.Key.SerialNumber,
-            CompletedProducts = g.Select(x => new CompletedProductModel
+            CompletedProducts = g.Select(x => new CompletedProductCompositionModel
             {
                 CompletedProductId = g.Key.ItemId,
                 ItemName = g.Key.ItemName,

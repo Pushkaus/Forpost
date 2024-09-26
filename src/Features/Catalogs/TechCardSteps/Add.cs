@@ -18,6 +18,9 @@ internal sealed class AddTechCardStepCommandHandler : ICommandHandler<TechCardSt
     public ValueTask<Guid> Handle(TechCardStepCreateCommand command, CancellationToken cancellationToken)
     {
         var techCardStep = _mapper.Map<TechCardStep>(command);
+        if (command.Number < 1)
+            throw new Exception("Номер этапа должен быть больше 0");
+        
         return ValueTask.FromResult(_domainRepository.Add(techCardStep));
     }
 }

@@ -1,4 +1,6 @@
+using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 using Forpost.Features.ProductCreating.CompletedProducts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.ProductCreating;
@@ -22,6 +24,7 @@ public sealed class CompletedProductController: ApiController
     /// Список готовых продуктов по ProductID (справочный ID) 
     /// </summary>
     [HttpGet("product/{productId}")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<CompletedProductModel>),StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllOnStorageByProductId(Guid productId, CancellationToken cancellationToken)
     {
         return Ok(await Sender.Send(new GetAllByProductIdQuery(productId), cancellationToken));

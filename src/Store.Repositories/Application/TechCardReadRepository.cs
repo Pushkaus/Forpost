@@ -68,6 +68,7 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
 
     public async Task<(IReadOnlyCollection<TechCardModel>, int)> GetAllAsync(int skip, int limit, CancellationToken cancellationToken)
     {
+        var totalCount = await _dbContext.TechCards.CountAsync(cancellationToken);
         var techCards = await _dbContext.TechCards
             .Join(_dbContext.Products,
                 techCard => techCard.ProductId,
@@ -83,7 +84,6 @@ internal sealed class TechCardReadRepository: ITechCardReadRepository
             .Skip(skip)
             .Take(limit)
             .ToListAsync(cancellationToken);
-        var totalCount = techCards.Count;
         return (techCards, totalCount);
     }
 }
