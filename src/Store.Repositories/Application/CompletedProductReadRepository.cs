@@ -1,3 +1,5 @@
+using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.Exceptions;
 using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
 using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 using Forpost.Domain.Catalogs.TechCardItems;
@@ -38,15 +40,24 @@ internal sealed class CompletedProductReadRepository: ICompletedProductReadRepos
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<(IReadOnlyCollection<CompletedProductModel> CompletedProducts, int TotalCount)> 
-        GetAllOnStorage(CancellationToken cancellationToken, int skip, int limit)
+    public async Task<(IReadOnlyCollection<CompletedProductModel> CompletedProducts, int TotalCount)> GetAllOnStorage(
+        string? filterExpression, 
+        object?[]? filterValues, 
+        int skip, 
+        int limit, 
+        CancellationToken cancellationToken)
     {
-        var result = await _dbContext.CompletedProducts.Where(c => c.Status == CompletedProductStatus.OnStorage)
-            .Join(_dbContext.ProductDevelopments,
+        // Начинаем запрос, фильтруя по статусу
+        var query = _dbContext.CompletedProducts
+            .Where(c => c.Status == CompletedProductStatus.OnStorage)
+            .Join(
+                _dbContext.ProductDevelopments,
                 completed => completed.ProductDevelopmentId,
                 productDevelopment => productDevelopment.Id,
-                (completed, productDevelopment) => new { completed, productDevelopment })
-            .Join(_dbContext.Products,
+                (completed, productDevelopment) => new { completed, productDevelopment }
+            )
+            .Join(
+                _dbContext.Products,
                 combined => combined.productDevelopment.ProductId,
                 product => product.Id,
                 (combined, product) => new CompletedProductModel
@@ -55,11 +66,29 @@ internal sealed class CompletedProductReadRepository: ICompletedProductReadRepos
                     Name = product.Name,
                     ProductDevelopmentId = combined.completed.ProductDevelopmentId,
                     SerialNumber = combined.productDevelopment.SerialNumber
-                })
+                }
+            );
+        if (!string.IsNullOrWhiteSpace(filterExpression))
+        {
+            try
+            {
+                query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
+            }
+            catch (ParseException ex)
+            {
+                throw new ArgumentException("Некорректное выражение фильтрации.", ex);
+            }
+        }
+
+        // Получаем общее количество записей после фильтрации
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        // Получаем конечный список с применением пагинации
+        var completedProducts = await query
             .Skip(skip)
             .Take(limit)
             .ToListAsync(cancellationToken);
-        var totalCount = result.Count();
-        return (result, totalCount);
+
+        return (completedProducts, totalCount);
     }
 }

@@ -3,7 +3,7 @@ using Mediator;
 
 namespace Forpost.Features.ProductCreating.CompletedProducts;
 
-internal sealed class GetAllOnStorageQueryHandler: 
+internal sealed class GetAllOnStorageQueryHandler :
     IQueryHandler<GetAllOnStorageQuery, (IReadOnlyCollection<CompletedProductModel> CompletedProducts, int TotalCount)>
 {
     private readonly ICompletedProductReadRepository _completedProductReadRepository;
@@ -16,9 +16,15 @@ internal sealed class GetAllOnStorageQueryHandler:
     public async ValueTask<(IReadOnlyCollection<CompletedProductModel> CompletedProducts, int TotalCount)>
         Handle(GetAllOnStorageQuery query, CancellationToken cancellationToken)
     {
-        var result = await _completedProductReadRepository.GetAllOnStorage(cancellationToken, query.Skip, query.Limit);
+        var result = await _completedProductReadRepository.GetAllOnStorage(query.FilterExpression, query.FilterValues,
+            query.Skip, query.Limit, cancellationToken);
         return result;
     }
 }
-public record GetAllOnStorageQuery(int Skip, int Limit):
+
+public record GetAllOnStorageQuery(
+    string? FilterExpression,
+    object?[]? FilterValues,
+    int Skip,
+    int Limit) :
     IQuery<(IReadOnlyCollection<CompletedProductModel> CompletedProducts, int TotalCount)>;

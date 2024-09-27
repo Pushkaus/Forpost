@@ -50,6 +50,8 @@ internal sealed class IssueReadRepository: IIssueReadRepository
     public async Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)>
         GetIssuesByExecutorId(Guid executorId, CancellationToken cancellationToken, int skip, int limit)
     {
+        var totalCount = await _dbContext.Issues.CountAsync(cancellationToken);
+
         var issues = await _dbContext.Issues.Where(i => i.ExecutorId == executorId 
                                                         && i.IssueStatus != IssueStatus.Completed)
             .Join(_dbContext.Steps,
@@ -102,13 +104,14 @@ internal sealed class IssueReadRepository: IIssueReadRepository
             .Skip(skip)
             .Take(limit)
             .ToListAsync(cancellationToken);
-        var totalCount = issues.Count();
         return (issues, totalCount);
     }
 
     public async Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)>
         GetIssuesByResponsibleId(Guid responsibleId, CancellationToken cancellationToken, int skip, int limit)
     {
+        var totalCount = await _dbContext.Issues.CountAsync(cancellationToken);
+
         var issues = await _dbContext.Issues.Where(i => i.ResponsibleId == responsibleId 
                                                         && i.IssueStatus != IssueStatus.Completed)
             .Join(_dbContext.Steps,
@@ -161,7 +164,6 @@ internal sealed class IssueReadRepository: IIssueReadRepository
             .Skip(skip)
             .Take(limit)
             .ToListAsync(cancellationToken);
-        var totalCount = issues.Count();
         return (issues, totalCount);
     }
 

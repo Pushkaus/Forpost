@@ -33,6 +33,7 @@ public sealed class ManufacturingProcessController : ApiController
     {
         return Ok(await Sender.Send(new GetManufacturingProcessByIdQuery(id), cancellationToken));
     }
+
     /// <summary>
     /// Запуск производственного процесса
     /// </summary>
@@ -42,6 +43,7 @@ public sealed class ManufacturingProcessController : ApiController
         await Sender.Send(new LaunchManufacturingProcessCommand(id), cancellationToken);
         return Ok();
     }
+
     /// <summary>
     /// Завершение производственного процесса
     /// </summary>
@@ -57,12 +59,17 @@ public sealed class ManufacturingProcessController : ApiController
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ManufacturingProcessResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken, int skip = 0, int take = 100)
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken,
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
+        [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
     {
-        var result = await Sender.Send(new GetAllManufacturingProcessesQuery(skip, take), cancellationToken);
+        var result =
+            await Sender.Send(new GetAllManufacturingProcessesQuery(filterExpression, filterValues, skip, limit),
+                cancellationToken);
         return Ok(new
         {
-            ManufacturingProcesses = Mapper.Map<IReadOnlyCollection<ManufacturingProcessResponse>>(result.ManufacturingProcesses),
+            ManufacturingProcesses =
+                Mapper.Map<IReadOnlyCollection<ManufacturingProcessResponse>>(result.ManufacturingProcesses),
             TotalCount = result.TotalCount,
         });
     }

@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.ProductCreating;
+
 [Route("api/v1/product-development")]
-public sealed class ProductDevelopmentController: ApiController
+public sealed class ProductDevelopmentController : ApiController
 {
     /// <summary>
     /// Получение всех продуктов в разработке
@@ -14,15 +15,18 @@ public sealed class ProductDevelopmentController: ApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ProductDevelopmentResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
+        [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
     {
-        var result = await Sender.Send(new GetAllDevelopmentProductsQuery(skip, limit), cancellationToken);
+        var result = await Sender.Send(new GetAllDevelopmentProductsQuery(filterExpression, filterValues, skip, limit),
+            cancellationToken);
         return Ok(new
         {
             Developments = Mapper.Map<IReadOnlyCollection<ProductDevelopmentResponse>>(result.Developments),
             TotalCount = result.TotalCount
         });
     }
+
     /// <summary>
     /// Получение всех продуктов по ID задачи
     /// </summary>
@@ -49,6 +53,7 @@ public sealed class ProductDevelopmentController: ApiController
         var result = await Sender.Send(new CompleteIssueCommand(productDevelopmentId), cancellationToken);
         return Ok(result);
     }
+
     /// <summary>
     /// Заполнение состава продукта
     /// </summary>
@@ -61,6 +66,7 @@ public sealed class ProductDevelopmentController: ApiController
             cancellationToken);
         return Ok();
     }
+
     /// <summary>
     /// Получение состава продукта по ProductDevelopmentId 
     /// </summary>
@@ -74,6 +80,7 @@ public sealed class ProductDevelopmentController: ApiController
     {
         return Ok(await Sender.Send(new GetCompositionByIdQuery(productDevelopmentId), cancellationToken));
     }
+
     /// <summary>
     /// Получение состава тех.карты по ProductDevelopmentId
     /// </summary>

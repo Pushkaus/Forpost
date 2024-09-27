@@ -1,3 +1,5 @@
+using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.Exceptions;
 using AutoMapper;
 using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Domain.Primitives.EntityAnnotations;
@@ -21,15 +23,37 @@ internal abstract class DomainRepository<TEntity> : IDomainRepository<TEntity> w
         DbSet = dbContext.Set<TEntity>();
     }
 
-    public async Task<(IReadOnlyList<TEntity> Items, int TotalCount)> GetAllAsync(CancellationToken cancellationToken,
-        int skip = 0, int limit = 100)
+    public async Task<(IReadOnlyList<TEntity> Items, int TotalCount)> GetAllAsync(
+        string? filterExpression,
+        object?[]? filterValues,
+        CancellationToken cancellationToken,
+        int skip = 0,
+        int limit = 100)
     {
-        var totalCount = await DbSet.CountAsync(cancellationToken);
-        var items = await DbSet
+        IQueryable<TEntity> query = DbSet;
+        
+        // Применение фильтрации, если выражение задано
+        if (!string.IsNullOrWhiteSpace(filterExpression))
+        {
+            try
+            {
+                query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
+            }
+            catch (ParseException ex)
+            {
+                throw new ArgumentException("Некорректное выражение фильтрации.", ex);
+            }
+        }
+
+        // Получение общего количества записей после фильтрации
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        // Применение пагинации
+        var items = await query
             .Skip(skip)
             .Take(limit)
             .ToListAsync(cancellationToken);
-        
+
         return (items, totalCount);
     }
 

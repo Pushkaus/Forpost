@@ -14,11 +14,16 @@ internal sealed class GetAllTechCardsQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)> Handle(GetAllTechCardsQuery request,
+    public async ValueTask<(IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)> Handle(
+        GetAllTechCardsQuery request,
         CancellationToken cancellationToken)
     {
-        return await _domainRepository.GetAllAsync(request.Skip, request.Limit, cancellationToken);
+        return await _domainRepository.GetAllAsync(request.FilterExpression, request.FilterValues, request.Skip, request.Limit, cancellationToken);
     }
 }
 
-public sealed record GetAllTechCardsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)>;
+public sealed record GetAllTechCardsQuery(
+    string? FilterExpression,
+    object?[]? FilterValues,
+    int Skip,
+    int Limit) : IQuery<(IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)>;

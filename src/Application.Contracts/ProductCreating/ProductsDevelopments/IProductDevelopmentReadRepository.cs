@@ -17,5 +17,6 @@ public interface IProductDevelopmentReadRepository: IApplicationReadRepository
         GetAllByIssueId(Guid issueId, CancellationToken cancellationToken, int skip, int limit);
     
     public Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)>
-        GetAllAsync(CancellationToken cancellationToken, int skip, int limit);
+        GetAllAsync(
+            string? filterExpression, object?[]? filterValues, int skip, int limit, CancellationToken cancellationToken);
 }

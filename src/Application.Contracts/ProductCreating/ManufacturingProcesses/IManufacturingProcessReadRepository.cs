@@ -4,8 +4,8 @@ namespace Forpost.Application.Contracts.ProductCreating.ManufacturingProcesses;
 
 public interface IManufacturingProcessReadRepository: IApplicationReadRepository
 {
-    public Task<(IReadOnlyCollection<ManufacturingProcessWithDetailsModel>, int TotalCount)> GetAllAsync(int skip, int limit,
-        CancellationToken cancellationToken);
+    public Task<(IReadOnlyCollection<ManufacturingProcessWithDetailsModel> ManufacturingProcesses, int TotalCount)> GetAllAsync(
+        string? filterExpression, object?[]? filterValues, int skip, int limit, CancellationToken cancellationToken);
     
     public Task<ManufacturingProcessWithDetailsModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 }

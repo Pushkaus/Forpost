@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Catalogs.Steps;
-[Route("api/v1/steps")]
-public sealed class StepController: ApiController
-{
 
+[Route("api/v1/steps")]
+public sealed class StepController : ApiController
+{
     /// <summary>
     /// Получение этапа по Id 
     /// </summary>
     /// <param name="id"></param>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(Step), StatusCodes.Status200OK)]
-    public async Task<Step?> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+    public async Task<Step?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         => await Sender.Send(new GetStepByIdQuery(id), cancellationToken);
 
     /// <summary>
@@ -25,9 +25,11 @@ public sealed class StepController: ApiController
     [ProducesResponseType(typeof(IReadOnlyCollection<Step>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
+        [FromQuery] string? filterExpression = null, [FromQuery] object?[]? filterValues = null)
     {
-        var result = await Sender.Send(new GetAllStepsQuery(skip, limit), cancellationToken);
+        var result = await Sender.Send(new GetAllStepsQuery(filterExpression, filterValues, skip, limit),
+            cancellationToken);
         return Ok(new
         {
             Steps = result.Steps,
@@ -42,7 +44,7 @@ public sealed class StepController: ApiController
     /// <param name="cancellationToken"></param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<Guid> CreateAsync([FromBody] StepCreateRequest step, CancellationToken cancellationToken) 
+    public async Task<Guid> CreateAsync([FromBody] StepCreateRequest step, CancellationToken cancellationToken)
         => await Sender.Send(new AddStepCommand
         {
             TechCardId = step.TechCardId,
@@ -52,7 +54,7 @@ public sealed class StepController: ApiController
             Cost = step.Cost,
             UnitOfMeasure = step.UnitOfMeasure,
         }, cancellationToken);
-    
+
     /// <summary>
     /// Удаление этапа
     /// </summary>

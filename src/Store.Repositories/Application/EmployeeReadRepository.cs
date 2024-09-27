@@ -1,3 +1,5 @@
+using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.Exceptions;
 using AutoMapper;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Store.Postgres;
@@ -8,17 +10,20 @@ namespace Forpost.Store.Repositories.Application;
 internal sealed class EmployeeReadRepository : IEmployeeReadRepository
 {
     private readonly ForpostContextPostgres _dbContext;
+
     public EmployeeReadRepository(ForpostContextPostgres dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
     }
-
     public async Task<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)> GetAllEmployeesWithRoleAsync(
-        CancellationToken cancellationToken,
-        int skip = 0, int limit = 100)
+        string? filterExpression, object?[]? filterValues, int skip, int limit,
+        CancellationToken cancellationToken)
     {
-        var totalcount = await _dbContext.Employees.CountAsync(cancellationToken);
-        var usersWithRole = await _dbContext.Employees
+        
+        var totalCount = await _dbContext.Employees.CountAsync(cancellationToken);
+
+        // Начинаем основной запрос с соединением таблиц
+        var query = _dbContext.Employees
             .Join(
                 _dbContext.Roles,
                 employee => employee.RoleId,
@@ -34,11 +39,27 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
                     Email = employee.Email,
                     PhoneNumber = employee.PhoneNumber,
                 }
-            )
+            );
+
+        // Применение фильтрации, если выражение задано
+        if (!string.IsNullOrWhiteSpace(filterExpression))
+        {
+            try
+            {
+                query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
+            }
+            catch (ParseException ex)
+            {
+                throw new ArgumentException("Некорректное выражение фильтрации.", ex);
+            }
+        }
+
+        // Получаем отфильтрованный и разбитый на страницы список сотрудников
+        var employees = await query
             .Skip(skip)
             .Take(limit)
             .ToListAsync(cancellationToken);
-        
-        return (usersWithRole, totalcount);
+
+        return (employees, totalCount);
     }
 }

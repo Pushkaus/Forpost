@@ -16,7 +16,7 @@ internal sealed class GetAllRolesQueryHandler :
     public async ValueTask<(IReadOnlyCollection<Role> Roles, int TotalCount)> Handle(GetAllRolesQuery request, 
         CancellationToken cancellationToken)
     {
-        var roles = await _domainRepository.GetAllAsync(cancellationToken);
+        var roles = await _domainRepository.GetAllAsync(null, null, cancellationToken);
         return roles;
     }
 }

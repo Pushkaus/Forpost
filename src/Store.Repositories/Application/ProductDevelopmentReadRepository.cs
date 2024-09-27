@@ -1,3 +1,5 @@
+using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.Exceptions;
 using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 using Forpost.Application.Contracts.ProductsDevelopments;
@@ -53,6 +55,7 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
                 product => product.Id,
                 (combined, product) => new TechCardItemModel
                 {
+                    Id = combined.techCardItems.Id,
                     TechCardId = combined.combined.manufacturingProcess.TechnologicalCardId,
                     ProductId = combined.techCardItems.ProductId,
                     ProductName = product.Name,
@@ -64,55 +67,10 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
     public async Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)> 
         GetAllByIssueId(Guid issueId, CancellationToken cancellationToken, int skip, int limit)
     {
-        var result = await _dbContext.ProductDevelopments
-            .Where(entity => entity.IssueId == issueId 
-                             && entity.Status == ProductStatus.InProgress)
-            .Join(_dbContext.ManufacturingProcesses,
-                productDevelopment => productDevelopment.ManufacturingProcessId,
-                manufacturingProcess => manufacturingProcess.Id,
-                (productDevelopment, manufacturingProcess) => new { productDevelopment, manufacturingProcess })
-            .Join(_dbContext.Products,
-                combined => combined.productDevelopment.ProductId,
-                product => product.Id,
-                (combined, product) => new {combined, product})
-            .Join(_dbContext.Issues,
-                combined => combined.combined.productDevelopment.IssueId,
-                issue => issue.Id,
-                (combined, issue) => new {combined, issue})
-            .Join(_dbContext.Steps,
-                combined => combined.issue.StepId,
-                step => step.Id,
-                (combined, step) => new {combined, step})
-            .Join(_dbContext.Operations,
-                combined => combined.step.OperationId,
-                operation => operation.Id,
-                (combined, operation) => new ProductDevelopmentModel
-                {
-                    Id = combined.combined.combined.combined.productDevelopment.Id,
-                    ProductId = combined.combined.combined.combined.productDevelopment.ProductId,
-                    ProductName = combined.combined.combined.product.Name,
-                    ManufacturingProcessId = combined.combined.combined.combined.productDevelopment.ManufacturingProcessId,
-                    IssueId = combined.combined.combined.combined.productDevelopment.IssueId,
-                    OperationName = operation.Name,
-                    BatchNumber = combined.combined.combined.combined.manufacturingProcess.BatchNumber,
-                    SerialNumber = combined.combined.combined.combined.productDevelopment.SerialNumber,
-                    SettingOption = (SettingOptionRead?)combined.combined.combined.combined.productDevelopment.SettingOption,
-                    StatusRead = (ProductStatusRead)combined.combined.combined.combined.productDevelopment.Status,
-                })
-            .Skip(skip)
-            .Take(limit)
-            .Where(entity => entity.StatusRead != ProductStatusRead.Completed 
-                             && entity.StatusRead != ProductStatusRead.Cancelled)
-            .ToListAsync(cancellationToken);
-        var totalCount = result.Count;
-        return (result, totalCount);
-    }
-    
-    public async Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)> 
-        GetAllAsync(CancellationToken cancellationToken, int skip, int limit)
-    {
         var totalCount = await _dbContext.ProductDevelopments.CountAsync(cancellationToken);
         var result = await _dbContext.ProductDevelopments
+            .Where(entity => entity.IssueId == issueId 
+                             && (entity.Status == ProductStatus.InProgress))
             .Join(_dbContext.ManufacturingProcesses,
                 productDevelopment => productDevelopment.ManufacturingProcessId,
                 manufacturingProcess => manufacturingProcess.Id,
@@ -147,9 +105,80 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
                 })
             .Skip(skip)
             .Take(limit)
-            .Where(entity => entity.StatusRead != ProductStatusRead.Completed 
-                             && entity.StatusRead != ProductStatusRead.Cancelled)
             .ToListAsync(cancellationToken);
         return (result, totalCount);
     }
+
+    public async Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)> GetAllAsync(
+    string? filterExpression, 
+    object?[]? filterValues, 
+    int skip, 
+    int limit,
+    CancellationToken cancellationToken)
+{
+    // Получаем общее количество записей
+    var totalCount = await _dbContext.ProductDevelopments
+        .CountAsync(cancellationToken);
+
+    // Начинаем формировать запрос с объединениями
+    var query = _dbContext.ProductDevelopments
+        .Join(_dbContext.ManufacturingProcesses,
+            productDevelopment => productDevelopment.ManufacturingProcessId,
+            manufacturingProcess => manufacturingProcess.Id,
+            (productDevelopment, manufacturingProcess) => new { productDevelopment, manufacturingProcess })
+        .Join(_dbContext.Products,
+            combined => combined.productDevelopment.ProductId,
+            product => product.Id,
+            (combined, product) => new { combined, product })
+        .Join(_dbContext.Issues,
+            combined => combined.combined.productDevelopment.IssueId,
+            issue => issue.Id,
+            (combined, issue) => new { combined, issue })
+        .Join(_dbContext.Steps,
+            combined => combined.issue.StepId,
+            step => step.Id,
+            (combined, step) => new { combined, step })
+        .Join(_dbContext.Operations,
+            combined => combined.step.OperationId,
+            operation => operation.Id,
+            (combined, operation) => new ProductDevelopmentModel
+            {
+                Id = combined.combined.combined.combined.productDevelopment.Id,
+                ProductId = combined.combined.combined.combined.productDevelopment.ProductId,
+                ProductName = combined.combined.combined.product.Name,
+                ManufacturingProcessId = combined.combined.combined.combined.productDevelopment.ManufacturingProcessId,
+                IssueId = combined.combined.combined.combined.productDevelopment.IssueId,
+                OperationName = operation.Name,
+                BatchNumber = combined.combined.combined.combined.manufacturingProcess.BatchNumber,
+                SerialNumber = combined.combined.combined.combined.productDevelopment.SerialNumber,
+                SettingOption = (SettingOptionRead?)combined.combined.combined.combined.productDevelopment.SettingOption,
+                StatusRead = (ProductStatusRead)combined.combined.combined.combined.productDevelopment.Status
+            });
+    
+    if (!string.IsNullOrWhiteSpace(filterExpression))
+    {
+        try
+        {
+            // Применяем фильтрацию на запросе
+            query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
+        }
+        catch (ParseException ex)
+        {
+            throw new ArgumentException("Некорректное выражение фильтрации.", ex);
+        }
+    }
+    
+    totalCount = await query.CountAsync(cancellationToken);
+    
+    query = query.Where(entity => entity.StatusRead != ProductStatusRead.Completed 
+                                  && entity.StatusRead != ProductStatusRead.Cancelled);
+    
+    var productDevelopments = await query
+        .Skip(skip)
+        .Take(limit)
+        .ToListAsync(cancellationToken);
+
+    return (productDevelopments, totalCount);
+}
+
 }

@@ -5,10 +5,10 @@ using Mediator;
 
 namespace Forpost.Features.ProductCreating.ProductsDevelopments;
 
-internal sealed class GetAllDevelopmentProductsQueryHandler : 
-    IQueryHandler<GetAllDevelopmentProductsQuery, (IReadOnlyCollection<ProductDevelopmentModel> Developments, int TotalCount)>
+internal sealed class GetAllDevelopmentProductsQueryHandler :
+    IQueryHandler<GetAllDevelopmentProductsQuery, (IReadOnlyCollection<ProductDevelopmentModel> Developments, int
+        TotalCount)>
 {
-
     private readonly IProductDevelopmentReadRepository _productDevelopmentReadRepository;
 
     public GetAllDevelopmentProductsQueryHandler(IProductDevelopmentReadRepository productDevelopmentReadRepository)
@@ -16,13 +16,18 @@ internal sealed class GetAllDevelopmentProductsQueryHandler :
         _productDevelopmentReadRepository = productDevelopmentReadRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<ProductDevelopmentModel> Developments, int TotalCount)> 
+    public async ValueTask<(IReadOnlyCollection<ProductDevelopmentModel> Developments, int TotalCount)>
         Handle(GetAllDevelopmentProductsQuery query, CancellationToken cancellationToken)
     {
-        var result = await _productDevelopmentReadRepository.GetAllAsync(cancellationToken, query.Skip, query.Limit);
+        var result = await _productDevelopmentReadRepository.GetAllAsync(query.FilterExpression, query.FilterValues,
+            query.Skip, query.Limit, cancellationToken);
         return (result.ProductDevelopments, result.TotalCount);
     }
 }
 
 // Запрос для получения всех продуктов разработки
-public record GetAllDevelopmentProductsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<ProductDevelopmentModel> Developments, int TotalCount)>;
+public record GetAllDevelopmentProductsQuery(
+    string? FilterExpression,
+    object?[]? FilterValues,
+    int Skip,
+    int Limit) : IQuery<(IReadOnlyCollection<ProductDevelopmentModel> Developments, int TotalCount)>;
