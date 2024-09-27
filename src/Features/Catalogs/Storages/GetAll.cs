@@ -16,7 +16,7 @@ internal sealed class GetAllStoragesQueryHandler :
     public async ValueTask<(IReadOnlyCollection<Storage> Storages, int TotalCount)> Handle(GetAllStoragesQuery request,
         CancellationToken cancellationToken)
     {
-        var storages = await _domainRepository.GetAllAsync(cancellationToken);
+        var storages = await _domainRepository.GetAllAsync(null, null, cancellationToken);
         return storages;
     }
 }

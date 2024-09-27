@@ -14,7 +14,13 @@ internal sealed class GetAllProductsQueryHandler :
     }
 
     public async ValueTask<(IReadOnlyCollection<Product> Products, int TotalCount)> Handle(GetAllProductsQuery request,
-        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(cancellationToken, request.Skip, request.Limit);
+        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(request.FilterExpression,
+        request.FilterValues,
+        cancellationToken, request.Skip, request.Limit);
 }
 
-public sealed record GetAllProductsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<Product> Products, int TotalCount)>;
+public sealed record GetAllProductsQuery(
+    string? FilterExpression,
+    object?[]? FilterValues,
+    int Skip,
+    int Limit) : IQuery<(IReadOnlyCollection<Product> Products, int TotalCount)>;

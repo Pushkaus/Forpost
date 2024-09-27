@@ -20,5 +20,5 @@ public sealed class Contractor : AggregateRoot
         return contractor;
     }
 
-    public string Name { get; private set; }
+    public string Name { get; set; }
 }

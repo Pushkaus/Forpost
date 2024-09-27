@@ -16,8 +16,8 @@ internal sealed class GetAllOperationsQueryHandler :
     public async ValueTask<(IReadOnlyCollection<Operation> Operations, int TotalCount)> Handle(GetAllOperationsQuery request,
         CancellationToken cancellationToken)
     {
-        var operations = await _domainRepository.GetAllAsync(cancellationToken);
+        var operations = await _domainRepository.GetAllAsync(null, null, cancellationToken);
         return operations;
     }
 }
-public sealed record GetAllOperationsQuery : IQuery<(IReadOnlyCollection<Operation> Operations, int TotalCount)>;
+public sealed record GetAllOperationsQuery() : IQuery<(IReadOnlyCollection<Operation> Operations, int TotalCount)>;

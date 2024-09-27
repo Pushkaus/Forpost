@@ -13,10 +13,16 @@ internal sealed class GetAllEmployeesWithRoleQueryHandler :
         _employeeReadRepository = employeeReadRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)> Handle(GetAllEmployeesWithRoleQuery request,
+    public async ValueTask<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)> Handle(
+        GetAllEmployeesWithRoleQuery request,
         CancellationToken cancellationToken) =>
-        await _employeeReadRepository.GetAllEmployeesWithRoleAsync(cancellationToken, request.Skip, request.Limit);
+        await _employeeReadRepository.GetAllEmployeesWithRoleAsync(request.FilterExpression, request.FilterValues,
+            request.Skip, request.Limit, cancellationToken);
 }
 
 // Запрос для получения всех сотрудников с их ролями
-public sealed record GetAllEmployeesWithRoleQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)>;
+public sealed record GetAllEmployeesWithRoleQuery(
+    string? FilterExpression,
+    object?[]? FilterValues,
+    int Skip,
+    int Limit) : IQuery<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)>;

@@ -15,6 +15,8 @@ internal sealed class GetAllContractorsQueryHandler :
 
     public async ValueTask<(IReadOnlyList<Contractor> Contractors, int TotalCount)> Handle(GetAllContractorsQuery request,
         CancellationToken cancellationToken) =>
-        await _domainRepository.GetAllAsync(cancellationToken, request.Skip, request.Limit); 
+        await _domainRepository.GetAllAsync(request.FilterExpression, request.FilterValues,
+            cancellationToken, request.Skip, request.Limit); 
 }
-public sealed record GetAllContractorsQuery(int Skip, int Limit) : IQuery<(IReadOnlyList<Contractor> Contractors, int TotalCount)>;
+public sealed record GetAllContractorsQuery(string? FilterExpression, object?[]? FilterValues, int Skip, int Limit) 
+    : IQuery<(IReadOnlyList<Contractor> Contractors, int TotalCount)>;

@@ -14,20 +14,24 @@ public sealed class ProductController : ApiController
     /// </summary>
     /// <returns>Список продуктов</returns>
     [HttpGet]
-    [ProducesResponseType(typeof((IReadOnlyCollection<ProductResponse> Products, int TotalCount)), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof((IReadOnlyCollection<ProductResponse> Products, int TotalCount)),
+        StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<(IReadOnlyCollection<ProductResponse> Products, int TotalCount)>> 
-        GetAllAsync(CancellationToken cancellationToken, [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+    public async Task<ActionResult<(IReadOnlyCollection<ProductResponse> Products, int TotalCount)>>
+        GetAllAsync(CancellationToken cancellationToken,
+            [FromQuery] int skip = 0, [FromQuery] int limit = 100,
+            [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
     {
-        var result = await Sender.Send(new GetAllProductsQuery(skip, limit), cancellationToken);
+        var result = await Sender.Send(new GetAllProductsQuery(filterExpression, filterValues, skip, limit),
+            cancellationToken);
 
         var productResponses = Mapper.Map<IReadOnlyCollection<ProductResponse>>(result.Products);
         return Ok(new
         {
             Products = productResponses,
             TotalCount = result.TotalCount
-        }); 
+        });
     }
 
     /// <summary>
@@ -54,6 +58,7 @@ public sealed class ProductController : ApiController
         var productId = await Sender.Send(new AddProductCommand(request.Name, request.Version), cancellationToken);
         return Ok(productId);
     }
+
     /// <summary>
     /// Обновление продукта по id
     /// </summary>

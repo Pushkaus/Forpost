@@ -2,6 +2,7 @@ namespace Forpost.Application.Contracts.Catalogs.TechCards;
 
 public sealed class TechCardItemModel
 {
+    public Guid Id { get; set; }
     public Guid TechCardId { get; set; }
 
     /// <summary>

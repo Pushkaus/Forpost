@@ -14,8 +14,13 @@ internal sealed class GetAllStepsQueryHandler :
     }
 
     public async ValueTask<(IReadOnlyCollection<Step>, int)> Handle(GetAllStepsQuery request,
-        CancellationToken cancellationToken) 
-        => await _domainRepository.GetAllAsync(cancellationToken, request.Skip, request.Limit);
+        CancellationToken cancellationToken)
+        => await _domainRepository.GetAllAsync(request.FilterExpression, request.FilterValues, cancellationToken,
+            request.Skip, request.Limit);
 }
 
-public sealed record GetAllStepsQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<Step> Steps, int TotalCount)>;
+public sealed record GetAllStepsQuery(
+    string? FilterExpression,
+    object?[]? FilterValues,
+    int Skip,
+    int Limit) : IQuery<(IReadOnlyCollection<Step> Steps, int TotalCount)>;

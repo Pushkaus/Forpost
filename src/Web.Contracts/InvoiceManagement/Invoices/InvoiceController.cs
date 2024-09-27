@@ -14,7 +14,7 @@ public sealed class InvoiceController : ApiController
     /// </summary>
     [HttpGet("number/{number}")]
     [ProducesResponseType(typeof(Invoice), StatusCodes.Status200OK)]
-    public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken) 
+    public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken)
         => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
 
     /// <summary>
@@ -24,11 +24,13 @@ public sealed class InvoiceController : ApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<Invoice>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken, 
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
+        [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
     {
-        var result = await Sender.Send(new GetAllInvoicesQuery(skip, limit), cancellationToken);
-        return Ok(new { Invoices = result.Invoices , TotalCount = result.TotalCount });
+        var result = await Sender.Send(new GetAllInvoicesQuery(filterExpression, filterValues, skip, limit),
+            cancellationToken);
+        return Ok(new { Invoices = result.Invoices, TotalCount = result.TotalCount });
     }
 
     /// <summary>
@@ -36,7 +38,8 @@ public sealed class InvoiceController : ApiController
     /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
-    public async Task<ActionResult<Guid>> ExposeAsync([FromBody] InvoiceCreateRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<Guid>> ExposeAsync([FromBody] InvoiceCreateRequest request,
+        CancellationToken cancellationToken)
     {
         var id = await Sender.Send(new AddInvoiceCommand
         {
@@ -49,7 +52,6 @@ public sealed class InvoiceController : ApiController
         }, cancellationToken);
         return Created("", id);
     }
-
 
 
     // /// <summary>

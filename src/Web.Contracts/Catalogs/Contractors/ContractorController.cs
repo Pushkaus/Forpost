@@ -16,11 +16,13 @@ public sealed class ContractorController : ApiController
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> CreateAsync([FromBody] ContractorRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateAsync([FromBody] ContractorRequest request,
+        CancellationToken cancellationToken)
     {
         var id = await Sender.Send(new AddContractorCommand(request.Name), cancellationToken);
         return Ok(id);
     }
+
     /// <summary>
     /// Получить всех контрагентов
     /// </summary>
@@ -30,12 +32,18 @@ public sealed class ContractorController : ApiController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100)
+        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
+        [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
     {
-        var result = await Sender.Send(new GetAllContractorsQuery(skip, limit), cancellationToken);
-        return Ok(new {Contractors = Mapper.Map<IReadOnlyCollection<ContractorResponse>>(result.Contractors)
-                ,TotalCount = result.TotalCount});
+        var result = await Sender.Send(new GetAllContractorsQuery(filterExpression, filterValues, skip, limit),
+            cancellationToken);
+        return Ok(new
+        {
+            Contractors = Mapper.Map<IReadOnlyCollection<ContractorResponse>>(result.Contractors),
+            TotalCount = result.TotalCount
+        });
     }
+
     /// <summary>
     /// Получить контрагента по id
     /// </summary>

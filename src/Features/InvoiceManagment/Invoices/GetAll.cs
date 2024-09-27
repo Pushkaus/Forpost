@@ -16,8 +16,14 @@ internal sealed class GetAllInvoicesQueryHandler :
     public async ValueTask<(IReadOnlyCollection<Invoice> Invoices, int TotalCount)> Handle(GetAllInvoicesQuery request,
         CancellationToken cancellationToken)
     {
-        var invoices = await _invoiceDomainRepository.GetAllAsync(cancellationToken, request.Skip, request.Limit);
+        var invoices = await _invoiceDomainRepository.GetAllAsync(request.FilterExpression, request.FilterValues,
+            cancellationToken, request.Skip, request.Limit);
         return (invoices);
     }
 }
-public record GetAllInvoicesQuery(int Skip, int Limit) : IQuery<(IReadOnlyCollection<Invoice> Invoices, int TotalCount)>;
+
+public record GetAllInvoicesQuery(
+    string? FilterExpression,
+    object?[]? FilterValues,
+    int Skip,
+    int Limit) : IQuery<(IReadOnlyCollection<Invoice> Invoices, int TotalCount)>;
