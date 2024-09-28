@@ -24,20 +24,398 @@ namespace Forpost.Web.Client.Implementations
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial interface ICompletedProductClient : Forpost.Web.Client.IForpostClient
+    {
+        /// <summary>
+        /// Список всех готовых продуктов на складе
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Список всех готовых продуктов на складе
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Список готовых продуктов по ProductID (справочный ID)
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageByProductIdAsync(System.Guid productId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Список готовых продуктов по ProductID (справочный ID)
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    internal partial class CompletedProductClient : Forpost.Web.Client.Implementations.BaseClient, ICompletedProductClient
+    {
+        private System.Net.Http.HttpClient _httpClient;
+        private static System.Lazy<System.Text.Json.JsonSerializerOptions> _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings, true);
+
+    #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public CompletedProductClient(System.Net.Http.HttpClient httpClient)
+    #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        {
+            _httpClient = httpClient;
+        }
+
+        private static System.Text.Json.JsonSerializerOptions CreateSerializerSettings()
+        {
+            var settings = new System.Text.Json.JsonSerializerOptions();
+            UpdateJsonSerializerSettings(settings);
+            return settings;
+        }
+
+        protected System.Text.Json.JsonSerializerOptions JsonSerializerSettings { get { return _settings.Value; } }
+
+        static partial void UpdateJsonSerializerSettings(System.Text.Json.JsonSerializerOptions settings);
+
+        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
+        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
+        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
+
+        /// <summary>
+        /// Список всех готовых продуктов на складе
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<FileResponse> GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
+        {
+            return GetAllOnStorageAsync(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Список всех готовых продуктов на складе
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<FileResponse> GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/completed-products/on-storage"
+                    urlBuilder_.Append("api/v1/completed-products/on-storage");
+                    urlBuilder_.Append('?');
+                    if (skip != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200 || status_ == 206)
+                        {
+                            var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await response_.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
+                            disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
+                            return fileResponse_;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Список готовых продуктов по ProductID (справочный ID)
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageByProductIdAsync(System.Guid productId)
+        {
+            return GetAllOnStorageByProductIdAsync(productId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Список готовых продуктов по ProductID (справочный ID)
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (productId == null)
+                throw new System.ArgumentNullException("productId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/completed-products/product/{productId}"
+                    urlBuilder_.Append("api/v1/completed-products/product/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(productId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<CompletedProductModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        protected struct ObjectResponseResult<T>
+        {
+            public ObjectResponseResult(T responseObject, string responseText)
+            {
+                this.Object = responseObject;
+                this.Text = responseText;
+            }
+
+            public T Object { get; }
+
+            public string Text { get; }
+        }
+
+        public bool ReadResponseAsString { get; set; }
+
+        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
+        {
+            if (response == null || response.Content == null)
+            {
+                return new ObjectResponseResult<T>(default(T)!, string.Empty);
+            }
+
+            if (ReadResponseAsString)
+            {
+                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    var typedBody = System.Text.Json.JsonSerializer.Deserialize<T>(responseText, JsonSerializerSettings);
+                    return new ObjectResponseResult<T>(typedBody!, responseText);
+                }
+                catch (System.Text.Json.JsonException exception)
+                {
+                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
+                    throw new ApiException(message, (int)response.StatusCode, responseText, headers, exception);
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                    {
+                        var typedBody = await System.Text.Json.JsonSerializer.DeserializeAsync<T>(responseStream, JsonSerializerSettings, cancellationToken).ConfigureAwait(false);
+                        return new ObjectResponseResult<T>(typedBody!, string.Empty);
+                    }
+                }
+                catch (System.Text.Json.JsonException exception)
+                {
+                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
+                    throw new ApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
+                }
+            }
+        }
+
+        private string ConvertToString(object? value, System.Globalization.CultureInfo cultureInfo)
+        {
+            if (value == null)
+            {
+                return "";
+            }
+
+            if (value is System.Enum)
+            {
+                var name = System.Enum.GetName(value.GetType(), value);
+                if (name != null)
+                {
+                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
+                    if (field != null)
+                    {
+                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
+                            as System.Runtime.Serialization.EnumMemberAttribute;
+                        if (attribute != null)
+                        {
+                            return attribute.Value != null ? attribute.Value : name;
+                        }
+                    }
+
+                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
+                    return converted == null ? string.Empty : converted;
+                }
+            }
+            else if (value is bool) 
+            {
+                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
+            }
+            else if (value is byte[])
+            {
+                return System.Convert.ToBase64String((byte[]) value);
+            }
+            else if (value is string[])
+            {
+                return string.Join(",", (string[])value);
+            }
+            else if (value.GetType().IsArray)
+            {
+                var valueArray = (System.Array)value;
+                var valueTextArray = new string[valueArray.Length];
+                for (var i = 0; i < valueArray.Length; i++)
+                {
+                    valueTextArray[i] = ConvertToString(valueArray.GetValue(i), cultureInfo);
+                }
+                return string.Join(",", valueTextArray);
+            }
+
+            var result = System.Convert.ToString(value, cultureInfo);
+            return result == null ? "" : result;
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial interface IIssueClient : Forpost.Web.Client.IForpostClient
     {
         /// <summary>
         /// Получение всех задач производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcess>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех задач производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcess>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForExecutorAsync(int? skip, int? limit);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForExecutorAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForResponsibleAsync(int? skip, int? limit);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForResponsibleAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Запуск задачи
@@ -78,6 +456,19 @@ namespace Forpost.Web.Client.Implementations
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task CloseAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
+        /// <summary>
+        /// Получение задачи по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<IssueModel> GetByIdAsync(System.Guid issueId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение задачи по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<IssueModel> GetByIdAsync(System.Guid issueId, System.Threading.CancellationToken cancellationToken);
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -112,7 +503,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех задач производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcess>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId)
         {
             return GetIssuesFromManufacturingProcessAsync(manufacturingProcessId, System.Threading.CancellationToken.None);
         }
@@ -122,7 +513,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех задач производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcess>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId, System.Threading.CancellationToken cancellationToken)
         {
             if (manufacturingProcessId == null)
                 throw new System.ArgumentNullException("manufacturingProcessId");
@@ -138,8 +529,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/issues/{manufacturingProcessId}"
-                    urlBuilder_.Append("api/v1/issues/");
+                    // Operation Path: "api/v1/issues/manufacturing-process/{manufacturingProcessId}"
+                    urlBuilder_.Append("api/v1/issues/manufacturing-process/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(manufacturingProcessId, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -167,7 +558,191 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<IssueFromManufacturingProcess>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForExecutorAsync(int? skip, int? limit)
+        {
+            return GetIssuesForExecutorAsync(skip, limit, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForExecutorAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/issues/for-executor"
+                    urlBuilder_.Append("api/v1/issues/for-executor");
+                    urlBuilder_.Append('?');
+                    if (skip != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<IssueModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForResponsibleAsync(int? skip, int? limit)
+        {
+            return GetIssuesForResponsibleAsync(skip, limit, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForResponsibleAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/issues/for-responsible"
+                    urlBuilder_.Append("api/v1/issues/for-responsible");
+                    urlBuilder_.Append('?');
+                    if (skip != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<IssueModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -476,6 +1051,92 @@ namespace Forpost.Web.Client.Implementations
             }
         }
 
+        /// <summary>
+        /// Получение задачи по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<IssueModel> GetByIdAsync(System.Guid issueId)
+        {
+            return GetByIdAsync(issueId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение задачи по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<IssueModel> GetByIdAsync(System.Guid issueId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (issueId == null)
+                throw new System.ArgumentNullException("issueId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/issues/{issueId}"
+                    urlBuilder_.Append("api/v1/issues/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(issueId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<IssueModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
         protected struct ObjectResponseResult<T>
         {
             public ObjectResponseResult(T responseObject, string responseText)
@@ -605,14 +1266,21 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все производственные процессы
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? take);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все производственные процессы
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? take, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
+
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> GetById2Async(System.Guid id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> GetById2Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Запуск производственного процесса
@@ -761,9 +1429,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все производственные процессы
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? take)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllAllAsync(skip, take, System.Threading.CancellationToken.None);
+            return GetAllAllAsync(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -771,7 +1439,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все производственные процессы
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? take, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -791,9 +1459,17 @@ namespace Forpost.Web.Client.Implementations
                     {
                         urlBuilder_.Append(System.Uri.EscapeDataString("skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
                     }
-                    if (take != null)
+                    if (limit != null)
                     {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("take")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(take, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
                     }
                     urlBuilder_.Length--;
 
@@ -823,6 +1499,86 @@ namespace Forpost.Web.Client.Implementations
                         if (status_ == 200)
                         {
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ManufacturingProcessResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> GetById2Async(System.Guid id)
+        {
+            return GetById2Async(id, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> GetById2Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/manufacturingProcesses/{id}"
+                    urlBuilder_.Append("api/v1/manufacturingProcesses/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ManufacturingProcessWithDetailsModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1137,14 +1893,79 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов в разработке
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopment>> GetAllAll2Async(int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех продуктов в разработке
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopment>> GetAllAll2Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Заполнение состава продукта
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SetCompositionProductAsync(CompositionProductRequest request);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Заполнение состава продукта
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SetCompositionProductAsync(CompositionProductRequest request, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получение всех продуктов по ID задачи
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение всех продуктов по ID задачи
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Завершить задачу, переход на следующий этап или создание готового продукта
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task CompleteIssueAsync(System.Guid productDevelopmentId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Завершить задачу, переход на следующий этап или создание готового продукта
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task CompleteIssueAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получение состава продукта по ProductDevelopmentId
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CompositionProductGroupModel> GetCompositionProductAsync(System.Guid productDevelopmentId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение состава продукта по ProductDevelopmentId
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CompositionProductGroupModel> GetCompositionProductAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получение состава тех.карты по ProductDevelopmentId
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение состава тех.карты по ProductDevelopmentId
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -1180,9 +2001,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов в разработке
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopment>> GetAllAll2Async(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllAll2Async(skip, limit, System.Threading.CancellationToken.None);
+            return GetAllAll2Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1190,7 +2011,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов в разработке
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopment>> GetAllAll2Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1205,6 +2026,193 @@ namespace Forpost.Web.Client.Implementations
                 
                     // Operation Path: "api/v1/product-development"
                     urlBuilder_.Append("api/v1/product-development");
+                    urlBuilder_.Append('?');
+                    if (skip != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
+                    }
+                    urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ProductDevelopmentResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Заполнение состава продукта
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task SetCompositionProductAsync(CompositionProductRequest request)
+        {
+            return SetCompositionProductAsync(request, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Заполнение состава продукта
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task SetCompositionProductAsync(CompositionProductRequest request, System.Threading.CancellationToken cancellationToken)
+        {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/product-development"
+                    urlBuilder_.Append("api/v1/product-development");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 201)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Получение всех продуктов по ID задачи
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit)
+        {
+            return GetAllByIssueIdAsync(issueId, skip, limit, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение всех продуктов по ID задачи
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        {
+            if (issueId == null)
+                throw new System.ArgumentNullException("issueId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/product-development/issue/{issueId}"
+                    urlBuilder_.Append("api/v1/product-development/issue/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(issueId, System.Globalization.CultureInfo.InvariantCulture)));
                     urlBuilder_.Append('?');
                     if (skip != null)
                     {
@@ -1241,12 +2249,266 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ProductDevelopment>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ProductDevelopmentResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Завершить задачу, переход на следующий этап или создание готового продукта
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task CompleteIssueAsync(System.Guid productDevelopmentId)
+        {
+            return CompleteIssueAsync(productDevelopmentId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Завершить задачу, переход на следующий этап или создание готового продукта
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task CompleteIssueAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (productDevelopmentId == null)
+                throw new System.ArgumentNullException("productDevelopmentId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/product-development/{productDevelopmentId}/complete-issue"
+                    urlBuilder_.Append("api/v1/product-development/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(productDevelopmentId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/complete-issue");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Получение состава продукта по ProductDevelopmentId
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<CompositionProductGroupModel> GetCompositionProductAsync(System.Guid productDevelopmentId)
+        {
+            return GetCompositionProductAsync(productDevelopmentId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение состава продукта по ProductDevelopmentId
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CompositionProductGroupModel> GetCompositionProductAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (productDevelopmentId == null)
+                throw new System.ArgumentNullException("productDevelopmentId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/product-development/{productDevelopmentId}/composition"
+                    urlBuilder_.Append("api/v1/product-development/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(productDevelopmentId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/composition");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<CompositionProductGroupModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Получение состава тех.карты по ProductDevelopmentId
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<FileResponse> GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId)
+        {
+            return GetTechCardItemsByProductDevelopmentIdAsync(productDevelopmentId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение состава тех.карты по ProductDevelopmentId
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<FileResponse> GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (productDevelopmentId == null)
+                throw new System.ArgumentNullException("productDevelopmentId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/product-development/{productDevelopmentId}/techcard-items"
+                    urlBuilder_.Append("api/v1/product-development/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(productDevelopmentId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/techcard-items");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200 || status_ == 206)
+                        {
+                            var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await response_.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
+                            disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
+                            return fileResponse_;
                         }
                         else
                         {
@@ -1398,7 +2660,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll3Async(int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll3Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -1406,7 +2668,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll3Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll3Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создать счет
@@ -1581,9 +2843,9 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll3Async(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll3Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllAll3Async(skip, limit, System.Threading.CancellationToken.None);
+            return GetAllAll3Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1592,7 +2854,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll3Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Invoice>> GetAllAll3Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1615,6 +2877,14 @@ namespace Forpost.Web.Client.Implementations
                     if (limit != null)
                     {
                         urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
                     }
                     urlBuilder_.Length--;
 
@@ -2485,14 +3755,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получение тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TechCard> GetByIdAsync(System.Guid id);
+        System.Threading.Tasks.Task<TechCard> GetById3Async(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TechCard> GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<TechCard> GetById3Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление тех.карты
@@ -2512,7 +3782,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll4Async(int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll4Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -2520,7 +3790,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll4Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll4Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создание тех.карты
@@ -2655,9 +3925,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<TechCard> GetByIdAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task<TechCard> GetById3Async(System.Guid id)
         {
-            return GetByIdAsync(id, System.Threading.CancellationToken.None);
+            return GetById3Async(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2665,7 +3935,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TechCard> GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<TechCard> GetById3Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2822,9 +4092,9 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll4Async(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll4Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllAll4Async(skip, limit, System.Threading.CancellationToken.None);
+            return GetAllAll4Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2833,7 +4103,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll4Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll4Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2856,6 +4126,14 @@ namespace Forpost.Web.Client.Implementations
                     if (limit != null)
                     {
                         urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
                     }
                     urlBuilder_.Length--;
 
@@ -4351,14 +5629,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получение этапа по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Step> GetById2Async(System.Guid id);
+        System.Threading.Tasks.Task<Step> GetById4Async(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение этапа по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Step> GetById2Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Step> GetById4Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление этапа
@@ -4377,14 +5655,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех этапов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll6Async(int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll6Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<object?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех этапов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll6Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll6Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<object?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создание этапа
@@ -4433,9 +5711,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение этапа по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Step> GetById2Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<Step> GetById4Async(System.Guid id)
         {
-            return GetById2Async(id, System.Threading.CancellationToken.None);
+            return GetById4Async(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4443,7 +5721,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение этапа по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Step> GetById2Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Step> GetById4Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4599,9 +5877,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех этапов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll6Async(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll6Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<object?>? filterValues)
         {
-            return GetAllAll6Async(skip, limit, System.Threading.CancellationToken.None);
+            return GetAllAll6Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4609,7 +5887,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех этапов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll6Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll6Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<object?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -4632,6 +5910,14 @@ namespace Forpost.Web.Client.Implementations
                     if (limit != null)
                     {
                         urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
                     }
                     urlBuilder_.Length--;
 
@@ -4928,14 +6214,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получить роль по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<RoleResponse> GetById3Async(System.Guid id);
+        System.Threading.Tasks.Task<RoleResponse> GetById5Async(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить роль по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<RoleResponse> GetById3Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<RoleResponse> GetById5Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -5146,9 +6432,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить роль по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<RoleResponse> GetById3Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<RoleResponse> GetById5Async(System.Guid id)
         {
-            return GetById3Async(id, System.Threading.CancellationToken.None);
+            return GetById5Async(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5156,7 +6442,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить роль по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<RoleResponse> GetById3Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<RoleResponse> GetById5Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5345,7 +6631,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAllAsync(int? skip, int? limit);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -5353,7 +6639,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAllAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создать продукт
@@ -5385,14 +6671,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получение продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProductResponse> GetById4Async(System.Guid id);
+        System.Threading.Tasks.Task<ProductResponse> GetById6Async(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProductResponse> GetById4Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ProductResponse> GetById6Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление продукта по id
@@ -5442,9 +6728,9 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAllAsync(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllAsync(skip, limit, System.Threading.CancellationToken.None);
+            return GetAllAsync(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5453,7 +6739,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAllAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -5476,6 +6762,14 @@ namespace Forpost.Web.Client.Implementations
                     if (limit != null)
                     {
                         urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
                     }
                     urlBuilder_.Length--;
 
@@ -5717,9 +7011,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ProductResponse> GetById4Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ProductResponse> GetById6Async(System.Guid id)
         {
-            return GetById4Async(id, System.Threading.CancellationToken.None);
+            return GetById6Async(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5727,7 +7021,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProductResponse> GetById4Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ProductResponse> GetById6Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6345,7 +7639,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -6353,7 +7647,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -6390,9 +7684,9 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAll2Async(skip, limit, System.Threading.CancellationToken.None);
+            return GetAll2Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6401,7 +7695,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -6424,6 +7718,14 @@ namespace Forpost.Web.Client.Implementations
                     if (limit != null)
                     {
                         urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
                     }
                     urlBuilder_.Length--;
 
@@ -6625,7 +7927,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список контрагентов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll9Async(int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll9Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -6633,20 +7935,20 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список контрагентов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll9Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll9Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить контрагента по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ContractorResponse> GetById5Async(System.Guid id);
+        System.Threading.Tasks.Task<ContractorResponse> GetById7Async(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить контрагента по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ContractorResponse> GetById5Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ContractorResponse> GetById7Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -6766,9 +8068,9 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список контрагентов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll9Async(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll9Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllAll9Async(skip, limit, System.Threading.CancellationToken.None);
+            return GetAllAll9Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6777,7 +8079,7 @@ namespace Forpost.Web.Client.Implementations
         /// </summary>
         /// <returns>Список контрагентов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll9Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll9Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -6800,6 +8102,14 @@ namespace Forpost.Web.Client.Implementations
                     if (limit != null)
                     {
                         urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterExpression != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (filterValues != null)
+                    {
+                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
                     }
                     urlBuilder_.Length--;
 
@@ -6875,9 +8185,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить контрагента по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ContractorResponse> GetById5Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ContractorResponse> GetById7Async(System.Guid id)
         {
-            return GetById5Async(id, System.Threading.CancellationToken.None);
+            return GetById7Async(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6885,7 +8195,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить контрагента по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ContractorResponse> GetById5Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ContractorResponse> GetById7Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7437,7 +8747,25 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class IssueFromManufacturingProcess
+    public partial class CompletedProductModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productDevelopmentId")]
+        public System.Guid ProductDevelopmentId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("serialNumber")]
+        public string SerialNumber { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class IssueFromManufacturingProcessModel
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
@@ -7488,6 +8816,51 @@ namespace Forpost.Web.Client.Implementations
         Completed = 300,
 
         Cancelled = 400,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class IssueModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productName")]
+        public string ProductName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("operationName")]
+        public string OperationName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("issueNumber")]
+        public int IssueNumber { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("executorId")]
+        public System.Guid ExecutorId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("executorName")]
+        public string ExecutorName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("responsibleId")]
+        public System.Guid ResponsibleId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("responsibleName")]
+        public string ResponsibleName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string? Description { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("currentQuantity")]
+        public int CurrentQuantity { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("startTime")]
+        public System.DateTimeOffset? StartTime { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("endTime")]
+        public System.DateTimeOffset? EndTime { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productCompositionFlag")]
+        public bool ProductCompositionFlag { get; set; } = default!;
 
     }
 
@@ -7557,6 +8930,61 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("productCompositionSettingFlag")]
         public bool ProductCompositionSettingFlag { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ManufacturingProcessWithDetailsModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productId")]
+        public System.Guid ProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productName")]
+        public string ProductName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
+        public System.Guid TechCardId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("techCardNumber")]
+        public string TechCardNumber { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("batchNumber")]
+        public string BatchNumber { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("currentQuantity")]
+        public int CurrentQuantity { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("targetQuantity")]
+        public int TargetQuantity { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("startTime")]
+        public System.DateTimeOffset? StartTime { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("endTime")]
+        public System.DateTimeOffset? EndTime { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("status")]
+        public ManufacturingProcessStatusModel Status { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum ManufacturingProcessStatusModel
+    {
+
+        Pending = 100,
+
+        InPaused = 101,
+
+        InProgress = 200,
+
+        Completed = 300,
+
+        Cancelled = 400,
 
     }
 
@@ -7636,20 +9064,44 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ProductDevelopment : DomainEntity
+    public partial class ProductDevelopmentResponse
     {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("productId")]
         public System.Guid ProductId { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("productName")]
+        public string ProductName { get; set; } = default!;
+
         [System.Text.Json.Serialization.JsonPropertyName("manufacturingProcessId")]
         public System.Guid ManufacturingProcessId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("batchNumber")]
+        public string BatchNumber { get; set; } = default!;
+
+        /// <summary>
+        /// ID задачи, где находится продукт
+        /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("issueId")]
         public System.Guid IssueId { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("operationName")]
+        public string OperationName { get; set; } = default!;
+
+        /// <summary>
+        /// Серийный номер продукта
+        /// </summary>
+
         [System.Text.Json.Serialization.JsonPropertyName("serialNumber")]
         public string SerialNumber { get; set; } = default!;
+
+        /// <summary>
+        /// Вариант настройки
+        /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("settingOption")]
         public SettingOption? SettingOption { get; set; } = default!;
@@ -7692,11 +9144,50 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public abstract partial class DomainEntity
+    public partial class CompositionProductRequest
+    {
+        /// <summary>
+        /// Продукт относительно которого заполняем состав
+        /// </summary>
+
+        [System.Text.Json.Serialization.JsonPropertyName("productDevelopmentId")]
+        public System.Guid ProductDevelopmentId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("completedProductsId")]
+        public System.Collections.Generic.ICollection<System.Guid> CompletedProductsId { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class CompositionProductGroupModel
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid Id { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("productDevelopmentId")]
+        public System.Guid ProductDevelopmentId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("parentProductName")]
+        public string ParentProductName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("serialNumber")]
+        public string SerialNumber { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("completedProducts")]
+        public System.Collections.Generic.ICollection<CompletedProductCompositionModel> CompletedProducts { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class CompletedProductCompositionModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("completedProductId")]
+        public System.Guid CompletedProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("itemName")]
+        public string ItemName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("serialNumber")]
+        public string SerialNumber { get; set; } = default!;
 
     }
 
@@ -7781,6 +9272,15 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("deletedById")]
         public System.Guid? DeletedById { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class DomainEntity
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
 
     }
 
@@ -7913,6 +9413,9 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
         public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productName")]
+        public string ProductName { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("number")]
         public string Number { get; set; } = default!;

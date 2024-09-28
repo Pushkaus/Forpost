@@ -14,7 +14,6 @@ internal sealed class OperationIdControllerPrefixRemoveProcessor : IOperationPro
 
             operationDescription.Operation.OperationId = operationIdWithoutControllerPrefix;
         }
-
         return true;
     }
 }
