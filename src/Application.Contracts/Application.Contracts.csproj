@@ -6,4 +6,7 @@
   <ItemGroup>
     <Folder Include="InvoiceManagment\Invoices\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Telegram.Bot" />
+  </ItemGroup>
 </Project>
