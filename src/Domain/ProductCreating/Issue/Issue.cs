@@ -1,11 +1,12 @@
 using Forpost.Domain.Primitives.EntityAnnotations;
 using Forpost.Domain.Primitives.EntityTemplates;
+using Forpost.Domain.ProductCreating.Issue.Events;
 
 namespace Forpost.Domain.ProductCreating.Issue;
 /// <summary>
 /// Задача. Участвует в производственном процессе
 /// </summary>
-public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
+public sealed class Issue : AggregateRoot, ITimeFrameEntity
 {
     public void Launch()
     {
@@ -46,9 +47,10 @@ public sealed class Issue : DomainAuditableEntity, ITimeFrameEntity
         }
     }
 
-    public void AssignExecutor(Guid executorId)
+    public void AssignExecutor(Guid executorId, Guid issueId)
     {
         ExecutorId = executorId;
+        Raise(new ExecutorAssigned(executorId, issueId));
     }
     /// <summary>
     /// Ссылка на производственный процесс этой задачи
