@@ -1,4 +1,5 @@
 using Forpost.Store.Migrations;
+using Forpost.TelegramBot;
 
 namespace Forpost.Web.Host;
 
@@ -23,7 +24,6 @@ internal sealed class Program
         {
             logger.LogError(ex, "Не удалось выполнить миграцию.");
         }
-
         await host.RunAsync();
     }
 

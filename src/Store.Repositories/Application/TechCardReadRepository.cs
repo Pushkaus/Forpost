@@ -1,5 +1,4 @@
 using System.Linq.Dynamic.Core;
-using System.Linq.Dynamic.Core.Exceptions;
 using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;

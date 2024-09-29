@@ -32,6 +32,7 @@ public sealed class IssueModel
     /// Текущее количество
     /// </summary>
     public int CurrentQuantity { get; set; }
+    public int TargetQuantity { get; set; }
     /// <summary>
     /// Дата начала выполнения задачи
     /// </summary>

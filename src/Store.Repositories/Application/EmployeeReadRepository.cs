@@ -1,5 +1,4 @@
 using System.Linq.Dynamic.Core;
-using System.Linq.Dynamic.Core.Exceptions;
 using AutoMapper;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Store.Postgres;

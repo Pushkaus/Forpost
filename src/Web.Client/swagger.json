@@ -6,7 +6,111 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/v1/issues/{manufacturingProcessId}": {
+    "/api/v1/completed-products/on-storage": {
+      "get": {
+        "tags": [
+          "CompletedProduct"
+        ],
+        "summary": "Список всех готовых продуктов на складе",
+        "operationId": "GetAllOnStorage",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            },
+            "x-position": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            },
+            "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/completed-products/product/{productId}": {
+      "get": {
+        "tags": [
+          "CompletedProduct"
+        ],
+        "summary": "Список готовых продуктов по ProductID (справочный ID)",
+        "operationId": "GetAllOnStorageByProductId",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompletedProductModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/issues/manufacturing-process/{manufacturingProcessId}": {
       "get": {
         "tags": [
           "Issue"
@@ -33,7 +137,99 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/IssueFromManufacturingProcess"
+                    "$ref": "#/components/schemas/IssueFromManufacturingProcessModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/issues/for-executor": {
+      "get": {
+        "tags": [
+          "Issue"
+        ],
+        "summary": "Получение задач для исполнителя",
+        "operationId": "GetIssuesForExecutor",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            },
+            "x-position": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IssueModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/issues/for-responsible": {
+      "get": {
+        "tags": [
+          "Issue"
+        ],
+        "summary": "Получение задач для исполнителя",
+        "operationId": "GetIssuesForResponsible",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            },
+            "x-position": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IssueModel"
                   }
                 }
               }
@@ -159,6 +355,39 @@
         }
       }
     },
+    "/api/v1/issues/{issueId}": {
+      "get": {
+        "tags": [
+          "Issue"
+        ],
+        "summary": "Получение задачи по ID",
+        "operationId": "GetById",
+        "parameters": [
+          {
+            "name": "issueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssueModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/manufacturingProcesses": {
       "post": {
         "tags": [
@@ -210,7 +439,7 @@
             "x-position": 1
           },
           {
-            "name": "take",
+            "name": "limit",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -218,6 +447,30 @@
               "default": 100
             },
             "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -230,6 +483,38 @@
                   "items": {
                     "$ref": "#/components/schemas/ManufacturingProcessResponse"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/manufacturingProcesses/{id}": {
+      "get": {
+        "tags": [
+          "ManufacturingProcess"
+        ],
+        "operationId": "GetById2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManufacturingProcessWithDetailsModel"
                 }
               }
             }
@@ -318,7 +603,8 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 0
             },
             "x-position": 1
           },
@@ -327,9 +613,34 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 100
             },
             "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -340,8 +651,181 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ProductDevelopment"
+                    "$ref": "#/components/schemas/ProductDevelopmentResponse"
                   }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ProductDevelopment"
+        ],
+        "summary": "Заполнение состава продукта",
+        "operationId": "SetCompositionProduct",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompositionProductRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/product-development/issue/{issueId}": {
+      "get": {
+        "tags": [
+          "ProductDevelopment"
+        ],
+        "summary": "Получение всех продуктов по ID задачи",
+        "operationId": "GetAllByIssueId",
+        "parameters": [
+          {
+            "name": "issueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            },
+            "x-position": 2
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductDevelopmentResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-development/{productDevelopmentId}/complete-issue": {
+      "put": {
+        "tags": [
+          "ProductDevelopment"
+        ],
+        "summary": "Завершить задачу, переход на следующий этап или создание готового продукта",
+        "operationId": "CompleteIssue",
+        "parameters": [
+          {
+            "name": "productDevelopmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/product-development/{productDevelopmentId}/composition": {
+      "get": {
+        "tags": [
+          "ProductDevelopment"
+        ],
+        "summary": "Получение состава продукта по ProductDevelopmentId",
+        "operationId": "GetCompositionProduct",
+        "parameters": [
+          {
+            "name": "productDevelopmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompositionProductGroupModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-development/{productDevelopmentId}/techcard-items": {
+      "get": {
+        "tags": [
+          "ProductDevelopment"
+        ],
+        "summary": "Получение состава тех.карты по ProductDevelopmentId",
+        "operationId": "GetTechCardItemsByProductDevelopmentId",
+        "parameters": [
+          {
+            "name": "productDevelopmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -408,6 +892,30 @@
               "default": 100
             },
             "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -659,7 +1167,7 @@
           "TechCard"
         ],
         "summary": "Получение тех.карты по Id",
-        "operationId": "GetById",
+        "operationId": "GetById3",
         "parameters": [
           {
             "name": "id",
@@ -737,6 +1245,30 @@
               "default": 100
             },
             "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -1051,7 +1583,7 @@
           "Step"
         ],
         "summary": "Получение этапа по Id",
-        "operationId": "GetById2",
+        "operationId": "GetById4",
         "parameters": [
           {
             "name": "id",
@@ -1129,6 +1661,29 @@
               "default": 100
             },
             "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "nullable": true
+              }
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -1254,7 +1809,7 @@
           "Role"
         ],
         "summary": "Получить роль по id",
-        "operationId": "GetById3",
+        "operationId": "GetById5",
         "parameters": [
           {
             "name": "id",
@@ -1308,6 +1863,30 @@
               "default": 100
             },
             "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -1391,7 +1970,7 @@
           "Product"
         ],
         "summary": "Получение продукта по id",
-        "operationId": "GetById4",
+        "operationId": "GetById6",
         "parameters": [
           {
             "name": "id",
@@ -1535,6 +2114,30 @@
               "default": 100
             },
             "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -1615,6 +2218,30 @@
               "default": 100
             },
             "x-position": 2
+          },
+          {
+            "name": "filterExpression",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "filterValues",
+            "in": "query",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "x-position": 4
           }
         ],
         "responses": {
@@ -1653,7 +2280,7 @@
           "Contractor"
         ],
         "summary": "Получить контрагента по id",
-        "operationId": "GetById5",
+        "operationId": "GetById7",
         "parameters": [
           {
             "name": "id",
@@ -1772,7 +2399,27 @@
   },
   "components": {
     "schemas": {
-      "IssueFromManufacturingProcess": {
+      "CompletedProductModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "productDevelopmentId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "serialNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "IssueFromManufacturingProcessModel": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -1838,6 +2485,61 @@
           300,
           400
         ]
+      },
+      "IssueModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "operationName": {
+            "type": "string"
+          },
+          "issueNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "executorId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "executorName": {
+            "type": "string"
+          },
+          "responsibleId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "responsibleName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "productCompositionFlag": {
+            "type": "boolean"
+          }
+        }
       },
       "ProblemDetails": {
         "type": "object",
@@ -1916,6 +2618,72 @@
           }
         }
       },
+      "ManufacturingProcessWithDetailsModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "techCardId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "techCardNumber": {
+            "type": "string"
+          },
+          "batchNumber": {
+            "type": "string"
+          },
+          "currentQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "targetQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/ManufacturingProcessStatusModel"
+          }
+        }
+      },
+      "ManufacturingProcessStatusModel": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Pending",
+          "InPaused",
+          "InProgress",
+          "Completed",
+          "Cancelled"
+        ],
+        "enum": [
+          100,
+          101,
+          200,
+          300,
+          400
+        ]
+      },
       "ManufacturingProcessResponse": {
         "type": "object",
         "additionalProperties": false,
@@ -1987,44 +2755,53 @@
           400
         ]
       },
-      "ProductDevelopment": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/DomainEntity"
+      "ProductDevelopmentResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
           },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "productId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "manufacturingProcessId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "issueId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "serialNumber": {
-                "type": "string"
-              },
-              "settingOption": {
-                "nullable": true,
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/SettingOption"
-                  }
-                ]
-              },
-              "status": {
-                "$ref": "#/components/schemas/ProductStatus"
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "manufacturingProcessId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "batchNumber": {
+            "type": "string"
+          },
+          "issueId": {
+            "type": "string",
+            "description": "ID задачи, где находится продукт",
+            "format": "guid"
+          },
+          "operationName": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "string",
+            "description": "Серийный номер продукта"
+          },
+          "settingOption": {
+            "description": "Вариант настройки",
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SettingOption"
               }
-            }
+            ]
+          },
+          "status": {
+            "$ref": "#/components/schemas/ProductStatus"
           }
-        ]
+        }
       },
       "SettingOption": {
         "type": "integer",
@@ -2062,14 +2839,59 @@
           400
         ]
       },
-      "DomainEntity": {
+      "CompositionProductRequest": {
         "type": "object",
-        "x-abstract": true,
         "additionalProperties": false,
         "properties": {
-          "id": {
+          "productDevelopmentId": {
+            "type": "string",
+            "description": "Продукт относительно которого заполняем состав",
+            "format": "guid"
+          },
+          "completedProductsId": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "guid"
+            }
+          }
+        }
+      },
+      "CompositionProductGroupModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "productDevelopmentId": {
             "type": "string",
             "format": "guid"
+          },
+          "parentProductName": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "string"
+          },
+          "completedProducts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompletedProductCompositionModel"
+            }
+          }
+        }
+      },
+      "CompletedProductCompositionModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "completedProductId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "itemName": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "string"
           }
         }
       },
@@ -2202,6 +3024,17 @@
             }
           }
         ]
+      },
+      "DomainEntity": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
       },
       "InvoiceCreateRequest": {
         "type": "object",
@@ -2370,6 +3203,9 @@
           "id": {
             "type": "string",
             "format": "guid"
+          },
+          "productName": {
+            "type": "string"
           },
           "number": {
             "type": "string"

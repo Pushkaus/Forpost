@@ -17,8 +17,8 @@ internal sealed class AssignExecutorCommandHandler: ICommandHandler<AssignExecut
     {
         var issue = await _issueDomainRepository.GetByIdAsync(command.IssueId, cancellationToken);
         
-        issue.EnsureFoundBy(issue => issue.Id, command.IssueId).AssignExecutor(command.ExecutorId);
-
+        issue.EnsureFoundBy(issue => issue.Id, command.IssueId).AssignExecutor(command.ExecutorId, command.IssueId);
+        
         _issueDomainRepository.Update(issue);
         
         return Unit.Value;
