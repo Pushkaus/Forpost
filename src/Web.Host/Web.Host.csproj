@@ -6,6 +6,7 @@
         <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
         <ProjectReference Include="..\Store.Migrations\Store.Migrations.csproj" />
         <ProjectReference Include="..\Store.Postgres\Store.Postgres.csproj"/>
+        <ProjectReference Include="..\TelegramBot\TelegramBot.csproj" />
         <ProjectReference Include="..\Web.Contracts\Web.Contracts.csproj"/>
     </ItemGroup>
 
@@ -15,6 +16,7 @@
         <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
         <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
         <PackageReference Include="Swashbuckle.AspNetCore"/>
+        <PackageReference Include="Telegram.Bot" />
     </ItemGroup>
 
 </Project>

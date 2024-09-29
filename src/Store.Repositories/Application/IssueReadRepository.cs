@@ -97,6 +97,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
                     ResponsibleName = responsible.FirstName + " " + responsible.LastName,
                     Description = combined.combined.combined.combined.combined.combined.Issue.Description,
                     CurrentQuantity = combined.combined.combined.combined.combined.combined.Issue.CurrentQuantity,
+                    TargetQuantity = combined.combined.combined.combined.manufacturingProcess.TargetQuantity,
                     StartTime = combined.combined.combined.combined.combined.combined.Issue.StartTime,
                     EndTime = combined.combined.combined.combined.combined.combined.Issue.EndTime,
                     ProductCompositionFlag = combined.combined.combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
@@ -157,6 +158,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
                     ResponsibleName = responsible.FirstName + " " + responsible.LastName,
                     Description = combined.combined.combined.combined.combined.combined.Issue.Description,
                     CurrentQuantity = combined.combined.combined.combined.combined.combined.Issue.CurrentQuantity,
+                    TargetQuantity = combined.combined.combined.combined.manufacturingProcess.TargetQuantity,
                     StartTime = combined.combined.combined.combined.combined.combined.Issue.StartTime,
                     EndTime = combined.combined.combined.combined.combined.combined.Issue.EndTime,
                     ProductCompositionFlag = combined.combined.combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
@@ -213,6 +215,7 @@ internal sealed class IssueReadRepository: IIssueReadRepository
                     ResponsibleName = responsible.FirstName + " " + responsible.LastName,
                     Description = combined.combined.combined.combined.combined.combined.Issue.Description,
                     CurrentQuantity = combined.combined.combined.combined.combined.combined.Issue.CurrentQuantity,
+                    TargetQuantity = combined.combined.combined.combined.manufacturingProcess.TargetQuantity,
                     StartTime = combined.combined.combined.combined.combined.combined.Issue.StartTime,
                     EndTime = combined.combined.combined.combined.combined.combined.Issue.EndTime,
                     ProductCompositionFlag = combined.combined.combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
