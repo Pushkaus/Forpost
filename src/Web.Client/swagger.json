@@ -2526,6 +2526,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "targetQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
           "startTime": {
             "type": "string",
             "format": "date-time",

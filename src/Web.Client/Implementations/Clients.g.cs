@@ -8853,6 +8853,9 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("currentQuantity")]
         public int CurrentQuantity { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("targetQuantity")]
+        public int TargetQuantity { get; set; } = default!;
+
         [System.Text.Json.Serialization.JsonPropertyName("startTime")]
         public System.DateTimeOffset? StartTime { get; set; } = default!;
 
