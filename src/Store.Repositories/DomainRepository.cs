@@ -1,4 +1,5 @@
 using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.Exceptions;
 using AutoMapper;
 using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Domain.Primitives.EntityAnnotations;
