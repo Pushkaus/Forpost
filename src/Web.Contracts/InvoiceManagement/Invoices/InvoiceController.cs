@@ -1,4 +1,5 @@
 using System.Net.Mime;
+using Forpost.Application.Contracts.InvoiceManagment.Invoices;
 using Forpost.Domain.InvoiceManagement;
 using Forpost.Features.InvoiceManagment.Invoices;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,7 @@ public sealed class InvoiceController : ApiController
     /// </summary>
     /// <returns>Список счетов</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<Invoice>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
         [FromQuery] int skip = 0, [FromQuery] int limit = 100,

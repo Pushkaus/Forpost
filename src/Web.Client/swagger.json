@@ -926,7 +926,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Invoice"
+                    "$ref": "#/components/schemas/InvoiceModel"
                   }
                 }
               }
@@ -3037,6 +3037,46 @@
           "id": {
             "type": "string",
             "format": "guid"
+          }
+        }
+      },
+      "InvoiceModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "number": {
+            "type": "string"
+          },
+          "contractorId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "contractorName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentPercentage": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "daysShipment": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/InvoiceStatus"
+          },
+          "dateShipment": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         }
       },

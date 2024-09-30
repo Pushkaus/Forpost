@@ -1,24 +1,25 @@
+using Forpost.Application.Contracts.InvoiceManagment.Invoices;
 using Forpost.Domain.InvoiceManagement;
 using Mediator;
 
 namespace Forpost.Features.InvoiceManagment.Invoices;
 
 internal sealed class GetAllInvoicesQueryHandler :
-    IQueryHandler<GetAllInvoicesQuery, (IReadOnlyCollection<Invoice> Invoices, int TotalCount)>
+    IQueryHandler<GetAllInvoicesQuery, (IReadOnlyCollection<InvoiceModel> Invoices, int TotalCount)>
 {
-    private readonly IInvoiceDomainRepository _invoiceDomainRepository;
+    private readonly IInvoiceReadRepository _invoiceReadRepository;
 
-    public GetAllInvoicesQueryHandler(IInvoiceDomainRepository invoiceDomainRepository)
+    public GetAllInvoicesQueryHandler(IInvoiceReadRepository invoiceReadRepository)
     {
-        _invoiceDomainRepository = invoiceDomainRepository;
+        _invoiceReadRepository = invoiceReadRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<Invoice> Invoices, int TotalCount)> Handle(GetAllInvoicesQuery request,
+    public async ValueTask<(IReadOnlyCollection<InvoiceModel> Invoices, int TotalCount)> Handle(GetAllInvoicesQuery request,
         CancellationToken cancellationToken)
     {
-        var invoices = await _invoiceDomainRepository.GetAllAsync(request.FilterExpression, request.FilterValues,
-            cancellationToken, request.Skip, request.Limit);
-        return (invoices);
+        var result = await _invoiceReadRepository.GetAll(cancellationToken, request.Skip, request.Limit,
+            request.FilterExpression, request.FilterValues);
+        return (result.Invoices, result.TotalCount);
     }
 }
 
@@ -26,4 +27,4 @@ public record GetAllInvoicesQuery(
     string? FilterExpression,
     object?[]? FilterValues,
     int Skip,
-    int Limit) : IQuery<(IReadOnlyCollection<Invoice> Invoices, int TotalCount)>;
+    int Limit) : IQuery<(IReadOnlyCollection<InvoiceModel> Invoices, int TotalCount)>;
