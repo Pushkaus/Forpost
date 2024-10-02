@@ -12,7 +12,7 @@ public sealed class ProductDevelopmentController : ApiController
     /// <summary>
     /// Получение всех продуктов в разработке
     /// </summary>
-    [HttpGet]
+    [HttpGet(Name = "GetAllProductDevelopments")]
     [ProducesResponseType(typeof(IReadOnlyCollection<ProductDevelopmentResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
         [FromQuery] int skip = 0, [FromQuery] int limit = 100,
@@ -30,7 +30,7 @@ public sealed class ProductDevelopmentController : ApiController
     /// <summary>
     /// Получение всех продуктов по ID задачи
     /// </summary>
-    [HttpGet("issue/{issueId}")]
+    [HttpGet("issue/{issueId}", Name = "GetProductDevelopmentByIssueId")]
     [ProducesResponseType(typeof(IReadOnlyCollection<ProductDevelopmentResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllByIssueId(Guid issueId, CancellationToken cancellationToken,
         [FromQuery] int skip = 0, [FromQuery] int limit = 100)
@@ -46,7 +46,7 @@ public sealed class ProductDevelopmentController : ApiController
     /// <summary>
     /// Завершить задачу, переход на следующий этап или создание готового продукта
     /// </summary>
-    [HttpPut("{productDevelopmentId}/complete-issue")]
+    [HttpPut("{productDevelopmentId}/complete-issue", Name = "CompleteIssueByProductDevelopment")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> CompleteIssue(Guid productDevelopmentId, CancellationToken cancellationToken)
     {
@@ -57,7 +57,7 @@ public sealed class ProductDevelopmentController : ApiController
     /// <summary>
     /// Заполнение состава продукта
     /// </summary>
-    [HttpPost]
+    [HttpPost(Name = "SetCompositionProduct")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> SetCompositionProduct([FromBody] CompositionProductRequest request,
         CancellationToken cancellationToken)
@@ -73,7 +73,7 @@ public sealed class ProductDevelopmentController : ApiController
     /// <param name="productDevelopmentId"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    [HttpGet("{productDevelopmentId}/composition")]
+    [HttpGet("{productDevelopmentId}/composition", Name = "GetProductCompositionByProductDevelopmentId")]
     [ProducesResponseType(typeof(CompositionProductGroupModel), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCompositionProduct
         (Guid productDevelopmentId, CancellationToken cancellationToken)
@@ -84,7 +84,7 @@ public sealed class ProductDevelopmentController : ApiController
     /// <summary>
     /// Получение состава тех.карты по ProductDevelopmentId
     /// </summary>
-    [HttpGet("{productDevelopmentId}/techcard-items")]
+    [HttpGet("{productDevelopmentId}/techcard-items", Name = "GetProductTechCardItemsByProductDevelopmentId")]
     public async Task<IActionResult> GetTechCardItemsByProductDevelopmentId
         (Guid productDevelopmentId, CancellationToken cancellationToken)
     {

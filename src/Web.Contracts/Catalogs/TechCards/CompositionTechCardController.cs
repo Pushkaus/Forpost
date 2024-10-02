@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Forpost.Web.Contracts.Catalogs.TechCards;
 
 [Route("api/v1/techcard")]
-public sealed class TechCardController : ApiController
+public sealed class CompositionTechCardController : ApiController
 {
     /// <summary>
     /// Получение состава тех.карты по Id 
     /// </summary>
     /// <param name="techCardId"></param>
-    [HttpGet("composition/{techCardId}")]
+    [HttpGet("composition/{techCardId}", Name = "GetCompositionTechCardByTechCardId")]
     [ProducesResponseType(typeof(CompositionTechCardResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult?> GetCompositionTechCardAsync(Guid techCardId,
         CancellationToken cancellationToken)
@@ -35,7 +35,7 @@ public sealed class TechCardController : ApiController
     /// Получение тех.карты по Id
     /// </summary>
     /// <param name="id"></param>
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "GetCompositionTechCardById")]
     [ProducesResponseType(typeof(TechCard), StatusCodes.Status200OK)]
     public async Task<TechCard?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         => await Sender.Send(new GetTechCardByIdQuery(id), cancellationToken);
@@ -44,7 +44,7 @@ public sealed class TechCardController : ApiController
     /// Получение всех тех.карт
     /// </summary>
     /// <returns>Список тех.карт и общее количество</returns>
-    [HttpGet]
+    [HttpGet(Name = "GetAllTechCards")]
     [ProducesResponseType(typeof(IReadOnlyCollection<TechCardResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -65,7 +65,7 @@ public sealed class TechCardController : ApiController
     /// Создание тех.карты
     /// </summary>
     /// <param name="card"></param>
-    [HttpPost]
+    [HttpPost(Name = "CreateTechCard")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync(TechCardCreateRequest card, CancellationToken cancellationToken)
     {
@@ -85,7 +85,7 @@ public sealed class TechCardController : ApiController
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}", Name = "DeleteTechCard")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
     {

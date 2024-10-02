@@ -14,7 +14,7 @@ public sealed class StorageProductController : ApiController
     /// Получить список всех продуктов на складе
     /// </summary>
     /// <returns></returns>
-    [HttpGet("{storageId}")]
+    [HttpGet("{storageId}", Name = "GetAllStorageProducts")]
     [ProducesResponseType(typeof(IReadOnlyCollection<StorageProductModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllProductsAsync(Guid storageId, CancellationToken cancellationToken,
         [FromQuery] int skip = 0, [FromQuery] int limit = 100)
@@ -28,10 +28,10 @@ public sealed class StorageProductController : ApiController
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    [HttpPost]
+    [HttpPost(Name = "CreateStorageProduct")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult>
-        CreateAsync([FromBody] StorageProductCreateRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateAsync([FromBody] StorageProductCreateRequest request,
+        CancellationToken cancellationToken)
     {
         await Sender.Send(new AddProducOnStorageCommand(request.StorageId, request.ProductId, request.Quantity),
             cancellationToken);

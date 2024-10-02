@@ -12,7 +12,7 @@ public sealed class ManufacturingProcessController : ApiController
     /// <summary>
     /// Планирование производственного процесса
     /// </summary>
-    [HttpPost]
+    [HttpPost(Name = "ScheduleManufacturingProcess")]
     public async Task<IActionResult> Schedule(ScheduledManufacturingProcessCommand command,
         CancellationToken cancellationToken)
     {
@@ -27,7 +27,7 @@ public sealed class ManufacturingProcessController : ApiController
         return Ok(manufacturingProcessId);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetManufacturingProcessById")]
     [ProducesResponseType(typeof(ManufacturingProcessWithDetailsModel), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
     {
@@ -37,7 +37,7 @@ public sealed class ManufacturingProcessController : ApiController
     /// <summary>
     /// Запуск производственного процесса
     /// </summary>
-    [HttpPut("{id}/launch")]
+    [HttpPut("{id}/launch", Name = "LaunchManufacturingProcess")]
     public async Task<IActionResult> Launch(Guid id, CancellationToken cancellationToken)
     {
         await Sender.Send(new LaunchManufacturingProcessCommand(id), cancellationToken);
@@ -47,7 +47,7 @@ public sealed class ManufacturingProcessController : ApiController
     /// <summary>
     /// Завершение производственного процесса
     /// </summary>
-    [HttpPut("{id}/complete")]
+    [HttpPut("{id}/complete", Name = "CompleteManufacturingProcess")]
     public async Task<IActionResult> Complete(Guid id, CancellationToken cancellationToken)
     {
         await Sender.Send(new CompletionManufacturingProcessCommand(id), cancellationToken);
@@ -57,7 +57,7 @@ public sealed class ManufacturingProcessController : ApiController
     /// <summary>
     /// Получить все производственные процессы
     /// </summary>
-    [HttpGet]
+    [HttpGet(Name = "GetAllManufacturingProcesses")]
     [ProducesResponseType(typeof(IReadOnlyCollection<ManufacturingProcessResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken,
         [FromQuery] int skip = 0, [FromQuery] int limit = 100,

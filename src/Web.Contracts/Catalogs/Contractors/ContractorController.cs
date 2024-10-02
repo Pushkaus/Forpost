@@ -14,22 +14,23 @@ public sealed class ContractorController : ApiController
     /// <summary>
     /// Добавление контрагента
     /// </summary>
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [HttpPost(Name = "CreateContractor")]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateAsync([FromBody] ContractorRequest request,
         CancellationToken cancellationToken)
     {
         var id = await Sender.Send(new AddContractorCommand(request.Name), cancellationToken);
-        return Ok(id);
+        return Created(HttpContext.Request.Path, id);
     }
 
     /// <summary>
     /// Получить всех контрагентов
     /// </summary>
     /// <returns>Список контрагентов</returns>
-    [HttpGet]
+    [HttpGet(Name = "GetAllContractors")]
+    //TODO: сделать ВЕЗДЕ модель пагинации, так как иначе сваггер и генератторы не поймут как десериализовывать ответ
+    //ты тут написал что возврат коллекции идет, а по факту коллекция + число и это все в объекте json
     [ProducesResponseType(typeof(IReadOnlyCollection<ContractorResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
         [FromQuery] int skip = 0, [FromQuery] int limit = 100,
@@ -48,7 +49,7 @@ public sealed class ContractorController : ApiController
     /// Получить контрагента по id
     /// </summary>
     /// <param name="id"></param>
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "GetContractorById")]
     [ProducesResponseType(typeof(ContractorResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {

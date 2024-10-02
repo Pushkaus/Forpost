@@ -15,7 +15,7 @@ public interface IForpostApiClient
     
     public IInvoiceProductClient InvoiceProductClient { get; }
     
-    public ITechCardClient TechCardClient { get; }
+    public ICompositionTechCardClient CompositionTechCardClient { get; }
     
     public ITechCardStepClient TechCardStepClient { get; }
     

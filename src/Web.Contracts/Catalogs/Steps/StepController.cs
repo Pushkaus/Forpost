@@ -12,7 +12,7 @@ public sealed class StepController : ApiController
     /// Получение этапа по Id 
     /// </summary>
     /// <param name="id"></param>
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "GetStepById")]
     [ProducesResponseType(typeof(Step), StatusCodes.Status200OK)]
     public async Task<Step?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         => await Sender.Send(new GetStepByIdQuery(id), cancellationToken);
@@ -21,7 +21,7 @@ public sealed class StepController : ApiController
     /// Получение всех этапов
     /// </summary>
     /// <param name="cancellationToken"></param>
-    [HttpGet]
+    [HttpGet(Name = "GetAllSteps")]
     [ProducesResponseType(typeof(IReadOnlyCollection<Step>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,

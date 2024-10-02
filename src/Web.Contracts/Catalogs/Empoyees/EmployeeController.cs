@@ -1,4 +1,3 @@
-using Forpost.Domain.Catalogs.Employees;
 using Forpost.Features.Catalogs.Employees;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +11,7 @@ public sealed class EmployeeController : ApiController
     /// Получить список всех сотрудников
     /// </summary>
     /// <returns>Список сотрудников и общее количество</returns>
-    [HttpGet]
+    [HttpGet(Name = "GetAllEmployees")]
     [ProducesResponseType(typeof((IReadOnlyCollection<EmployeeResponse> Employees, int TotalCount)),
         StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -11,7 +11,7 @@ public sealed class InvoiceProductController : ApiController
     /// Добавление продуктов в счет
     /// </summary>
     /// <param name="request"></param>
-    [HttpPost]
+    [HttpPost(Name = "CreateInvoiceProduct")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult>
         CreateAsync([FromBody] InvoiceProductRequest request, CancellationToken cancellationToken)
@@ -27,7 +27,7 @@ public sealed class InvoiceProductController : ApiController
     /// Получение продуктов по id счета
     /// </summary>
     /// <param name="id"></param>
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetCompositionInvoiceProduct")]
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceProductResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCompositionInvoiceAsync(Guid id, CancellationToken cancellationToken)
     {

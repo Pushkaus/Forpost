@@ -36,7 +36,7 @@ public sealed class InvoiceEndpointTests: BaseTest
             PaymentPercentage = 10,
             Products = invoiceProducts 
         };
-        var result = await Client.InvoiceClient.ExposeAsync(invoice);
+        var result = await Client.InvoiceClient.ExposeInvoiceAsync(invoice);
         
        result.Should().NotBeEmpty();
     }

@@ -11,7 +11,7 @@ public sealed class IssueController: ApiController
     /// <summary>
     /// Получение всех задач производственного процесса
     /// </summary>
-    [HttpGet("manufacturing-process/{manufacturingProcessId}")]
+    [HttpGet("manufacturing-process/{manufacturingProcessId}", Name = "GetIssuesByManufacturingProcessId")]
     [ProducesResponseType(typeof(IReadOnlyCollection<IssueFromManufacturingProcessModel>), StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<IssueFromManufacturingProcessModel>> 
         GetIssuesFromManufacturingProcess(Guid manufacturingProcessId, CancellationToken cancellationToken) 
@@ -20,7 +20,7 @@ public sealed class IssueController: ApiController
     /// <summary>
     /// Получение задач для исполнителя
     /// </summary>
-    [HttpGet("for-executor")]
+    [HttpGet("for-executor", Name = "GetIssuesForExecutor")]
     [ProducesResponseType(typeof(IReadOnlyCollection<IssueModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetIssuesForExecutor(
         CancellationToken cancellationToken, int skip = 0, int limit = 10)
@@ -36,7 +36,7 @@ public sealed class IssueController: ApiController
     /// <summary>
     /// Получение задач для исполнителя
     /// </summary>
-    [HttpGet("for-responsible")]
+    [HttpGet("for-responsible", Name = "GetIssuesForResponsible")]
     [ProducesResponseType(typeof(IReadOnlyCollection<IssueModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetIssuesForResponsible(
         CancellationToken cancellationToken, int skip = 0, int limit = 10)
@@ -52,7 +52,7 @@ public sealed class IssueController: ApiController
     /// <summary>
     /// Запуск задачи
     /// </summary>
-    [HttpPut("{id:guid}/launch")]
+    [HttpPut("{id:guid}/launch", Name = "LaunchIssue")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Launch(Guid id, CancellationToken cancellationToken)
@@ -64,7 +64,7 @@ public sealed class IssueController: ApiController
     /// <summary>
     /// Назначение исполнителя задачи
     /// </summary>
-    [HttpPut("{issueId:guid}/assign-executor")]
+    [HttpPut("{issueId:guid}/assign-executor", Name = "AssignIssueForExecutor")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AssignExecutorAsync(Guid issueId, Guid executorId, CancellationToken cancellationToken)
@@ -75,7 +75,7 @@ public sealed class IssueController: ApiController
     /// <summary>
     /// Завершение задачи
     /// </summary>
-    [HttpPut("{id:guid}/close")]
+    [HttpPut("{id:guid}/close", Name = "CloseIssue")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Close(Guid id, CancellationToken cancellationToken)
@@ -87,7 +87,7 @@ public sealed class IssueController: ApiController
     /// Получение задачи по ID
     /// </summary>
     [ProducesResponseType(typeof(IssueModel), StatusCodes.Status200OK)]
-    [HttpGet("{issueId}")]
+    [HttpGet("{issueId}", Name = "GetIssueById")]
     public async Task<IssueModel> GetById(Guid issueId, CancellationToken cancellationToken) 
         => await Sender.Send(new GetByIdQuery(issueId), cancellationToken);
 }

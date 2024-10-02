@@ -3,9 +3,9 @@ using Forpost.Web.Client.Implementations;
 
 namespace Forpost.IntegrationTests.Auth;
 
-public sealed class AccountTest : BaseTest
+public sealed class AccountControllerTest : BaseTest
 {
-    public AccountTest(TestApplication application) : base(application)
+    public AccountControllerTest(TestApplication application) : base(application)
     {
     }
     /// <summary>

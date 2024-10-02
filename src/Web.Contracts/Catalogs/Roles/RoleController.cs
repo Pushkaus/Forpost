@@ -10,7 +10,7 @@ public sealed class RoleController : ApiController
     /// <summary>
     /// Создать новую роль
     /// </summary>
-    [HttpPost]
+    [HttpPost("CreateRole")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateAsync([FromBody] string name, CancellationToken cancellationToken)
     {
@@ -21,7 +21,7 @@ public sealed class RoleController : ApiController
     /// <summary>
     /// Получить все роли
     /// </summary>
-    [HttpGet]
+    [HttpGet(Name = "GetAllRoles")]
     [ProducesResponseType(typeof(IReadOnlyCollection<RoleResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
@@ -34,7 +34,7 @@ public sealed class RoleController : ApiController
     /// Получить роль по id
     /// </summary>
     /// <param name="id"></param>
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetRoleById")]
     [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {

@@ -8,13 +8,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Auth;
 
+/// <summary>
+/// Работа с аккаунтом
+/// </summary>
 [Route("api/v1/accounts")]
-public sealed class Account : ApiController
+public sealed class AccountController : ApiController
 {
     /// <summary>
     /// Регистрация сотрудника (регистрирует только админ)
     /// </summary>
-    [HttpPost]
+    [HttpPost(Name = nameof(RegisterAsync))]
     [Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -28,7 +31,7 @@ public sealed class Account : ApiController
     /// <summary>
     /// Логин сотрудника
     /// </summary>
-    [HttpPost("login")]
+    [HttpPost("login", Name = nameof(LoginAsync))]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -13,7 +13,7 @@ public sealed class StorageController : ApiController
     /// Создание нового склада
     /// </summary>
     /// <param name="request"></param>
-    [HttpPost]
+    [HttpPost(Name = "CreateStorage")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult>
         CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ public sealed class StorageController : ApiController
     /// Получить список всех складов
     /// </summary>
     /// <returns>Список складов и общее количество</returns>
-    [HttpGet]
+    [HttpGet(Name = "GetAllStorages")]
     [ProducesResponseType(typeof(IReadOnlyCollection<Storage>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)

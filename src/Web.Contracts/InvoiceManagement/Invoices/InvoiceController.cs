@@ -13,7 +13,7 @@ public sealed class InvoiceController : ApiController
     /// <summary>
     /// Получить счет по его номеру
     /// </summary>
-    [HttpGet("number/{number}")]
+    [HttpGet("number/{number}", Name = "GetInvoiceNumber")]
     [ProducesResponseType(typeof(Invoice), StatusCodes.Status200OK)]
     public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken)
         => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
@@ -22,7 +22,7 @@ public sealed class InvoiceController : ApiController
     /// Получить все счета
     /// </summary>
     /// <returns>Список счетов</returns>
-    [HttpGet]
+    [HttpGet(Name = "GetAllInvoices")]
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
@@ -37,7 +37,7 @@ public sealed class InvoiceController : ApiController
     /// <summary>
     /// Создать счет
     /// </summary>
-    [HttpPost]
+    [HttpPost(Name = "ExposeInvoice")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     public async Task<ActionResult<Guid>> ExposeAsync([FromBody] InvoiceCreateRequest request,
         CancellationToken cancellationToken)
