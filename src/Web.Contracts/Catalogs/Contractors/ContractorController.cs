@@ -14,7 +14,7 @@ public sealed class ContractorController : ApiController
     /// <summary>
     /// Добавление контрагента
     /// </summary>
-    [HttpPost]
+    [HttpPost(Name = "CreateContractor")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateAsync([FromBody] ContractorRequest request,
         CancellationToken cancellationToken)
@@ -27,7 +27,7 @@ public sealed class ContractorController : ApiController
     /// Получить всех контрагентов
     /// </summary>
     /// <returns>Список контрагентов</returns>
-    [HttpGet]
+    [HttpGet(Name = "GetAllContractors")]
     [ProducesResponseType(typeof(IReadOnlyCollection<ContractorResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -48,7 +48,7 @@ public sealed class ContractorController : ApiController
     /// Получить контрагента по id
     /// </summary>
     /// <param name="id"></param>
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}", Name = "GetContractorById")]
     [ProducesResponseType(typeof(ContractorResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {

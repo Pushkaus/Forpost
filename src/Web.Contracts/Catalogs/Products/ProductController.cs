@@ -13,7 +13,7 @@ public sealed class ProductController : ApiController
     /// Получение всех продуктов
     /// </summary>
     /// <returns>Список продуктов</returns>
-    [HttpGet]
+    [HttpGet(Name = "GetAllProducts")]
     [ProducesResponseType(typeof((IReadOnlyCollection<ProductResponse> Products, int TotalCount)),
         StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -38,7 +38,7 @@ public sealed class ProductController : ApiController
     /// Получение продукта по id
     /// </summary>
     /// <param name="id"></param>
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetProductById")]
     [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
@@ -50,7 +50,7 @@ public sealed class ProductController : ApiController
     /// Создать продукт
     /// </summary>
     /// <param name="request"></param>
-    [HttpPost]
+    [HttpPost(Name = "CreateProduct")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult>
         CreateAsync([FromBody] ProductCreateRequest request, CancellationToken cancellationToken)
@@ -63,7 +63,7 @@ public sealed class ProductController : ApiController
     /// Обновление продукта по id
     /// </summary>
     /// <param name="request"></param>
-    [HttpPut]
+    [HttpPut(Name = "UpdateProduct")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult>
         UpdateAsync([FromBody] ProductUpdateRequest request, CancellationToken cancellationToken)
@@ -79,7 +79,7 @@ public sealed class ProductController : ApiController
     /// Удаление продукта по id
     /// </summary>
     /// <param name="id"></param>
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}", Name = "DeleteProduct")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {

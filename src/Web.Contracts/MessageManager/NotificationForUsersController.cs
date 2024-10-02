@@ -13,7 +13,7 @@ public sealed class NotificationForUsersController: ApiController
     /// <param name="skip"></param>
     /// <param name="limit"></param>
     /// <returns></returns>
-    [HttpGet]
+    [HttpGet(Name = "GetAllNotifications")]
     [ProducesResponseType(typeof(IReadOnlyCollection<NotificationForUsersModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] int skip = 0, [FromQuery] int limit = 100)
     {
@@ -29,7 +29,7 @@ public sealed class NotificationForUsersController: ApiController
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    [HttpPost]
+    [HttpPost(Name = "PublishNotification")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Publish([FromBody] NotificationForUsersRequest request)
     {

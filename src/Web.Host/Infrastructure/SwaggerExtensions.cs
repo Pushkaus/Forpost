@@ -49,7 +49,8 @@ internal static class SwaggerExtensions
         
         services.AddOpenApiDocument(documentSettings =>
         {
-            documentSettings.OperationProcessors.Add(new OperationIdControllerPrefixRemoveProcessor());
+            documentSettings.UseHttpAttributeNameAsOperationId = true;
+         //   documentSettings.OperationProcessors.Add(new OperationIdControllerPrefixRemoveProcessor());
         });
 
         return services;

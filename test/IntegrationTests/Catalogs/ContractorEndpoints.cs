@@ -16,7 +16,7 @@ public sealed class ContractorEndpoints: BaseTest
         var contractor = new ContractorRequest();
         contractor.Name = "test";
         // Act
-        var result = Client.ContractorClient.Create9Async(contractor);
+        var result = Client.ContractorClient.CreateContractorAsync(contractor);
         // Assert
         result.Should().NotBeNull();
     }

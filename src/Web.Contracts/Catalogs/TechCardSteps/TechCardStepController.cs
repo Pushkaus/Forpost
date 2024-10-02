@@ -12,7 +12,7 @@ public sealed class TechCardStepController: ApiController
     /// Получение всех этапов по Id тех.карты
     /// </summary>
     /// <param name="techCardId"></param>
-    [HttpGet("{techCardId}")]
+    [HttpGet("{techCardId}", Name = "GetTechCardStepsByTechCardId")]
     [ProducesResponseType(typeof(IReadOnlyCollection<TechCardStep>),StatusCodes.Status200OK)]
     public async Task<IReadOnlyCollection<TechCardStep>> GetStepsByTechCardIdAsync(Guid techCardId,
         CancellationToken cancellationToken) =>
@@ -23,7 +23,7 @@ public sealed class TechCardStepController: ApiController
     /// </summary>
     /// <param name="model"></param>
     /// <param name="cancellationToken"></param>
-    [HttpPost]
+    [HttpPost(Name = "CreateTechCardStep")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync(TechCardStepRequest model, CancellationToken cancellationToken)
     {
@@ -37,7 +37,7 @@ public sealed class TechCardStepController: ApiController
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
-    [HttpDelete("{id}")]
+    [HttpDelete("{id}", Name = "DeleteTechCardStep")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
