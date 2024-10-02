@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IManufacturingProcessClient, ManufacturingProcessClient>(nameof(ManufacturingProcessClient), _ => new ManufacturingProcessClient(client.Invoke()));
         services.AddHttpClient<IInvoiceClient, InvoiceClient>(nameof(InvoiceClient), _ => new InvoiceClient(client.Invoke()));
         services.AddHttpClient<IInvoiceProductClient, InvoiceProductClient>(nameof(InvoiceProductClient), _ => new InvoiceProductClient(client.Invoke()));
-        services.AddHttpClient<ITechCardClient, TechCardClient>(nameof(TechCardClient), _ => new TechCardClient(client.Invoke()));
+        services.AddHttpClient<ICompositionTechCardClient, CompositionTechCardClient>(nameof(CompositionTechCardClient), _ => new CompositionTechCardClient(client.Invoke()));
         services.AddHttpClient<ITechCardStepClient, TechCardStepClient>(nameof(TechCardStepClient), _ => new TechCardStepClient(client.Invoke()));
         services.AddHttpClient<ITechCardItemClient, TechCardItemClient>(nameof(TechCardItemClient), _ => new TechCardItemClient(client.Invoke()));
         services.AddHttpClient<IStorageClient, StorageClient>(nameof(StorageClient), _ => new StorageClient(client.Invoke()));

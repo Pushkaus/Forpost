@@ -8,7 +8,7 @@ public sealed class ForpostApiClient : IForpostApiClient
         IManufacturingProcessClient manufacturingProcessClient,
         IInvoiceClient invoiceClient,
         IInvoiceProductClient invoiceProductClient, 
-        ITechCardClient techCardClient,
+        ICompositionTechCardClient compositionTechCardClient,
         ITechCardStepClient techCardStepClient,
         ITechCardItemClient techCardItemClient,
         IStorageClient storageClient,
@@ -24,7 +24,6 @@ public sealed class ForpostApiClient : IForpostApiClient
         ManufacturingProcessClient = manufacturingProcessClient;
         InvoiceClient = invoiceClient;
         InvoiceProductClient = invoiceProductClient;
-        TechCardClient = techCardClient;
         TechCardStepClient = techCardStepClient;
         TechCardItemClient = techCardItemClient;
         StorageClient = storageClient;
@@ -35,6 +34,7 @@ public sealed class ForpostApiClient : IForpostApiClient
         EmployeeClient = employeeClient;
         ContractorClient = contractorClient;
         AccountClient = accountClient;
+        CompositionTechCardClient = compositionTechCardClient;
     }
 
     public IIssueClient IssueClient { get; }
@@ -45,7 +45,7 @@ public sealed class ForpostApiClient : IForpostApiClient
     
     public IInvoiceProductClient InvoiceProductClient { get; }
     
-    public ITechCardClient TechCardClient { get; }
+    public ICompositionTechCardClient CompositionTechCardClient { get; }
     
     public ITechCardStepClient TechCardStepClient { get; }
     

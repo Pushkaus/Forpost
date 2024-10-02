@@ -30,7 +30,7 @@ public sealed class TechCardEndpoints: BaseTest
             ProductId = product.Id,
         };
         // Act
-        var result = Client.TechCardClient.Create2Async(techCard);
+        var result = Client.CompositionTechCardClient.CreateTechCardAsync(techCard);
         // Assert
         result.Should().NotBeNull();
     }
@@ -59,7 +59,7 @@ public sealed class TechCardEndpoints: BaseTest
             Quantity = 10
         };
         // Act
-        var result = Client.TechCardItemClient.Create4Async(techCardItem);
+        var result = Client.TechCardItemClient.CreateTechCardItemAsync(techCardItem);
         // Assert
         result.Should().NotBeNull();
     }
@@ -106,7 +106,7 @@ public sealed class TechCardEndpoints: BaseTest
             Number = 1
         };
         // Act
-        var result = Client.TechCardStepClient.Create3Async(techCardStep);
+        var result = Client.TechCardStepClient.CreateTechCardStepAsync(techCardStep);
         // Assert
         result.Should().NotBeNull();
     }

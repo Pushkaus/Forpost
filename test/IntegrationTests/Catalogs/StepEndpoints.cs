@@ -46,7 +46,7 @@ public sealed class StepEndpoints: BaseTest
             UnitOfMeasure = (UnitOfMeasure)100
         };
         // Act
-        var result = Client.StepClient.Create6Async(step);
+        var result = Client.StepClient.Step_CreateAsync(step);
         // Assert
         result.Should().NotBeNull();
     }

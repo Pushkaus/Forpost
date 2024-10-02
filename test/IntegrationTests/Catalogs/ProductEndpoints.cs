@@ -18,7 +18,7 @@ public sealed class ProductEndpoints: BaseTest
             Version = "v1"
         };
         // Act
-        var result = Client.ProductClient.Create8Async(product);
+        var result = Client.ProductClient.CreateProductAsync(product);
         // Assert
         result.Should().NotBeNull();
     }

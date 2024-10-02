@@ -16,6 +16,7 @@
     <ItemGroup>
       <PackageReference Include="AutoFixture" />
       <PackageReference Include="AutoFixture.AutoMoq" />
+      <PackageReference Include="Bogus" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
       <PackageReference Include="Testcontainers.PostgreSql" />
         
