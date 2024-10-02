@@ -6,6 +6,5 @@ public class StorageProductCreateRequest
 {
     public Guid ProductId { get; set; }
     public Guid StorageId { get; set; }
-    public UnitOfMeasure UnitOfMeasure { get; set; }
-    public decimal Quantity { get; set; }
+    public int Quantity { get; set; }
 }

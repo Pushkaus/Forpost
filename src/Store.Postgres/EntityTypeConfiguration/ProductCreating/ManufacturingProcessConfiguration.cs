@@ -3,7 +3,7 @@ using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.ProductCreating;
 
 internal sealed class ManufacturingProcessConfiguration : IEntityTypeConfiguration<ManufacturingProcess>
 {
@@ -16,6 +16,5 @@ internal sealed class ManufacturingProcessConfiguration : IEntityTypeConfigurati
             .HasForeignKey(key => key.TechnologicalCardId);
 
         builder.Property(entity => entity.BatchNumber).HasMaxLength(DatabaseConstrains.MaxLength);
-
     }
 }

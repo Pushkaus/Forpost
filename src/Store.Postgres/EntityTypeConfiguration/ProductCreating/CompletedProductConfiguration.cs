@@ -1,11 +1,10 @@
-using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.ProductCreating;
 
 internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<CompletedProduct>
 {

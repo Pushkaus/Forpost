@@ -1,9 +1,9 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
+using Forpost.Domain.SortOut;
 
-namespace Forpost.Domain.SortOut;
+namespace Forpost.Domain.StorageManagment;
 
 public interface IStorageProductDomainRepository : IDomainRepository<StorageProduct>
 {
-    public Task<IReadOnlyList<StorageProduct>> GetAllByStorageIdAsync(Guid storageId, CancellationToken cancellationToken);
     public Task<StorageProduct?> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken);
 }

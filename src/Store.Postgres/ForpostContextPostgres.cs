@@ -10,12 +10,14 @@ using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
 using Forpost.Domain.InvoiceManagement;
+using Forpost.Domain.MessageManager;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.CompositionProduct;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Forpost.Domain.SortOut;
+using Forpost.Domain.StorageManagment;
 using Microsoft.EntityFrameworkCore;
 using File = Forpost.Domain.FileStorage.File;
 
@@ -48,7 +50,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<ProductDevelopment> ProductDevelopments => Set<ProductDevelopment>();
     public DbSet<ProductVersion> ProductVersions => Set<ProductVersion>();
     public DbSet<CompositionProduct> CompositionProducts => Set<CompositionProduct>();
-
+    public DbSet<NotificationForUsers> NotificationsForUsers => Set<NotificationForUsers>();
     #region ApplicationTables
     
     /// <summary>

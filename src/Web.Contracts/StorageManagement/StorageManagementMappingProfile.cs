@@ -8,7 +8,6 @@ internal sealed class StorageManagementMappingProfile : Profile
 {
     public StorageManagementMappingProfile()
     {
-        CreateMap<StorageProductCreateRequest, StorageProductCreateCommand>().ValidateMemberList(MemberList.Destination);
-        CreateMap<Domain.SortOut.StorageProduct, StorageProductResponse>().ValidateMemberList(MemberList.Destination);
+
     }
 }

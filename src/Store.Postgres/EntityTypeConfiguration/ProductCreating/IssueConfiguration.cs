@@ -5,7 +5,7 @@ using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.ProductCreating;
 
 internal sealed class IssueConfiguration: IEntityTypeConfiguration<Issue>
 {
