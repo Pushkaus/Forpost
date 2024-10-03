@@ -12,4 +12,11 @@ public interface ICompletedProductReadRepository : IApplicationReadRepository
         GetAllOnStorage(
             string? filterExpression, object?[]? filterValues, int skip, int limit,
             CancellationToken cancellationToken);
+    
+    public Task<(IReadOnlyCollection<CompletedProductModel> CompletedProducts, int TotalCount)>
+        GetAll(
+            string? filterExpression, object?[]? filterValues, int skip, int limit,
+            CancellationToken cancellationToken);
+    
+
 }

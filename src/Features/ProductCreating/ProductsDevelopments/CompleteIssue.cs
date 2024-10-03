@@ -33,41 +33,43 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
 
     public async ValueTask<Unit> Handle(CompleteIssueCommand command, CancellationToken cancellationToken)
     {
-        var productDevelopment =
-            await _productDevelopmentDomainRepository.GetByIdAsync(command.ProductDevelopmentId, cancellationToken);
-
-        productDevelopment.EnsureFoundBy(entity => entity.Id, command.ProductDevelopmentId);
-
-        var currentIssue = await _issueDomainRepository.GetByIdAsync(productDevelopment.IssueId, cancellationToken);
-        var nextIssue = await _issueDomainRepository.GetNextIssue(productDevelopment.IssueId, cancellationToken);
-        var compositionProduct =
-            await _compositionProductRepository.GetCompositionProductsAsync(productDevelopment.Id, cancellationToken);
-
-        if (currentIssue.ProductCompositionSettingFlag && compositionProduct is null)
+        foreach (var productDevelopmentId in command.ProductDevelopmentIds)
         {
-            throw new Exception("Состав продукта не указан, невозможно завершить задачу");
-        }
+            var productDevelopment =
+                await _productDevelopmentDomainRepository.GetByIdAsync(productDevelopmentId, cancellationToken);
 
-        if (nextIssue != null)
-        {
-            productDevelopment.IssueId = nextIssue.Id;
-            _productDevelopmentDomainRepository.Update(productDevelopment);
+            productDevelopment.EnsureFoundBy(entity => entity.Id, productDevelopmentId);
+
+            var currentIssue = await _issueDomainRepository.GetByIdAsync(productDevelopment.IssueId, cancellationToken);
+            var nextIssue = await _issueDomainRepository.GetNextIssue(productDevelopment.IssueId, cancellationToken);
+        
+            var compositionProduct =
+                await _compositionProductRepository.GetCompositionProductsAsync(productDevelopment.Id, cancellationToken);
+
+            if (currentIssue.ProductCompositionSettingFlag && compositionProduct is null)
+            {
+                throw new Exception("Состав продукта не указан, невозможно завершить задачу");
+            }
+
+            if (nextIssue != null)
+            {
+                productDevelopment.IssueId = nextIssue.Id;
+                _productDevelopmentDomainRepository.Update(productDevelopment);
+            }
+            else
+            {
+                productDevelopment.Status = ProductStatus.Completed;
+                _productDevelopmentDomainRepository.Update(productDevelopment);
+                var completedProduct = CompletedProduct.Create(productDevelopment.ManufacturingProcessId,
+                    productDevelopment.Id, productDevelopment.ProductId);
+
+                _completedProductDomainRepository.Add(completedProduct);
+            }
             currentIssue.Complete();
             _issueDomainRepository.Update(currentIssue);
         }
-        else
-        {
-            productDevelopment.Status = ProductStatus.Completed;
-            _productDevelopmentDomainRepository.Update(productDevelopment);
-            ///TODO;
-            var completedProduct = CompletedProduct.Create(productDevelopment.ManufacturingProcessId,
-                productDevelopment.Id, productDevelopment.ProductId);
-
-            _completedProductDomainRepository.Add(completedProduct);
-        }
-
         return Unit.Value;
     }
 }
 
-public record CompleteIssueCommand(Guid ProductDevelopmentId) : ICommand;
+public record CompleteIssueCommand(IReadOnlyCollection<Guid> ProductDevelopmentIds) : ICommand;

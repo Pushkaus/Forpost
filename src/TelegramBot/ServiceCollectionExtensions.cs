@@ -12,7 +12,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddTelegramBot(this IServiceCollection services, IConfiguration configuration)
     {
-        const string telegramBotToken = "7874827881:AAE3OG_rOg5DDS48d4DjwB3D4yXbCatlk_g";
+        const string telegramBotToken = "7377316633:AAFZ36cjUDSTyBngR1Aa-q15SHPF5lF-aRQ";
         services.AddSingleton<ITelegramBotClient>(new TelegramBotClient(telegramBotToken));
         return services.AddTelegramBotHandlers();
     }

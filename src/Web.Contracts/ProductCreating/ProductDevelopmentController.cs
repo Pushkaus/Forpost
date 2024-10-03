@@ -46,11 +46,11 @@ public sealed class ProductDevelopmentController : ApiController
     /// <summary>
     /// Завершить задачу, переход на следующий этап или создание готового продукта
     /// </summary>
-    [HttpPut("{productDevelopmentId}/complete-issue")]
+    [HttpPut("issues/complete/")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> CompleteIssue(Guid productDevelopmentId, CancellationToken cancellationToken)
+    public async Task<IActionResult> CompleteIssue([FromBody] CompleteIssueRequest request, CancellationToken cancellationToken)
     {
-        var result = await Sender.Send(new CompleteIssueCommand(productDevelopmentId), cancellationToken);
+        var result = await Sender.Send(new CompleteIssueCommand(request.ProductDevelopmentIds), cancellationToken);
         return Ok(result);
     }
 

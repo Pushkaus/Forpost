@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Forpost.Web.Contracts.Auth;
 
 [Route("api/v1/accounts")]
-public sealed class Account : ApiController
+public sealed class AccountController : ApiController
 {
     /// <summary>
     /// Регистрация сотрудника (регистрирует только админ)
@@ -34,12 +34,10 @@ public sealed class Account : ApiController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<string> LoginAsync([Required][FromBody] LoginUserRequest request, CancellationToken cancellationToken)
     {
-        ///TODO; Убрать JSON.Parse в клиенте
         var token = await Sender.Send(new LoginUserCommand(
             request.FirstName,
             request.LastName,
             request.Password), cancellationToken);
-        
         return token;
     }
 }
