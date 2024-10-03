@@ -17,7 +17,7 @@ internal sealed class CompletedProductConfiguration : IEntityTypeConfiguration<C
             .HasForeignKey(key => key.ProductDevelopmentId);
 
         builder.HasOne<ManufacturingProcess>()
-            .WithOne()
-            .HasForeignKey<CompletedProduct>(key => key.ManufacturingProcessId);
+            .WithMany()
+            .HasForeignKey(key => key.ManufacturingProcessId);
     }
 }

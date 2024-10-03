@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories.Application;
 
-internal sealed class CompletedProductReadRepository: ICompletedProductReadRepository
+internal sealed class CompletedProductReadRepository : ICompletedProductReadRepository
 {
     private readonly ForpostContextPostgres _dbContext;
 
@@ -18,10 +18,10 @@ internal sealed class CompletedProductReadRepository: ICompletedProductReadRepos
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyCollection<CompletedProductModel>> 
+    public async Task<IReadOnlyCollection<CompletedProductModel>>
         GetAllByProductId(Guid productId, CancellationToken cancellationToken)
     {
-        return await _dbContext.CompletedProducts.Where(c => c.ProductId == productId 
+        return await _dbContext.CompletedProducts.Where(c => c.ProductId == productId
                                                              && c.Status == CompletedProductStatus.OnStorage)
             .Join(_dbContext.ProductDevelopments,
                 completed => completed.ProductDevelopmentId,
@@ -41,10 +41,10 @@ internal sealed class CompletedProductReadRepository: ICompletedProductReadRepos
     }
 
     public async Task<(IReadOnlyCollection<CompletedProductModel> CompletedProducts, int TotalCount)> GetAllOnStorage(
-        string? filterExpression, 
-        object?[]? filterValues, 
-        int skip, 
-        int limit, 
+        string? filterExpression,
+        object?[]? filterValues,
+        int skip,
+        int limit,
         CancellationToken cancellationToken)
     {
         // Начинаем запрос, фильтруя по статусу
@@ -84,6 +84,49 @@ internal sealed class CompletedProductReadRepository: ICompletedProductReadRepos
         var totalCount = await query.CountAsync(cancellationToken);
 
         // Получаем конечный список с применением пагинации
+        var completedProducts = await query
+            .Skip(skip)
+            .Take(limit)
+            .ToListAsync(cancellationToken);
+
+        return (completedProducts, totalCount);
+    }
+
+    public async Task<(IReadOnlyCollection<CompletedProductModel> CompletedProducts, int TotalCount)> GetAll(
+        string? filterExpression, object?[]? filterValues, int skip, int limit,
+        CancellationToken cancellationToken)
+    {
+        var query = _dbContext.CompletedProducts
+            .Join(
+                _dbContext.ProductDevelopments,
+                completed => completed.ProductDevelopmentId,
+                productDevelopment => productDevelopment.Id,
+                (completed, productDevelopment) => new { completed, productDevelopment }
+            )
+            .Join(
+                _dbContext.Products,
+                combined => combined.productDevelopment.ProductId,
+                product => product.Id,
+                (combined, product) => new CompletedProductModel
+                {
+                    Id = combined.completed.Id,
+                    Name = product.Name,
+                    ProductDevelopmentId = combined.completed.ProductDevelopmentId,
+                    SerialNumber = combined.productDevelopment.SerialNumber
+                }
+            );
+        if (!string.IsNullOrWhiteSpace(filterExpression))
+        {
+            try
+            {
+                query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
+            }
+            catch (ParseException ex)
+            {
+                throw new ArgumentException("Некорректное выражение фильтрации.", ex);
+            }
+        }
+        var totalCount = await query.CountAsync(cancellationToken);
         var completedProducts = await query
             .Skip(skip)
             .Take(limit)

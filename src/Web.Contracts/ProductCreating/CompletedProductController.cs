@@ -12,6 +12,7 @@ public sealed class CompletedProductController : ApiController
     /// Список всех готовых продуктов на складе
     /// </summary>
     [HttpGet("on-storage")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<CompletedProductModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllOnStorage(CancellationToken cancellationToken,
         [FromQuery] int skip = 0, [FromQuery] int limit = 100,
         [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)

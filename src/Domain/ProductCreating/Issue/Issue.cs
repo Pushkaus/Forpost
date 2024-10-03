@@ -41,10 +41,6 @@ public sealed class Issue : AggregateRoot, ITimeFrameEntity
     public void Complete()
     {
         CurrentQuantity += 1;
-        if (ProductCompositionSettingFlag)
-        {
-            
-        }
     }
 
     public void AssignExecutor(Guid executorId, Guid issueId)
