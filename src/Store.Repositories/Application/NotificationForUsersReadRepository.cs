@@ -28,7 +28,11 @@ internal sealed class NotificationForUsersReadRepository : INotificationForUsers
                 AuthorName = employee.FirstName + " " + employee.LastName,
                 CreatedAt = notification.CreatedAt,
                 CreatedById = notification.CreatedById,
-            }).ToListAsync(cancellationToken);
+            })
+            .Skip(skip)
+            .Take(limit)
+            .OrderByDescending(notification => notification.CreatedAt)
+            .ToListAsync(cancellationToken);
         return (notifications, totalCount);
     }
 }

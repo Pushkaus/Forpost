@@ -1,4 +1,5 @@
 using AutoMapper;
+using Forpost.Application.Contracts;
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.ProductCreating.CompletedProduct;
@@ -17,22 +18,28 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
     private readonly ICompositionProductRepository _compositionProductRepository;
     private readonly IMapper _mapper;
 
+    private readonly IDbUnitOfWork _dbUnitOfWork;
+
     public CompleteIssueCommandHandler(
         IIssueDomainRepository issueDomainRepository,
         IProductDevelopmentDomainRepository productDevelopmentDomainRepository,
         IMapper mapper,
         ICompletedProductDomainRepository completedProductDomainRepository,
-        ICompositionProductRepository compositionProductRepository)
+        ICompositionProductRepository compositionProductRepository,
+        IDbUnitOfWork dbUnitOfWork)
     {
         _issueDomainRepository = issueDomainRepository;
         _productDevelopmentDomainRepository = productDevelopmentDomainRepository;
         _mapper = mapper;
         _completedProductDomainRepository = completedProductDomainRepository;
         _compositionProductRepository = compositionProductRepository;
+        _dbUnitOfWork = dbUnitOfWork;
     }
 
     public async ValueTask<Unit> Handle(CompleteIssueCommand command, CancellationToken cancellationToken)
     {
+        Issue currentIssue = null; // Вынесем currentIssue за цикл
+
         foreach (var productDevelopmentId in command.ProductDevelopmentIds)
         {
             var productDevelopment =
@@ -40,11 +47,16 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
 
             productDevelopment.EnsureFoundBy(entity => entity.Id, productDevelopmentId);
 
-            var currentIssue = await _issueDomainRepository.GetByIdAsync(productDevelopment.IssueId, cancellationToken);
+            // Получаем текущий issue только один раз за всю итерацию
+            if (currentIssue == null)
+            {
+                currentIssue = await _issueDomainRepository.GetByIdAsync(productDevelopment.IssueId, cancellationToken);
+            }
+
             var nextIssue = await _issueDomainRepository.GetNextIssue(productDevelopment.IssueId, cancellationToken);
-        
             var compositionProduct =
-                await _compositionProductRepository.GetCompositionProductsAsync(productDevelopment.Id, cancellationToken);
+                await _compositionProductRepository.GetCompositionProductsAsync(productDevelopment.Id,
+                    cancellationToken);
 
             if (currentIssue.ProductCompositionSettingFlag && compositionProduct is null)
             {
@@ -65,6 +77,8 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
 
                 _completedProductDomainRepository.Add(completedProduct);
             }
+            
+            // После завершения цикла, обновляем состояние currentIssue
             currentIssue.Complete();
             _issueDomainRepository.Update(currentIssue);
         }

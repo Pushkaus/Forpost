@@ -2,6 +2,7 @@ using Microsoft.Extensions.Hosting;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
@@ -10,11 +11,13 @@ namespace Forpost.TelegramBot
     public class TelegramPollingService : BackgroundService
     {
         private readonly ITelegramBotClient _botClient;
+        private readonly ILogger<TelegramPollingService> _logger;
         private CancellationTokenSource _cancellationTokenSource;
 
-        public TelegramPollingService(ITelegramBotClient botClient)
+        public TelegramPollingService(ITelegramBotClient botClient, ILogger<TelegramPollingService> logger)
         {
             _botClient = botClient;
+            _logger = logger;
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -30,30 +33,27 @@ namespace Forpost.TelegramBot
             {
                 try
                 {
-                    // Получение обновлений
                     var updates = await _botClient.GetUpdatesAsync(offset, cancellationToken: cancellationToken);
                     foreach (var update in updates)
                     {
-                        // Устанавливаем смещение для получения только новых обновлений
-                        offset = update.Id + 1; 
+                        offset = update.Id + 1;
                         await HandleUpdate(update);
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Логгируем ошибки (по необходимости, можно настроить логгирование)
-                    Console.WriteLine($"Ошибка при обработке обновлений: {ex.Message}");
+                    _logger.LogError($"Ошибка при обработке обновлений: {0}", ex.Message);
                 }
             }
         }
 
         private async Task HandleUpdate(Update update)
         {
-            if (update.Type == Telegram.Bot.Types.Enums.UpdateType.Message && update.Message.Text != null)
+            if (update.Type == Telegram.Bot.Types.Enums.UpdateType.Message && update.Message.Text == "/start")
             {
                 var message = update.Message;
-                // Ответ на полученное сообщение
-                await _botClient.SendTextMessageAsync(message.Chat.Id, $"Вы написали: {message.Text}");
+                await _botClient.SendTextMessageAsync(message.Chat.Id,
+                    $"Тестовое сообщение на /start {message.From.FirstName} {message.From.LastName}");
             }
         }
     }

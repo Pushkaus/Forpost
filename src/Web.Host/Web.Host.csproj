@@ -18,4 +18,11 @@
         <PackageReference Include="Swashbuckle.AspNetCore"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Files\" />
+    </ItemGroup>
+    
+    <PropertyGroup>
+        <UserSecretsId>TelegramBotToken</UserSecretsId>
+    </PropertyGroup>
 </Project>

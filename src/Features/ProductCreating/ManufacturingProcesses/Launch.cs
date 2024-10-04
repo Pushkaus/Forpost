@@ -28,9 +28,6 @@ internal sealed class LauncherManufacturingProcessCommandHandler: ICommandHandle
             .Launch(command.ManufacturingProcessId);
         
         _domainRepository.Update(manufacturingProcess);
-        ///TODO; 
-        //await _sender.Send(new BatchProductionInitializedCommand(manufacturingProcess.Id), cancellationToken);
-        
         return Unit.Value;
     }
 }
