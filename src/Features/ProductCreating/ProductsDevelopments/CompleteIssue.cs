@@ -79,7 +79,7 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
             }
             
             // После завершения цикла, обновляем состояние currentIssue
-            currentIssue.Complete();
+            currentIssue.CompleteProduct(productDevelopmentId);
             _issueDomainRepository.Update(currentIssue);
         }
         return Unit.Value;
