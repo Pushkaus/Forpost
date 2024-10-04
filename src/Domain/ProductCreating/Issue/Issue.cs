@@ -38,9 +38,10 @@ public sealed class Issue : AggregateRoot, ITimeFrameEntity
         EndTime = TimeProvider.System.GetUtcNow();
     }
 
-    public void Complete()
+    public void CompleteProduct(Guid productDevelopmentId)
     {
         CurrentQuantity += 1;
+        Raise(new ProductCompleted(productDevelopmentId, Id, ExecutorId, ResponsibleId));
     }
 
     public void AssignExecutor(Guid executorId, Guid issueId)
