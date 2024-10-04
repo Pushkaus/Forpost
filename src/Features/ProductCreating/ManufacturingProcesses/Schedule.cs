@@ -24,13 +24,11 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: ICommandHandl
 
     public async ValueTask<Guid> Handle(ScheduledManufacturingProcessCommand command, CancellationToken cancellationToken)
     {
-        //TODO; Вызывать BatchProductionInitializedCommand
         var manufacturingProcess = ManufacturingProcess.Schedule(
             command.TechnologicalCardId,
             command.BatchNumber,
             command.TargetQuantity,
             command.StartTime);
-        
         
         var manufacturingProcessId = _manufacturingProcessDomainRepository.Add(manufacturingProcess);
         foreach (var scheduledIssue in command.Issues)
@@ -39,8 +37,8 @@ internal sealed class ScheduledManufacturingProcessCommandHandler: ICommandHandl
             var issue = _mapper.Map<Issue>(scheduledIssue);
             issue.ManufacturingProcessId = manufacturingProcessId;
             
-            issue.IssueNumber = await _sender.Send(new GetIssueNumberQuery(command.TechnologicalCardId,
-                issue.StepId), cancellationToken);
+            issue.IssueNumber = await _issueDomainRepository.GetIssueNumber(command.TechnologicalCardId,
+                issue.StepId, cancellationToken);
             
             _issueDomainRepository.Add(Issue.Schedule(issue));
         }

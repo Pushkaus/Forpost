@@ -22,7 +22,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="ProductCreating\ManufacturingProcesses\Handlers\" />
+    <Folder Include="CRM\" />
   </ItemGroup>
   
 </Project>

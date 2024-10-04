@@ -1,10 +1,12 @@
 using Forpost.Application.Contracts.MessageManagment;
 using Forpost.Features.MessageManagment;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.MessageManager;
 [Route("api/v1/nofitications-for-users")]
+[Authorize]
 public sealed class NotificationForUsersController: ApiController
 {
     /// <summary>
