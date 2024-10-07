@@ -80,10 +80,9 @@ internal sealed class Startup
     private static void ConfigureCors(IServiceCollection services)
     {
         services.AddCors(options => options.AddDefaultPolicy(policy =>
-            policy.WithOrigins("http://localhost:3000", "http://localhost:4200", "http://localhost:5173")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials()));
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()));
     }
 
     public static void Configure(IApplicationBuilder app)

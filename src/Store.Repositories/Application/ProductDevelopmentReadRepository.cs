@@ -67,7 +67,9 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
     public async Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)> 
         GetAllByIssueId(Guid issueId, CancellationToken cancellationToken, int skip, int limit)
     {
-        var totalCount = await _dbContext.ProductDevelopments.CountAsync(cancellationToken);
+        var totalCount = await _dbContext.ProductDevelopments.Where(entity => entity.IssueId == issueId 
+                                                                              && (entity.Status == ProductStatus.InProgress))
+            .CountAsync(cancellationToken);
         var result = await _dbContext.ProductDevelopments
             .Where(entity => entity.IssueId == issueId 
                              && (entity.Status == ProductStatus.InProgress))
