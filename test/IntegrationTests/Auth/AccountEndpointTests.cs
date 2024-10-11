@@ -15,8 +15,7 @@ public sealed class AccountControllerTest : BaseTest
     public async Task Auth_ValidInput_Return200Ok()
     {
         // Arrange
-        var validUser = new LoginUserRequest
-        { FirstName = "test", LastName = "test", Password = "123" };
+        var validUser = new LoginUserRequest { FirstName = "test", LastName = "test", Password = "123" };
 
         // Act
         var token = await Client.AccountClient.LoginAsync(validUser);
