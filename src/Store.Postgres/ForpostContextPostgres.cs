@@ -51,6 +51,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<ProductVersion> ProductVersions => Set<ProductVersion>();
     public DbSet<CompositionProduct> CompositionProducts => Set<CompositionProduct>();
     public DbSet<NotificationForUsers> NotificationsForUsers => Set<NotificationForUsers>();
+    public DbSet<CompositionInvoice> CompositionInvoices => Set<CompositionInvoice>();
     #region ApplicationTables
     
     /// <summary>

@@ -1,8 +1,7 @@
 using Forpost.Application.Contracts.InvoiceManagment.Invoices;
-using Forpost.Domain.InvoiceManagement;
 using Mediator;
 
-namespace Forpost.Features.InvoiceManagment.Invoices;
+namespace Forpost.Features.InvoiceManagement.Invoices;
 
 internal sealed class GetAllInvoicesQueryHandler :
     IQueryHandler<GetAllInvoicesQuery, (IReadOnlyCollection<InvoiceModel> Invoices, int TotalCount)>

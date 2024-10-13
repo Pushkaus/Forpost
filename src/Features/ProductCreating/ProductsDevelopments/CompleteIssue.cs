@@ -38,7 +38,7 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
 
     public async ValueTask<Unit> Handle(CompleteIssueCommand command, CancellationToken cancellationToken)
     {
-        Issue currentIssue = null; // Вынесем currentIssue за цикл
+        Issue currentIssue = null;
 
         foreach (var productDevelopmentId in command.ProductDevelopmentIds)
         {
@@ -46,8 +46,6 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
                 await _productDevelopmentDomainRepository.GetByIdAsync(productDevelopmentId, cancellationToken);
 
             productDevelopment.EnsureFoundBy(entity => entity.Id, productDevelopmentId);
-
-            // Получаем текущий issue только один раз за всю итерацию
             if (currentIssue == null)
             {
                 currentIssue = await _issueDomainRepository.GetByIdAsync(productDevelopment.IssueId, cancellationToken);
@@ -77,11 +75,10 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
 
                 _completedProductDomainRepository.Add(completedProduct);
             }
-            
-            // После завершения цикла, обновляем состояние currentIssue
             currentIssue.Complete();
             _issueDomainRepository.Update(currentIssue);
         }
+
         return Unit.Value;
     }
 }

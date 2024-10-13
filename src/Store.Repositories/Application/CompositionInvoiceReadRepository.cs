@@ -1,3 +1,4 @@
+using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
 using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 using Forpost.Domain.ProductCreating.CompletedProduct;
@@ -6,15 +7,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories.Application;
 
-internal sealed class CompositionInvoiceReadRepository: ICompositionInvoiceReadRepository
+internal sealed class CompositionInvoiceReadRepository : ICompositionInvoiceReadRepository
 {
     private readonly ForpostContextPostgres _dbContext;
+
     public CompositionInvoiceReadRepository(ForpostContextPostgres dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IReadOnlyList<CompletedProductModel>> GetRelevantProducts(Guid invoiceId, Guid productId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<CompletedProductModel>> GetRelevantProducts(Guid invoiceId, Guid productId,
+        CancellationToken cancellationToken)
     {
         var productIds = await _dbContext.InvoiceProducts
             .Where(entity => entity.InvoiceId == invoiceId)
@@ -41,6 +44,38 @@ internal sealed class CompositionInvoiceReadRepository: ICompositionInvoiceReadR
             .ToListAsync(cancellationToken);
 
         return completedProducts;
+    }
 
+    public async Task<IReadOnlyCollection<CompositionInvoiceModel>> GetCompositionInvoice(Guid invoiceId,
+        CancellationToken cancellationToken)
+    {
+        return await _dbContext.CompositionInvoices.Where(invoice => invoice.InvoiceId == invoiceId)
+            .Join(_dbContext.Products,
+                composition => composition.ProductId,
+                product => product.Id,
+                (composition, product) => new { composition, product })
+            .Join(_dbContext.CompletedProducts,
+                combined => combined.composition.CompletedProductId,
+                completedProduct => completedProduct.Id,
+                (combined, completedProduct) => new { combined, completedProduct })
+            .Join(_dbContext.ProductDevelopments,
+                combined => combined.completedProduct.ProductDevelopmentId,
+                productDevelopment => productDevelopment.Id,
+                (combined, productDevelopment) => new { combined, productDevelopment })
+            .Join(_dbContext.Invoices,
+                combined => combined.combined.combined.composition.InvoiceId,
+                invoice => invoice.Id,
+                (combined, invoice) => new CompositionInvoiceModel
+                {
+                    Id = combined.combined.combined.composition.Id,
+                    InvoiceId = combined.combined.combined.composition.InvoiceId,
+                    Number = invoice.Number,
+                    ProductId = combined.combined.combined.composition.ProductId,
+                    ProductName = combined.combined.combined.product.Name,
+                    CompletedProductId = combined.combined.completedProduct.Id,
+                    ProductDevelopmentId = combined.combined.completedProduct.ProductDevelopmentId,
+                    SerialNumber = combined.productDevelopment.SerialNumber
+                })
+            .ToListAsync(cancellationToken);
     }
 }

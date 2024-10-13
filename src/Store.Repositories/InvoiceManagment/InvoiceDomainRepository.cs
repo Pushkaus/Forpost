@@ -3,7 +3,7 @@ using Forpost.Domain.InvoiceManagement;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
-namespace Forpost.Store.Repositories;
+namespace Forpost.Store.Repositories.InvoiceManagment;
 
 internal sealed class InvoiceDomainRepository : DomainRepository<Invoice>, IInvoiceDomainRepository
 {

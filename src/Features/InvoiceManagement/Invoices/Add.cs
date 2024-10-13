@@ -1,10 +1,9 @@
 using AutoMapper;
-using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.InvoiceManagement;
 using Forpost.Domain.SortOut;
 using Mediator;
 
-namespace Forpost.Features.InvoiceManagment.Invoices;
+namespace Forpost.Features.InvoiceManagement.Invoices;
 
 internal sealed class AddInvoiceCommandHandler: ICommandHandler<AddInvoiceCommand, Guid>
 {

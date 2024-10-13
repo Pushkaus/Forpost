@@ -1,4 +1,9 @@
+using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
+using Forpost.Features.InvoiceManagement.CompositionInvoices;
+using Forpost.Features.InvoiceManagement.InvoiceProducts;
+using Forpost.Features.InvoiceManagment.CompositionInvoices;
 using Forpost.Features.InvoiceManagment.InvoiceProducts;
+using Forpost.Web.Contracts.InvoiceManagement.CompositionInvoices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +27,6 @@ public sealed class InvoiceProductController : ApiController
             request.Quantity), cancellationToken);
         return Ok();
     }
-
     /// <summary>
     /// Получение продуктов по id счета
     /// </summary>
@@ -34,6 +38,29 @@ public sealed class InvoiceProductController : ApiController
         var compositionInvoice = await Sender.Send(new GetCompositionInvoiceQuery(id), cancellationToken);
         var result = Mapper.Map<IReadOnlyCollection<InvoiceProductResponse>>(compositionInvoice);
         return Ok(result);
+    }
+    /// <summary>
+    /// Заполнение состава счета
+    /// </summary>
+    [HttpPost("composition")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> SetCompositionInvoice([FromBody] CompositionInvoiceRequest request,
+        CancellationToken cancellationToken)
+    {
+        await Sender.Send(
+            new AddCompositionInvoiceCommand(request.InvoiceId, request.ProductId, request.CompletedProductIds),
+            cancellationToken);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Получение состава счета
+    /// </summary>
+    [HttpGet("{invoiceId}/composition")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<CompositionInvoiceModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetCompositionInvoice(Guid invoiceId, CancellationToken cancellationToken)
+    {
+        return Ok(await Sender.Send(new GetCompletedCompositionInvoiceQuery(invoiceId), cancellationToken));
     }
     //TODO;
     // /// <summary>

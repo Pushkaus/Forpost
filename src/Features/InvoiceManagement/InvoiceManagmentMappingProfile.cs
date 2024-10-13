@@ -1,6 +1,7 @@
 using AutoMapper;
 using Forpost.Domain.InvoiceManagement;
 using Forpost.Domain.SortOut;
+using Forpost.Features.InvoiceManagement.Invoices;
 using Forpost.Features.InvoiceManagment.InvoiceProducts;
 using Forpost.Features.InvoiceManagment.Invoices;
 

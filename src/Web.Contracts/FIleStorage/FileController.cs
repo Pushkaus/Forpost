@@ -31,7 +31,7 @@ public sealed class FileController : ApiController
         byte[] content;
         using (var memoryStream = new MemoryStream())
         {
-            await request.File.CopyToAsync(memoryStream);
+            await request.File.CopyToAsync(memoryStream, cancellationToken);
             content = memoryStream.ToArray();
         }
         
@@ -44,7 +44,7 @@ public sealed class FileController : ApiController
     /// Скачивание файла с сервера
     /// </summary>
     /// <returns></returns>
-    [HttpGet("{id}")]
+    [HttpGet("download/{id}")]
     [ProducesResponseType(typeof(DownloadFileResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> DownloadFileAsync(Guid id, CancellationToken cancellationToken)
     {
