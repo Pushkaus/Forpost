@@ -1,4 +1,5 @@
 using System.Linq.Dynamic.Core;
+using Forpost.Application.Contracts.CRM.IssueHistories;
 using Forpost.Application.Contracts.CRM.IssueHistory;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
@@ -47,8 +48,10 @@ internal sealed class IssueHistoryReadRepository : IIssueHistoryReadRepository
                 responsible => responsible.Id,
                 (combined, responsible) => new IssueHistoryModel
                 {
+                    Id = combined.combined.combined.combined.combined.combined.issueHistory.Id,
                     ProductDevelopmentId = combined.combined.combined.combined.combined.combined.productDevelopment.Id,
                     ProductName = combined.combined.combined.combined.combined.product.Name,
+                    SerialNumber = combined.combined.combined.combined.combined.combined.productDevelopment.SerialNumber,
                     IssueId = combined.combined.combined.combined.combined.combined.issueHistory.IssueId,
                     OperationName = combined.combined.operation.Name,
                     Description = combined.combined.combined.combined.combined.combined.issueHistory.Description,

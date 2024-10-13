@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts.CRM.IssueHistories;
 using Forpost.Application.Contracts.CRM.IssueHistory;
 using Forpost.Features.CRM.IssueHistory;
 using Microsoft.AspNetCore.Http;

@@ -58,7 +58,7 @@ internal sealed class CompleteIssueCommandHandler : ICommandHandler<CompleteIssu
                 await _compositionProductRepository.GetCompositionProductsAsync(productDevelopment.Id,
                     cancellationToken);
 
-            if (currentIssue.ProductCompositionSettingFlag && compositionProduct is null)
+            if (currentIssue.ProductCompositionSettingFlag && compositionProduct.Count == 0)
             {
                 throw new Exception("Состав продукта не указан, невозможно завершить задачу");
             }

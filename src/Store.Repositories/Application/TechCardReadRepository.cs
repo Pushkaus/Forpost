@@ -41,7 +41,7 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
                 ProductName = result.Product.Name,
                 Description = result.TechCard.Description,
                 Steps = result.Steps
-                    .Where(s => s.SubStep != null) // Поддержка шагов
+                    .Where(s => s.SubStep != null) 
                     .Select(item => new StepSummary
                     {
                         Id = item.SubStep.Id,

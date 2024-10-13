@@ -10,6 +10,7 @@ using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
 using Forpost.Domain.CRM.IssueHistory;
+using Forpost.Domain.CRM.PriceList;
 using Forpost.Domain.InvoiceManagement;
 using Forpost.Domain.MessageManager;
 using Forpost.Domain.ProductCreating.CompletedProduct;
@@ -54,6 +55,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<NotificationForUsers> NotificationsForUsers => Set<NotificationForUsers>();
     public DbSet<CompositionInvoice> CompositionInvoices => Set<CompositionInvoice>();
     public DbSet<IssueHistory> IssueHistories => Set<IssueHistory>();
+    public DbSet<PriceList> PriceLists => Set<PriceList>();
     #region ApplicationTables
     
     /// <summary>

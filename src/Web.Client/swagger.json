@@ -6,6 +6,88 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/v1/storage-products/{storageId}": {
+      "get": {
+        "tags": [
+          "StorageProduct"
+        ],
+        "summary": "Получить список всех продуктов на складе",
+        "operationId": "GetAllProducts",
+        "parameters": [
+          {
+            "name": "storageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            },
+            "x-position": 2
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StorageProductModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/storage-products": {
+      "post": {
+        "tags": [
+          "StorageProduct"
+        ],
+        "summary": "Добавить продукт на склад",
+        "operationId": "Create",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorageProductCreateRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/v1/completed-products/on-storage": {
       "get": {
         "tags": [
@@ -63,10 +145,12 @@
           "200": {
             "description": "",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompletedProductModel"
+                  }
                 }
               }
             }
@@ -740,25 +824,25 @@
         }
       }
     },
-    "/api/v1/product-development/{productDevelopmentId}/complete-issue": {
+    "/api/v1/product-development/issues/complete": {
       "put": {
         "tags": [
           "ProductDevelopment"
         ],
         "summary": "Завершить задачу, переход на следующий этап или создание готового продукта",
         "operationId": "CompleteIssue",
-        "parameters": [
-          {
-            "name": "productDevelopmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteIssueRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
         "responses": {
           "200": {
             "description": ""
@@ -833,6 +917,76 @@
         }
       }
     },
+    "/api/v1/nofitications-for-users": {
+      "get": {
+        "tags": [
+          "NotificationForUsers"
+        ],
+        "summary": "Получить все уведомления для пользователей",
+        "operationId": "GetAllAll3",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            },
+            "x-position": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NotificationForUsersModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "NotificationForUsers"
+        ],
+        "summary": "Добавить уведомление для пользователей",
+        "operationId": "Publish",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationForUsersRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/v1/invoices/number/{number}": {
       "get": {
         "tags": [
@@ -871,7 +1025,7 @@
           "Invoice"
         ],
         "summary": "Получить все счета",
-        "operationId": "GetAllAll3",
+        "operationId": "GetAllAll4",
         "parameters": [
           {
             "name": "skip",
@@ -1072,7 +1226,7 @@
           "InvoiceProduct"
         ],
         "summary": "Добавление продуктов в счет",
-        "operationId": "Create",
+        "operationId": "Create2",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -1120,6 +1274,294 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/InvoiceProductResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/invoice-products/composition": {
+      "post": {
+        "tags": [
+          "InvoiceProduct"
+        ],
+        "summary": "Заполнение состава счета",
+        "operationId": "SetCompositionInvoice",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompositionInvoiceRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/invoice-products/{invoiceId}/composition": {
+      "get": {
+        "tags": [
+          "InvoiceProduct"
+        ],
+        "summary": "Получение состава счета",
+        "operationId": "GetCompositionInvoice2",
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompositionInvoiceModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/files": {
+      "post": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Добавление файлов к id",
+        "operationId": "UploadFile",
+        "parameters": [
+          {
+            "name": "ParentId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/files/download/{id}": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Скачивание файла с сервера",
+        "operationId": "DownloadFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadFileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/files/{id}": {
+      "delete": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Удаление файла из БД",
+        "operationId": "DeleteFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadFileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/files/{parentId}": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Список файлов по id",
+        "operationId": "GetAllFiles",
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FileResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/issue-history": {
+      "get": {
+        "tags": [
+          "IssueHistory"
+        ],
+        "operationId": "GetAllAll5",
+        "parameters": [
+          {
+            "name": "ExecutorId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "ResponsibleId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Month",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "Year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 4
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 5
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 6
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IssueHistoryModel"
                   }
                 }
               }
@@ -1224,7 +1666,7 @@
           "TechCard"
         ],
         "summary": "Получение всех тех.карт",
-        "operationId": "GetAllAll4",
+        "operationId": "GetAllAll6",
         "parameters": [
           {
             "name": "skip",
@@ -1305,7 +1747,7 @@
           "TechCard"
         ],
         "summary": "Создание тех.карты",
-        "operationId": "Create2",
+        "operationId": "Create3",
         "requestBody": {
           "x-name": "card",
           "content": {
@@ -1375,7 +1817,7 @@
           "TechCardStep"
         ],
         "summary": "Добавление этапа в тех.карту",
-        "operationId": "Create3",
+        "operationId": "Create4",
         "requestBody": {
           "x-name": "model",
           "content": {
@@ -1472,7 +1914,7 @@
           "TechCardItem"
         ],
         "summary": "Добавления компонента в тех.карту",
-        "operationId": "Create4",
+        "operationId": "Create5",
         "requestBody": {
           "x-name": "model",
           "content": {
@@ -1532,7 +1974,7 @@
           "Storage"
         ],
         "summary": "Создание нового склада",
-        "operationId": "Create5",
+        "operationId": "Create6",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -1556,7 +1998,7 @@
           "Storage"
         ],
         "summary": "Получить список всех складов",
-        "operationId": "GetAllAll5",
+        "operationId": "GetAllAll7",
         "responses": {
           "200": {
             "description": "Список складов и общее количество",
@@ -1640,7 +2082,7 @@
           "Step"
         ],
         "summary": "Получение всех этапов",
-        "operationId": "GetAllAll6",
+        "operationId": "GetAllAll8",
         "parameters": [
           {
             "name": "skip",
@@ -1717,7 +2159,7 @@
           "Step"
         ],
         "summary": "Создание этапа",
-        "operationId": "Create6",
+        "operationId": "Create7",
         "requestBody": {
           "x-name": "step",
           "content": {
@@ -1751,7 +2193,7 @@
           "Role"
         ],
         "summary": "Создать новую роль",
-        "operationId": "Create7",
+        "operationId": "Create8",
         "requestBody": {
           "x-name": "name",
           "content": {
@@ -1775,7 +2217,7 @@
           "Role"
         ],
         "summary": "Получить все роли",
-        "operationId": "GetAllAll7",
+        "operationId": "GetAllAll9",
         "responses": {
           "200": {
             "description": "",
@@ -1920,7 +2362,7 @@
           "Product"
         ],
         "summary": "Создать продукт",
-        "operationId": "Create8",
+        "operationId": "Create9",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -2059,7 +2501,7 @@
           "Operation"
         ],
         "summary": "Получение всех операций",
-        "operationId": "GetAllAll8",
+        "operationId": "GetAllAll10",
         "responses": {
           "200": {
             "description": "",
@@ -2173,7 +2615,7 @@
           "Contractor"
         ],
         "summary": "Добавление контрагента",
-        "operationId": "Create9",
+        "operationId": "Create10",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -2197,7 +2639,7 @@
           "Contractor"
         ],
         "summary": "Получить всех контрагентов",
-        "operationId": "GetAllAll9",
+        "operationId": "GetAllAll11",
         "parameters": [
           {
             "name": "skip",
@@ -2399,6 +2841,48 @@
   },
   "components": {
     "schemas": {
+      "StorageProductModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "productName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "storageName": {
+            "type": "string"
+          },
+          "storageId": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      },
+      "StorageProductCreateRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "storageId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "CompletedProductModel": {
         "type": "object",
         "additionalProperties": false,
@@ -2843,6 +3327,19 @@
           400
         ]
       },
+      "CompleteIssueRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "productDevelopmentIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "guid"
+            }
+          }
+        }
+      },
       "CompositionProductRequest": {
         "type": "object",
         "additionalProperties": false,
@@ -2895,6 +3392,39 @@
             "type": "string"
           },
           "serialNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "NotificationForUsersModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "message": {
+            "type": "string"
+          },
+          "authorName": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdById": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      },
+      "NotificationForUsersRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "message": {
             "type": "string"
           }
         }
@@ -3237,6 +3767,144 @@
           "quantity": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "CompositionInvoiceRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "invoiceId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "completedProductIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "guid"
+            }
+          }
+        }
+      },
+      "CompositionInvoiceModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "invoiceId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "number": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "completedProductId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productDevelopmentId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "serialNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "DownloadFileResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fileContent": {
+            "type": "string",
+            "format": "byte"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          }
+        }
+      },
+      "FileResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "parentId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "fileContent": {
+            "type": "string",
+            "format": "byte"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          }
+        }
+      },
+      "IssueHistoryModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "productDevelopmentId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "issueId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "operationName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "completionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "executorId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "executorName": {
+            "type": "string"
+          },
+          "responsibleId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "responsibleName": {
+            "type": "string"
           }
         }
       },

@@ -2,8 +2,10 @@ namespace Forpost.Application.Contracts.CRM.IssueHistory;
 
 public sealed class IssueHistoryModel
 {
+    public Guid Id { get; set; }
     public Guid ProductDevelopmentId { get; set; }
     public string ProductName { get; set; } = null!;
+    public string SerialNumber { get; set; } = null!;
     public Guid IssueId { get; set; }
     public string OperationName { get; set; } = null!;
     public string? Description { get; set; }

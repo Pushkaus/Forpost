@@ -2,7 +2,7 @@ using Forpost.Domain.InvoiceManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration.InvoiceManagment;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.CRM.InvoicesManagment;
 
 internal sealed class CompositionInvoiceConfiguration: IEntityTypeConfiguration<CompositionInvoice>
 {

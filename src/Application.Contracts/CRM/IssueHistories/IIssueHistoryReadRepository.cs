@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts.CRM.IssueHistories;
 using Forpost.Common.DataAccess;
 
 namespace Forpost.Application.Contracts.CRM.IssueHistory;
