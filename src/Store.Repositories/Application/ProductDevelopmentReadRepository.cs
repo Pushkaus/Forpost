@@ -67,7 +67,9 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
     public async Task<(IReadOnlyCollection<ProductDevelopmentModel> ProductDevelopments, int TotalCount)> 
         GetAllByIssueId(Guid issueId, CancellationToken cancellationToken, int skip, int limit)
     {
-        var totalCount = await _dbContext.ProductDevelopments.CountAsync(cancellationToken);
+        var totalCount = await _dbContext.ProductDevelopments.Where(entity => entity.IssueId == issueId 
+                                                                              && (entity.Status == ProductStatus.InProgress))
+            .CountAsync(cancellationToken);
         var result = await _dbContext.ProductDevelopments
             .Where(entity => entity.IssueId == issueId 
                              && (entity.Status == ProductStatus.InProgress))
@@ -116,10 +118,6 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
     int limit,
     CancellationToken cancellationToken)
 {
-    // Получаем общее количество записей
-    var totalCount = await _dbContext.ProductDevelopments
-        .CountAsync(cancellationToken);
-
     // Начинаем формировать запрос с объединениями
     var query = _dbContext.ProductDevelopments
         .Join(_dbContext.ManufacturingProcesses,
@@ -168,11 +166,11 @@ internal sealed class ProductDevelopmentReadRepository: IProductDevelopmentReadR
         }
     }
     
-    totalCount = await query.CountAsync(cancellationToken);
     
     query = query.Where(entity => entity.StatusRead != ProductStatusRead.Completed 
                                   && entity.StatusRead != ProductStatusRead.Cancelled);
     
+    var totalCount = await query.CountAsync(cancellationToken);
     var productDevelopments = await query
         .Skip(skip)
         .Take(limit)

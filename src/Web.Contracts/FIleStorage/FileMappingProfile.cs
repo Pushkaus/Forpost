@@ -12,6 +12,7 @@ internal sealed class FileMapperProfile : Profile
             .ForMember(dest => dest.ContentType, opt => opt.MapFrom(src => src.File.ContentType))
             .ForMember(dest => dest.Content, opt => opt.Ignore())
             .ValidateMemberList(MemberList.Destination);
-        CreateMap<DownloadFileQuery, DownloadFileResponse>().ValidateMemberList(MemberList.Destination);
+        
+        CreateMap<FileModel, DownloadFileResponse>().ValidateMemberList(MemberList.Destination);
     }
 }
