@@ -1,8 +1,7 @@
 using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
-using Forpost.Features.InvoiceManagment.InvoiceProducts;
 using Mediator;
 
-namespace Forpost.Features.InvoiceManagment.CompositionInvoices;
+namespace Forpost.Features.InvoiceManagement.CompositionInvoices;
 
 internal sealed class
     GetCompletedCompositionInvoiceQueryHandler : IQueryHandler<GetCompletedCompositionInvoiceQuery,

@@ -1,7 +1,6 @@
-using Forpost.Application.Contracts.CRM.IssueHistories;
 using Forpost.Common.DataAccess;
 
-namespace Forpost.Application.Contracts.CRM.IssueHistory;
+namespace Forpost.Application.Contracts.CRM.IssueHistories;
 
 public interface IIssueHistoryReadRepository: IApplicationReadRepository
 {

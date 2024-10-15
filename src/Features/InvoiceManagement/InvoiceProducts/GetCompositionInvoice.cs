@@ -1,4 +1,4 @@
-using Forpost.Application.Contracts.InvoiceProducts;
+using Forpost.Application.Contracts.InvoiceManagment.InvoiceProducts;
 using Mediator;
 
 namespace Forpost.Features.InvoiceManagement.InvoiceProducts;

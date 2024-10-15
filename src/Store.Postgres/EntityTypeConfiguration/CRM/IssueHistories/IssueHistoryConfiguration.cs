@@ -1,9 +1,8 @@
 using Forpost.Domain.CRM.IssueHistory;
-using Forpost.Domain.ProductCreating.Issue;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration.ProductCreating;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.CRM.IssueHistories;
 
 internal sealed class IssueHistoryConfiguration: IEntityTypeConfiguration<IssueHistory>
 {

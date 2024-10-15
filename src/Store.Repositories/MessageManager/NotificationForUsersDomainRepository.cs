@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.MessageManager;
+using Forpost.Domain.MessagesManagment;
 using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Store.Postgres;
 

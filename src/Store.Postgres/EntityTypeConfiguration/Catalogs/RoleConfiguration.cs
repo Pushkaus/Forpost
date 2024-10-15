@@ -2,7 +2,7 @@ using Forpost.Domain.Catalogs.Roles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.Catalogs;
 
 internal class RoleConfiguration : IEntityTypeConfiguration<Role>
 {

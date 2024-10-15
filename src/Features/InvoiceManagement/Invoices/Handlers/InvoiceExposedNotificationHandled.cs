@@ -1,7 +1,7 @@
-using Forpost.Domain.InvoiceManagement.Events;
+using Forpost.Domain.CRM.InvoiceManagement.Events;
 using Mediator;
 
-namespace Forpost.Features.InvoiceManagment.Invoices.Handlers;
+namespace Forpost.Features.InvoiceManagement.Invoices.Handlers;
 
 internal sealed class InvoiceExposedNotificationHandled: INotificationHandler<InvoiceExposed>
 {

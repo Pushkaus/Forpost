@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.InvoiceManagement;
+namespace Forpost.Domain.CRM.InvoiceManagement;
 
 public sealed class CompositionInvoice: DomainAuditableEntity
 {

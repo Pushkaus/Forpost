@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.CRM.PriceLists;
-using Forpost.Domain.CRM.PriceList;
 using Forpost.Features.CRM.PriceLists;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

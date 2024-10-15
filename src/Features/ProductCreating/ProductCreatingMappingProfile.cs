@@ -1,6 +1,6 @@
 using AutoMapper;
-using Forpost.Application.Contracts.Issues;
-using Forpost.Application.Contracts.ProductsDevelopments;
+using Forpost.Application.Contracts.ProductCreating.Issues;
+using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 

@@ -4,7 +4,7 @@ using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using File = Forpost.Domain.FileStorage.File;
 
-namespace Forpost.Store.Repositories;
+namespace Forpost.Store.Repositories.FileStorage;
 
 internal sealed class FileDomainRepository : DomainRepository<File>, IFileDomainRepository
 {

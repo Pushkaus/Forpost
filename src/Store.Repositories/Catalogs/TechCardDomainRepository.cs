@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Store.Postgres;
 
-namespace Forpost.Store.Repositories;
+namespace Forpost.Store.Repositories.Catalogs;
 
 internal sealed class TechCardDomainRepository : DomainRepository<TechCard>, ITechCardDomainRepository
 {

@@ -72,7 +72,7 @@ public sealed class FileController : ApiController
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{parentId}")]
-    [ProducesResponseType(typeof(IReadOnlyCollection<FileResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<FilesResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllFilesAsync(Guid parentId, CancellationToken cancellationToken)
     {
         var files = await Sender.Send(new GetAllFileInfosByProductIdQuery(parentId), cancellationToken);

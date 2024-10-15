@@ -1,4 +1,4 @@
-namespace Forpost.Application.Contracts.Issues;
+namespace Forpost.Application.Contracts.ProductCreating.Issues;
 
 public sealed class ScheduledIssue
 {

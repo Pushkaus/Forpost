@@ -1,6 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.InvoiceManagement;
-using Forpost.Domain.SortOut;
+using Forpost.Domain.CRM.InvoiceManagement;
 using Mediator;
 
 namespace Forpost.Features.InvoiceManagement.Invoices;

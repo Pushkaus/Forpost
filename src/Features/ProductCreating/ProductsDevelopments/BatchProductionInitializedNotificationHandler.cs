@@ -1,7 +1,6 @@
 using AutoMapper;
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
-using Forpost.Application.Contracts.ProductsDevelopments;
 using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;

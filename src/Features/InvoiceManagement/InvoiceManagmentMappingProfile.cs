@@ -1,11 +1,9 @@
 using AutoMapper;
-using Forpost.Domain.InvoiceManagement;
-using Forpost.Domain.SortOut;
+using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Features.InvoiceManagement.InvoiceProducts;
 using Forpost.Features.InvoiceManagement.Invoices;
-using Forpost.Features.InvoiceManagment.InvoiceProducts;
-using Forpost.Features.InvoiceManagment.Invoices;
 
-namespace Forpost.Features.InvoiceManagment;
+namespace Forpost.Features.InvoiceManagement;
 
 internal sealed class InvoiceMappingProfile : Profile
 {

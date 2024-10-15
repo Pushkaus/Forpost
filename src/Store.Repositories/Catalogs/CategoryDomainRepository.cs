@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.Catalogs.Category;
 using Forpost.Store.Postgres;
 
-namespace Forpost.Store.Repositories;
+namespace Forpost.Store.Repositories.Catalogs;
 
 internal sealed class CategoryDomainRepository : DomainRepository<Category>, ICategoryDomainRepository
 {

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using File = Forpost.Domain.FileStorage.File;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.Catalogs;
 
 internal sealed class FileConfiguration : IEntityTypeConfiguration<File>
 {

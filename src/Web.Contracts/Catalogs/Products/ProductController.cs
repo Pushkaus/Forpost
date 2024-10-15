@@ -55,7 +55,7 @@ public sealed class ProductController : ApiController
     public async Task<IActionResult>
         CreateAsync([FromBody] ProductCreateRequest request, CancellationToken cancellationToken)
     {
-        var productId = await Sender.Send(new AddProductCommand(request.Name, request.Version), cancellationToken);
+        var productId = await Sender.Send(new AddProductCommand(request.Name, request.Barcode), cancellationToken);
         return Ok(productId);
     }
 

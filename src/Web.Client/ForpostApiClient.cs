@@ -36,7 +36,6 @@ public sealed class ForpostApiClient : IForpostApiClient
         ContractorClient = contractorClient;
         AccountClient = accountClient;
     }
-
     public IIssueClient IssueClient { get; }
     
     public IManufacturingProcessClient ManufacturingProcessClient { get; }

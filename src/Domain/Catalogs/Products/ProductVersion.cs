@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.SortOut;
+namespace Forpost.Domain.Catalogs.Products;
 
 public sealed class ProductVersion : DomainAuditableEntity
 {

@@ -5,8 +5,7 @@ public sealed class ProductResponse
     public Guid Id { get; set; }
     public string Name { get; set; }
     public Guid? CategoryId { get; set; }
-    public string? Version { get; set; }
-    public decimal? Cost { get; set; }
+    public string? Barcode { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

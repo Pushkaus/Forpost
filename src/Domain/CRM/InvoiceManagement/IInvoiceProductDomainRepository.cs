@@ -1,7 +1,6 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
-using Forpost.Domain.Primitives.DomainAbstractions;
 
-namespace Forpost.Domain.SortOut;
+namespace Forpost.Domain.CRM.InvoiceManagement;
 
 public interface IInvoiceProductDomainRepository : IDomainRepository<InvoiceProduct>
 {

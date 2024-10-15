@@ -1,6 +1,6 @@
 using AutoMapper;
 using Forpost.Common.Utils;
-using Forpost.Domain.MessageManager;
+using Forpost.Domain.MessagesManagment;
 using Mediator;
 
 namespace Forpost.Features.MessageManagment;

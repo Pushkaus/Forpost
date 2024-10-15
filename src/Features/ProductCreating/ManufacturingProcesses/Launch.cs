@@ -1,5 +1,4 @@
 using AutoMapper;
-using Forpost.Application.Contracts.ProductsDevelopments;
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Features.ProductCreating.ProductsDevelopments;

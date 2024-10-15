@@ -1,8 +1,8 @@
 using AutoMapper;
-using Forpost.Domain.InvoiceManagement;
+using Forpost.Domain.CRM.InvoiceManagement;
 using Mediator;
 
-namespace Forpost.Features.InvoiceManagment.Invoices;
+namespace Forpost.Features.InvoiceManagement.Invoices;
 
 internal sealed class InvoiceShipCommandHandler: ICommandHandler<ShipInvoiceCommand>
 {

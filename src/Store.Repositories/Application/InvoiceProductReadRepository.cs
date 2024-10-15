@@ -1,8 +1,8 @@
-using Forpost.Application.Contracts.InvoiceProducts;
+using Forpost.Application.Contracts.InvoiceManagment.InvoiceProducts;
 using Forpost.Store.Postgres;
 using Forpost.Store.Repositories.Models.InvoiceProduct;
 using Microsoft.EntityFrameworkCore;
-using InvoiceWithProductsModel = Forpost.Application.Contracts.InvoiceProducts.InvoiceWithProductsModel;
+using InvoiceWithProductsModel = Forpost.Application.Contracts.InvoiceManagment.InvoiceProducts.InvoiceWithProductsModel;
 
 namespace Forpost.Store.Repositories.Application;
 

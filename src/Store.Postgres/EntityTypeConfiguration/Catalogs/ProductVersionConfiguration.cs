@@ -1,9 +1,8 @@
 using Forpost.Domain.Catalogs.Products;
-using Forpost.Domain.SortOut;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.Catalogs;
 
 internal sealed class ProductVersionConfiguration : IEntityTypeConfiguration<ProductVersion>
 {
