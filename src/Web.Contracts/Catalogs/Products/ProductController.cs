@@ -2,6 +2,7 @@ using Forpost.Features.Catalogs.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SkiaSharp;
 
 namespace Forpost.Web.Contracts.Catalogs.Products;
 
@@ -85,5 +86,42 @@ public sealed class ProductController : ApiController
     {
         //TODO;
         return Ok();
+    }
+
+    /// <summary>
+    /// Получение штрих-кода продукта
+    /// </summary>
+    [HttpGet("{productId}/barcode")]
+    [ProducesResponseType(typeof(FileContentResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetBarcodeAsync(Guid productId, CancellationToken cancellationToken)
+    {
+        var barcode = await Sender.Send(new GetBarcodeByProductIdQuery(productId), cancellationToken);
+
+        if (barcode == null)
+        {
+            return NotFound();
+        }
+
+        using (var imageData = barcode.Encode(SKEncodedImageFormat.Png, 100))
+        using (var ms = new MemoryStream(imageData.ToArray()))
+        {
+            return File(ms.ToArray(), "image/png");
+        }
+    }
+
+    /// <summary>
+    /// Обновление штрихкода продукта.
+    /// </summary>
+    [HttpPut("barcode")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateBarcode([FromBody] BarcodeRequest request,
+        CancellationToken cancellationToken)
+    {
+        await Sender.Send(new UpdateBarcodeProductCommand(request.ProductId, request.Barcode),
+            cancellationToken); 
+        return NoContent();
     }
 }
