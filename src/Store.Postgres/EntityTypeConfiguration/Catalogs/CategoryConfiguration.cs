@@ -2,7 +2,7 @@ using Forpost.Domain.Catalogs.Category;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.Catalogs;
 
 internal sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {

@@ -1,6 +1,4 @@
-using System.Collections.ObjectModel;
-
-namespace Forpost.Web.Contracts.InvoiceManagement.CompositionInvoices;
+namespace Forpost.Web.Contracts.CRM.InvoiceManagement.InvoiceProducts;
 
 public sealed class CompositionInvoiceRequest
 {

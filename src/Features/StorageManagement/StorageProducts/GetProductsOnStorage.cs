@@ -3,7 +3,7 @@ using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.StorageManagment;
 using Mediator;
 
-namespace Forpost.Features.StorageManagment.StorageProducts;
+namespace Forpost.Features.StorageManagement.StorageProducts;
 
 internal sealed class GetProductsOnStorageQueryHandler : IQueryHandler<GetProductsOnStorageQuery, (
     IReadOnlyCollection<StorageProductModel> Products, int TotalCount)>

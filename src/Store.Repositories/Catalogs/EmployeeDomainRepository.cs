@@ -3,7 +3,7 @@ using Forpost.Domain.Catalogs.Employees;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
-namespace Forpost.Store.Repositories;
+namespace Forpost.Store.Repositories.Catalogs;
 
 internal sealed class EmployeeDomainRepository : DomainRepository<Employee>, IEmployeeDomainRepository
 {

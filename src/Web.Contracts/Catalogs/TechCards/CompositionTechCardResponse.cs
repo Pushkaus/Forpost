@@ -1,6 +1,6 @@
 using Forpost.Domain.Catalogs.Steps;
 
-namespace Forpost.Web.Contracts.Catalogs.TechCardSteps;
+namespace Forpost.Web.Contracts.Catalogs.TechCards;
 
 public sealed class CompositionTechCardResponse
 {

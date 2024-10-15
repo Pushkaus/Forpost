@@ -1,6 +1,6 @@
 using AutoMapper;
 using Forpost.Application.Contracts.CRM.IssueHistories;
-using Forpost.Application.Contracts.CRM.IssueHistory;
+using Forpost.Web.Contracts.CRM.IssueHistories;
 
 namespace Forpost.Web.Contracts.CRM;
 

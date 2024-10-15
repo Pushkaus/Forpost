@@ -1,11 +1,10 @@
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.Catalogs.Storages;
-using Forpost.Domain.SortOut;
 using Forpost.Domain.StorageManagment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.StorageManagment;
 
 internal sealed class StorageProductConfiguration : IEntityTypeConfiguration<StorageProduct>
 {

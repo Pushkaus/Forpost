@@ -1,6 +1,6 @@
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 
-namespace Forpost.Application.Contracts.ProductsDevelopments;
+namespace Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 
 public sealed class InizializationProductDevelopment
 {

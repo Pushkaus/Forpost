@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.MessageManager;
+namespace Forpost.Domain.MessagesManagment;
 
 public sealed class NotificationForUsers: DomainAuditableEntity
 {

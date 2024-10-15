@@ -1,4 +1,4 @@
-using Forpost.Domain.InvoiceManagement;
+using Forpost.Domain.CRM.InvoiceManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

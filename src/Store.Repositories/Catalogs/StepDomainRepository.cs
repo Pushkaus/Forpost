@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.Catalogs.Steps;
 using Forpost.Store.Postgres;
 
-namespace Forpost.Store.Repositories;
+namespace Forpost.Store.Repositories.Catalogs;
 
 internal sealed class StepDomainRepository : DomainRepository<Step>, IStepDomainRepository
 {

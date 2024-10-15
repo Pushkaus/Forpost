@@ -1,10 +1,9 @@
 using AutoMapper;
-using Forpost.Domain.SortOut;
 using Forpost.Domain.StorageManagment;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
-namespace Forpost.Store.Repositories;
+namespace Forpost.Store.Repositories.StorageManagment;
 
 internal sealed class StorageProductDomainRepository : DomainRepository<StorageProduct>, IStorageProductDomainRepository
 {

@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
 
-namespace Forpost.Domain.MessageManager;
+namespace Forpost.Domain.MessagesManagment;
 
 public interface INotificationForUsersDomainRepository: IDomainRepository<NotificationForUsers>
 {

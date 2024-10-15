@@ -1,8 +1,8 @@
 using AutoMapper;
-using Forpost.Domain.InvoiceManagement;
+using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Store.Postgres;
 
-namespace Forpost.Store.Repositories.InvoiceManagment;
+namespace Forpost.Store.Repositories.CRM.InvoiceManagment;
 
 internal sealed class CompositionInvoiceInvoiceDomainRepository : DomainRepository<CompositionInvoice>,
     ICompositionInvoiceDomainRepository

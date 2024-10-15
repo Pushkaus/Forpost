@@ -1,8 +1,7 @@
-using Forpost.Domain.InvoiceManagement.Events;
+using Forpost.Domain.CRM.InvoiceManagement.Events;
 using Forpost.Domain.Primitives.EntityTemplates;
-using Forpost.Domain.ProductCreating.Issue;
 
-namespace Forpost.Domain.InvoiceManagement;
+namespace Forpost.Domain.CRM.InvoiceManagement;
 
 public sealed class Invoice : AggregateRoot
 {

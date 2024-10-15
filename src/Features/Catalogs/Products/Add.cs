@@ -22,4 +22,4 @@ internal sealed class ProductCreateCommandHandler : ICommandHandler<AddProductCo
     }
 }
 
-public record AddProductCommand(string Name, string? Version) : ICommand<Guid>;
+public record AddProductCommand(string Name, string? Barcode) : ICommand<Guid>;

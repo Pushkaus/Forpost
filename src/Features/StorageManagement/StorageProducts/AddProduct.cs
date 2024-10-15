@@ -2,7 +2,7 @@ using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.StorageManagment;
 using Mediator;
 
-namespace Forpost.Features.StorageManagment.StorageProducts;
+namespace Forpost.Features.StorageManagement.StorageProducts;
 
 internal sealed class AddProducOnStorageCommandHandler: ICommandHandler<AddProducOnStorageCommand>
 {

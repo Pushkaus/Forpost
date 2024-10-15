@@ -1,6 +1,5 @@
 using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
-using Forpost.Application.Contracts.ProductsDevelopments;
 using Forpost.Domain.Catalogs.TechCardItems;
 using Mediator;
 

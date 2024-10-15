@@ -987,6 +987,313 @@
         }
       }
     },
+    "/api/v1/files": {
+      "post": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Добавление файлов к id",
+        "operationId": "UploadFile",
+        "parameters": [
+          {
+            "name": "ParentId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/files/download/{id}": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Скачивание файла с сервера",
+        "operationId": "DownloadFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadFileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/files/{id}": {
+      "delete": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Удаление файла из БД",
+        "operationId": "DeleteFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadFileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/files/{parentId}": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Список файлов по id",
+        "operationId": "GetAllFiles",
+        "parameters": [
+          {
+            "name": "parentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FilesResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/price-list": {
+      "post": {
+        "tags": [
+          "PriceList"
+        ],
+        "summary": "Добавление позиции в прайс-лист",
+        "operationId": "Add",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PriceListRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "PriceList"
+        ],
+        "operationId": "GetAll",
+        "parameters": [
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "ProductName",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/issue-history": {
+      "get": {
+        "tags": [
+          "IssueHistory"
+        ],
+        "operationId": "GetAllAll4",
+        "parameters": [
+          {
+            "name": "ExecutorId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "ResponsibleId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Month",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "Year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 4
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 5
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 6
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IssueHistoryModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/invoices/number/{number}": {
       "get": {
         "tags": [
@@ -1025,7 +1332,7 @@
           "Invoice"
         ],
         "summary": "Получить все счета",
-        "operationId": "GetAllAll4",
+        "operationId": "GetAllAll5",
         "parameters": [
           {
             "name": "skip",
@@ -1336,232 +1643,6 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/CompositionInvoiceModel"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/files": {
-      "post": {
-        "tags": [
-          "File"
-        ],
-        "summary": "Добавление файлов к id",
-        "operationId": "UploadFile",
-        "parameters": [
-          {
-            "name": "ParentId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "File": {
-                    "type": "string",
-                    "format": "binary",
-                    "nullable": true
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/files/download/{id}": {
-      "get": {
-        "tags": [
-          "File"
-        ],
-        "summary": "Скачивание файла с сервера",
-        "operationId": "DownloadFile",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DownloadFileResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/files/{id}": {
-      "delete": {
-        "tags": [
-          "File"
-        ],
-        "summary": "Удаление файла из БД",
-        "operationId": "DeleteFile",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DownloadFileResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/files/{parentId}": {
-      "get": {
-        "tags": [
-          "File"
-        ],
-        "summary": "Список файлов по id",
-        "operationId": "GetAllFiles",
-        "parameters": [
-          {
-            "name": "parentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/FileResponse"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/issue-history": {
-      "get": {
-        "tags": [
-          "IssueHistory"
-        ],
-        "operationId": "GetAllAll5",
-        "parameters": [
-          {
-            "name": "ExecutorId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "guid",
-              "nullable": true
-            },
-            "x-position": 1
-          },
-          {
-            "name": "ResponsibleId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "guid",
-              "nullable": true
-            },
-            "x-position": 2
-          },
-          {
-            "name": "Month",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": true
-            },
-            "x-position": 3
-          },
-          {
-            "name": "Year",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "nullable": true
-            },
-            "x-position": 4
-          },
-          {
-            "name": "Skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 5
-          },
-          {
-            "name": "Limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 6
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IssueHistoryModel"
                   }
                 }
               }
@@ -2284,7 +2365,7 @@
           "Product"
         ],
         "summary": "Получение всех продуктов",
-        "operationId": "GetAll",
+        "operationId": "GetAll2",
         "parameters": [
           {
             "name": "skip",
@@ -2469,7 +2550,7 @@
           "Operation"
         ],
         "summary": "Добавление операции",
-        "operationId": "Add",
+        "operationId": "Add2",
         "requestBody": {
           "x-name": "operationName",
           "content": {
@@ -2535,7 +2616,7 @@
           "Employee"
         ],
         "summary": "Получить список всех сотрудников",
-        "operationId": "GetAll2",
+        "operationId": "GetAll3",
         "parameters": [
           {
             "name": "skip",
@@ -3429,6 +3510,117 @@
           }
         }
       },
+      "DownloadFileResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fileContent": {
+            "type": "string",
+            "format": "byte"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          }
+        }
+      },
+      "FilesResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "parentId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "fileContent": {
+            "type": "string",
+            "format": "byte"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          }
+        }
+      },
+      "PriceListRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operationId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "price": {
+            "type": "number",
+            "format": "decimal"
+          }
+        }
+      },
+      "ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "IssueHistoryModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productDevelopmentId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "serialNumber": {
+            "type": "string"
+          },
+          "issueId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "operationName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "completionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "executorId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "executorName": {
+            "type": "string"
+          },
+          "responsibleId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "responsibleName": {
+            "type": "string"
+          }
+        }
+      },
       "Invoice": {
         "allOf": [
           {
@@ -3822,88 +4014,6 @@
             "format": "guid"
           },
           "serialNumber": {
-            "type": "string"
-          }
-        }
-      },
-      "DownloadFileResponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "fileContent": {
-            "type": "string",
-            "format": "byte"
-          },
-          "contentType": {
-            "type": "string"
-          },
-          "fileName": {
-            "type": "string"
-          }
-        }
-      },
-      "FileResponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "guid"
-          },
-          "parentId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "fileContent": {
-            "type": "string",
-            "format": "byte"
-          },
-          "contentType": {
-            "type": "string"
-          },
-          "fileName": {
-            "type": "string"
-          }
-        }
-      },
-      "IssueHistoryModel": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "productDevelopmentId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "productName": {
-            "type": "string"
-          },
-          "issueId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "operationName": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "completionDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "executorId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "executorName": {
-            "type": "string"
-          },
-          "responsibleId": {
-            "type": "string",
-            "format": "guid"
-          },
-          "responsibleName": {
             "type": "string"
           }
         }
@@ -4319,13 +4429,8 @@
             "format": "guid",
             "nullable": true
           },
-          "version": {
+          "barcode": {
             "type": "string",
-            "nullable": true
-          },
-          "cost": {
-            "type": "number",
-            "format": "decimal",
             "nullable": true
           },
           "createdAt": {
@@ -4363,7 +4468,7 @@
           "name": {
             "type": "string"
           },
-          "version": {
+          "barcode": {
             "type": "string",
             "nullable": true
           }

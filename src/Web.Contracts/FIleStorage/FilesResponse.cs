@@ -1,6 +1,6 @@
 namespace Forpost.Web.Contracts.FIleStorage;
 
-public class FileResponse
+public class FilesResponse
 {
     public Guid Id { get; set; }
     public Guid ParentId { get; set; }

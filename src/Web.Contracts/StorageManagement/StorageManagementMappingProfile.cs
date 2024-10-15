@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Features.StorageManagment;
+using Forpost.Features.StorageManagement;
 using Forpost.Web.Contracts.StorageManagement.StorageProduct;
 
 namespace Forpost.Web.Contracts.StorageManagement;

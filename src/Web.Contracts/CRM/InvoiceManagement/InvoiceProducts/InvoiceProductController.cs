@@ -1,13 +1,10 @@
 using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
 using Forpost.Features.InvoiceManagement.CompositionInvoices;
 using Forpost.Features.InvoiceManagement.InvoiceProducts;
-using Forpost.Features.InvoiceManagment.CompositionInvoices;
-using Forpost.Features.InvoiceManagment.InvoiceProducts;
-using Forpost.Web.Contracts.InvoiceManagement.CompositionInvoices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.InvoiceManagement.InvoiceProducts;
+namespace Forpost.Web.Contracts.CRM.InvoiceManagement.InvoiceProducts;
 
 [Route("api/v1/invoice-products")]
 public sealed class InvoiceProductController : ApiController

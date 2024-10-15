@@ -1,11 +1,9 @@
-using AutoMapper;
 using Forpost.Application.Contracts.StorageManagment;
-using Forpost.Features.StorageManagment.StorageProducts;
-using Forpost.Web.Contracts.StorageManagement.StorageProduct;
+using Forpost.Features.StorageManagement.StorageProducts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Controllers.StorageProduct;
+namespace Forpost.Web.Contracts.StorageManagement.StorageProduct;
 
 [Route("api/v1/storage-products")]
 public sealed class StorageProductController : ApiController

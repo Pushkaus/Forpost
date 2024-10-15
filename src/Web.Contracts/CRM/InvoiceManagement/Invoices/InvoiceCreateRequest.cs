@@ -1,6 +1,6 @@
-using Forpost.Domain.SortOut;
+using Forpost.Domain.CRM.InvoiceManagement;
 
-namespace Forpost.Web.Contracts.InvoiceManagement.Invoices;
+namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices;
 
 /// <summary>
 /// Модель запроса на создание счета

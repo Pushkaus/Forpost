@@ -1,9 +1,9 @@
 using Forpost.Domain.Catalogs.Contractors;
-using Forpost.Domain.InvoiceManagement;
+using Forpost.Domain.CRM.InvoiceManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.CRM.InvoicesManagment;
 
 internal class InvoiceConfiguration : IEntityTypeConfiguration<Invoice>
 {

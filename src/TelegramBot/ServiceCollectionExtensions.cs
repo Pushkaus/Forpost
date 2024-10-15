@@ -22,6 +22,6 @@ public static class ServiceCollectionExtensions
     {
         return services.AddAllTypesAssignableMarkerInterfaceTo<ITelegramBotSender>(
             TelegramBotAssemblyReference.Assembly,
-            ServiceLifetime.Transient);
+            ServiceLifetime.Scoped);
     }
 }

@@ -1,4 +1,4 @@
-using Forpost.Domain.CRM.PriceList;
+using Forpost.Domain.CRM.PriceLists;
 using Mediator;
 
 namespace Forpost.Features.CRM.PriceLists;

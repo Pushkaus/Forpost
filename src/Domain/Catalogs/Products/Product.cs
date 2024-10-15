@@ -9,11 +9,10 @@ public sealed class Product : DomainAuditableEntity
         var product = new Product
         {
             Name = name,
-            Version = version,
         };
         return product;
     }
     public string Name { get; set; } = null!;
-    public string Version { get; set; } = null!;
+    public string Barcode { get; set; } = string.Empty;
     public Guid? CategoryId { get; set; }
 }

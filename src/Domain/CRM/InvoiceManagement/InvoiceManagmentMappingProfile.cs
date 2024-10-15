@@ -1,4 +1,4 @@
-namespace Forpost.Domain.InvoiceManagement;
+namespace Forpost.Domain.CRM.InvoiceManagement;
 
 internal sealed class InvoiceManagmentMappingProfile
 {
