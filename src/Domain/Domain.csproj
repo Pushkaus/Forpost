@@ -3,5 +3,9 @@
     <ItemGroup>
       <ProjectReference Include="..\Domain.Primitives\Domain.Primitives.csproj" />
     </ItemGroup>
+        
+    <ItemGroup>
+      <Folder Include="BarcodesManagement\" />
+    </ItemGroup>
     
 </Project>

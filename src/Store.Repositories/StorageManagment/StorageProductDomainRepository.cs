@@ -17,4 +17,11 @@ internal sealed class StorageProductDomainRepository : DomainRepository<StorageP
     {
         return await DbSet.Where(entity => entity.ProductId == productId).FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<StorageProduct?> GetByProductIdAndStorageIdAsync(Guid productId, Guid storageId,
+        CancellationToken cancellationToken)
+    {
+        return await DbSet.Where(entity => entity.ProductId == productId && entity.StorageId == storageId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
 }
