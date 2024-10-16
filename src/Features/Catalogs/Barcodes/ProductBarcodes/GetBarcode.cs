@@ -26,7 +26,7 @@ namespace Forpost.Features.Catalogs.Barcodes.ProductBarcodes
             b.IncludeLabel = true;
             foreach (var productBarcode in productBarcodes)
             {
-                var img = b.Encode(BarcodeStandard.Type.Code128, productBarcode.Barcode + productBarcode.Quantity,
+                var img = b.Encode(BarcodeStandard.Type.Code128, productBarcode.Barcode,
                     SKColors.Black, SKColors.White,
                     290,
                     120);
