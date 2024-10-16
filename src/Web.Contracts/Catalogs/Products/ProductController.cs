@@ -110,7 +110,6 @@ public sealed class ProductController : ApiController
             using var ms = new MemoryStream(imageData.ToArray());
             imageResults.Add(File(ms.ToArray(), "image/png"));
         }
-
         return Ok(imageResults);
     }
 
