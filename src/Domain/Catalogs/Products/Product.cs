@@ -13,6 +13,8 @@ public sealed class Product : DomainAuditableEntity
         return product;
     }
     public string Name { get; set; } = null!;
-    public string Barcode { get; set; } = string.Empty;
-    public Guid? CategoryId { get; set; }
+    /// <summary>
+    /// Закупаемый продукт
+    /// </summary>
+    public bool Purchased { get; set; } = false;
 }

@@ -12,8 +12,4 @@ internal sealed class ProductDomainRepository : DomainRepository<Product>, IProd
     {
     }
 
-    public async Task<Product?> GetByBarcodeAsync(string barcode, CancellationToken cancellationToken)
-    {
-        return await DbSet.Where(p => p.Barcode == barcode).FirstOrDefaultAsync(cancellationToken);
-    }
 }

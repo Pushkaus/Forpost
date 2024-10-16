@@ -1,4 +1,5 @@
 using Forpost.Application.Contracts.StorageManagment;
+using Forpost.Features.StorageManagement;
 using Forpost.Features.StorageManagement.StorageProducts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,5 +35,25 @@ public sealed class StorageProductController : ApiController
         await Sender.Send(new AddProducOnStorageCommand(request.StorageId, request.ProductId, request.Quantity),
             cancellationToken);
         return Ok();
+    }
+    /// <summary>
+    /// Сканирование продукта на складе
+    /// </summary>
+    [HttpPost("scan-barcode")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)] // Добавлен статус 404
+    public async Task<IActionResult> ScanBarcode([FromBody] ScanBarcodeRequest request,
+        CancellationToken cancellationToken)
+    {
+        var result = await Sender.Send(new ScanBarcodeCommand(request.StorageId, request.Barcode), cancellationToken);
+    
+        if (result) 
+        {
+            return Ok(); // Продукт найден и обновлен/создан
+        }
+        else 
+        {
+            return NotFound(new { message = "Штрихкод не найден. Необходимо создать новый продукт." }); 
+        }
     }
 }

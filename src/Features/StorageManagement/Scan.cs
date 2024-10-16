@@ -1,52 +1,53 @@
-using Forpost.Common.Exceptions;
-using Forpost.Domain.Catalogs.Products;
-using Forpost.Domain.Catalogs.Steps;
-using Forpost.Domain.StorageManagment;
-using Forpost.Store.Postgres;
-using Mediator;
-using Microsoft.EntityFrameworkCore;
+    using Forpost.Common.Exceptions;
+    using Forpost.Domain.Catalogs.Barcodes;
+    using Forpost.Domain.Catalogs.Products;
+    using Forpost.Domain.Catalogs.Steps;
+    using Forpost.Domain.StorageManagment;
+    using Forpost.Store.Postgres;
+    using Mediator;
+    using Microsoft.EntityFrameworkCore;
 
-namespace Forpost.Features.StorageManagement;
+    namespace Forpost.Features.StorageManagement;
 
-internal sealed class ScanBarcodesCommandHandler : ICommandHandler<ScanBarcodesCommand>
-{
-    private readonly IProductDomainRepository _productDomainRepository;
-    private readonly IStorageProductDomainRepository _storageProductDomainRepository;
-
-    public ScanBarcodesCommandHandler(IProductDomainRepository productDomainRepository,
-        IStorageProductDomainRepository storageProductDomainRepository)
+    internal sealed class ScanBarcodesCommandHandler : ICommandHandler<ScanBarcodeCommand, bool>
     {
-        _productDomainRepository = productDomainRepository;
-        _storageProductDomainRepository = storageProductDomainRepository;
-    }
+        private readonly IStorageProductDomainRepository _storageProductDomainRepository;
+        private readonly IProductBarcodeDomainRepository _productBarcodeDomainRepository;
 
-    public async ValueTask<Unit> Handle(ScanBarcodesCommand command, CancellationToken cancellationToken)
-    {
-        var product = await _productDomainRepository.GetByBarcodeAsync(command.Barcode, cancellationToken);
-        if (product == null)
-            throw new EntityNotFoundException("Продукт с таким штрих-кодом не найден.");
-        
-        var storageProduct =
-            await _storageProductDomainRepository.GetByProductIdAsync(product.Id, cancellationToken);
-        
-        var updatedStorageProduct = storageProduct ?? new StorageProduct
+        public ScanBarcodesCommandHandler(IStorageProductDomainRepository storageProductDomainRepository,
+            IProductBarcodeDomainRepository productBarcodeDomainRepository)
         {
-            ProductId = product.Id,
-            StorageId = command.StorageId,
-            UnitOfMeasure = UnitOfMeasure.Piece,
-            Quantity = 1
-        };
-
-        if (storageProduct != null)
-        {
-            updatedStorageProduct.Quantity += 1;
-            _storageProductDomainRepository.Update(updatedStorageProduct);
+            _storageProductDomainRepository = storageProductDomainRepository;
+            _productBarcodeDomainRepository = productBarcodeDomainRepository;
         }
-        else
-            _storageProductDomainRepository.Add(updatedStorageProduct);
 
-        return Unit.Value;
+        public async ValueTask<bool> Handle(ScanBarcodeCommand command, CancellationToken cancellationToken)
+        {
+            var productBarcode = await _productBarcodeDomainRepository.GetByBarcode(command.Barcode, cancellationToken);
+            if (productBarcode == null)
+                return false;
+            var storageProduct =
+                await _storageProductDomainRepository.GetByProductIdAndStorageIdAsync(productBarcode.ProductId,
+                    command.StorageId, cancellationToken);
+            
+            if (storageProduct == null)
+            {
+                var newStorageProduct = new StorageProduct
+                {
+                    ProductId = productBarcode.ProductId,
+                    StorageId = command.StorageId,
+                    UnitOfMeasure = UnitOfMeasure.Piece,
+                    Quantity = productBarcode.Quantity,
+                };
+                _storageProductDomainRepository.Add(newStorageProduct);
+            }
+            else
+            {
+                storageProduct.Quantity += productBarcode.Quantity;
+                _storageProductDomainRepository.Update(storageProduct);
+            }
+            return true;
+        }
     }
-}
 
-public record ScanBarcodesCommand(Guid StorageId, string Barcode) : ICommand;
+    public record ScanBarcodeCommand(Guid StorageId, string Barcode) : ICommand<bool>;

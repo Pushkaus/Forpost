@@ -1,3 +1,4 @@
+using Forpost.Domain.Catalogs.Barcodes;
 using Forpost.Domain.Catalogs.Category;
 using Forpost.Domain.Catalogs.Contractors;
 using Forpost.Domain.Catalogs.Employees;
@@ -55,6 +56,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<CompositionInvoice> CompositionInvoices => Set<CompositionInvoice>();
     public DbSet<IssueHistory> IssueHistories => Set<IssueHistory>();
     public DbSet<PriceList> PriceLists => Set<PriceList>();
+    public DbSet<ProductBarcode> ProductBarcodes => Set<ProductBarcode>();
     #region ApplicationTables
     
     /// <summary>
