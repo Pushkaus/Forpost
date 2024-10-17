@@ -1,4 +1,5 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
+using Forpost.Domain.StorageManagment.StorageProducts;
 
 namespace Forpost.Domain.StorageManagment;
 

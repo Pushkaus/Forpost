@@ -20,6 +20,8 @@ using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Forpost.Domain.StorageManagment;
+using Forpost.Domain.StorageManagment.EntryStorageHistories;
+using Forpost.Domain.StorageManagment.StorageProducts;
 using Microsoft.EntityFrameworkCore;
 using File = Forpost.Domain.FileStorage.File;
 
@@ -57,6 +59,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<IssueHistory> IssueHistories => Set<IssueHistory>();
     public DbSet<PriceList> PriceLists => Set<PriceList>();
     public DbSet<ProductBarcode> ProductBarcodes => Set<ProductBarcode>();
+    public DbSet<EntryStorageHistory> EntryStorageHistories => Set<EntryStorageHistory>();
     #region ApplicationTables
     
     /// <summary>
