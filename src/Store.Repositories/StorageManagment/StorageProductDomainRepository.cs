@@ -1,5 +1,6 @@
 using AutoMapper;
 using Forpost.Domain.StorageManagment;
+using Forpost.Domain.StorageManagment.StorageProducts;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,9 +20,7 @@ internal sealed class StorageProductDomainRepository : DomainRepository<StorageP
     }
 
     public async Task<StorageProduct?> GetByProductIdAndStorageIdAsync(Guid productId, Guid storageId,
-        CancellationToken cancellationToken)
-    {
-        return await DbSet.Where(entity => entity.ProductId == productId && entity.StorageId == storageId)
+        CancellationToken cancellationToken) =>
+        await DbSet.Where(entity => entity.ProductId == productId && entity.StorageId == storageId)
             .FirstOrDefaultAsync(cancellationToken);
-    }
 }

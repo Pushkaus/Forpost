@@ -20,6 +20,15 @@
 
     <ItemGroup>
       <Folder Include="Files\" />
+      <Folder Include="Files\00000000-0000-0000-0000-000000000000\" />
+      <Folder Include="Files\3850cca1-e744-4355-a081-76ac282aa3e2\" />
+      <Folder Include="Files\8067a853-5eef-462a-b1bb-f48850a3eeb9\" />
+      <Folder Include="Files\8731bfd3-f693-4577-b8dc-2f96aff063ed\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Files\8731bfd3-f693-4577-b8dc-2f96aff063ed\Текст к презентации. Мирганов П.А..docx" />
+      <None Remove="Files\3850cca1-e744-4355-a081-76ac282aa3e2\Innovativer_HVDC-DC-Wandler_fur_Hochspannungs-Glei.pdf" />
     </ItemGroup>
     
     <PropertyGroup>
