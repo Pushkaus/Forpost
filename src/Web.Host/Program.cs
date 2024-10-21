@@ -1,5 +1,4 @@
-using Forpost.Store.Migrations;
-using Forpost.TelegramBot;
+using static Forpost.Store.Migrations.MigrationManager;
 
 namespace Forpost.Web.Host;
 
@@ -13,12 +12,19 @@ internal sealed class Program
 
         try
         {
-            logger.LogDebug("Старт миграции БД ErpDatabase");
-            await MigrationManager.MigrateSchema(configuration);
-            logger.LogDebug("Миграция схемы произошла успешно!");
-            logger.LogDebug("Старт миграции данных");
-            await MigrationManager.MigrateData(configuration);
-            logger.LogDebug("Старт миграции прошла успешно");
+            if (args.Contains("--with-schema-migration"))
+            {
+                logger.LogDebug("Старт миграции схемы БД ErpDatabase");
+                await MigrateSchema(configuration);
+                logger.LogDebug("Миграция схемы произошла успешно!");
+            }
+
+            if (args.Contains("--with-data-migration"))
+            {
+                logger.LogDebug("Старт миграции данных БД ErpDatabase");
+                await MigrateData(configuration);
+                logger.LogDebug("Миграция данных прошла успешно!");
+            }
         }
         catch (Exception ex)
         {
@@ -30,7 +36,7 @@ internal sealed class Program
     private static IHostBuilder CreateHostBuilder(string[] args, Action<IWebHostBuilder> webHostBuilderConfigurator)
     {
         return Microsoft.Extensions.Hosting.Host
-            .CreateDefaultBuilder()
+            .CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webHostBuilderConfigurator);
     }
 
