@@ -76,7 +76,8 @@ public sealed class ProductController : ApiController
         await Sender.Send(new UpdateProductCommand(
             request.Id,
             request.Name,
-            request.Purchased), cancellationToken);
+            request.Purchased,
+            request.CategoryId), cancellationToken);
         return Ok();
     }
 
