@@ -59,7 +59,8 @@ public sealed class ProductController : ApiController
     public async Task<IActionResult>
         CreateAsync([FromBody] ProductCreateRequest request, CancellationToken cancellationToken)
     {
-        var productId = await Sender.Send(new AddProductCommand(request.Name, request.Purchased), cancellationToken);
+        var productId = await Sender.Send(new AddProductCommand(request.Name, request.Purchased, request.CategoryId),
+            cancellationToken);
         return Ok(productId);
     }
 
@@ -92,7 +93,7 @@ public sealed class ProductController : ApiController
     }
 
     /// <summary>
-    /// Получение штрих-кодов продукта в виде массива PNG
+    /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
     /// </summary>
     [HttpGet("{productId}/barcode")]
     [ProducesResponseType(typeof(byte[]), StatusCodes.Status200OK)]
@@ -113,8 +114,7 @@ public sealed class ProductController : ApiController
     public async Task<IActionResult> UpdateBarcode([FromBody] BarcodeRequest request,
         CancellationToken cancellationToken)
     {
-       await Sender.Send(new AddBarcodeProductCommand(request.ProductId, request.Barcode), cancellationToken);
+        await Sender.Send(new AddBarcodeProductCommand(request.ProductId, request.Barcode), cancellationToken);
         return NoContent();
     }
-    
 }
