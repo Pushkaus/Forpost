@@ -6,5 +6,5 @@ public sealed class ProductBarcode: DomainEntity
 {
     public Guid ProductId { get; set; }
     public string Barcode { get; set; } = null!;
-    public int Quantity { get; set; }
+    public string Nomenclature { get; set; } = null!;
 }

@@ -4,7 +4,7 @@ namespace Forpost.Domain.Catalogs.Products;
 
 public sealed class Product : DomainAuditableEntity
 {
-    public static Product Create(string name, string version = "v1")
+    public static Product Create(string name)
     {
         var product = new Product
         {
@@ -17,4 +17,5 @@ public sealed class Product : DomainAuditableEntity
     /// Закупаемый продукт
     /// </summary>
     public bool Purchased { get; set; } = false;
+    public Guid CategoryId { get; set; } = Guid.Empty;
 }

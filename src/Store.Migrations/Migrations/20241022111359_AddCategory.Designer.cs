@@ -3,6 +3,7 @@ using System;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forpost.Store.Migrations.Migrations
 {
     [DbContext(typeof(ForpostContextPostgres))]
-    partial class ForpostContextPostgresModelSnapshot : ModelSnapshot
+    [Migration("20241022111359_AddCategory")]
+    partial class AddCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -216,12 +219,11 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Nomenclature")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -246,8 +248,6 @@ namespace Forpost.Store.Migrations.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
                 });
@@ -1019,16 +1019,6 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Catalogs.Category.Category", b =>
-                {
-                    b.HasOne("Forpost.Domain.Catalogs.Category.Category", "ParentCategory")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("ParentCategory");
-                });
-
             modelBuilder.Entity("Forpost.Domain.Catalogs.Employees.Employee", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.Roles.Role", null)
@@ -1180,11 +1170,6 @@ namespace Forpost.Store.Migrations.Migrations
                         .HasForeignKey("StorageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Forpost.Domain.Catalogs.Category.Category", b =>
-                {
-                    b.Navigation("Children");
                 });
 #pragma warning restore 612, 618
         }

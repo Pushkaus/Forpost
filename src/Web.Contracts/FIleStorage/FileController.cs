@@ -35,7 +35,7 @@ public sealed class FileController : ApiController
 
         var id = await Sender.Send(
             new UploadFileCommand(request.File.FileName, content, request.File.ContentType, request.ParentId), cancellationToken);
-        return CreatedAtAction(nameof(DownloadFileAsync), new { id }, id);
+        return CreatedAtRoute(nameof(UploadFileAsync), new { id }, id);
     }
 
     /// <summary>

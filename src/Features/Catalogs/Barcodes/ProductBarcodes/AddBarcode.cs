@@ -16,8 +16,7 @@ internal sealed class AddBarcodeCommandHandler : ICommandHandler<AddBarcodeProdu
         var productBarcode = new ProductBarcode
         {
             ProductId = command.ProductId,
-            Barcode = command.Barcode,
-            Quantity = command.Quantity
+            Barcode = command.Barcode
         };
 
         try
@@ -33,4 +32,4 @@ internal sealed class AddBarcodeCommandHandler : ICommandHandler<AddBarcodeProdu
     }
 }
 
-public record AddBarcodeProductCommand(Guid ProductId, string Barcode, int Quantity) : ICommand;
+public record AddBarcodeProductCommand(Guid ProductId, string Barcode) : ICommand;
