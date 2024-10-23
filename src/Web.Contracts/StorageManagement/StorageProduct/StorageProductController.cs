@@ -36,24 +36,19 @@ public sealed class StorageProductController : ApiController
             cancellationToken);
         return Ok();
     }
+
     /// <summary>
     /// Сканирование продукта на складе
     /// </summary>
     [HttpPost("scan-barcode")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)] // Добавлен статус 404
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> ScanBarcode([FromBody] ScanBarcodeRequest request,
         CancellationToken cancellationToken)
     {
-        var result = await Sender.Send(new ScanBarcodeCommand(request.StorageId, request.Barcode), cancellationToken);
-    
-        if (result) 
-        {
-            return Ok(); // Продукт найден и обновлен/создан
-        }
-        else 
-        {
-            return NotFound(new { message = "Штрихкод не найден. Необходимо создать новый продукт." }); 
-        }
+        var result = await Sender.Send(
+            new ScanBarcodeProductOnStorageCommand(request.StorageId, request.ProductId, request.Barcode, request.Quantity),
+            cancellationToken);
+        return Ok(result);
     }
 }

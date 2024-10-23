@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="ZXing.Net" />
   </ItemGroup>
   
   <ItemGroup>

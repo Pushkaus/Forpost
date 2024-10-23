@@ -23,4 +23,4 @@ internal sealed class ProductUpdateCommandHandler : ICommandHandler<UpdateProduc
     }
 }
 
-public record UpdateProductCommand(Guid Id, string Name, string? Version) : ICommand;
+public record UpdateProductCommand(Guid Id, string Name, bool Purchased) : ICommand;

@@ -88,6 +88,132 @@
         }
       }
     },
+    "/api/v1/storage-products/scan-barcode": {
+      "post": {
+        "tags": [
+          "StorageProduct"
+        ],
+        "summary": "Сканирование продукта на складе",
+        "operationId": "ScanBarcode",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScanBarcodeRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/entry-storage-histories": {
+      "get": {
+        "tags": [
+          "EntryStorageHistory"
+        ],
+        "summary": "Получение всех поступлений на склад",
+        "operationId": "GetAllEntries",
+        "parameters": [
+          {
+            "name": "Purchased",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Days",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Month",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "Year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 4
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 5
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 6
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/completed-products/on-storage": {
       "get": {
         "tags": [
@@ -992,7 +1118,7 @@
         "tags": [
           "File"
         ],
-        "summary": "Добавление файлов к id",
+        "summary": "Добавление файла",
         "operationId": "UploadFile",
         "parameters": [
           {
@@ -1024,6 +1150,16 @@
         "responses": {
           "201": {
             "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -1057,6 +1193,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -1081,12 +1227,15 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
+            "description": ""
+          },
+          "404": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DownloadFileResponse"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1099,7 +1248,7 @@
         "tags": [
           "File"
         ],
-        "summary": "Список файлов по id",
+        "summary": "Получение списка файлов по родительскому идентификатору",
         "operationId": "GetAllFiles",
         "parameters": [
           {
@@ -1123,6 +1272,16 @@
                   "items": {
                     "$ref": "#/components/schemas/FilesResponse"
                   }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -2544,6 +2703,96 @@
         }
       }
     },
+    "/api/v1/products/{productId}/barcode": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Получение штрих-кодов продукта в виде массива PNG",
+        "operationId": "GetBarcodePngs",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/products/barcode": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Добавить штрихкод продукта.",
+        "operationId": "UpdateBarcode",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BarcodeRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/operations": {
       "post": {
         "tags": [
@@ -2830,6 +3079,98 @@
         }
       }
     },
+    "/api/v1/categories": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "operationId": "Add3",
+        "parameters": [
+          {
+            "name": "Name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Description",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "ParentCategoryId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid",
+              "nullable": true
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "guid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "operationId": "GetAllAll12",
+        "parameters": [
+          {
+            "name": "Name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "ParentCategoryId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryWithChildrenModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/accounts": {
       "post": {
         "tags": [
@@ -2963,6 +3304,60 @@
             "format": "int32"
           }
         }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "additionalProperties": {
+          "nullable": true
+        },
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ScanBarcodeRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "storageId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "barcode": {
+            "type": "string"
+          }
+        }
+      },
+      "ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger": {
+        "type": "object",
+        "additionalProperties": false
       },
       "CompletedProductModel": {
         "type": "object",
@@ -3107,35 +3502,6 @@
           },
           "productCompositionFlag": {
             "type": "boolean"
-          }
-        }
-      },
-      "ProblemDetails": {
-        "type": "object",
-        "additionalProperties": {
-          "nullable": true
-        },
-        "properties": {
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
-            "type": "string",
-            "nullable": true
           }
         }
       },
@@ -4424,14 +4790,8 @@
           "name": {
             "type": "string"
           },
-          "categoryId": {
-            "type": "string",
-            "format": "guid",
-            "nullable": true
-          },
-          "barcode": {
-            "type": "string",
-            "nullable": true
+          "purchased": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -4468,9 +4828,8 @@
           "name": {
             "type": "string"
           },
-          "barcode": {
-            "type": "string",
-            "nullable": true
+          "purchased": {
+            "type": "boolean"
           }
         }
       },
@@ -4485,9 +4844,21 @@
           "name": {
             "type": "string"
           },
-          "version": {
+          "purchased": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BarcodeRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "productId": {
             "type": "string",
-            "nullable": true
+            "format": "guid"
+          },
+          "barcode": {
+            "type": "string"
           }
         }
       },
@@ -4549,6 +4920,34 @@
           },
           "name": {
             "type": "string"
+          }
+        }
+      },
+      "CategoryWithChildrenModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "parentCategoryId": {
+            "type": "string",
+            "format": "guid",
+            "nullable": true
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryWithChildrenModel"
+            }
           }
         }
       },

@@ -1,9 +1,11 @@
+using BarcodeStandard;
 using Forpost.Features.Catalogs.Barcodes.ProductBarcodes;
 using Forpost.Features.Catalogs.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SkiaSharp;
+using ZXing;
 
 namespace Forpost.Web.Contracts.Catalogs.Products;
 
@@ -57,7 +59,8 @@ public sealed class ProductController : ApiController
     public async Task<IActionResult>
         CreateAsync([FromBody] ProductCreateRequest request, CancellationToken cancellationToken)
     {
-        var productId = await Sender.Send(new AddProductCommand(request.Name, request.Purchased), cancellationToken);
+        var productId = await Sender.Send(new AddProductCommand(request.Name, request.Purchased, request.CategoryId),
+            cancellationToken);
         return Ok(productId);
     }
 
@@ -73,7 +76,7 @@ public sealed class ProductController : ApiController
         await Sender.Send(new UpdateProductCommand(
             request.Id,
             request.Name,
-            request.Version), cancellationToken);
+            request.Purchased), cancellationToken);
         return Ok();
     }
 
@@ -90,27 +93,15 @@ public sealed class ProductController : ApiController
     }
 
     /// <summary>
-    /// Получение штрих-кодов продукта в виде массива PNG
+    /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
     /// </summary>
     [HttpGet("{productId}/barcode")]
-    [ProducesResponseType(typeof(byte[][]), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(byte[]), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetBarcodePngsAsync(Guid productId, CancellationToken cancellationToken)
     {
-        var barcodes = await Sender.Send(new GetBarcodeByProductIdQuery(productId), cancellationToken);
-
-        if (barcodes == null)
-        {
-            return NotFound();
-        }
-        var imageResults = new List<FileContentResult>();
-        foreach (var barcode in barcodes)
-        {
-            using var imageData = barcode.Encode(SKEncodedImageFormat.Png, 100);
-            using var ms = new MemoryStream(imageData.ToArray());
-            imageResults.Add(File(ms.ToArray(), "image/png"));
-        }
-        return Ok(imageResults);
+        var productQrCode = await Sender.Send(new GetBarcodeByProductIdQuery(productId), cancellationToken);
+        return File(productQrCode, "image/png");
     }
 
     /// <summary>
@@ -123,7 +114,7 @@ public sealed class ProductController : ApiController
     public async Task<IActionResult> UpdateBarcode([FromBody] BarcodeRequest request,
         CancellationToken cancellationToken)
     {
-        await Sender.Send(new AddBarcodeProductCommand(request.ProductId, request.Barcode, request.Quantity), cancellationToken);
+        await Sender.Send(new AddBarcodeProductCommand(request.ProductId, request.Barcode), cancellationToken);
         return NoContent();
     }
 }

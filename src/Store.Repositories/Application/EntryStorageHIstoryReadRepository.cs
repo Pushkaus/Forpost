@@ -57,7 +57,8 @@ internal sealed class EntryStorageHIstoryReadRepository : IEntryStorageHistoryRe
 
         var totalCount = await query.CountAsync(cancellationToken);
 
-        var result = await query.Skip(filter.Skip).Take(filter.Limit).ToListAsync(cancellationToken);
+        var result = await query.OrderByDescending(x => x.EntryDate).Skip(filter.Skip).Take(filter.Limit)
+            .ToListAsync(cancellationToken);
 
         return (result, totalCount);
     }
