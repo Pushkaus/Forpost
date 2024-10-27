@@ -11,7 +11,6 @@ public sealed class EmployeeController : ApiController
     /// <summary>
     /// Получить список всех сотрудников
     /// </summary>
-    /// <returns>Список сотрудников и общее количество</returns>
     [HttpGet]
     [ProducesResponseType(typeof((IReadOnlyCollection<EmployeeResponse> Employees, int TotalCount)),
         StatusCodes.Status200OK)]

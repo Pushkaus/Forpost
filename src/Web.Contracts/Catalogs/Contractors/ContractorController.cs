@@ -26,7 +26,6 @@ public sealed class ContractorController : ApiController
     /// <summary>
     /// Получить всех контрагентов
     /// </summary>
-    /// <returns>Список контрагентов</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ContractorResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -17,7 +17,9 @@ public sealed class PriceListController : ApiController
         return Ok(await Sender.Send(new AddPriceListCommand(request.OperationId, request.ProductId, request.Price),
             cancellationToken));
     }
-
+    /// <summary>
+    /// Получение всех позиций прайс-листа
+    /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof((IReadOnlyCollection<PriceListModel> PriceLists, int TotalCount)), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllAsync([FromQuery] PriceListFilter filter, CancellationToken cancellationToken)

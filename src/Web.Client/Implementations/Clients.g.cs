@@ -4308,10 +4308,16 @@ namespace Forpost.Web.Client.Implementations
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<FileResponse> AddAsync(PriceListRequest request, System.Threading.CancellationToken cancellationToken);
 
+        /// <summary>
+        /// Получение всех позиций прайс-листа
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> GetAllAsync(int? skip, int? limit, string? productName);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение всех позиций прайс-листа
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> GetAllAsync(int? skip, int? limit, string? productName, System.Threading.CancellationToken cancellationToken);
 
@@ -4432,6 +4438,9 @@ namespace Forpost.Web.Client.Implementations
             }
         }
 
+        /// <summary>
+        /// Получение всех позиций прайс-листа
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> GetAllAsync(int? skip, int? limit, string? productName)
         {
@@ -4439,6 +4448,9 @@ namespace Forpost.Web.Client.Implementations
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение всех позиций прайс-листа
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> GetAllAsync(int? skip, int? limit, string? productName, System.Threading.CancellationToken cancellationToken)
         {
@@ -4634,10 +4646,16 @@ namespace Forpost.Web.Client.Implementations
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial interface IIssueHistoryClient : Forpost.Web.Client.IForpostClient
     {
+        /// <summary>
+        /// Получение истории задач
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> GetAllAll4Async(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение истории задач
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> GetAllAll4Async(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
@@ -4671,6 +4689,9 @@ namespace Forpost.Web.Client.Implementations
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+        /// <summary>
+        /// Получение истории задач
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> GetAllAll4Async(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit)
         {
@@ -4678,6 +4699,9 @@ namespace Forpost.Web.Client.Implementations
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение истории задач
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> GetAllAll4Async(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
@@ -4901,7 +4925,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить все счета
         /// </summary>
-        /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceModel>> GetAllAll5Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
@@ -4909,7 +4932,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить все счета
         /// </summary>
-        /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceModel>> GetAllAll5Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
@@ -5084,7 +5106,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить все счета
         /// </summary>
-        /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceModel>> GetAllAll5Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
@@ -5095,7 +5116,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить все счета
         /// </summary>
-        /// <returns>Список счетов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceModel>> GetAllAll5Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
@@ -5167,7 +5187,7 @@ namespace Forpost.Web.Client.Implementations
                         if (status_ == 204)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u0441\u0447\u0435\u0442\u043e\u0432", status_, responseText_, headers_, null);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -6219,7 +6239,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
-        /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll6Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
@@ -6227,7 +6246,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
-        /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll6Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
@@ -6529,7 +6547,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
-        /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll6Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
@@ -6540,7 +6557,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
-        /// <returns>Список тех.карт и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll6Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
@@ -6612,7 +6628,7 @@ namespace Forpost.Web.Client.Implementations
                         if (status_ == 204)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u0442\u0435\u0445.\u043a\u0430\u0440\u0442 \u0438 \u043e\u0431\u0449\u0435\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e", status_, responseText_, headers_, null);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 404)
@@ -7284,7 +7300,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение состава тех.карты по TechCardId
         /// </summary>
-        /// <param name="techCardId">id тех.карты</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardItem>> GetTechCardItemsAsync(System.Guid techCardId);
 
@@ -7292,7 +7307,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение состава тех.карты по TechCardId
         /// </summary>
-        /// <param name="techCardId">id тех.карты</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardItem>> GetTechCardItemsAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken);
 
@@ -7355,7 +7369,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение состава тех.карты по TechCardId
         /// </summary>
-        /// <param name="techCardId">id тех.карты</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardItem>> GetTechCardItemsAsync(System.Guid techCardId)
         {
@@ -7366,7 +7379,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение состава тех.карты по TechCardId
         /// </summary>
-        /// <param name="techCardId">id тех.карты</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardItem>> GetTechCardItemsAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken)
         {
@@ -7737,7 +7749,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех складов
         /// </summary>
-        /// <returns>Список складов и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Storage>> GetAllAll7Async();
 
@@ -7745,7 +7756,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех складов
         /// </summary>
-        /// <returns>Список складов и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Storage>> GetAllAll7Async(System.Threading.CancellationToken cancellationToken);
 
@@ -7865,7 +7875,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех складов
         /// </summary>
-        /// <returns>Список складов и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Storage>> GetAllAll7Async()
         {
@@ -7876,7 +7885,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех складов
         /// </summary>
-        /// <returns>Список складов и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Storage>> GetAllAll7Async(System.Threading.CancellationToken cancellationToken)
         {
@@ -7930,7 +7938,7 @@ namespace Forpost.Web.Client.Implementations
                         if (status_ == 204)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u0441\u043a\u043b\u0430\u0434\u043e\u0432 \u0438 \u043e\u0431\u0449\u0435\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e", status_, responseText_, headers_, null);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -9068,7 +9076,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
-        /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
@@ -9076,7 +9083,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
-        /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
@@ -9133,14 +9139,14 @@ namespace Forpost.Web.Client.Implementations
         System.Threading.Tasks.Task Delete6Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
-        /// Получение штрих-кодов продукта в виде массива PNG
+        /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<byte[]> GetBarcodePngsAsync(System.Guid productId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Получение штрих-кодов продукта в виде массива PNG
+        /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<byte[]> GetBarcodePngsAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
@@ -9191,7 +9197,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
-        /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
@@ -9202,7 +9207,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
-        /// <returns>Список продуктов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfProductResponseAndInteger> GetAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
@@ -9274,7 +9278,7 @@ namespace Forpost.Web.Client.Implementations
                         if (status_ == 204)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432", status_, responseText_, headers_, null);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 404)
@@ -9639,7 +9643,7 @@ namespace Forpost.Web.Client.Implementations
         }
 
         /// <summary>
-        /// Получение штрих-кодов продукта в виде массива PNG
+        /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<byte[]> GetBarcodePngsAsync(System.Guid productId)
@@ -9649,7 +9653,7 @@ namespace Forpost.Web.Client.Implementations
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Получение штрих-кодов продукта в виде массива PNG
+        /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<byte[]> GetBarcodePngsAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
@@ -10302,7 +10306,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
-        /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll3Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
@@ -10310,7 +10313,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
-        /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll3Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
@@ -10347,7 +10349,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
-        /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll3Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
@@ -10358,7 +10359,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
-        /// <returns>Список сотрудников и общее количество</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll3Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
@@ -10430,7 +10430,7 @@ namespace Forpost.Web.Client.Implementations
                         if (status_ == 204)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u043e\u0432 \u0438 \u043e\u0431\u0449\u0435\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e", status_, responseText_, headers_, null);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 404)
@@ -10590,7 +10590,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить всех контрагентов
         /// </summary>
-        /// <returns>Список контрагентов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll11Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
@@ -10598,7 +10597,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить всех контрагентов
         /// </summary>
-        /// <returns>Список контрагентов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll11Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
@@ -10731,7 +10729,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить всех контрагентов
         /// </summary>
-        /// <returns>Список контрагентов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll11Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
@@ -10742,7 +10739,6 @@ namespace Forpost.Web.Client.Implementations
         /// <summary>
         /// Получить всех контрагентов
         /// </summary>
-        /// <returns>Список контрагентов</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ContractorResponse>> GetAllAll11Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
@@ -10814,7 +10810,7 @@ namespace Forpost.Web.Client.Implementations
                         if (status_ == 204)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("\u0421\u043f\u0438\u0441\u043e\u043a \u043a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442\u043e\u0432", status_, responseText_, headers_, null);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 404)
@@ -11044,17 +11040,29 @@ namespace Forpost.Web.Client.Implementations
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial interface ICategoryClient : Forpost.Web.Client.IForpostClient
     {
+        /// <summary>
+        /// Создание категории
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Guid> Add3Async(string? name, string? description, System.Guid? parentCategoryId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Создание категории
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Guid> Add3Async(string? name, string? description, System.Guid? parentCategoryId, System.Threading.CancellationToken cancellationToken);
 
+        /// <summary>
+        /// Получить все категории
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> GetAllAll12Async(string? name, System.Guid? parentCategoryId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получить все категории
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> GetAllAll12Async(string? name, System.Guid? parentCategoryId, System.Threading.CancellationToken cancellationToken);
 
@@ -11088,6 +11096,9 @@ namespace Forpost.Web.Client.Implementations
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+        /// <summary>
+        /// Создание категории
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Guid> Add3Async(string? name, string? description, System.Guid? parentCategoryId)
         {
@@ -11095,6 +11106,9 @@ namespace Forpost.Web.Client.Implementations
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Создание категории
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Guid> Add3Async(string? name, string? description, System.Guid? parentCategoryId, System.Threading.CancellationToken cancellationToken)
         {
@@ -11179,6 +11193,9 @@ namespace Forpost.Web.Client.Implementations
             }
         }
 
+        /// <summary>
+        /// Получить все категории
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> GetAllAll12Async(string? name, System.Guid? parentCategoryId)
         {
@@ -11186,6 +11203,9 @@ namespace Forpost.Web.Client.Implementations
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получить все категории
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> GetAllAll12Async(string? name, System.Guid? parentCategoryId, System.Threading.CancellationToken cancellationToken)
         {
@@ -13059,6 +13079,9 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("purchased")]
         public bool Purchased { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("categoryId")]
+        public System.Guid CategoryId { get; set; } = default!;
+
         [System.Text.Json.Serialization.JsonPropertyName("createdAt")]
         public System.DateTimeOffset CreatedAt { get; set; } = default!;
 
@@ -13089,6 +13112,9 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("purchased")]
         public bool Purchased { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("categoryId")]
+        public System.Guid CategoryId { get; set; } = default!;
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -13103,6 +13129,9 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("purchased")]
         public bool Purchased { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("categoryId")]
+        public System.Guid CategoryId { get; set; } = default!;
 
     }
 

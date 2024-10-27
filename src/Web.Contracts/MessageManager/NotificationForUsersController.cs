@@ -12,9 +12,6 @@ public sealed class NotificationForUsersController: ApiController
     /// <summary>
     /// Получить все уведомления для пользователей
     /// </summary>
-    /// <param name="skip"></param>
-    /// <param name="limit"></param>
-    /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<NotificationForUsersModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] int skip = 0, [FromQuery] int limit = 100)
@@ -29,8 +26,6 @@ public sealed class NotificationForUsersController: ApiController
     /// <summary>
     /// Добавить уведомление для пользователей
     /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Publish([FromBody] NotificationForUsersRequest request)

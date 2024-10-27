@@ -33,7 +33,6 @@ public sealed class RoleController : ApiController
     /// <summary>
     /// Получить роль по id
     /// </summary>
-    /// <param name="id"></param>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)

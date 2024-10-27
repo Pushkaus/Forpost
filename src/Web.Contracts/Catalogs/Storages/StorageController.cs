@@ -12,7 +12,6 @@ public sealed class StorageController : ApiController
     /// <summary>
     /// Создание нового склада
     /// </summary>
-    /// <param name="request"></param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult>
@@ -25,7 +24,6 @@ public sealed class StorageController : ApiController
     /// <summary>
     /// Получить список всех складов
     /// </summary>
-    /// <returns>Список складов и общее количество</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<Storage>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
