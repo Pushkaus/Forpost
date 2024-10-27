@@ -16,7 +16,6 @@ public sealed class ProductController : ApiController
     /// <summary>
     /// Получение всех продуктов
     /// </summary>
-    /// <returns>Список продуктов</returns>
     [HttpGet]
     [ProducesResponseType(typeof((IReadOnlyCollection<ProductResponse> Products, int TotalCount)),
         StatusCodes.Status200OK)]
@@ -41,7 +40,6 @@ public sealed class ProductController : ApiController
     /// <summary>
     /// Получение продукта по id
     /// </summary>
-    /// <param name="id"></param>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
@@ -53,7 +51,6 @@ public sealed class ProductController : ApiController
     /// <summary>
     /// Создать продукт
     /// </summary>
-    /// <param name="request"></param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult>

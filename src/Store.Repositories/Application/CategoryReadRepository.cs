@@ -17,48 +17,55 @@ internal sealed class CategoryReadRepository : ICategoryReadRepository
     public async Task<IReadOnlyCollection<CategoryWithChildrenModel>> GetCategoriesAsync(CategoryFilter filter,
         CancellationToken cancellationToken)
     {
-        // Загружаем категории из базы данных
         var categories = await _dbContext.Categories.AsNoTracking().ToListAsync(cancellationToken);
 
-        // Если категории не загружены, возвращаем пустой список
-        if (categories == null || categories.Count == 0)
+        if (!categories.Any())
         {
-            // Включите логирование в избранной вами системе логирования если необходимо
             return Array.Empty<CategoryWithChildrenModel>();
         }
 
-        // Преобразование сущностей в DTO
-        var categoryDtos = categories.Select(c => new CategoryWithChildrenModel
-        {
-            Id = c.Id,
-            Name = c.Name,
-            Description = c.Description,
-            ParentCategoryId = c.ParentCategoryId
-        }).ToList();
+        var uniqueCategories = categories.GroupBy(c => c.Id).Select(g => g.First()).ToList();
 
-        // Применение фильтров после загрузки
         if (!string.IsNullOrWhiteSpace(filter.Name))
         {
             var nameFilter = filter.Name.Trim().ToLower();
-            categoryDtos = categoryDtos.Where(c => c.Name != null && c.Name.ToLower().Contains(nameFilter)).ToList();
+            uniqueCategories = uniqueCategories.Where(c => c.Name != null && c.Name.ToLower().Contains(nameFilter))
+                .ToList();
         }
 
         if (filter.ParentCategoryId.HasValue)
         {
-            categoryDtos = categoryDtos.Where(c => c.ParentCategoryId == filter.ParentCategoryId.Value).ToList();
+            uniqueCategories = uniqueCategories.Where(c => c.ParentCategoryId == filter.ParentCategoryId.Value)
+                .ToList();
         }
 
-        // Построение словаря категорий по Id для доступа к ним по Id
-        var categoryDict = categoryDtos.ToDictionary(c => c.Id);
-        foreach (var category in categoryDtos)
+        var categoryDict = uniqueCategories.ToDictionary(c => c.Id, c => new CategoryWithChildrenModel
         {
-            // Проверка, что есть значение ParentCategoryId, чтобы идентифицировать дочерние категории
-            if (!category.ParentCategoryId.HasValue) continue;
-            if (categoryDict.TryGetValue(category.ParentCategoryId.Value, out var parentCategory))
+            Id = c.Id,
+            Name = c.Name,
+            Description = c.Description,
+            ParentCategoryId = c.ParentCategoryId,
+            Children = new List<CategoryWithChildrenModel>()
+        });
+
+        var rootCategories = new List<CategoryWithChildrenModel>();
+
+        foreach (var category in categoryDict.Values)
+        {
+            if (category.ParentCategoryId == Guid.Empty)
             {
-                parentCategory.Children.Add(category);
+                rootCategories.Add(category);
+            }
+            else
+            {
+                var parentId = category.ParentCategoryId.Value;
+                if (categoryDict.TryGetValue(parentId, out var parentCategory))
+                {
+                    parentCategory.Children.Add(category);
+                }
             }
         }
-        return categoryDict.Values.ToList();
+
+        return rootCategories; 
     }
 }

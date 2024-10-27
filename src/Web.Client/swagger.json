@@ -1326,6 +1326,7 @@
         "tags": [
           "PriceList"
         ],
+        "summary": "Получение всех позиций прайс-листа",
         "operationId": "GetAll",
         "parameters": [
           {
@@ -1375,6 +1376,7 @@
         "tags": [
           "IssueHistory"
         ],
+        "summary": "Получение истории задач",
         "operationId": "GetAllAll4",
         "parameters": [
           {
@@ -1540,7 +1542,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Список счетов",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1553,7 +1555,7 @@
             }
           },
           "204": {
-            "description": "Список счетов"
+            "description": ""
           }
         }
       },
@@ -1955,7 +1957,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Список тех.карт и общее количество",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -1968,7 +1970,7 @@
             }
           },
           "204": {
-            "description": "Список тех.карт и общее количество"
+            "description": ""
           },
           "404": {
             "description": "",
@@ -2123,7 +2125,6 @@
             "name": "techCardId",
             "in": "path",
             "required": true,
-            "description": "id тех.карты",
             "schema": {
               "type": "string",
               "format": "guid"
@@ -2241,7 +2242,7 @@
         "operationId": "GetAllAll7",
         "responses": {
           "200": {
-            "description": "Список складов и общее количество",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -2254,7 +2255,7 @@
             }
           },
           "204": {
-            "description": "Список складов и общее количество"
+            "description": ""
           }
         }
       }
@@ -2573,7 +2574,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Список продуктов",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -2583,7 +2584,7 @@
             }
           },
           "204": {
-            "description": "Список продуктов"
+            "description": ""
           },
           "404": {
             "description": "",
@@ -2708,7 +2709,7 @@
         "tags": [
           "Product"
         ],
-        "summary": "Получение штрих-кодов продукта в виде массива PNG",
+        "summary": "Получение QR-продукта. Содержит JSON с Id и Name продукта.",
         "operationId": "GetBarcodePngs",
         "parameters": [
           {
@@ -2914,7 +2915,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Список сотрудников и общее количество",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -2924,7 +2925,7 @@
             }
           },
           "204": {
-            "description": "Список сотрудников и общее количество"
+            "description": ""
           },
           "404": {
             "description": "",
@@ -3018,7 +3019,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Список контрагентов",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -3031,7 +3032,7 @@
             }
           },
           "204": {
-            "description": "Список контрагентов"
+            "description": ""
           },
           "404": {
             "description": "",
@@ -3084,6 +3085,7 @@
         "tags": [
           "Category"
         ],
+        "summary": "Создание категории",
         "operationId": "Add3",
         "parameters": [
           {
@@ -3132,6 +3134,7 @@
         "tags": [
           "Category"
         ],
+        "summary": "Получить все категории",
         "operationId": "GetAllAll12",
         "parameters": [
           {
@@ -4793,6 +4796,10 @@
           "purchased": {
             "type": "boolean"
           },
+          "categoryId": {
+            "type": "string",
+            "format": "guid"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -4830,6 +4837,10 @@
           },
           "purchased": {
             "type": "boolean"
+          },
+          "categoryId": {
+            "type": "string",
+            "format": "guid"
           }
         }
       },
@@ -4846,6 +4857,10 @@
           },
           "purchased": {
             "type": "boolean"
+          },
+          "categoryId": {
+            "type": "string",
+            "format": "guid"
           }
         }
       },

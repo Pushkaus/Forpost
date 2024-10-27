@@ -12,7 +12,6 @@ public sealed class StorageProductController : ApiController
     /// <summary>
     /// Получить список всех продуктов на складе
     /// </summary>
-    /// <returns></returns>
     [HttpGet("{storageId}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<StorageProductModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllProductsAsync(Guid storageId, CancellationToken cancellationToken,
@@ -25,8 +24,6 @@ public sealed class StorageProductController : ApiController
     /// <summary>
     /// Добавить продукт на склад
     /// </summary>
-    /// <param name="request"></param>
-    /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult>

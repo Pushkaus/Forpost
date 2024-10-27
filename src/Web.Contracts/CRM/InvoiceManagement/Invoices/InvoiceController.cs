@@ -20,7 +20,6 @@ public sealed class InvoiceController : ApiController
     /// <summary>
     /// Получить все счета
     /// </summary>
-    /// <returns>Список счетов</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -12,7 +12,6 @@ public sealed class InvoiceProductController : ApiController
     /// <summary>
     /// Добавление продуктов в счет
     /// </summary>
-    /// <param name="request"></param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult>
@@ -27,7 +26,6 @@ public sealed class InvoiceProductController : ApiController
     /// <summary>
     /// Получение продуктов по id счета
     /// </summary>
-    /// <param name="id"></param>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceProductResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCompositionInvoiceAsync(Guid id, CancellationToken cancellationToken)

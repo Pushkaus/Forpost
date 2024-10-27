@@ -12,7 +12,6 @@ public sealed class TechCardController : ApiController
     /// <summary>
     /// Получение состава тех.карты по Id 
     /// </summary>
-    /// <param name="techCardId"></param>
     [HttpGet("composition/{techCardId}")]
     [ProducesResponseType(typeof(CompositionTechCardResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult?> GetCompositionTechCardAsync(Guid techCardId,
@@ -34,7 +33,6 @@ public sealed class TechCardController : ApiController
     /// <summary>
     /// Получение тех.карты по Id
     /// </summary>
-    /// <param name="id"></param>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(TechCard), StatusCodes.Status200OK)]
     public async Task<TechCard?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
@@ -43,7 +41,6 @@ public sealed class TechCardController : ApiController
     /// <summary>
     /// Получение всех тех.карт
     /// </summary>
-    /// <returns>Список тех.карт и общее количество</returns>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<TechCardResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -64,7 +61,6 @@ public sealed class TechCardController : ApiController
     /// <summary>
     /// Создание тех.карты
     /// </summary>
-    /// <param name="card"></param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync(TechCardCreateRequest card, CancellationToken cancellationToken)
@@ -83,8 +79,6 @@ public sealed class TechCardController : ApiController
     /// <summary>
     /// Удаление тех.карты
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)

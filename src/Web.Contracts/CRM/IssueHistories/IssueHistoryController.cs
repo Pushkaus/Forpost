@@ -8,6 +8,9 @@ namespace Forpost.Web.Contracts.CRM.IssueHistories;
 [Route("api/v1/issue-history")]
 public sealed class IssueHistoryController : ApiController
 {
+    /// <summary>
+    /// Получение истории задач
+    /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<IssueHistoryModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] IssueHistoryRequest request, CancellationToken cancellationToken)

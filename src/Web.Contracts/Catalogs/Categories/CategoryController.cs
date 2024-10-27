@@ -13,7 +13,7 @@ public sealed class CategoryController : ApiController
     /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
-    public async Task<IActionResult> AddAsync([FromQuery] CategoryRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> AddAsync([FromBody] CategoryRequest request, CancellationToken cancellationToken)
     {
         var result =
             await Sender.Send(new AddCategoryCommand(request.Name, request.ParentCategoryId, request.Description),

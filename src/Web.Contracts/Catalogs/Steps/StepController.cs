@@ -11,7 +11,6 @@ public sealed class StepController : ApiController
     /// <summary>
     /// Получение этапа по Id 
     /// </summary>
-    /// <param name="id"></param>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(Step), StatusCodes.Status200OK)]
     public async Task<Step?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
@@ -20,7 +19,6 @@ public sealed class StepController : ApiController
     /// <summary>
     /// Получение всех этапов
     /// </summary>
-    /// <param name="cancellationToken"></param>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<Step>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -40,8 +38,6 @@ public sealed class StepController : ApiController
     /// <summary>
     /// Создание этапа
     /// </summary>
-    /// <param name="step"></param>
-    /// <param name="cancellationToken"></param>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<Guid> CreateAsync([FromBody] StepCreateRequest step, CancellationToken cancellationToken)
@@ -58,8 +54,6 @@ public sealed class StepController : ApiController
     /// <summary>
     /// Удаление этапа
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
     [HttpDelete("{id}")]
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
     {

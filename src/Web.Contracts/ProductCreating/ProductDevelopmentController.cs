@@ -70,9 +70,6 @@ public sealed class ProductDevelopmentController : ApiController
     /// <summary>
     /// Получение состава продукта по ProductDevelopmentId 
     /// </summary>
-    /// <param name="productDevelopmentId"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     [HttpGet("{productDevelopmentId}/composition")]
     [ProducesResponseType(typeof(CompositionProductGroupModel), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCompositionProduct
