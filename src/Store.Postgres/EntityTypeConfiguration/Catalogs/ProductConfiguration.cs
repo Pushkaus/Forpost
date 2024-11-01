@@ -10,7 +10,9 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
     public void Configure(EntityTypeBuilder<Product> builder)
     {
         builder.ConfigureBaseEntity();
-
+        
+        builder.HasIndex(entity => entity.Name).IsUnique();
+        
         builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }

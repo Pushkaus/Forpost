@@ -29,6 +29,8 @@ public sealed record EmployeeWithRoleModel
     /// </summary>
     public string Role { get; set; } = default!;
 
+    public Guid RoleId { get; set; } 
+
     /// <summary>
     /// Почта сотрудника
     /// </summary>

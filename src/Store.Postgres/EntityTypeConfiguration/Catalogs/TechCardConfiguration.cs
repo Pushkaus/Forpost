@@ -15,7 +15,7 @@ internal sealed class TechCardConfiguration : IEntityTypeConfiguration<TechCard>
         builder.HasOne<Employee>()
             .WithMany()
             .HasForeignKey(key => key.CreatedById);
-
+        
         builder.HasOne<Product>()
             .WithMany()
             .HasForeignKey(key => key.ProductId);

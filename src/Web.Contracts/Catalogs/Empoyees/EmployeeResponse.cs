@@ -23,7 +23,8 @@ public class EmployeeResponse
     /// Должность сотрудника
     /// </summary>
     public string Post { get; set; }
-
+    
+    public string Role { get; set; }
     /// <summary>
     /// Id на роль в приложении
     /// </summary>

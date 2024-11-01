@@ -28,7 +28,7 @@ public sealed class ProductController : ApiController
     {
         var result = await Sender.Send(new GetAllProductsQuery(filterExpression, filterValues, skip, limit),
             cancellationToken);
-
+        
         var productResponses = Mapper.Map<IReadOnlyCollection<ProductResponse>>(result.Products);
         return Ok(new
         {

@@ -36,6 +36,7 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
                     Patronymic = employee.Patronymic,
                     Post = employee.Post,
                     Role = role.Name,
+                    RoleId = employee.RoleId,
                     Email = employee.Email,
                     PhoneNumber = employee.PhoneNumber,
                 }

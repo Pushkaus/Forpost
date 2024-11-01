@@ -14,6 +14,8 @@ internal sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .WithMany(c => c.Children)
             .OnDelete(DeleteBehavior.Restrict);
         
+        builder.HasIndex(entity => entity.Name).IsUnique();
+
         builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength).IsRequired();
     }
 }
