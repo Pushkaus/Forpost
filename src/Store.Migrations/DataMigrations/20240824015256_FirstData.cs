@@ -100,7 +100,7 @@ namespace Forpost.Store.Migrations.DataMigrations
                                   
                                            INSERT INTO "Products"
                                                ("Id", "Name", "CategoryId", "CreatedAt", "CreatedById",
-                                                "UpdatedAt", "UpdatedById", "DeletedAt", "DeletedById", "Version")
+                                                "UpdatedAt", "UpdatedById", "DeletedAt", "DeletedById", "Barcode")
                                            VALUES
                                                ('{productId1}', 'БПС-3000-220/220в-15А-23', null, '{dateTimeNow}', '{userId}',
                                                 '{dateTimeNow}', '{userId}', null, null, '1'),
