@@ -95,20 +95,20 @@ namespace Forpost.Store.Migrations.DataMigrations
             var operationId4 = "CEFE990F-A957-4274-B303-32386A8F1A48";
             var operationId5 = "48D37D39-B5A1-4F6B-9F74-AE0C49B05B14";
             var operationId6 = "0EF359D0-93D4-4818-A2E9-E6DBAB09DFB6";
-
+            var categoryId = Guid.NewGuid();
             var insertProductsSql = $"""
                                   
                                            INSERT INTO "Products"
                                                ("Id", "Name", "CategoryId", "CreatedAt", "CreatedById",
                                                 "UpdatedAt", "UpdatedById", "DeletedAt", "DeletedById", "Purchased")
                                            VALUES
-                                               ('{productId1}', 'БПС-3000-220/220в-15А-23', null, '{dateTimeNow}', '{userId}',
+                                               ('{productId1}', 'БПС-3000-220/220в-15А-23', {categoryId}, '{dateTimeNow}', '{userId}',
                                                 '{dateTimeNow}', '{userId}', null, null, false),
-                                               ('{productId2}', 'Плата диодов FOUT5000_220JYPv3', null, '{dateTimeNow}', '{userId}',
+                                               ('{productId2}', 'Плата диодов FOUT5000_220JYPv3', {categoryId}, '{dateTimeNow}', '{userId}',
                                                 '{dateTimeNow}', '{userId}', null, null, false),
-                                               ('{productId3}', 'Плата ключей БПС3000.14.1ф.ПТ-v1', null, '{dateTimeNow}', '{userId}',
+                                               ('{productId3}', 'Плата ключей БПС3000.14.1ф.ПТ-v1', {categoryId}, '{dateTimeNow}', '{userId}',
                                                 '{dateTimeNow}', '{userId}', null, null, false),
-                                               ('{productId4}', 'Радиатор БПС5000.23', null, '{dateTimeNow}', '{userId}',
+                                               ('{productId4}', 'Радиатор БПС5000.23', {categoryId}, '{dateTimeNow}', '{userId}',
                                                 '{dateTimeNow}', '{userId}', null, null,  false)
                                            
                                   """;
