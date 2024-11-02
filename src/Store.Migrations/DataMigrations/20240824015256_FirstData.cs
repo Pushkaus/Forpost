@@ -100,16 +100,16 @@ namespace Forpost.Store.Migrations.DataMigrations
                                   
                                            INSERT INTO "Products"
                                                ("Id", "Name", "CategoryId", "CreatedAt", "CreatedById",
-                                                "UpdatedAt", "UpdatedById", "DeletedAt", "DeletedById", "Barcode")
+                                                "UpdatedAt", "UpdatedById", "DeletedAt", "DeletedById", "Purchased")
                                            VALUES
                                                ('{productId1}', 'БПС-3000-220/220в-15А-23', null, '{dateTimeNow}', '{userId}',
-                                                '{dateTimeNow}', '{userId}', null, null, '1'),
+                                                '{dateTimeNow}', '{userId}', null, null, false),
                                                ('{productId2}', 'Плата диодов FOUT5000_220JYPv3', null, '{dateTimeNow}', '{userId}',
-                                                '{dateTimeNow}', '{userId}', null, null, '1'),
+                                                '{dateTimeNow}', '{userId}', null, null, false),
                                                ('{productId3}', 'Плата ключей БПС3000.14.1ф.ПТ-v1', null, '{dateTimeNow}', '{userId}',
-                                                '{dateTimeNow}', '{userId}', null, null, '1'),
+                                                '{dateTimeNow}', '{userId}', null, null, false),
                                                ('{productId4}', 'Радиатор БПС5000.23', null, '{dateTimeNow}', '{userId}',
-                                                '{dateTimeNow}', '{userId}', null, null, '1')
+                                                '{dateTimeNow}', '{userId}', null, null,  false)
                                            
                                   """;
             var insertTechCardSql = $"""
