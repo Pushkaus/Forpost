@@ -29,13 +29,8 @@ internal sealed class CategoryReadRepository : ICategoryReadRepository
         if (!string.IsNullOrWhiteSpace(filter.Name))
         {
             var nameFilter = filter.Name.Trim().ToLower();
-            uniqueCategories = uniqueCategories.Where(c => c.Name != null && c.Name.ToLower().Contains(nameFilter))
-                .ToList();
-        }
-
-        if (filter.ParentCategoryId.HasValue)
-        {
-            uniqueCategories = uniqueCategories.Where(c => c.ParentCategoryId == filter.ParentCategoryId.Value)
+            uniqueCategories = uniqueCategories
+                .Where(c => c.Name != null && c.Name.ToLower().Contains(nameFilter))
                 .ToList();
         }
 
@@ -48,24 +43,45 @@ internal sealed class CategoryReadRepository : ICategoryReadRepository
             Children = new List<CategoryWithChildrenModel>()
         });
 
-        var rootCategories = new List<CategoryWithChildrenModel>();
-
-        foreach (var category in categoryDict.Values)
+        if (filter.CategoryId.HasValue)
         {
-            if (category.ParentCategoryId == Guid.Empty)
+            if (categoryDict.TryGetValue(filter.CategoryId.Value, out var category))
             {
-                rootCategories.Add(category);
+                return new List<CategoryWithChildrenModel> { category };
             }
-            else
-            {
-                var parentId = category.ParentCategoryId.Value;
-                if (categoryDict.TryGetValue(parentId, out var parentCategory))
-                {
-                    parentCategory.Children.Add(category);
-                }
-            }
+
+            return Array.Empty<CategoryWithChildrenModel>();
         }
 
-        return rootCategories; 
+        if (filter.ParentCategoryId.HasValue)
+        {
+            var result = new List<CategoryWithChildrenModel>();
+            if (!categoryDict.TryGetValue(filter.ParentCategoryId.Value, out var parentCategory))
+                return result;
+            
+            result.Add(parentCategory);
+            
+            AddChildren(parentCategory, categoryDict);
+            return result;
+        }
+        var rootCategories = new List<CategoryWithChildrenModel>();
+
+        foreach (var category in categoryDict.Values.Where(category => category.ParentCategoryId == Guid.Empty))
+        {
+            rootCategories.Add(category); 
+            AddChildren(category, categoryDict);
+        }
+
+        return rootCategories;
+    }
+
+    private void AddChildren(CategoryWithChildrenModel parentCategory,
+        Dictionary<Guid, CategoryWithChildrenModel> categoryDict)
+    {
+        foreach (var category in categoryDict.Values.Where(category => category.ParentCategoryId == parentCategory.Id))
+        {
+            parentCategory.Children.Add(category);
+            AddChildren(category, categoryDict);
+        }
     }
 }
