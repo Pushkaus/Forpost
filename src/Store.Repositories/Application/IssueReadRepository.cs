@@ -17,7 +17,9 @@ internal sealed class IssueReadRepository: IIssueReadRepository
     public Task<List<IssueFromManufacturingProcessModel>> GetAllFromManufacturingProcessId(Guid manufacturingProcessId,
         CancellationToken cancellationToken)
     {
-        return _dbContext.Issues.Where(i => i.ManufacturingProcessId == manufacturingProcessId)
+        return _dbContext.Issues
+            .NotDeletedAt()
+            .Where(i => i.ManufacturingProcessId == manufacturingProcessId)
             .Join(_dbContext.Steps,
                 issue => issue.StepId,
                 step => step.Id,

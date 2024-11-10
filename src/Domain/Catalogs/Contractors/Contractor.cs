@@ -19,6 +19,5 @@ public sealed class Contractor : AggregateRoot
         contractor.Raise(new ContractorAdded(contractor.Id));
         return contractor;
     }
-
     public string Name { get; set; }
 }

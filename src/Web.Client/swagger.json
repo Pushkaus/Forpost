@@ -1877,6 +1877,52 @@
           }
         }
       },
+      "put": {
+        "tags": [
+          "TechCard"
+        ],
+        "summary": "Обновление информации о тех.карте",
+        "operationId": "Update2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "card",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TechCardCreateRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "tags": [
           "TechCard"
@@ -1896,8 +1942,18 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -2058,7 +2114,7 @@
         "tags": [
           "TechCardStep"
         ],
-        "summary": "Добавление этапа в тех.карту",
+        "summary": "Добавление этапа в техкарту",
         "operationId": "Create4",
         "requestBody": {
           "x-name": "model",
@@ -2088,6 +2144,52 @@
       }
     },
     "/api/v1/tech-card-step/{id}": {
+      "put": {
+        "tags": [
+          "TechCardStep"
+        ],
+        "summary": "Обновление этапа в техкарте",
+        "operationId": "Update3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "model",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TechCardStepRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "tags": [
           "TechCardStep"
@@ -2107,8 +2209,18 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -2154,7 +2266,7 @@
         "tags": [
           "TechCardItem"
         ],
-        "summary": "Добавления компонента в тех.карту",
+        "summary": "Добавление компонента в техкарту",
         "operationId": "Create5",
         "requestBody": {
           "x-name": "model",
@@ -2184,11 +2296,57 @@
       }
     },
     "/api/v1/tech-card-item/{id}": {
+      "put": {
+        "tags": [
+          "TechCardItem"
+        ],
+        "summary": "Обновление компонента в техкарте",
+        "operationId": "Update4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "model",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TechCardItemRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "tags": [
           "TechCardItem"
         ],
-        "summary": "Удаление компонента из тех.карты",
+        "summary": "Удаление компонента из техкарты",
         "operationId": "Delete4",
         "parameters": [
           {
@@ -2203,8 +2361,18 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -2229,7 +2397,7 @@
           "x-position": 1
         },
         "responses": {
-          "200": {
+          "201": {
             "description": ""
           }
         }
@@ -2256,6 +2424,88 @@
           },
           "204": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/storages/{id}": {
+      "put": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Обновление информации о складе",
+        "operationId": "Update5",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StorageCreateRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Storage"
+        ],
+        "summary": "Удаление склада",
+        "operationId": "Delete5",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -2292,12 +2542,58 @@
           }
         }
       },
+      "put": {
+        "tags": [
+          "Step"
+        ],
+        "summary": "Обновление этапа",
+        "operationId": "Update6",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "step",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StepCreateRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "tags": [
           "Step"
         ],
         "summary": "Удаление этапа",
-        "operationId": "Delete5",
+        "operationId": "Delete6",
         "parameters": [
           {
             "name": "id",
@@ -2311,8 +2607,18 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -2415,15 +2721,7 @@
         },
         "responses": {
           "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "format": "guid"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -2627,7 +2925,7 @@
           "Product"
         ],
         "summary": "Обновление продукта по id",
-        "operationId": "Update2",
+        "operationId": "Update7",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -2684,7 +2982,7 @@
           "Product"
         ],
         "summary": "Удаление продукта по id",
-        "operationId": "Delete6",
+        "operationId": "Delete7",
         "parameters": [
           {
             "name": "id",
@@ -2940,6 +3238,88 @@
         }
       }
     },
+    "/api/v1/employees/{id}": {
+      "put": {
+        "tags": [
+          "Employee"
+        ],
+        "summary": "Обновление информации о сотруднике",
+        "operationId": "Update8",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmployeeRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Employee"
+        ],
+        "summary": "Удаление сотрудника",
+        "operationId": "Delete8",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/contractors": {
       "post": {
         "tags": [
@@ -3078,6 +3458,86 @@
             }
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Contractor"
+        ],
+        "summary": "Обновление контрагента",
+        "operationId": "Update9",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContractorRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Contractor"
+        ],
+        "summary": "Удаление контрагента",
+        "operationId": "Delete9",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/categories": {
@@ -3150,6 +3610,88 @@
                   "items": {
                     "$ref": "#/components/schemas/CategoryWithChildrenModel"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/categories/{id}": {
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Обновление категории",
+        "operationId": "Update10",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Удаление категории",
+        "operationId": "Delete10",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -4898,6 +5440,47 @@
       "ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger": {
         "type": "object",
         "additionalProperties": false
+      },
+      "EmployeeRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "Имя сотрудника"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Фамилия сотрудника"
+          },
+          "patronymic": {
+            "type": "string",
+            "description": "Отчество сотрудника",
+            "nullable": true
+          },
+          "post": {
+            "type": "string",
+            "description": "Должность сотрудника"
+          },
+          "roleId": {
+            "type": "string",
+            "description": "Id на роль в приложении",
+            "format": "guid"
+          },
+          "email": {
+            "type": "string",
+            "description": "Почта сотрудника",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Номер телефона сотрудника"
+          },
+          "passwordHash": {
+            "type": "string",
+            "description": "Пароль сотрудника"
+          }
+        }
       },
       "ContractorRequest": {
         "type": "object",

@@ -19,12 +19,13 @@ public sealed class TechCardController : ApiController
     {
         var techCard = await Sender.Send(new GetCompositionTechCardQuery(techCardId), cancellationToken);
 
-        // Если техкарта не найдена, возвращаем пустой ответ с пустыми коллекциями
-        var result = (techCard != null)
+        var result = techCard != null
             ? Mapper.Map<CompositionTechCardResponse>(techCard)
             : new CompositionTechCardResponse
             {
-                Id = techCardId, Steps = Array.Empty<StepSummaryResponse>(), Items = Array.Empty<ItemSummaryResponse>()
+                Id = techCardId,
+                Steps = Array.Empty<StepSummaryResponse>(),
+                Items = Array.Empty<ItemSummaryResponse>()
             };
 
         return Ok(result);
@@ -51,6 +52,12 @@ public sealed class TechCardController : ApiController
     {
         var result = await Sender.Send(new GetAllTechCardsQuery(filterExpression, filterValues, skip, limit),
             cancellationToken);
+
+        if (result.TechCards.Count == 0)
+        {
+            return NoContent();
+        }
+
         return Ok(new
         {
             TechCards = Mapper.Map<IReadOnlyCollection<TechCardResponse>>(result.TechCards),
@@ -77,12 +84,28 @@ public sealed class TechCardController : ApiController
     }
 
     /// <summary>
+    /// Обновление информации о тех.карте
+    /// </summary>
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] TechCardCreateRequest card,
+        CancellationToken cancellationToken)
+    {
+        var result = await Sender.Send(new UpdateTechCardCommand(id, card.Number, card.Description, card.ProductId),
+            cancellationToken);
+        return NoContent();
+    }
+
+    /// <summary>
     /// Удаление тех.карты
     /// </summary>
-    [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        //TODO; 
+        await Sender.Send(new DeleteTechCardCommand(id), cancellationToken);
+        return NoContent();
     }
 }

@@ -27,6 +27,7 @@ internal sealed class ManufacturingProcessReadRepository: IManufacturingProcessR
 
     // Начинаем запрос с объединением таблиц
     var query = _dbContext.ManufacturingProcesses
+        .NotDeletedAt()
         .Join(
             _dbContext.TechCards,
             manufacturingProcess => manufacturingProcess.TechnologicalCardId,

@@ -12,18 +12,18 @@ internal sealed class AddCategoryCommandHandler : ICommandHandler<AddCategoryCom
         _categoryDomainRepository = categoryDomainRepository;
     }
 
-    public async ValueTask<Guid> Handle(AddCategoryCommand command, CancellationToken cancellationToken)
+    public ValueTask<Guid> Handle(AddCategoryCommand command, CancellationToken cancellationToken)
     {
         var category = new Category
         {
             Name = command.Name,
             Description = command.Description,
-            ParentCategoryId = command.ParentCategoryId
+            ParentCategoryId = command.ParentCategoryId,
         };
         var categoryId = _categoryDomainRepository.Add(category);
-        return categoryId;
+        return ValueTask.FromResult(categoryId);
     }
 }
 
-public record AddCategoryCommand(string Name, Guid? ParentCategoryId = null, string? Description = null)
+public record AddCategoryCommand(string Name, Guid? ParentCategoryId, string? Description)
     : ICommand<Guid>;

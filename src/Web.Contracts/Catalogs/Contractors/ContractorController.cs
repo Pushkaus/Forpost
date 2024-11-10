@@ -52,7 +52,31 @@ public sealed class ContractorController : ApiController
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var contractor = await Sender.Send(new GetContractorByIdQuery(id), cancellationToken);
-
         return Ok(Mapper.Map<ContractorResponse>(contractor));
+    }
+
+    /// <summary>
+    /// Обновление контрагента
+    /// </summary>
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] ContractorRequest request, CancellationToken cancellationToken)
+    {
+        await Sender.Send(new UpdateContractorCommand(id, request.Name), cancellationToken);
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Удаление контрагента
+    /// </summary>
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        await Sender.Send(new DeleteContractorCommand(id), cancellationToken);
+        return NoContent();
+
     }
 }

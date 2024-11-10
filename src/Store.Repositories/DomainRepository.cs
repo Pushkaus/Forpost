@@ -3,6 +3,7 @@ using System.Linq.Dynamic.Core.Exceptions;
 using AutoMapper;
 using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Domain.Primitives.EntityAnnotations;
+using Forpost.Domain.Primitives.EntityTemplates;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,7 +33,11 @@ internal abstract class DomainRepository<TEntity> : IDomainRepository<TEntity> w
     {
         IQueryable<TEntity> query = DbSet;
         
-        // Применение фильтрации, если выражение задано
+        if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
+        {
+            query = query.Where(e => ((IAuditableEntity)e).DeletedAt == null);
+        }
+        
         if (!string.IsNullOrWhiteSpace(filterExpression))
         {
             try
@@ -44,16 +49,14 @@ internal abstract class DomainRepository<TEntity> : IDomainRepository<TEntity> w
                 throw new ArgumentException("Некорректное выражение фильтрации.", ex);
             }
         }
-
-        // Получение общего количества записей после фильтрации
+        
         var totalCount = await query.CountAsync(cancellationToken);
-
-        // Применение пагинации
+    
         var items = await query
             .Skip(skip)
             .Take(limit)
             .ToListAsync(cancellationToken);
-
+        
         return (items, totalCount);
     }
 

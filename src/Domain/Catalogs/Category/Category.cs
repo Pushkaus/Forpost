@@ -14,7 +14,6 @@ public sealed class Category : DomainEntity
         };
         return category;
     }
-    public Guid Id { get; set; }
     // Свойства категории
     public string Name { get; set; } = null!;
 

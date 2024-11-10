@@ -20,6 +20,7 @@ public sealed class CategoryController : ApiController
                 cancellationToken);
         return Ok(result);
     }
+
     /// <summary>
     /// Получить все категории
     /// </summary>
@@ -29,5 +30,32 @@ public sealed class CategoryController : ApiController
         CancellationToken cancellationToken)
     {
         return Ok(await Sender.Send(new GetAllCategoryQuery(filter), cancellationToken));
+    }
+
+    /// <summary>
+    /// Обновление категории
+    /// </summary>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] CategoryRequest request,
+        CancellationToken cancellationToken)
+    {
+        await Sender.Send(
+            new UpdateCategoryCommand(id, request.Name, request.ParentCategoryId, request.Description),
+            cancellationToken);
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Удаление категории
+    /// </summary>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        await Sender.Send(new DeleteCategoryCommand(id), cancellationToken);
+        return NoContent();
     }
 }

@@ -1,18 +1,16 @@
-namespace Forpost.Application.Contracts.Catalogs.Employees;
+namespace Forpost.Web.Contracts.Catalogs.Employees;
 
-public sealed record EmployeeWithRoleModel
+public sealed class EmployeeRequest
 {
-    public Guid Id { get; set; }
-
     /// <summary>
     /// Имя сотрудника
     /// </summary>
-    public string FirstName { get; set; } = default!;
+    public string FirstName { get; set; }
 
     /// <summary>
     /// Фамилия сотрудника
     /// </summary>
-    public string LastName { get; set; } = default!;
+    public string LastName { get; set; }
 
     /// <summary>
     /// Отчество сотрудника
@@ -22,14 +20,12 @@ public sealed record EmployeeWithRoleModel
     /// <summary>
     /// Должность сотрудника
     /// </summary>
-    public string Post { get; set; } = default!;
-
+    public string Post { get; set; }
+    
     /// <summary>
-    /// Роль сотрудника
+    /// Id на роль в приложении
     /// </summary>
-    public string Role { get; set; } = default!;
-
-    public Guid RoleId { get; set; } 
+    public Guid RoleId { get; set; }
 
     /// <summary>
     /// Почта сотрудника
@@ -39,5 +35,7 @@ public sealed record EmployeeWithRoleModel
     /// <summary>
     /// Номер телефона сотрудника
     /// </summary>
-    public string PhoneNumber { get; set; } = default!;
+    public string PhoneNumber { get; set; }
+    
+    public string PasswordHash { get; set; }
 }

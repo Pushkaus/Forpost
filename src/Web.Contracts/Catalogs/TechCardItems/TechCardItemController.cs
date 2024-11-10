@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Catalogs.TechCardItems;
+
 [Route("api/v1/tech-card-item")]
-public sealed class TechCardItemController: ApiController
+public sealed class TechCardItemController : ApiController
 {
     /// <summary>
     /// Получение состава тех.карты по TechCardId
@@ -17,8 +18,9 @@ public sealed class TechCardItemController: ApiController
     {
         return await Sender.Send(new GetTechCardItemByIdQuery(techCardId), cancellationToken);
     }
+
     /// <summary>
-    /// Добавления компонента в тех.карту
+    /// Добавление компонента в техкарту
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -28,15 +30,34 @@ public sealed class TechCardItemController: ApiController
             model.TechCardId,
             model.ProductId,
             model.Quantity), cancellationToken);
-    } 
+    }
 
     /// <summary>
-    /// Удаление компонента из тех.карты
+    /// Обновление компонента в техкарте
+    /// </summary>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] TechCardItemRequest model,
+        CancellationToken cancellationToken)
+    {
+        var result = await Sender.Send(new UpdateTechCardItemCommand(
+            id,
+            model.TechCardId,
+            model.ProductId,
+            model.Quantity), cancellationToken);
+            return NoContent();
+    }
+
+    /// <summary>
+    /// Удаление компонента из техкарты
     /// </summary>
     [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        //TODO;
+        await Sender.Send(new DeleteTechCardItemCommand(id), cancellationToken);
+        return NoContent();
     }
 }

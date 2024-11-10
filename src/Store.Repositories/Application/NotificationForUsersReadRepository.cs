@@ -18,7 +18,9 @@ internal sealed class NotificationForUsersReadRepository : INotificationForUsers
         int limit, CancellationToken cancellationToken)
     {
         var totalCount = await _dbContext.NotificationsForUsers.CountAsync(cancellationToken);
-        var notifications = await _dbContext.NotificationsForUsers.Join(_dbContext.Employees,
+        var notifications = await _dbContext.NotificationsForUsers
+            .NotDeletedAt()
+            .Join(_dbContext.Employees,
             notification => notification.CreatedById,
             employee => employee.Id,
             (notification, employee) => new NotificationForUsersModel

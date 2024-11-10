@@ -13,11 +13,12 @@ public sealed class StorageController : ApiController
     /// Создание нового склада
     /// </summary>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult>
-        CreateAsync([FromBody] StorageCreateRequest request, CancellationToken cancellationToken)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<IActionResult> CreateAsync([FromBody] StorageCreateRequest request,
+        CancellationToken cancellationToken)
     {
-        var storageId = await Sender.Send(new AddStorageCommand(request.Name, request.ResponsibleId), cancellationToken);
+        var storageId =
+            await Sender.Send(new AddStorageCommand(request.Name, request.ResponsibleId), cancellationToken);
         return Ok(storageId);
     }
 
@@ -30,10 +31,43 @@ public sealed class StorageController : ApiController
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
         var result = await Sender.Send(new GetAllStoragesQuery(), cancellationToken);
+
+        if (result.Storages.Count == 0)
+        {
+            return NoContent();
+        }
+
         return Ok(new
         {
             result.Storages,
             result.TotalCount
         });
+    }
+
+    /// <summary>
+    /// Обновление информации о складе
+    /// </summary>
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] StorageCreateRequest request,
+        CancellationToken cancellationToken)
+    {
+        var result = await Sender.Send(new UpdateStorageCommand(id, request.Name, request.ResponsibleId),
+            cancellationToken);
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Удаление склада
+    /// </summary>
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        await Sender.Send(new DeleteStorageCommand(id), cancellationToken);
+
+        return NoContent();
     }
 }

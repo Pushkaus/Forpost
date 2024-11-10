@@ -20,7 +20,6 @@ internal sealed class GetAllEmployeesWithRoleQueryHandler :
             request.Skip, request.Limit, cancellationToken);
 }
 
-// Запрос для получения всех сотрудников с их ролями
 public sealed record GetAllEmployeesWithRoleQuery(
     string? FilterExpression,
     object?[]? FilterValues,

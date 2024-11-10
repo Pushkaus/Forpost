@@ -40,19 +40,10 @@ internal sealed class CategoryReadRepository : ICategoryReadRepository
             Name = c.Name,
             Description = c.Description,
             ParentCategoryId = c.ParentCategoryId,
-            Children = new List<CategoryWithChildrenModel>()
+            Children = []
         });
 
-        if (filter.CategoryId.HasValue)
-        {
-            if (categoryDict.TryGetValue(filter.CategoryId.Value, out var category))
-            {
-                return new List<CategoryWithChildrenModel> { category };
-            }
-
-            return Array.Empty<CategoryWithChildrenModel>();
-        }
-
+        
         if (filter.ParentCategoryId.HasValue)
         {
             var result = new List<CategoryWithChildrenModel>();

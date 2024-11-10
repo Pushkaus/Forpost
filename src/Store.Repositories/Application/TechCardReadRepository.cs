@@ -80,7 +80,7 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
         CancellationToken cancellationToken)
     {
         // Получаем общее количество техкарточек
-        var totalCount = await _dbContext.TechCards.CountAsync(cancellationToken);
+        var totalCount = await _dbContext.TechCards.NotDeletedAt().CountAsync(cancellationToken);
 
         // Начинаем формировать запрос
         var query = _dbContext.TechCards

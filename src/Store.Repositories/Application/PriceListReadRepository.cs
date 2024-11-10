@@ -20,7 +20,7 @@ internal sealed class PriceListReadRepository : IPriceListReadRepository
     {
         var totalCount = await _dbContext.PriceLists.CountAsync(cancellationToken);
 
-        var query = _dbContext.PriceLists
+        var query = _dbContext.PriceLists.NotDeletedAt()
             .Join(_dbContext.Products,
                 priceList => priceList.ProductId,
                 product => product.Id,
@@ -44,17 +44,18 @@ internal sealed class PriceListReadRepository : IPriceListReadRepository
                     UpdatedById = combined.combined.priceList.UpdatedById,
                     UpdatedByName = employee.FirstName + " " + employee.LastName,
                 });
-        
+
         if (!filter.ProductName.IsNullOrEmpty())
         {
             query.Where(x => x.ProductName == filter.ProductName);
         }
+
         totalCount = await query.CountAsync(cancellationToken);
         var priceList = await query.OrderByDescending(x => x.UpdatedAt)
             .Skip(filter.Skip)
             .Take(filter.Limit)
             .ToListAsync(cancellationToken);
-        
+
         return (priceList, totalCount);
     }
 }

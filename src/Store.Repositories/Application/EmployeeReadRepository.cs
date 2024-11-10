@@ -22,8 +22,7 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
         
         var totalCount = await _dbContext.Employees.CountAsync(cancellationToken);
 
-        // Начинаем основной запрос с соединением таблиц
-        var query = _dbContext.Employees
+        var query = _dbContext.Employees.NotDeletedAt()
             .Join(
                 _dbContext.Roles,
                 employee => employee.RoleId,
@@ -41,8 +40,6 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
                     PhoneNumber = employee.PhoneNumber,
                 }
             );
-
-        // Применение фильтрации, если выражение задано
         if (!string.IsNullOrWhiteSpace(filterExpression))
         {
             try
@@ -54,8 +51,6 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
                 throw new ArgumentException("Некорректное выражение фильтрации.", ex);
             }
         }
-
-        // Получаем отфильтрованный и разбитый на страницы список сотрудников
         var employees = await query
             .Skip(skip)
             .Take(limit)

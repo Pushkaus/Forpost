@@ -22,10 +22,7 @@ internal sealed class InvoiceReadRepository : IInvoiceReadRepository
         string filterExpression,
         object?[]? filterValues)
     {
-        var totalCount = await _dbContext.Invoices.CountAsync(cancellationToken);
-
-        // Начинаем основной запрос с соединением таблиц
-        var query = _dbContext.Invoices
+        var query = _dbContext.Invoices.Where(x => x.DeletedAt == null)
             .Join(
                 _dbContext.Contractors,
                 invoice => invoice.ContractorId,
@@ -56,8 +53,8 @@ internal sealed class InvoiceReadRepository : IInvoiceReadRepository
                 throw new ArgumentException("Некорректное выражение фильтрации.", ex);
             }
         }
+        var totalCount = await query.CountAsync(cancellationToken);
 
-        // Получаем отфильтрованный и разбитый на страницы список счетов
         var invoices = await query
             .Skip(skip)
             .Take(limit)
