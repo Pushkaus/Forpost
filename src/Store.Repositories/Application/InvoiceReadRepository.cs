@@ -36,7 +36,7 @@ internal sealed class InvoiceReadRepository : IInvoiceReadRepository
                     Description = invoice.Description,
                     PaymentPercentage = invoice.PaymentPercentage,
                     DaysShipment = invoice.DaysShipment,
-                    Status = invoice.Status,
+                    Status = invoice.InvoiceStatus,
                     DateShipment = invoice.DateShipment,
                 }
             );

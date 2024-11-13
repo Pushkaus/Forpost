@@ -36,6 +36,4 @@ public sealed class EmployeeRequest
     /// Номер телефона сотрудника
     /// </summary>
     public string PhoneNumber { get; set; }
-    
-    public string PasswordHash { get; set; }
 }

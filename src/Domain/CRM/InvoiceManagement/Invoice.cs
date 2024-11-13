@@ -7,7 +7,7 @@ public sealed class Invoice : AggregateRoot
 {
     public void InitialAdd()
     {
-        Status = InvoiceStatus.Pending;
+        InvoiceStatus = InvoiceStatus.Pending;
     }
 
     public Invoice(
@@ -47,19 +47,14 @@ public sealed class Invoice : AggregateRoot
     public void Ship(DateTimeOffset dateShipment)
     {
         DateShipment = dateShipment;
-        Status = InvoiceStatus.Completed;
+        InvoiceStatus = InvoiceStatus.Completed;
     }
     public string Number { get; set; } = null!;
     public Guid ContractorId { get; set; }
     public string? Description { get; set; }
-    /// <summary>
-    /// Процент оплаты
-    /// </summary>
-    public decimal PaymentPercentage { get; set; }
-    /// <summary>
-    /// Количество дней до отгрузки
-    /// </summary>
-    public int DaysShipment { get; set; }
-    public InvoiceStatus Status { get; set; } = default!;
     public DateTimeOffset? DateShipment { get; set; }
+    public DateTimeOffset? DateClosing { get; set; }
+    public Priority Priority { get; set; } 
+    public PaymentStatus PaymentStatus { get; set; }
+    public InvoiceStatus InvoiceStatus { get; set; } = default!;
 }

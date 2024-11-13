@@ -81,15 +81,16 @@ public sealed class ProductController : ApiController
     }
 
     /// <summary>
-    /// Удаление продукта по id
+    /// Удаление продукта
     /// </summary>
-    /// <param name="id"></param>
-    [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        //TODO;
-        return Ok();
+        await Sender.Send(new DeleteProductByIdCommand(id), cancellationToken);
+        return NoContent();
+
     }
 
     /// <summary>
