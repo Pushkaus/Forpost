@@ -5,6 +5,7 @@ using Forpost.Domain.Catalogs.Contractors;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.Catalogs.Roles;
 using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.Catalogs.Storages;
 using Forpost.Domain.Catalogs.TechCardItems;
@@ -16,6 +17,7 @@ using Forpost.Features.Catalogs.Contractors;
 using Forpost.Features.Catalogs.Employees;
 using Forpost.Features.Catalogs.Operations;
 using Forpost.Features.Catalogs.Products;
+using Forpost.Features.Catalogs.Roles;
 using Forpost.Features.Catalogs.Steps;
 using Forpost.Features.Catalogs.Storages;
 using Forpost.Features.Catalogs.TechCardItems;
@@ -49,6 +51,7 @@ internal sealed class CatalogMappingProfile : Profile
     private void MapEmployee()
     {
         CreateMap<UpdateEmployeeCommand, Employee>().ValidateMemberList(MemberList.Destination);
+        CreateMap<AddRoleCommand, Role>().ValidateMemberList(MemberList.Destination);
     }
     private void MapCategory()
     {
