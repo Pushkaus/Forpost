@@ -82,13 +82,6 @@ namespace Forpost.Store.Migrations.DataMigrations
             var stepId5 = "C5FD4CC4-13B4-4702-A977-5A33C6FD8792";
             var stepId6 = "02B59986-190D-4B5E-BF83-8D65F4F3BE9E";
 
-            var techCardStepId1 = "169AB0EA-6856-45DE-8FA4-87C73EB68F6A";
-            var techCardStepId2 = "8C7952A3-4CC1-4F32-BADF-36F462A8FCE3";
-            var techCardStepId3 = "44477A97-C0BE-49AD-94A6-621371436ECC";
-            var techCardStepId4 = "6F8D5891-89C3-4154-96D0-B79A09F4CF5A";
-            var techCardStepId5 = "89C91CEB-2C35-4863-B4BF-0A8D81D018BC";
-            var techCardStepId6 = "FCBAF3F4-5C8B-4D26-9795-54A155DE0039";
-
             var operationId1 = "F3CD3205-BC25-4EE1-BD79-CA424D73B5B5";
             var operationId2 = "9FD01142-B1CE-4A24-A416-C22F08111D36";
             var operationId3 = "6CFED48D-B6BE-48F1-ACA2-080FB0CE4B61";
@@ -96,130 +89,66 @@ namespace Forpost.Store.Migrations.DataMigrations
             var operationId5 = "48D37D39-B5A1-4F6B-9F74-AE0C49B05B14";
             var operationId6 = "0EF359D0-93D4-4818-A2E9-E6DBAB09DFB6";
             var categoryId = Guid.NewGuid();
-            var insertProductsSql = $"""
-                                  
-                                           INSERT INTO "Products"
-                                               ("Id", "Name", "CategoryId", "CreatedAt", "CreatedById",
-                                                "UpdatedAt", "UpdatedById", "DeletedAt", "DeletedById", "Purchased")
-                                           VALUES
-                                               ('{productId1}', 'БПС-3000-220/220в-15А-23', {categoryId}, '{dateTimeNow}', '{userId}',
-                                                '{dateTimeNow}', '{userId}', null, null, false),
-                                               ('{productId2}', 'Плата диодов FOUT5000_220JYPv3', {categoryId}, '{dateTimeNow}', '{userId}',
-                                                '{dateTimeNow}', '{userId}', null, null, false),
-                                               ('{productId3}', 'Плата ключей БПС3000.14.1ф.ПТ-v1', {categoryId}, '{dateTimeNow}', '{userId}',
-                                                '{dateTimeNow}', '{userId}', null, null, false),
-                                               ('{productId4}', 'Радиатор БПС5000.23', {categoryId}, '{dateTimeNow}', '{userId}',
-                                                '{dateTimeNow}', '{userId}', null, null,  false)
-                                           
-                                  """;
-            var insertTechCardSql = $"""
-                                  
-                                           INSERT INTO "TechCards" ("Id", "Number", "Description", "ProductId", "CreatedById")
-                                           VALUES
-                                               ('{techCardId}', 'ТК-001', null,
-                                                '{productId1}', '{userId}')
-                                           
-                                  """;
-            var insertTechCardItemsSql = $"""
-                                       
-                                                INSERT INTO "TechCardItems" ("Id", "TechCardId", "ProductId", "Quantity")
-                                                VALUES
-                                                    ('{techCardItemId1}', '{techCardId}',
-                                                     '{productId2}', 3),
-                                                    ('{techCardItemId2}', '{techCardId}',
-                                                     '{productId3}', 1),
-                                                    ('{techCardItemId3}', '{techCardId}',
-                                                     '{productId4}', 1)
-                                                
-                                       """;
-            var insertOperationSql = $"""
-                                   
-                                            INSERT INTO "Operations" ("Id", "Name", "Description", "Type")
-                                                VALUES ('{operationId1}', 'Набор', null, 100),
-                                                    ('{operationId2}', 'Сборка', null, 100),
-                                                    ('{operationId3}', 'Настройка', null, 100),
-                                                    ('{operationId4}', 'Прогон', null, 100),
-                                                    ('{operationId5}', 'Упаковка', null, 100),
-                                                    ('{operationId6}', 'Отгрузка', null, 100)
-                                   """;
-            var insertStepsSql = $"""
-                               
-                                        INSERT INTO "Steps" ("Id", "TechCardId", "OperationId", "Description", "Duration", "Cost", "UnitOfMeasure")
-                                        VALUES (
-                                            '{stepId1}',       -- Id
-                                            '{techCardId}',   -- TechCardId
-                                            '{operationId1}',  -- OperationId
-                                            'Набор компонентов для разработки', -- Description
-                                            '01:30:00',       -- Duration
-                                            400.00,           -- Cost
-                                            1                 -- UnitOfMeasure (пример значения)
-                                        ),
-                                            (
-                                            '{stepId2}',       -- Id
-                                            '{techCardId}',   -- TechCardId
-                                            '{operationId2}',  -- OperationId
-                                             null, -- Description
-                                            '03:30:00',       -- Duration
-                                            780.00,           -- Cost
-                                            1                 -- UnitOfMeasure (пример значения)
-                                        ),
-                                            (
-                                            '{stepId3}',       -- Id
-                                            '{techCardId}',   -- TechCardId
-                                            '{operationId3}',  -- OperationId
-                                             null, -- Description
-                                            '03:05:00',       -- Duration
-                                            330.00,           -- Cost
-                                            1                 -- UnitOfMeasure (пример значения)
-                                        ),
-                                            (
-                                            '{stepId4}',       -- Id
-                                            '{techCardId}',   -- TechCardId
-                                            '{operationId4}',  -- OperationId
-                                             null, -- Description
-                                            '00:30:00',       -- Duration
-                                            1850.00,           -- Cost
-                                            1                 -- UnitOfMeasure (пример значения)
-                                        ),
-                                            (
-                                            '{stepId5}',       -- Id
-                                            '{techCardId}',   -- TechCardId
-                                            '{operationId5}',  -- OperationId
-                                             null, -- Description
-                                            '01:10:00',       -- Duration
-                                            620.00,           -- Cost
-                                            1                 -- UnitOfMeasure (пример значения)
-                                        ),
-                                            (
-                                            '{stepId6}',       -- Id
-                                            '{techCardId}',   -- TechCardId
-                                            '{operationId6}',  -- OperationId
-                                             null, -- Description
-                                            '02:38:00',       -- Duration
-                                            563.00,           -- Cost
-                                            1                 -- UnitOfMeasure (пример значения)
-                                        )
-                               """;
-            var insertTechCardStepsSql = $"""
-                                       
-                                                INSERT INTO "TechCardSteps" ("Id", "TechCardId", "StepId", "Number")
-                                                VALUES
-                                                    ('{techCardStepId1}', '{techCardId}', '{stepId1}', 1),
-                                                    ('{techCardStepId2}', '{techCardId}', '{stepId2}', 2),
-                                                    ('{techCardStepId3}', '{techCardId}', '{stepId3}', 3),
-                                                    ('{techCardStepId4}', '{techCardId}', '{stepId4}', 4),
-                                                    ('{techCardStepId5}', '{techCardId}', '{stepId5}', 5),
-                                                    ('{techCardStepId6}', '{techCardId}', '{stepId6}', 6)
-                                                    
-                                       """;
-            migrationBuilder.Sql(insertProductsSql);
-            migrationBuilder.Sql(insertTechCardSql);
-            migrationBuilder.Sql(insertTechCardItemsSql);
-            migrationBuilder.Sql(insertOperationSql);
-            migrationBuilder.Sql(insertStepsSql);
-            migrationBuilder.Sql(insertTechCardStepsSql);
-        }
 
-        
+            var insertProductsSql = $"""
+                                         INSERT INTO "Products"
+                                             ("Id", "Name", "CategoryId", "CreatedAt", "CreatedById",
+                                              "UpdatedAt", "UpdatedById", "DeletedAt", "DeletedById", "Purchased")
+                                         VALUES
+                                             ('{productId1}', 'БПС-3000-220/220в-15А-23', '{categoryId}', '{dateTimeNow}', '{userId}',
+                                              '{dateTimeNow}', '{userId}', null, null, false),
+                                             ('{productId2}', 'Плата диодов FOUT5000_220JYPv3', '{categoryId}', '{dateTimeNow}', '{userId}',
+                                              '{dateTimeNow}', '{userId}', null, null, false),
+                                             ('{productId3}', 'Плата ключей БПС3000.14.1ф.ПТ-v1', '{categoryId}', '{dateTimeNow}', '{userId}',
+                                              '{dateTimeNow}', '{userId}', null, null, false),
+                                             ('{productId4}', 'Радиатор БПС5000.23', '{categoryId}', '{dateTimeNow}', '{userId}',
+                                              '{dateTimeNow}', '{userId}', null, null, false);
+                                     """;
+
+            migrationBuilder.Sql(insertProductsSql);
+
+            var insertTechCardSql = $"""
+                                         INSERT INTO "TechCards" ("Id", "Number", "Description", "ProductId", "CreatedById")
+                                         VALUES ('{techCardId}', 'ТК-001', null, '{productId1}', '{userId}');
+                                     """;
+
+            migrationBuilder.Sql(insertTechCardSql);
+
+            var insertTechCardItemsSql = $"""
+                                              INSERT INTO "TechCardItems" ("Id", "TechCardId", "ProductId", "Quantity")
+                                              VALUES
+                                                  ('{techCardItemId1}', '{techCardId}', '{productId2}', 3),
+                                                  ('{techCardItemId2}', '{techCardId}', '{productId3}', 1),
+                                                  ('{techCardItemId3}', '{techCardId}', '{productId4}', 1);
+                                          """;
+
+            migrationBuilder.Sql(insertTechCardItemsSql);
+
+            var insertOperationSql = $"""
+                                          INSERT INTO "Operations" ("Id", "Name", "Description", "Type")
+                                          VALUES
+                                              ('{operationId1}', 'Набор', null, 100),
+                                              ('{operationId2}', 'Сборка', null, 100),
+                                              ('{operationId3}', 'Настройка', null, 100),
+                                              ('{operationId4}', 'Прогон', null, 100),
+                                              ('{operationId5}', 'Упаковка', null, 100),
+                                              ('{operationId6}', 'Отгрузка', null, 100);
+                                      """;
+
+            migrationBuilder.Sql(insertOperationSql);
+
+            var insertStepsSql = $"""
+                                      INSERT INTO "Steps" ("Id", "TechCardId", "OperationId", "Description", "Duration", "Cost", "UnitOfMeasure")
+                                      VALUES
+                                          ('{stepId1}', '{techCardId}', '{operationId1}', 'Набор компонентов для разработки', '01:30:00', 400.00, 1),
+                                          ('{stepId2}', '{techCardId}', '{operationId2}', null, '03:30:00', 780.00, 1),
+                                          ('{stepId3}', '{techCardId}', '{operationId3}', null, '03:05:00', 330.00, 1),
+                                          ('{stepId4}', '{techCardId}', '{operationId4}', null, '00:30:00', 1850.00, 1),
+                                          ('{stepId5}', '{techCardId}', '{operationId5}', null, '01:10:00', 620.00, 1),
+                                          ('{stepId6}', '{techCardId}', '{operationId6}', null, '00:45:00', 750.00, 1);
+                                  """;
+
+            migrationBuilder.Sql(insertStepsSql);
+        }
     }
 }

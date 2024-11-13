@@ -19,10 +19,12 @@ internal sealed class Program
                 logger.LogDebug("Миграция схемы произошла успешно!");
             }
 
-
+            if (args.Contains("--with-data-migration"))
+            {
                 logger.LogDebug("Старт миграции данных БД ErpDatabase");
                 await MigrateData(configuration);
                 logger.LogDebug("Миграция данных прошла успешно!");
+            }
         }
         catch (Exception ex)
         {
