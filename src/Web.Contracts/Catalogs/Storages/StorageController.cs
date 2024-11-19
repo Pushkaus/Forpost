@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts.StorageManagement;
 using Forpost.Domain.Catalogs.Storages;
 using Forpost.Features.Catalogs.Storages;
 using Forpost.Web.Contracts.StorageManagement.StorageProduct;
@@ -26,22 +27,12 @@ public sealed class StorageController : ApiController
     /// Получить список всех складов
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<Storage>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<StorageModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
         var result = await Sender.Send(new GetAllStoragesQuery(), cancellationToken);
-
-        if (result.Storages.Count == 0)
-        {
-            return NoContent();
-        }
-
-        return Ok(new
-        {
-            result.Storages,
-            result.TotalCount
-        });
+        return Ok(result);
     }
 
     /// <summary>

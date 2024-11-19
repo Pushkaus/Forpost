@@ -29,6 +29,10 @@ public sealed class Employee : DomainAuditableEntity
         return new Employee(firstName, lastName, patronymic, post, roleId, email, phoneNumber, passwordHash);
     }
 
+    public void SetNewPassword(string passwordHash)
+    {
+        PasswordHash = passwordHash;
+    }
     /// <summary>
     /// Имя сотрудника
     /// </summary>

@@ -1,4 +1,6 @@
 using BarcodeStandard;
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.Catalogs.Products;
 using Forpost.Features.Catalogs.Barcodes.ProductBarcodes;
 using Forpost.Features.Catalogs.Products;
 using Microsoft.AspNetCore.Authorization;
@@ -17,33 +19,22 @@ public sealed class ProductController : ApiController
     /// Получение всех продуктов
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof((IReadOnlyCollection<ProductResponse> Products, int TotalCount)),
+    [ProducesResponseType(typeof(EntityPagedResult<ProductModel>),
         StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<(IReadOnlyCollection<ProductResponse> Products, int TotalCount)>>
-        GetAllAsync(CancellationToken cancellationToken,
-            [FromQuery] int skip = 0, [FromQuery] int limit = 100,
-            [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
+    public async Task<IActionResult>
+        GetAllAsync([FromQuery] ProductFilter filter, CancellationToken cancellationToken)
     {
-        var result = await Sender.Send(new GetAllProductsQuery(filterExpression, filterValues, skip, limit),
-            cancellationToken);
-        
-        
-        var productResponses = Mapper.Map<IReadOnlyCollection<ProductResponse>>(result.Products);
-        
-        return Ok(new
-        {
-            Products = productResponses,
-            TotalCount = result.TotalCount
-        });
+        return Ok(await Sender.Send(new GetAllProductsQuery(filter),
+            cancellationToken));
     }
 
     /// <summary>
     /// Получение продукта по id
     /// </summary>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProductModel), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var product = await Sender.Send(new GetProductByIdQuery(id), cancellationToken);
@@ -90,7 +81,6 @@ public sealed class ProductController : ApiController
     {
         await Sender.Send(new DeleteProductByIdCommand(id), cancellationToken);
         return NoContent();
-
     }
 
     /// <summary>

@@ -1,26 +1,23 @@
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.Catalogs.Products;
 using Forpost.Domain.Catalogs.Products;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.Products;
 
 internal sealed class GetAllProductsQueryHandler :
-    IQueryHandler<GetAllProductsQuery, (IReadOnlyCollection<Product> Products, int TotalCount)>
+    IQueryHandler<GetAllProductsQuery, EntityPagedResult<ProductModel>>
 {
-    private readonly IProductDomainRepository _domainRepository;
+    private readonly IProductReadRepository _domainRepository;
 
-    public GetAllProductsQueryHandler(IProductDomainRepository domainRepository)
+    public GetAllProductsQueryHandler(IProductReadRepository domainRepository)
     {
         _domainRepository = domainRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<Product> Products, int TotalCount)> Handle(GetAllProductsQuery request,
-        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(request.FilterExpression,
-        request.FilterValues,
-        cancellationToken, request.Skip, request.Limit);
+    public async ValueTask<EntityPagedResult<ProductModel>> Handle(GetAllProductsQuery request,
+        CancellationToken cancellationToken) => await _domainRepository.GetAllAsync(request.Filter, cancellationToken);
 }
 
 public sealed record GetAllProductsQuery(
-    string? FilterExpression,
-    object?[]? FilterValues,
-    int Skip,
-    int Limit) : IQuery<(IReadOnlyCollection<Product> Products, int TotalCount)>;
+    ProductFilter Filter) : IQuery<EntityPagedResult<ProductModel>>;

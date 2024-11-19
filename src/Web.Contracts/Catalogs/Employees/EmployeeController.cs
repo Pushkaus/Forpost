@@ -57,4 +57,17 @@ public sealed class EmployeeController : ApiController
         await Sender.Send(new DeleteEmployeeCommand(id), cancellationToken);
         return NoContent();
     }
+
+    /// <summary>
+    /// Обновление пароля пользователя
+    /// </summary>
+    [HttpPut("{id:guid}/password")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdatePassword(Guid id, [FromBody] UpdatePasswordRequest request,
+        CancellationToken cancellationToken)
+    {
+        await Sender.Send(new UpdatePasswordCommand(id, request.Password), cancellationToken);
+        return NoContent();
+    }
 }

@@ -1,103 +1,107 @@
-using Forpost.Application.Contracts.InvoiceManagment.Invoices;
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
 using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Features.CRM.InvoiceManagement.Invoices;
 using Forpost.Features.InvoiceManagement.Invoices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices;
-
-[Route("api/v1/invoices")]
-public sealed class InvoiceController : ApiController
+namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
 {
     /// <summary>
-    /// Получить счет по его номеру
+    /// Контроллер для работы со счетами
     /// </summary>
-    [HttpGet("number/{number}")]
-    [ProducesResponseType(typeof(Invoice), StatusCodes.Status200OK)]
-    public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken)
-        => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
-
-    /// <summary>
-    /// Получить все счета
-    /// </summary>
-    [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceModel>), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
-        [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
+    [Route("api/v1/invoices")]
+    public sealed class InvoiceController : ApiController
     {
-        var result = await Sender.Send(new GetAllInvoicesQuery(filterExpression, filterValues, skip, limit),
-            cancellationToken);
-        return Ok(new { Invoices = result.Invoices, TotalCount = result.TotalCount });
-    }
+        /// <summary>
+        /// Получить счет по его номеру
+        /// </summary>
+        [HttpGet("number/{number}")]
+        [ProducesResponseType(typeof(Invoice), StatusCodes.Status200OK)]
+        public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken)
+            => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
 
-    /// <summary>
-    /// Создать счет
-    /// </summary>
-    [HttpPost]
-    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
-    public async Task<ActionResult<Guid>> ExposeAsync([FromBody] InvoiceCreateRequest request,
-        CancellationToken cancellationToken)
-    {
-        var id = await Sender.Send(new AddInvoiceCommand
+        /// <summary>
+        /// Получить все счета
+        /// </summary>
+        [HttpGet]
+        [ProducesResponseType(typeof(EntityPagedResult<InvoiceModel>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllAsync([FromQuery] InvoiceFilter filter,
+            CancellationToken cancellationToken)
         {
-            Number = request.Number,
-            ContractorId = request.ContragentId,
-            Description = request.Description,
-            DaysShipment = request.DaysShipment,
-            PaymentPercentage = request.PaymentPercentage,
-            Products = request.Products,
-        }, cancellationToken);
-        return Created("", id);
-    }
+            var result = await Sender.Send(new GetAllInvoicesQuery(filter), cancellationToken);
+            return Ok(result);
+        }
 
+        /// <summary>
+        /// Создать счет
+        /// </summary>
+        [HttpPost]
+        [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Guid>> CreateAsync([FromBody] InvoiceCreateRequest request,
+            CancellationToken cancellationToken)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-    // /// <summary>
-    // /// Закрытие счета
-    // /// </summary>
-    // [HttpPut("close/{id}")]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
-    // public async Task<IActionResult>
-    //     ClosingAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
-    // {
-    //     //Todo;
-    //     return Ok();
-    // } 
-    /// <summary>
-    /// Закрытие счета, смена статуса и выставление даты отгрузки
-    /// </summary>
-    [HttpPut("ship/{invoiceId}")]
-    [ProducesResponseType(StatusCodes.Status202Accepted)]
-    public async Task<IActionResult>
-        ShipAsync(Guid invoiceId, DateTimeOffset shipDate, CancellationToken cancellationToken)
-    {
-        await Sender.Send(new ShipInvoiceCommand(invoiceId, shipDate), cancellationToken);
-        return Ok();
-    }
+            var id = await Sender.Send(new AddInvoiceCommand
+            {
+                Number = request.Number,
+                ContractorId = request.ContractorId,
+                Description = request.Description,
+                Priority = Priority.FromValue(request.Priority),
+                PaymentStatus = PaymentStatus.FromValue(request.PaymentStatus),
+                Products = request.Products,
+            }, cancellationToken);
+            return CreatedAtRoute("", id);
+        }
 
-    /// <summary>
-    /// Обновление счета
-    /// </summary>
-    /// <param name="request"></param>
-    [HttpPut("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult>
-        UpdateAsync([FromBody] InvoiceUpdateRequest request, CancellationToken cancellationToken)
-    {
-        //Todo;
-        return Ok();
-    }
+        /// <summary>
+        /// Удалить счет по его id
+        /// </summary>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
+        {
+            await Sender.Send(new DeleteInvoiceCommand(id), cancellationToken);
+            return NoContent();
+        }
 
-    /// <summary>
-    /// Удалить счет по его id
-    /// </summary>
-    /// <param name="id"></param>
-    [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
-    {
-        //Todo;
-        return Ok();
+        /// <summary>
+        /// Изменить статус оплаты счета
+        /// </summary>
+        [HttpPut("{id}/payment-status")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> ChangePaymentStatus(Guid id, [FromBody] int paymentStatus,
+            CancellationToken cancellationToken)
+        {
+            await Sender.Send(new ChangePaymentStatusCommand(id, paymentStatus), cancellationToken);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Изменить приоритет счета
+        /// </summary>
+        [HttpPut("{id}/priority")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> ChangePriority(Guid id, [FromBody] int priority,
+            CancellationToken cancellationToken)
+        {
+            await Sender.Send(new ChangePriorityCommand(id, priority), cancellationToken);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Отгрузить счет
+        /// </summary>
+        [HttpPut("{id}/ship")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> ShipInvoice(Guid id, [FromBody] DateTimeOffset shipDate,
+            CancellationToken cancellationToken)
+        {
+            await Sender.Send(new ShipInvoiceCommand(id, shipDate), cancellationToken);
+            return NoContent();
+        }
     }
 }

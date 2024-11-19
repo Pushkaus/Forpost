@@ -75,11 +75,11 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<Guid>("CreatedById")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset?>("DateShipment")
+                    b.Property<DateTimeOffset?>("DateClosing")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("DaysShipment")
-                        .HasColumnType("integer");
+                    b.Property<DateTimeOffset?>("DateShipment")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
@@ -91,15 +91,21 @@ namespace Forpost.Store.Migrations.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
+                    b.Property<int>("InvoiceStatus")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Number")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
-                    b.Property<decimal>("PaymentPercentage")
-                        .HasColumnType("numeric");
+                    b.Property<DateTimeOffset?>("PaymentDeadline")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Priority")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
@@ -111,6 +117,9 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContractorId");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
 
                     b.ToTable("Invoices");
                 });
@@ -1009,7 +1018,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasOne("Forpost.Domain.Catalogs.Contractors.Contractor", null)
                         .WithMany()
                         .HasForeignKey("ContractorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
                 });
 

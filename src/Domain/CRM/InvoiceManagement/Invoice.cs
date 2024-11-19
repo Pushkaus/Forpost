@@ -5,56 +5,71 @@ namespace Forpost.Domain.CRM.InvoiceManagement;
 
 public sealed class Invoice : AggregateRoot
 {
-    public void InitialAdd()
-    {
-        InvoiceStatus = InvoiceStatus.Pending;
-    }
+    public string Number { get; private set; }
+    public Guid ContractorId { get; private set; }
+    public string? Description { get; private set; }
+    public DateTimeOffset? PaymentDeadline { get; set; }
+    public DateTimeOffset? DateShipment { get; private set; }
+    public DateTimeOffset? DateClosing { get; private set; }
+    public Priority Priority { get; private set; }
+    public PaymentStatus PaymentStatus { get; private set; }
+    public InvoiceStatus InvoiceStatus { get; private set; }
 
-    public Invoice(
-        string number,
-        Guid contractorId,
-        string? description,
-        decimal paymentPercentage,
-        int daysShipment)
-    {
-        Number = number;
-        ContractorId = contractorId;
-        Description = description;
-        PaymentPercentage = paymentPercentage;
-        DaysShipment = daysShipment;
-    }
     /// <summary>
-    /// Завести счёт
+    /// Завести счет
     /// </summary>
-    public static Invoice Expose(
-        string number,
+    public static Invoice Create(string number,
         Guid contractorId,
         string? description,
-        decimal paymentPercentage,
-        int daysShipment)
+        Priority priority,
+        PaymentStatus paymentStatus,
+        DateTimeOffset? paymentDeadline)
     {
-        var invoice = new Invoice(number, contractorId, description, paymentPercentage, daysShipment);
-        
-        invoice.InitialAdd();
-        
-        invoice.Raise(new InvoiceExposed(invoice.Id));
-        
+        var invoice = new Invoice(number, contractorId, description, null, null, priority, paymentStatus,
+            paymentDeadline,
+            InvoiceStatus.Created);
+        invoice.Raise(new InvoiceCreated(invoice.Id));
         return invoice;
     }
-    /// <summary>
-    /// Выставление даты отгрузки счета
-    /// </summary>
-    public void Ship(DateTimeOffset dateShipment)
+
+    public void ChangePriority(int priority)
+    {
+        Priority = Priority.FromValue(priority);
+    }
+
+    public void ChangePaymentStatus(int paymentStatus)
+    {
+        PaymentStatus = PaymentStatus.FromValue(paymentStatus);
+    }
+
+    public void SetShipmentDate(DateTimeOffset dateShipment)
     {
         DateShipment = dateShipment;
-        InvoiceStatus = InvoiceStatus.Completed;
     }
-    public string Number { get; set; } = null!;
-    public Guid ContractorId { get; set; }
-    public string? Description { get; set; }
-    public DateTimeOffset? DateShipment { get; set; }
-    public DateTimeOffset? DateClosing { get; set; }
-    public Priority Priority { get; set; } 
-    public PaymentStatus PaymentStatus { get; set; }
-    public InvoiceStatus InvoiceStatus { get; set; } = default!;
+    
+    private Invoice(string number,
+        Guid contractorId,
+        string? description,
+        DateTimeOffset? dateShipment,
+        DateTimeOffset? dateClosing,
+        Priority priority,
+        PaymentStatus paymentStatus,
+        DateTimeOffset? paymentDeadline,
+        InvoiceStatus invoiceStatus)
+    {
+        Number = GenerateNumber(number);
+        ContractorId = contractorId;
+        Description = description;
+        DateShipment = dateShipment;
+        DateClosing = dateClosing;
+        Priority = priority;
+        PaymentDeadline = paymentDeadline;
+        PaymentStatus = paymentStatus;
+        InvoiceStatus = invoiceStatus;
+    }
+
+    private static string GenerateNumber(string number)
+    {
+        return $"{number}-{DateTime.Now.Year}";
+    }
 }

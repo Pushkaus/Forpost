@@ -1,4 +1,6 @@
 using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Forpost.BackgroundJobs;
 using Forpost.Common.Utils;
 using Forpost.Domain.Catalogs.Employees;
@@ -52,6 +54,10 @@ internal sealed class Startup
         services.AddAutoMapper(WebContractsAssemblyReference.Assembly);
         services.AddAutoMapper(FeatureAssemblyReference.Assembly);
 
+        services.AddFluentValidationAutoValidation();
+        services.AddFluentValidationClientsideAdapters();
+        services.AddValidatorsFromAssemblyContaining<FeatureAssemblyReference>();
+        
         services.AddHttpContextAccessor();
         services.AddControllers(options => options.Filters.Add<ForpostExceptionFilter>());
         services.AddEndpointsApiExplorer();
