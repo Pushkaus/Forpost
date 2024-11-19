@@ -12,8 +12,6 @@ internal sealed class ContactorConfiguration : IEntityTypeConfiguration<Contract
         builder.Property(entity => entity.Name)
             .HasMaxLength(DatabaseConstrains.MaxLength);
         
-        builder.HasIndex(entity => entity.Name).IsUnique();
-
         builder.HasIndex(contractor => contractor.Name).IsUnique();
     }
 }

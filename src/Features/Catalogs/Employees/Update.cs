@@ -30,6 +30,5 @@ namespace Forpost.Features.Catalogs.Employees
         string Post,
         Guid RoleId,
         string? Email,
-        string PhoneNumber,
-        string PasswordHash) : ICommand;
+        string PhoneNumber) : ICommand;
 }

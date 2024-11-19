@@ -47,11 +47,6 @@ public sealed class FileController : ApiController
     public async Task<IActionResult> DownloadFileAsync(Guid id, CancellationToken cancellationToken)
     {
         var response = await Sender.Send(new DownloadFileQuery(id), cancellationToken);
-        if (response == null)
-        {
-            return NotFound("Файл не найден.");
-        }
-
         var downloadFile = _mapper.Map<DownloadFileResponse>(response);
         return File(downloadFile.FileContent, downloadFile.ContentType, downloadFile.FileName);
     }
@@ -77,10 +72,6 @@ public sealed class FileController : ApiController
     public async Task<IActionResult> GetAllFilesAsync(Guid parentId, CancellationToken cancellationToken)
     {
         var files = await Sender.Send(new GetAllFileInfosByProductIdQuery(parentId), cancellationToken);
-        if (files == null || !files.Any())
-        {
-            return NotFound("Файлы не найдены для данного идентификатора родителя.");
-        }
         return Ok(files);
     }
 }

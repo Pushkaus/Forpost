@@ -6,6 +6,7 @@ public sealed class ProductResponse
     public string Name { get; set; }
     public bool Purchased  { get;set;}
     public Guid CategoryId { get; set; }
+    public string CategoryName { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public Guid CreatedById { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

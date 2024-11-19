@@ -19,4 +19,5 @@ internal static class CommonConfiguration
     public static PropertyBuilder<TEntity> ConfigureSmartEnumerationAsEnum<TEntity>(this PropertyBuilder<TEntity> builder)
         where TEntity : SmartEnumeration<TEntity> =>
         builder.HasConversion(p => p.Value, p => SmartEnumeration<TEntity>.FromValue(p));
+    
 }

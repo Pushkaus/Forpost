@@ -1,4 +1,4 @@
-using Forpost.Application.Contracts.StorageManagment;
+using Forpost.Application.Contracts.StorageManagement;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 

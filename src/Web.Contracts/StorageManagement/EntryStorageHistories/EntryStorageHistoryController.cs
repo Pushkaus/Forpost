@@ -1,4 +1,4 @@
-using Forpost.Application.Contracts.StorageManagment;
+using Forpost.Application.Contracts.StorageManagement;
 using Forpost.Features.StorageManagement.EntryStorageHistories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

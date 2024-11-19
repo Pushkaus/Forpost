@@ -1,5 +1,6 @@
 using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
-using Forpost.Features.InvoiceManagement.CompositionInvoices;
+using Forpost.Features.CRM.InvoiceManagement.CompositionInvoices;
+using Forpost.Features.CRM.InvoiceManagement.InvoiceProducts;
 using Forpost.Features.InvoiceManagement.InvoiceProducts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,7 @@ public sealed class InvoiceProductController : ApiController
         var result = Mapper.Map<IReadOnlyCollection<InvoiceProductResponse>>(compositionInvoice);
         return Ok(result);
     }
+    
     /// <summary>
     /// Заполнение состава счета
     /// </summary>
@@ -47,7 +49,6 @@ public sealed class InvoiceProductController : ApiController
             cancellationToken);
         return Ok();
     }
-
     /// <summary>
     /// Получение состава счета
     /// </summary>
@@ -57,32 +58,4 @@ public sealed class InvoiceProductController : ApiController
     {
         return Ok(await Sender.Send(new GetCompletedCompositionInvoiceQuery(invoiceId), cancellationToken));
     }
-    //TODO;
-    // /// <summary>
-    // /// Обновление продукта в счете
-    // /// </summary>
-    // /// <param name="request"></param>
-    // /// <returns></returns>
-    // [HttpPut]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
-    // public async Task<IActionResult>
-    //     UpdateAsync([FromBody] InvoiceProductRequest request, CancellationToken cancellationToken)
-    // {
-    //     var model = _mapper.Map<InvoiceProductCreate>(request);
-    //     await _invoiceProductService.UpdateAsync(model, cancellationToken);
-    //     return Ok();
-    // }
-    //
-    // /// <summary>
-    // /// Удаление продукта из счета
-    // /// </summary>
-    // /// <param name="id"></param>
-    // /// <returns></returns>
-    // [HttpDelete("{id}")]
-    // [ProducesResponseType(StatusCodes.Status200OK)]
-    // public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
-    // {
-    //     await _invoiceProductService.DeleteByProductIdAsync(id, cancellationToken);
-    //     return Ok();
-    // }
 }

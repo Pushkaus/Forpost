@@ -79,10 +79,7 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
         int limit,
         CancellationToken cancellationToken)
     {
-        // Получаем общее количество техкарточек
-        var totalCount = await _dbContext.TechCards.NotDeletedAt().CountAsync(cancellationToken);
-
-        // Начинаем формировать запрос
+        var totalCount = await _dbContext.TechCards.CountAsync(cancellationToken);
         var query = _dbContext.TechCards
             .Join(_dbContext.Products,
                 techCard => techCard.ProductId,
@@ -95,13 +92,10 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
                     ProductId = techCard.ProductId,
                     ProductName = product.Name
                 });
-
-        // Применение фильтрации, если выражение задано
         if (!string.IsNullOrWhiteSpace(filterExpression))
         {
             try
             {
-                // Применяем фильтрацию на запросе
                 query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
             }
             catch (ParseException ex)
@@ -109,11 +103,8 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
                 throw new ArgumentException("Некорректное выражение фильтрации.", ex);
             }
         }
-
-        // Обновляем общее количество техкарточек после применения фильтрации
         totalCount = await query.CountAsync(cancellationToken);
-
-        // Получаем отфильтрованный и разбитый на страницы список техкарточек
+        
         var techCards = await query
             .Skip(skip)
             .Take(limit)
