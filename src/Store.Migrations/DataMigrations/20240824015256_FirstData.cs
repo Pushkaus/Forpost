@@ -95,13 +95,13 @@ namespace Forpost.Store.Migrations.DataMigrations
                                              ("Id", "Name", "CategoryId", "CreatedAt", "CreatedById",
                                               "UpdatedAt", "UpdatedById", "DeletedAt", "DeletedById", "Purchased")
                                          VALUES
-                                             ('{productId1}', 'БПС-3000-220/220в-15А-23', '{categoryId}', '{dateTimeNow}', '{userId}',
+                                             ('{productId1}', 'БПС-3000-220/220в-15А-23', null, '{dateTimeNow}', '{userId}',
                                               '{dateTimeNow}', '{userId}', null, null, false),
-                                             ('{productId2}', 'Плата диодов FOUT5000_220JYPv3', '{categoryId}', '{dateTimeNow}', '{userId}',
+                                             ('{productId2}', 'Плата диодов FOUT5000_220JYPv3', null, '{dateTimeNow}', '{userId}',
                                               '{dateTimeNow}', '{userId}', null, null, false),
-                                             ('{productId3}', 'Плата ключей БПС3000.14.1ф.ПТ-v1', '{categoryId}', '{dateTimeNow}', '{userId}',
+                                             ('{productId3}', 'Плата ключей БПС3000.14.1ф.ПТ-v1', null, '{dateTimeNow}', '{userId}',
                                               '{dateTimeNow}', '{userId}', null, null, false),
-                                             ('{productId4}', 'Радиатор БПС5000.23', '{categoryId}', '{dateTimeNow}', '{userId}',
+                                             ('{productId4}', 'Радиатор БПС5000.23', null, '{dateTimeNow}', '{userId}',
                                               '{dateTimeNow}', '{userId}', null, null, false);
                                      """;
 
