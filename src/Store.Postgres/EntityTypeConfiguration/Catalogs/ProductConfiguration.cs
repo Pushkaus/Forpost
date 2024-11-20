@@ -13,6 +13,8 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         
         builder.HasIndex(entity => entity.Name).IsUnique();
         
+        builder.Property(entity => entity.CategoryId).IsRequired(false);
+        
         builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }

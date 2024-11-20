@@ -55,6 +55,7 @@ internal sealed class CatalogMappingProfile : Profile
         
         CreateMap<ProductCreateRequest, AddProductCommand>().ValidateMemberList(MemberList.Destination);
         CreateMap<ProductUpdateRequest, UpdateProductCommand>().ValidateMemberList(MemberList.Destination);
+        CreateMap<UpdateProductCommand, Product>().ValidateMemberList(MemberList.Destination);
         
         CreateMap<OperationCreateRequest, AddOperationCommand>().ValidateMemberList(MemberList.Destination);
         

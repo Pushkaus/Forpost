@@ -34,17 +34,19 @@ internal sealed class ProductReadRepository: IProductReadRepository
     public async Task<EntityPagedResult<ProductModel>> GetAllAsync(ProductFilter filter, CancellationToken cancellationToken)
     {
         var query = _dbContext.Products.NotDeletedAt()
-            .Join(_dbContext.Categories,
+            .GroupJoin(_dbContext.Categories, 
                 product => product.CategoryId,
                 category => category.Id,
-                (product, category) => new ProductModel
+                (product, categories) => new { product, categories })
+            .SelectMany(x => x.categories.DefaultIfEmpty(),
+                (x, category) => new ProductModel
                 {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Purchased = product.Purchased,
-                    CategoryId = product.CategoryId,
-                    CategoryName = category != null ? category.Name : "Без категории",
-                    UpdatedAt = product.UpdatedAt
+                    Id = x.product.Id,
+                    Name = x.product.Name,
+                    Purchased = x.product.Purchased,
+                    CategoryId = x.product.CategoryId,
+                    CategoryName =  category != null ? category.Name : "Нет категории",
+                    UpdatedAt = x.product.UpdatedAt
                 });
         
         if (!string.IsNullOrEmpty(filter.Name))

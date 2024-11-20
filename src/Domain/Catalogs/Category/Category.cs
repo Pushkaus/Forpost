@@ -27,9 +27,7 @@ public sealed class Category : DomainEntity
     /// </summary>
     public Guid? ParentCategoryId { get; set; }
     
-    // Навигационное свойство для родительской категории
     public Category? ParentCategory { get; set; }
 
-    // Навигационное свойство для дочерних категорий
     public IReadOnlyCollection<Category> Children { get; set; } = new List<Category>();
 }

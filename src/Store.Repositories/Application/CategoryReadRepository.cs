@@ -57,7 +57,7 @@ internal sealed class CategoryReadRepository : ICategoryReadRepository
         }
         var rootCategories = new List<CategoryWithChildrenModel>();
 
-        foreach (var category in categoryDict.Values.Where(category => category.ParentCategoryId == Guid.Empty))
+        foreach (var category in categoryDict.Values.Where(category => category.ParentCategoryId == null))
         {
             rootCategories.Add(category); 
             AddChildren(category, categoryDict);

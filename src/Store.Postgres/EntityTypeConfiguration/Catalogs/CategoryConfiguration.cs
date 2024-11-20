@@ -1,4 +1,5 @@
 using Forpost.Domain.Catalogs.Category;
+using Forpost.Domain.Catalogs.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,7 +13,13 @@ internal sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
         
         builder.HasOne(c => c.ParentCategory)
             .WithMany(c => c.Children)
-            .OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey(c => c.ParentCategoryId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired(false); 
+        
+        builder.HasMany<Product>()
+            .WithOne()
+            .OnDelete(DeleteBehavior.SetNull);
         
         builder.HasIndex(entity => entity.Name).IsUnique();
 
