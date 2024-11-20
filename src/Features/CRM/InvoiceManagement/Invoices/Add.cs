@@ -53,10 +53,9 @@ public record AddInvoiceCommand : ICommand<Guid>
     public string Number { get; set; } = default!;
     public Guid ContractorId { get; set; }
     public string? Description { get; set; }
-    public DateTimeOffset PaymentDeadline { get; set; }
+    public DateTimeOffset? PaymentDeadline { get; set; }
     public Priority Priority { get; set; } = null!;
     public PaymentStatus PaymentStatus { get; set; } = null!;
-
     public IReadOnlyCollection<InvoiceProductCreate> Products { get; set; } =
         ReadOnlyCollection<InvoiceProductCreate>.Empty;
 }

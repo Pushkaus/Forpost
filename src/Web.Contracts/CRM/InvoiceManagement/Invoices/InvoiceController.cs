@@ -50,6 +50,7 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
                 Number = request.Number,
                 ContractorId = request.ContractorId,
                 Description = request.Description,
+                PaymentDeadline = request.PaymentDeadline,
                 Priority = Priority.FromValue(request.Priority),
                 PaymentStatus = PaymentStatus.FromValue(request.PaymentStatus),
                 Products = request.Products,

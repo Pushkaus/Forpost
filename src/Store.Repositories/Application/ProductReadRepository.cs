@@ -51,7 +51,7 @@ internal sealed class ProductReadRepository: IProductReadRepository
         
         if (!string.IsNullOrEmpty(filter.Name))
         {
-            query = query.Where(p => p.Name.Contains(filter.Name));
+            query = query.Where(p => p.Name.ToLower().Contains(filter.Name.ToLower()));
         }
 
         if (filter.CategoryId.HasValue)
@@ -66,7 +66,7 @@ internal sealed class ProductReadRepository: IProductReadRepository
 
         if (!string.IsNullOrEmpty(filter.CategoryName))
         {
-            query = query.Where(p => p.CategoryName.Contains(filter.CategoryName));
+            query = query.Where(p => p.CategoryName.ToLower().Contains(filter.CategoryName.ToLower()));
         }
         var totalItems = await query.CountAsync(cancellationToken);
 
