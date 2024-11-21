@@ -1,3 +1,5 @@
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Features.Catalogs.Employees;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,21 +13,15 @@ public sealed class EmployeeController : ApiController
     /// Получить список всех сотрудников
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof((IReadOnlyCollection<EmployeeResponse> Employees, int TotalCount)),
+    [ProducesResponseType(typeof(EntityPagedResult<EmployeeWithRoleModel>),
         StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
-        [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
+    public async Task<IActionResult> GetAllAsync([FromQuery] EmployeeFilter filter, CancellationToken cancellationToken)
     {
-        var result = await Sender.Send(new GetAllEmployeesWithRoleQuery(filterExpression, filterValues, skip, limit),
+        var result = await Sender.Send(new GetAllEmployeesWithRoleQuery(filter),
             cancellationToken);
-        return Ok(new
-        {
-            Employees = Mapper.Map<IReadOnlyCollection<EmployeeResponse>>(result.Employees),
-            TotalCount = result.TotalCount
-        });
+        return Ok(result);
     }
 
     /// <summary>

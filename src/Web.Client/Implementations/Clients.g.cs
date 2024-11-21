@@ -11139,14 +11139,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех сотрудников
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll4Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
+        System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> GetAll4Async(string? lastname, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll4Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> GetAll4Async(string? lastname, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление информации о сотруднике
@@ -11221,9 +11221,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех сотрудников
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll4Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> GetAll4Async(string? lastname, int? skip, int? limit)
         {
-            return GetAll4Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
+            return GetAll4Async(lastname, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -11231,7 +11231,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех сотрудников
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger> GetAll4Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> GetAll4Async(string? lastname, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -11247,21 +11247,17 @@ namespace Forpost.Web.Client.Implementations
                     // Operation Path: "api/v1/employees"
                     urlBuilder_.Append("api/v1/employees");
                     urlBuilder_.Append('?');
+                    if (lastname != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Lastname")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(lastname, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
                     if (skip != null)
                     {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
                     }
                     if (limit != null)
                     {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (filterExpression != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (filterValues != null)
-                    {
-                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
                     }
                     urlBuilder_.Length--;
 
@@ -11290,7 +11286,7 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<EntityPagedResultOfEmployeeWithRoleModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -13997,6 +13993,12 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
+        public decimal PaymentPercentage { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("createDate")]
+        public System.DateTimeOffset CreateDate { get; set; } = default!;
+
         [System.Text.Json.Serialization.JsonPropertyName("paymentDeadline")]
         public System.DateTimeOffset? PaymentDeadline { get; set; } = default!;
 
@@ -14150,6 +14152,12 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
+        public decimal PaymentPercentage { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("createDate")]
+        public System.DateTimeOffset CreateDate { get; set; } = default!;
+
         [System.Text.Json.Serialization.JsonPropertyName("createdAt")]
         public System.DateTimeOffset CreatedAt { get; set; } = default!;
 
@@ -14194,6 +14202,12 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("paymentStatus")]
         public int PaymentStatus { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("createDate")]
+        public System.DateTimeOffset CreateDate { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("paymentPercentage")]
+        public decimal? PaymentPercentage { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("products")]
         public System.Collections.Generic.ICollection<InvoiceProductCreate> Products { get; set; } = default!;
@@ -14675,7 +14689,7 @@ namespace Forpost.Web.Client.Implementations
         public bool Purchased { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("categoryId")]
-        public System.Guid? CategoryId { get; set; } = default!;
+        public System.Guid CategoryId { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("categoryName")]
         public string CategoryName { get; set; } = default!;
@@ -14756,8 +14770,47 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger
+    public partial class EntityPagedResultOfEmployeeWithRoleModel
     {
+
+        [System.Text.Json.Serialization.JsonPropertyName("items")]
+        public System.Collections.Generic.ICollection<EmployeeWithRoleModel> Items { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("totalCount")]
+        public int TotalCount { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class EmployeeWithRoleModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("firstName")]
+        public string FirstName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("lastName")]
+        public string LastName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("patronymic")]
+        public string? Patronymic { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("post")]
+        public string Post { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("role")]
+        public string Role { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("roleId")]
+        public System.Guid RoleId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("email")]
+        public string? Email { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("phoneNumber")]
+        public string PhoneNumber { get; set; } = default!;
 
     }
 

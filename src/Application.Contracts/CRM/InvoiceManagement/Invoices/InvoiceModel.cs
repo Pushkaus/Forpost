@@ -9,6 +9,14 @@ public sealed class InvoiceModel
     public Guid ContractorId { get; set; }
     public string ContragentName { get; set; } = string.Empty;
     public string? Description { get; set; }
+    public decimal PaymentPercentage { get; set; }
+    /// <summary>
+    /// Дата создания счета
+    /// </summary>
+    public DateTimeOffset CreateDate { get; set; }
+    /// <summary>
+    /// Дата выставления счета
+    /// </summary>
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? PaymentDeadline { get; set; }
     public DateTimeOffset? DateShipment { get; set; }

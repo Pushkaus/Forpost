@@ -1,6 +1,7 @@
 using System.Linq.Dynamic.Core;
 using System.Linq.Dynamic.Core.Exceptions;
 using AutoMapper;
+using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
@@ -15,14 +16,14 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
     {
         _dbContext = dbContext;
     }
-    public async Task<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)> GetAllEmployeesWithRoleAsync(
-        string? filterExpression, object?[]? filterValues, int skip, int limit,
+
+    public async Task<EntityPagedResult<EmployeeWithRoleModel>> GetAllEmployeesWithRoleAsync(
+        EmployeeFilter filter,
         CancellationToken cancellationToken)
     {
-        
         var totalCount = await _dbContext.Employees.CountAsync(cancellationToken);
 
-        var query = _dbContext.Employees.NotDeletedAt()
+        var query = _dbContext.Employees.NotDeletedAt().OrderByDescending(x => x.UpdatedAt)
             .Join(
                 _dbContext.Roles,
                 employee => employee.RoleId,
@@ -40,22 +41,20 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
                     PhoneNumber = employee.PhoneNumber,
                 }
             );
-        if (!string.IsNullOrWhiteSpace(filterExpression))
+        if (!string.IsNullOrWhiteSpace(filter.Lastname))
         {
-            try
-            {
-                query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
-            }
-            catch (ParseException ex)
-            {
-                throw new ArgumentException("Некорректное выражение фильтрации.", ex);
-            }
+            query = query.Where(x => x.LastName.Contains(filter.Lastname));
         }
+
         var employees = await query
-            .Skip(skip)
-            .Take(limit)
+            .Skip(filter.Skip)
+            .Take(filter.Limit)
             .ToListAsync(cancellationToken);
 
-        return (employees, totalCount);
+        return new EntityPagedResult<EmployeeWithRoleModel>
+        {
+            Items = employees,
+            TotalCount = totalCount
+        };
     }
 }

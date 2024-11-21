@@ -1,10 +1,11 @@
+using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.Employees;
 
 internal sealed class GetAllEmployeesWithRoleQueryHandler :
-    IQueryHandler<GetAllEmployeesWithRoleQuery, (IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)>
+    IQueryHandler<GetAllEmployeesWithRoleQuery, EntityPagedResult<EmployeeWithRoleModel>>
 {
     private readonly IEmployeeReadRepository _employeeReadRepository;
 
@@ -13,15 +14,11 @@ internal sealed class GetAllEmployeesWithRoleQueryHandler :
         _employeeReadRepository = employeeReadRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)> Handle(
+    public async ValueTask<EntityPagedResult<EmployeeWithRoleModel>> Handle(
         GetAllEmployeesWithRoleQuery request,
         CancellationToken cancellationToken) =>
-        await _employeeReadRepository.GetAllEmployeesWithRoleAsync(request.FilterExpression, request.FilterValues,
-            request.Skip, request.Limit, cancellationToken);
+        await _employeeReadRepository.GetAllEmployeesWithRoleAsync(request.Filter, cancellationToken);
 }
 
-public sealed record GetAllEmployeesWithRoleQuery(
-    string? FilterExpression,
-    object?[]? FilterValues,
-    int Skip,
-    int Limit) : IQuery<(IReadOnlyCollection<EmployeeWithRoleModel> Employees, int TotalCount)>;
+public sealed record GetAllEmployeesWithRoleQuery(EmployeeFilter Filter)
+    : IQuery<EntityPagedResult<EmployeeWithRoleModel>>;

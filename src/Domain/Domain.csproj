@@ -7,5 +7,12 @@
     <ItemGroup>
       <Folder Include="BarcodesManagement\" />
     </ItemGroup>
+        
+    <ItemGroup>
+      <Compile Remove="ChangeLogs\ChangeLogDomainRepository.cs" />
+      <Compile Remove="CRM\InvoiceManagement\ICompositionInvoiceDomainRepository.cs" />
+      <Compile Remove="CRM\InvoiceManagement\IInvoiceProductDomainRepository.cs" />
+      <Compile Remove="CRM\InvoiceManagement\IInvoiceDomainRepository.cs" />
+    </ItemGroup>
     
 </Project>

@@ -3282,48 +3282,31 @@
         "operationId": "GetAll4",
         "parameters": [
           {
-            "name": "skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            },
-            "x-position": 1
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            },
-            "x-position": 2
-          },
-          {
-            "name": "filterExpression",
+            "name": "Lastname",
             "in": "query",
             "schema": {
               "type": "string",
               "nullable": true
             },
-            "x-position": 3
+            "x-position": 1
           },
           {
-            "name": "filterValues",
+            "name": "Skip",
             "in": "query",
-            "style": "form",
-            "explode": true,
             "schema": {
-              "type": "array",
-              "nullable": true,
-              "items": {
-                "type": "string",
-                "nullable": true
-              }
+              "type": "integer",
+              "format": "int32"
             },
-            "x-position": 4
+            "x-position": 2
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
           }
         ],
         "responses": {
@@ -3332,7 +3315,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger"
+                  "$ref": "#/components/schemas/EntityPagedResultOfEmployeeWithRoleModel"
                 }
               }
             }
@@ -4698,6 +4681,14 @@
                 "type": "string",
                 "nullable": true
               },
+              "paymentPercentage": {
+                "type": "number",
+                "format": "decimal"
+              },
+              "createDate": {
+                "type": "string",
+                "format": "date-time"
+              },
               "paymentDeadline": {
                 "type": "string",
                 "format": "date-time",
@@ -4915,6 +4906,14 @@
             "type": "string",
             "nullable": true
           },
+          "paymentPercentage": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -4968,6 +4967,15 @@
           "paymentStatus": {
             "type": "integer",
             "format": "int32"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "paymentPercentage": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
           },
           "products": {
             "type": "array",
@@ -5505,8 +5513,7 @@
           },
           "categoryId": {
             "type": "string",
-            "format": "guid",
-            "nullable": true
+            "format": "guid"
           },
           "categoryName": {
             "type": "string"
@@ -5601,9 +5608,58 @@
           200
         ]
       },
-      "ValueTupleOfIReadOnlyCollectionOfEmployeeResponseAndInteger": {
+      "EntityPagedResultOfEmployeeWithRoleModel": {
         "type": "object",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmployeeWithRoleModel"
+            }
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "EmployeeWithRoleModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "patronymic": {
+            "type": "string",
+            "nullable": true
+          },
+          "post": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "roleId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string"
+          }
+        }
       },
       "EmployeeRequest": {
         "type": "object",

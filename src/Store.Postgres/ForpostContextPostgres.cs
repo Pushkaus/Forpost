@@ -10,6 +10,7 @@ using Forpost.Domain.Catalogs.Storages;
 using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCardSteps;
+using Forpost.Domain.ChangeLogs;
 using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Domain.CRM.IssueHistory;
 using Forpost.Domain.CRM.PriceLists;
@@ -60,6 +61,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<PriceList> PriceLists => Set<PriceList>();
     public DbSet<ProductBarcode> ProductBarcodes => Set<ProductBarcode>();
     public DbSet<EntryStorageHistory> EntryStorageHistories => Set<EntryStorageHistory>();
+    public DbSet<ChangeLog> ChangeLogs => Set<ChangeLog>();
     #region ApplicationTables
     
     /// <summary>

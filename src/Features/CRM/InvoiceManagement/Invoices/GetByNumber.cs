@@ -1,5 +1,6 @@
 using Forpost.Common;
 using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Domain.CRM.InvoiceManagement.Contracts;
 using Mediator;
 
 namespace Forpost.Features.CRM.InvoiceManagement.Invoices;
