@@ -1,6 +1,8 @@
 using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.ChangeLogs;
 using Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
 using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Features.ChangeLogs;
 using Forpost.Features.CRM.InvoiceManagement.Invoices;
 using Forpost.Features.InvoiceManagement.Invoices;
 using Microsoft.AspNetCore.Http;
@@ -45,16 +47,18 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var id = await Sender.Send(new AddInvoiceCommand
+            var invoiceId = await Sender.Send(new AddInvoiceCommand
             {
                 Number = request.Number,
                 ContractorId = request.ContractorId,
                 Description = request.Description,
                 Priority = Priority.FromValue(request.Priority),
                 PaymentStatus = PaymentStatus.FromValue(request.PaymentStatus),
+                CreateDate = request.CreateDate,
+                PaymentPercentage = request.PaymentPercentage,
                 Products = request.Products,
             }, cancellationToken);
-            return CreatedAtRoute("", id);
+            return CreatedAtRoute("", invoiceId);
         }
 
         /// <summary>
@@ -102,6 +106,17 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         {
             await Sender.Send(new ShipInvoiceCommand(id, shipDate), cancellationToken);
             return NoContent();
+        }
+
+        /// <summary>
+        /// Получить изменения в счете по ID
+        /// </summary>
+        [HttpGet("{id}/change-logs")]
+        [ProducesResponseType(typeof(EntityPagedResult<ChangeLogModel>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetChangeLogsByIdAsync(Guid id, [FromQuery] ChangeLogFilter filter,
+            CancellationToken cancellationToken)
+        {
+            return Ok(await Sender.Send(new GetChangeLogsByIdQuery(id, filter), cancellationToken));
         }
     }
 }

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Domain.CRM.InvoiceManagement.Contracts;
 using Forpost.Store.Postgres;
 
 namespace Forpost.Store.Repositories.CRM.InvoiceManagment;
