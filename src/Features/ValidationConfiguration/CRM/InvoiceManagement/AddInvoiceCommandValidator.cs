@@ -1,6 +1,7 @@
 using FluentValidation; // Убедитесь, что у вас подключена библиотека FluentValidation
 using Forpost.Features.CRM.InvoiceManagement.Invoices; // Импортирование нужного пространства имен
-using Forpost.Features.InvoiceManagement.Invoices; // Возможно, это также необходимо
+
+// Возможно, это также необходимо
 
 namespace Forpost.Features.ValidationConfiguration.CRM.InvoiceManagement
 {

@@ -5,6 +5,7 @@ using Forpost.Features.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Forpost.Web.Contracts.Auth;
 
@@ -15,10 +16,10 @@ public sealed class AccountController : ApiController
     /// Регистрация сотрудника (регистрирует только админ)
     /// </summary>
     [HttpPost]
-    [Authorize]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> RegisterAsync([FromBody] RegisterUserRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> RegisterAsync([FromBody] RegisterUserRequest request,
+        CancellationToken cancellationToken)
     {
         var user = Mapper.Map<RegisterUserModel>(request);
         await Sender.Send(new RegisterUserCommand(user), cancellationToken);
@@ -29,10 +30,12 @@ public sealed class AccountController : ApiController
     /// Логин сотрудника
     /// </summary>
     [HttpPost("login")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<string> LoginAsync([Required][FromBody] LoginUserRequest request, CancellationToken cancellationToken)
+    public async Task<string> LoginAsync([Required] [FromBody] LoginUserRequest request,
+        CancellationToken cancellationToken)
     {
         var token = await Sender.Send(new LoginUserCommand(
             request.FirstName,
@@ -40,4 +43,12 @@ public sealed class AccountController : ApiController
             request.Password), cancellationToken);
         return token;
     }
-}
+
+    [HttpGet("login")]
+    [AllowAnonymous]
+    public IActionResult LoginPage()
+    {
+        return Ok();
+    }
+} 
+

@@ -3,6 +3,7 @@ using System;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forpost.Store.Migrations.Migrations
 {
     [DbContext(typeof(ForpostContextPostgres))]
-    partial class ForpostContextPostgresModelSnapshot : ModelSnapshot
+    [Migration("20241120061715_UpdateCategoryAndProduct")]
+    partial class UpdateCategoryAndProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,9 +72,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<Guid>("ContractorId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTimeOffset>("CreateDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -104,9 +104,6 @@ namespace Forpost.Store.Migrations.Migrations
 
                     b.Property<DateTimeOffset?>("PaymentDeadline")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("PaymentPercentage")
-                        .HasColumnType("numeric");
 
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("integer");
@@ -404,6 +401,7 @@ namespace Forpost.Store.Migrations.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -663,36 +661,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("TechCards");
-                });
-
-            modelBuilder.Entity("Forpost.Domain.ChangeLogs.ChangeLog", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("EntityId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("NewValue")
-                        .HasColumnType("text");
-
-                    b.Property<string>("OldValue")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PropertyName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ChangeLogs");
                 });
 
             modelBuilder.Entity("Forpost.Domain.FileStorage.File", b =>
@@ -1080,7 +1048,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasOne("Forpost.Domain.Catalogs.Category.Category", "ParentCategory")
                         .WithMany("Children")
                         .HasForeignKey("ParentCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ParentCategory");
                 });
@@ -1099,7 +1067,8 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasOne("Forpost.Domain.Catalogs.Category.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Forpost.Domain.Catalogs.Products.ProductVersion", b =>

@@ -12,4 +12,5 @@ internal sealed class CategoryDomainRepository : DomainRepository<Category>, ICa
         : base(dbContext, timeProvider, mapper)
     {
     }
+    
 }

@@ -1,7 +1,6 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
-using Forpost.Domain.StorageManagment.StorageProducts;
 
-namespace Forpost.Domain.StorageManagment;
+namespace Forpost.Domain.StorageManagment.StorageProducts;
 
 public interface IStorageProductDomainRepository : IDomainRepository<StorageProduct>
 {

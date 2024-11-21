@@ -1,7 +1,7 @@
 using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 using Forpost.Common.DataAccess;
 
-namespace Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
+namespace Forpost.Application.Contracts.CRM.InvoiceManagement.CompositionInvoices;
 
 public interface ICompositionInvoiceReadRepository : IApplicationReadRepository
 {

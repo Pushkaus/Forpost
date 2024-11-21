@@ -1,11 +1,10 @@
 using AutoMapper;
 using Forpost.Features.FileStorage.Files;
-using Forpost.Web.Contracts.FIleStorage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.FileStorage;
+namespace Forpost.Web.Contracts.FIleStorage;
 
 [Route("api/v1/files")]
 [Authorize]

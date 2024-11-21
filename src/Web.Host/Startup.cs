@@ -36,15 +36,15 @@ internal sealed class Startup
 
         services.AddBackgroundJobs();
         services.AddInfrastructure();
-        
+
         services.AddSingleton<IIdentityProvider, IdentityProvider>();
-        
+
         services.AddTelegramBot(_configuration);
         services.AddHostedService<TelegramPollingService>();
-        
+
         services.AddScoped<IPasswordHasher<Employee>, PasswordHasher<Employee>>();
         services.AddScoped<IPasswordHasher<RegisterUserCommand>, PasswordHasher<RegisterUserCommand>>();
-    
+
         services.AddForpostContextPostgres(_configuration);
         services.AddSwaggerServices();
         services.AddSingleton(TimeProvider.System);
@@ -57,7 +57,7 @@ internal sealed class Startup
         services.AddFluentValidationAutoValidation();
         services.AddFluentValidationClientsideAdapters();
         services.AddValidatorsFromAssemblyContaining<FeatureAssemblyReference>();
-        
+
         services.AddHttpContextAccessor();
         services.AddControllers(options => options.Filters.Add<ForpostExceptionFilter>());
         services.AddEndpointsApiExplorer();
@@ -78,6 +78,20 @@ internal sealed class Startup
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
                 ValidateAudience = false
+            };
+            x.Events = new JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                },
+                OnChallenge = context =>
+                {
+                    context.HandleResponse();
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return Task.CompletedTask;
+                }
             };
         });
         ConfigureCors(services);
@@ -103,6 +117,7 @@ internal sealed class Startup
             options.SwaggerEndpoint("/swagger/v1/swagger.json", HostConstants.Name);
             options.RoutePrefix = string.Empty;
         });
+
         app.UseHttpRequestLoggingWithEmployeeId();
         app.UseEndpoints(options => options.MapControllers());
     }

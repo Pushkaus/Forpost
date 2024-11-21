@@ -1,8 +1,8 @@
-using Forpost.Domain.MessagesManagment;
+using Forpost.Domain.MessagesManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Forpost.Store.Postgres.EntityTypeConfiguration.MessagesManager;
+namespace Forpost.Store.Postgres.EntityTypeConfiguration.MessagesManagement;
 
 internal sealed class NotificationForUsersConfiguration: IEntityTypeConfiguration<NotificationForUsers>
 {

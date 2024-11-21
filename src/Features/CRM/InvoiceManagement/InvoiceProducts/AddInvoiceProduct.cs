@@ -3,7 +3,7 @@ using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Domain.CRM.InvoiceManagement.Contracts;
 using Mediator;
 
-namespace Forpost.Features.InvoiceManagement.InvoiceProducts;
+namespace Forpost.Features.CRM.InvoiceManagement.InvoiceProducts;
 
 internal sealed class AddInvoiceProductCommandHandler: ICommandHandler<AddInvoiceProductCommand>
 {

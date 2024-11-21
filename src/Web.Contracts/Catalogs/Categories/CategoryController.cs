@@ -15,6 +15,7 @@ public sealed class CategoryController : ApiController
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     public async Task<IActionResult> AddAsync([FromBody] CategoryRequest request, CancellationToken cancellationToken)
     {
+        if (request.ParentCategoryId == Guid.Empty) request.ParentCategoryId = null;
         var result =
             await Sender.Send(new AddCategoryCommand(request.Name, request.ParentCategoryId, request.Description),
                 cancellationToken);

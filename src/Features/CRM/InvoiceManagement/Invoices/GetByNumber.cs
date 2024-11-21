@@ -3,7 +3,7 @@ using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Domain.CRM.InvoiceManagement.Contracts;
 using Mediator;
 
-namespace Forpost.Features.InvoiceManagement.Invoices;
+namespace Forpost.Features.CRM.InvoiceManagement.Invoices;
 
 internal sealed class GetInvoiceByNumberQueryHandler: IQueryHandler<GetInvoiceByNumberQuery, Invoice>
 {

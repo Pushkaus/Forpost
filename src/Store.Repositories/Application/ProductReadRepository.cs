@@ -34,22 +34,24 @@ internal sealed class ProductReadRepository: IProductReadRepository
     public async Task<EntityPagedResult<ProductModel>> GetAllAsync(ProductFilter filter, CancellationToken cancellationToken)
     {
         var query = _dbContext.Products.NotDeletedAt()
-            .Join(_dbContext.Categories,
+            .GroupJoin(_dbContext.Categories, 
                 product => product.CategoryId,
                 category => category.Id,
-                (product, category) => new ProductModel
+                (product, categories) => new { product, categories })
+            .SelectMany(x => x.categories.DefaultIfEmpty(),
+                (x, category) => new ProductModel
                 {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Purchased = product.Purchased,
-                    CategoryId = product.CategoryId,
-                    CategoryName = category != null ? category.Name : "Без категории",
-                    UpdatedAt = product.UpdatedAt
+                    Id = x.product.Id,
+                    Name = x.product.Name,
+                    Purchased = x.product.Purchased,
+                    CategoryId = x.product.CategoryId,
+                    CategoryName =  category != null ? category.Name : "Нет категории",
+                    UpdatedAt = x.product.UpdatedAt
                 });
         
         if (!string.IsNullOrEmpty(filter.Name))
         {
-            query = query.Where(p => p.Name.Contains(filter.Name));
+            query = query.Where(p => p.Name.ToLower().Contains(filter.Name.ToLower()));
         }
 
         if (filter.CategoryId.HasValue)
@@ -64,7 +66,7 @@ internal sealed class ProductReadRepository: IProductReadRepository
 
         if (!string.IsNullOrEmpty(filter.CategoryName))
         {
-            query = query.Where(p => p.CategoryName.Contains(filter.CategoryName));
+            query = query.Where(p => p.CategoryName.ToLower().Contains(filter.CategoryName.ToLower()));
         }
         var totalItems = await query.CountAsync(cancellationToken);
 

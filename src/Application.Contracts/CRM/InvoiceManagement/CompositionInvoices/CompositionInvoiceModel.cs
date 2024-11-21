@@ -1,4 +1,4 @@
-namespace Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
+namespace Forpost.Application.Contracts.CRM.InvoiceManagement.CompositionInvoices;
 
 public sealed class CompositionInvoiceModel
 {

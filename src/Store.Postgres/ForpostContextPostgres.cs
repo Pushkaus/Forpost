@@ -14,7 +14,7 @@ using Forpost.Domain.ChangeLogs;
 using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Domain.CRM.IssueHistory;
 using Forpost.Domain.CRM.PriceLists;
-using Forpost.Domain.MessagesManagment;
+using Forpost.Domain.MessagesManagement;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.CompositionProduct;
 using Forpost.Domain.ProductCreating.Issue;

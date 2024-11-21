@@ -14,7 +14,7 @@ using Forpost.Features.Catalogs.TechCardItems;
 using Forpost.Features.Catalogs.TechCards;
 using Forpost.Features.Catalogs.TechCardSteps;
 using Forpost.Web.Contracts.Catalogs.Contractors;
-using Forpost.Web.Contracts.Catalogs.Empoyees;
+using Forpost.Web.Contracts.Catalogs.Employees;
 using Forpost.Web.Contracts.Catalogs.Operations;
 using Forpost.Web.Contracts.Catalogs.Products;
 using Forpost.Web.Contracts.Catalogs.Steps;
@@ -55,6 +55,7 @@ internal sealed class CatalogMappingProfile : Profile
         
         CreateMap<ProductCreateRequest, AddProductCommand>().ValidateMemberList(MemberList.Destination);
         CreateMap<ProductUpdateRequest, UpdateProductCommand>().ValidateMemberList(MemberList.Destination);
+        CreateMap<UpdateProductCommand, Product>().ValidateMemberList(MemberList.Destination);
         
         CreateMap<OperationCreateRequest, AddOperationCommand>().ValidateMemberList(MemberList.Destination);
         

@@ -1,7 +1,7 @@
 using Forpost.Application.Contracts.MessageManagment;
 using Mediator;
 
-namespace Forpost.Features.MessageManagment;
+namespace Forpost.Features.MessageManagement;
 
 internal sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, (IReadOnlyCollection<NotificationForUsersModel>
     Notifications, int TotalCount)>
