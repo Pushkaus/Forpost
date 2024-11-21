@@ -90,7 +90,6 @@ internal sealed class Startup
                 {
                     context.HandleResponse();
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    context.Response.Redirect("/api/v1/accounts/login");
                     return Task.CompletedTask;
                 }
             };
