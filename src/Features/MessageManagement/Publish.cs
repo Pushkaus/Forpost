@@ -1,9 +1,9 @@
 using AutoMapper;
 using Forpost.Common.Utils;
-using Forpost.Domain.MessagesManagment;
+using Forpost.Domain.MessagesManagement;
 using Mediator;
 
-namespace Forpost.Features.MessageManagment;
+namespace Forpost.Features.MessageManagement;
 
 internal sealed class PublishCommandHandler : ICommandHandler<PublishCommand>
 {

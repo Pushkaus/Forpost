@@ -2,7 +2,6 @@ using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
 using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Features.CRM.InvoiceManagement.Invoices;
-using Forpost.Features.InvoiceManagement.Invoices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +20,13 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         [ProducesResponseType(typeof(Invoice), StatusCodes.Status200OK)]
         public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken)
             => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
+        
+        /// <summary>
+        /// Получить счет по ID
+        /// </summary>
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+            => Ok(await Sender.Send(new GetInvoiceByIdQuery(id), cancellationToken));
 
         /// <summary>
         /// Получить все счета

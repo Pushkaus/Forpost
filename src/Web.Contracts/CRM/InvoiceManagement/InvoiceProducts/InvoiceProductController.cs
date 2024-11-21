@@ -1,7 +1,6 @@
-using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
+using Forpost.Application.Contracts.CRM.InvoiceManagement.CompositionInvoices;
 using Forpost.Features.CRM.InvoiceManagement.CompositionInvoices;
 using Forpost.Features.CRM.InvoiceManagement.InvoiceProducts;
-using Forpost.Features.InvoiceManagement.InvoiceProducts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

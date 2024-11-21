@@ -1,4 +1,4 @@
-using Forpost.Application.Contracts.InvoiceManagment.CompositionInvoices;
+using Forpost.Application.Contracts.CRM.InvoiceManagement.CompositionInvoices;
 using Mediator;
 
 namespace Forpost.Features.CRM.InvoiceManagement.CompositionInvoices;

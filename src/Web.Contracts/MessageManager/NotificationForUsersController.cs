@@ -1,5 +1,5 @@
 using Forpost.Application.Contracts.MessageManagment;
-using Forpost.Features.MessageManagment;
+using Forpost.Features.MessageManagement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

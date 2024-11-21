@@ -1,4 +1,4 @@
-namespace Forpost.Application.Contracts.InvoiceManagment.InvoiceProducts;
+namespace Forpost.Application.Contracts.CRM.InvoiceManagement.InvoiceProducts;
 
 public sealed class InvoiceWithProductsModel
 {

@@ -2,7 +2,7 @@ using AutoMapper;
 using Forpost.Domain.CRM.InvoiceManagement;
 using Mediator;
 
-namespace Forpost.Features.InvoiceManagement.InvoiceProducts;
+namespace Forpost.Features.CRM.InvoiceManagement.InvoiceProducts;
 
 internal sealed class AddInvoiceProductCommandHandler: ICommandHandler<AddInvoiceProductCommand>
 {

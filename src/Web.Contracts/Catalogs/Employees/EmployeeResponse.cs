@@ -1,4 +1,4 @@
-namespace Forpost.Web.Contracts.Catalogs.Empoyees;
+namespace Forpost.Web.Contracts.Catalogs.Employees;
 
 public class EmployeeResponse
 {

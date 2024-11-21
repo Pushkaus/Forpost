@@ -1,9 +1,8 @@
 using AutoMapper;
-using Forpost.Domain.MessagesManagment;
-using Forpost.Domain.Primitives.DomainAbstractions;
+using Forpost.Domain.MessagesManagement;
 using Forpost.Store.Postgres;
 
-namespace Forpost.Store.Repositories.MessageManager;
+namespace Forpost.Store.Repositories.MessageManagement;
 
 internal sealed class NotificationForUsersRepository : DomainRepository<NotificationForUsers>,
     INotificationForUsersDomainRepository

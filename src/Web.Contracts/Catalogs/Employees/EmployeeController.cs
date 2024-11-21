@@ -1,5 +1,4 @@
 using Forpost.Features.Catalogs.Employees;
-using Forpost.Web.Contracts.Catalogs.Empoyees;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
