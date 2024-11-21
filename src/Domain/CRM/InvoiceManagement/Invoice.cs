@@ -8,23 +8,25 @@ public sealed class Invoice : AggregateRoot
     public string Number { get; private set; }
     public Guid ContractorId { get; private set; }
     public string? Description { get; private set; }
-    public DateTimeOffset? PaymentDeadline { get; set; }
+    public DateTimeOffset? PaymentDeadline { get; private set; }
     public DateTimeOffset? DateShipment { get; private set; }
     public DateTimeOffset? DateClosing { get; private set; }
     public Priority Priority { get; private set; }
     public PaymentStatus PaymentStatus { get; private set; }
     public InvoiceStatus InvoiceStatus { get; private set; }
 
+
     /// <summary>
     /// Завести счет
     /// </summary>
-    public static Invoice Create(string number,
+    public static Invoice Create(string numberPrefix,
         Guid contractorId,
         string? description,
         Priority priority,
         PaymentStatus paymentStatus,
         DateTimeOffset? paymentDeadline)
     {
+        var number = GenerateNumber(numberPrefix);
         var invoice = new Invoice(number, contractorId, description, null, null, priority, paymentStatus,
             paymentDeadline,
             InvoiceStatus.Created);
@@ -46,7 +48,7 @@ public sealed class Invoice : AggregateRoot
     {
         DateShipment = dateShipment;
     }
-    
+
     private Invoice(string number,
         Guid contractorId,
         string? description,
@@ -57,7 +59,7 @@ public sealed class Invoice : AggregateRoot
         DateTimeOffset? paymentDeadline,
         InvoiceStatus invoiceStatus)
     {
-        Number = GenerateNumber(number);
+        Number = number;
         ContractorId = contractorId;
         Description = description;
         DateShipment = dateShipment;
@@ -68,8 +70,9 @@ public sealed class Invoice : AggregateRoot
         InvoiceStatus = invoiceStatus;
     }
 
-    private static string GenerateNumber(string number)
+    private static string GenerateNumber(string numberPrefix)
     {
-        return $"{number}-{DateTime.Now.Year}";
+        return $"{numberPrefix}-{DateTime.Now.Year}";
     }
 }
+
