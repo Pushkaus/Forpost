@@ -80,10 +80,10 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         /// </summary>
         [HttpPut("{id}/payment-status")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> ChangePaymentStatus(Guid id, [FromBody] int paymentStatus,
+        public async Task<IActionResult> ChangePaymentStatus(Guid id, [FromBody] PaymentStatusRequest request,
             CancellationToken cancellationToken)
         {
-            await Sender.Send(new ChangePaymentStatusCommand(id, paymentStatus), cancellationToken);
+            await Sender.Send(new ChangePaymentStatusCommand(id, request.PaymentStatusValue), cancellationToken);
             return NoContent();
         }
 
@@ -92,10 +92,10 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         /// </summary>
         [HttpPut("{id}/priority")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> ChangePriority(Guid id, [FromBody] int priority,
+        public async Task<IActionResult> ChangePriority(Guid id, [FromBody] PriorityRequest request,
             CancellationToken cancellationToken)
         {
-            await Sender.Send(new ChangePriorityCommand(id, priority), cancellationToken);
+            await Sender.Send(new ChangePriorityCommand(id, request.PriorityValue), cancellationToken);
             return NoContent();
         }
 
@@ -104,10 +104,10 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         /// </summary>
         [HttpPut("{id}/ship")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> ShipInvoice(Guid id, [FromBody] DateTimeOffset shipDate,
+        public async Task<IActionResult> ShipInvoice(Guid id, [FromBody] DateShipmentRequest request,
             CancellationToken cancellationToken)
         {
-            await Sender.Send(new ShipInvoiceCommand(id, shipDate), cancellationToken);
+            await Sender.Send(new ShipInvoiceCommand(id, request.ShipmentDate), cancellationToken);
             return NoContent();
         }
     }
