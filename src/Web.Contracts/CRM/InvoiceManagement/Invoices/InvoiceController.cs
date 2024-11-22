@@ -116,6 +116,9 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
             return NoContent();
         }
 
+        /// <summary>
+        /// Изменить процент оплаты
+        /// </summary>
         [HttpPut("{id}/payment-percentage")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> SetPaymentPercentage(Guid id, [FromBody] PaymentPercentageRequest request,

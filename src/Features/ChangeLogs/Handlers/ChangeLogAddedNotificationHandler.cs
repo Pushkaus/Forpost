@@ -26,7 +26,7 @@ public sealed class ChangeLogAddedNotificationHandler : INotificationHandler<Cha
 
     public ValueTask Handle(ChangeLogAdded notification, CancellationToken cancellationToken)
     {
-        var changeLog = ChangeLog.Create(notification.Id, notification.PropertyName,
+        var changeLog = ChangeLog.Create(notification.Id, notification.PropertyName, notification.PropertyNameOnClient,
             notification.OldValue, notification.NewValue);
 
         _domainRepository.Add(changeLog);

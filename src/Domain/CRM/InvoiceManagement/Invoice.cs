@@ -41,7 +41,7 @@ public sealed class Invoice : AggregateRoot
     {
         var oldPriorityValue = Priority.Value;
         Priority = Priority.FromValue(priority);
-        Raise(new ChangeLogAdded(Id, nameof(Priority), oldPriorityValue, Priority.Value));
+        Raise(new ChangeLogAdded(Id, nameof(Priority), "Приоритет", oldPriorityValue, Priority.Value));
     }
 
     public void ChangePaymentStatus(int paymentStatus)
@@ -52,7 +52,7 @@ public sealed class Invoice : AggregateRoot
 
         if (oldPaymentStatus == PaymentStatus.Value) return;
         
-        Raise(new ChangeLogAdded(Id, nameof(PaymentStatus), oldPaymentStatus, PaymentStatus.Value));
+        Raise(new ChangeLogAdded(Id, nameof(PaymentStatus), "Статус оплаты", oldPaymentStatus, PaymentStatus.Value));
     }
 
 
@@ -64,7 +64,7 @@ public sealed class Invoice : AggregateRoot
 
         if (oldPercentage != PaymentPercentage)
         {
-            Raise(new ChangeLogAdded(Id, nameof(PaymentPercentage), oldPercentage, PaymentPercentage));
+            Raise(new ChangeLogAdded(Id, nameof(PaymentPercentage), "Процент оплаты",  oldPercentage, PaymentPercentage));
         }
     }
 
@@ -75,7 +75,7 @@ public sealed class Invoice : AggregateRoot
 
         if (oldDateShipment != DateShipment)
         {
-            Raise(new ChangeLogAdded(Id, nameof(DateShipment), oldDateShipment, DateShipment));
+            Raise(new ChangeLogAdded(Id, nameof(DateShipment),"Дата отгрузки",  oldDateShipment, DateShipment));
         }
     }
 
