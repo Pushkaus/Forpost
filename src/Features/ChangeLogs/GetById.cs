@@ -6,7 +6,7 @@ using Mediator;
 namespace Forpost.Features.ChangeLogs;
 
 internal sealed class
-    GetChangeLogsByIdQueryHandler : IQueryHandler<GetChangeLogsByIdQuery, EntityPagedResult<ChangeLogModel>>
+    GetChangeLogsByIdQueryHandler : IQueryHandler<GetChangeLogsByIdQuery, EntityPagedResult<ChangeLog>>
 {
     private readonly IChangeLogReadRepository _changeLogReadRepository;
 
@@ -15,9 +15,9 @@ internal sealed class
         _changeLogReadRepository = changeLogReadRepository;
     }
 
-    public async ValueTask<EntityPagedResult<ChangeLogModel>> Handle(GetChangeLogsByIdQuery query,
+    public async ValueTask<EntityPagedResult<ChangeLog>> Handle(GetChangeLogsByIdQuery query,
         CancellationToken cancellationToken) =>
         await _changeLogReadRepository.GetChangeLogsByIdAsync(query.Id, query.Filter, cancellationToken);
 }
 
-public record GetChangeLogsByIdQuery(Guid Id, ChangeLogFilter Filter) : IQuery<EntityPagedResult<ChangeLogModel>>;
+public record GetChangeLogsByIdQuery(Guid Id, ChangeLogFilter Filter) : IQuery<EntityPagedResult<ChangeLog>>;

@@ -1,6 +1,7 @@
 using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.ChangeLogs;
+using Forpost.Domain.ChangeLogs;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,31 +16,17 @@ internal sealed class ChangeLogReadRepository : IChangeLogReadRepository
         _dbContext = dbContext;
     }
 
-    public async Task<EntityPagedResult<ChangeLogModel>> GetChangeLogsByIdAsync(Guid Id, ChangeLogFilter filter,
+    public async Task<EntityPagedResult<ChangeLog>> GetChangeLogsByIdAsync(Guid id, ChangeLogFilter filter,
         CancellationToken cancellationToken)
     {
-        var totalCount = await _dbContext.ChangeLogs.Where(c => c.EntityId == Id).CountAsync(cancellationToken);
+        var totalCount = await _dbContext.ChangeLogs.Where(c => c.EntityId == id).CountAsync(cancellationToken);
         var result = await _dbContext.ChangeLogs
-            .Where(c => c.EntityId == Id)
+            .Where(c => c.EntityId == id)
             .OrderByDescending(c => c.CreatedAt)
-            .Join(_dbContext.Employees,
-                changeLog => changeLog.CreatedById,
-                employee => employee.Id,
-                (changeLog, employee) => new ChangeLogModel
-                {
-                    Id = changeLog.Id,
-                    EntityId = changeLog.EntityId,
-                    PropertyName = changeLog.PropertyName,
-                    OldValue = changeLog.OldValue,
-                    NewValue = changeLog.NewValue,
-                    CreatedAt = changeLog.CreatedAt,
-                    CreatedById = changeLog.CreatedById,
-                    CreatedBy = employee.FirstName + " " + employee.LastName,
-                })
             .Skip(filter.Skip)
             .Take(filter.Limit)
             .ToListAsync(cancellationToken);
-        return new EntityPagedResult<ChangeLogModel>
+        return new EntityPagedResult<ChangeLog>
         {
             Items = result,
             TotalCount = totalCount

@@ -8,6 +8,4 @@ public sealed class ChangeLogModel
     public string? OldValue { get; set; }
     public string? NewValue { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
-    public Guid CreatedById { get; set; }
-    public string CreatedBy { get; set; }
 }

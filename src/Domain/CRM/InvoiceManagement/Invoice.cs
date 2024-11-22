@@ -27,7 +27,7 @@ public sealed class Invoice : AggregateRoot
         DateTimeOffset? paymentDeadline,
         DateTimeOffset createDate)
     {
-        var invoice = new Invoice(number, contractorId, description, null, null, priority, paymentStatus,
+        var invoice = new Invoice(GenerateNumber(number), contractorId, description, null, null, priority, paymentStatus,
             paymentDeadline,
             InvoiceStatus.Created, createDate);
 
@@ -41,7 +41,7 @@ public sealed class Invoice : AggregateRoot
     {
         var oldPriorityValue = Priority.Value;
         Priority = Priority.FromValue(priority);
-        Raise(new ChangeLogAdded(ChangeLog.Create(Id, nameof(Priority), oldPriorityValue, Priority.Value)));
+        Raise(new ChangeLogAdded(Id, nameof(Priority), oldPriorityValue, Priority.Value));
     }
 
     public void ChangePaymentStatus(int paymentStatus)
@@ -50,10 +50,9 @@ public sealed class Invoice : AggregateRoot
         PaymentStatus = PaymentStatus.FromValue(paymentStatus);
         UpdatePaymentPercentage();
 
-        if (oldPaymentStatus != PaymentStatus.Value)
-        {
-            Raise(new ChangeLogAdded(ChangeLog.Create(Id, nameof(PaymentStatus), oldPaymentStatus, PaymentStatus.Value)));
-        }
+        if (oldPaymentStatus == PaymentStatus.Value) return;
+        
+        Raise(new ChangeLogAdded(Id, nameof(PaymentStatus), oldPaymentStatus, PaymentStatus.Value));
     }
 
 
@@ -65,7 +64,7 @@ public sealed class Invoice : AggregateRoot
 
         if (oldPercentage != PaymentPercentage)
         {
-            Raise(new ChangeLogAdded(ChangeLog.Create(Id, nameof(PaymentPercentage), oldPercentage, PaymentPercentage)));
+            Raise(new ChangeLogAdded(Id, nameof(PaymentPercentage), oldPercentage, PaymentPercentage));
         }
     }
 
@@ -76,7 +75,7 @@ public sealed class Invoice : AggregateRoot
 
         if (oldDateShipment != DateShipment)
         {
-            Raise(new ChangeLogAdded(ChangeLog.Create(Id, nameof(DateShipment), oldDateShipment, DateShipment)));
+            Raise(new ChangeLogAdded(Id, nameof(DateShipment), oldDateShipment, DateShipment));
         }
     }
 
@@ -92,7 +91,7 @@ public sealed class Invoice : AggregateRoot
         InvoiceStatus invoiceStatus,
         DateTimeOffset createDate)
     {
-        Number = GenerateNumber(number);
+        Number = number;
         ContractorId = contractorId;
         Description = description;
         DateShipment = dateShipment;
