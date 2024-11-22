@@ -116,6 +116,15 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
             return NoContent();
         }
 
+        [HttpPut("{id}/payment-percentage")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> SetPaymentPercentage(Guid id, [FromBody] PaymentPercentageRequest request,
+            CancellationToken cancellationToken)
+        {
+            await Sender.Send(new ChangePaymentPercentageCommand(id, request.PaymentPercentage), cancellationToken);
+            return NoContent();
+        }
+        
         /// <summary>
         /// Получить изменения в счете по ID
         /// </summary>
@@ -126,5 +135,6 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         {
             return Ok(await Sender.Send(new GetChangeLogsByIdQuery(id, filter), cancellationToken));
         }
+        
     }
 }
