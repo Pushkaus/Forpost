@@ -1,5 +1,3 @@
-using Forpost.Domain.ChangeLogs;
-using Forpost.Domain.ChangeLogs.Events;
 using Forpost.Domain.CRM.InvoiceManagement.Events;
 using Forpost.Domain.Primitives.EntityTemplates;
 
@@ -36,50 +34,30 @@ public sealed class Invoice : AggregateRoot
         invoice.Raise(new InvoiceCreated(invoice.Id));
         return invoice;
     }
-
+    
     public void ChangePriority(int priority)
     {
-        var oldPriorityValue = Priority.Value;
         Priority = Priority.FromValue(priority);
-        Raise(new ChangeLogAdded(Id, nameof(Priority), "Приоритет", oldPriorityValue, Priority.Value));
     }
 
     public void ChangePaymentStatus(int paymentStatus)
     {
-        var oldPaymentStatus = PaymentStatus.Value;
         PaymentStatus = PaymentStatus.FromValue(paymentStatus);
         UpdatePaymentPercentage();
-
-        if (oldPaymentStatus == PaymentStatus.Value) return;
-        
-        Raise(new ChangeLogAdded(Id, nameof(PaymentStatus), "Статус оплаты", oldPaymentStatus, PaymentStatus.Value));
     }
-
-
+    
     public void SetPaymentPercentage(decimal percentage)
     {
-        var oldPercentage = PaymentPercentage;
         if (!PaymentStatus.Equals(PaymentStatus.AdvancePaid)) return;
         PaymentPercentage = percentage;
 
-        if (oldPercentage != PaymentPercentage)
-        {
-            Raise(new ChangeLogAdded(Id, nameof(PaymentPercentage), "Процент оплаты",  oldPercentage, PaymentPercentage));
-        }
     }
 
     public void SetShipmentDate(DateTimeOffset dateShipment)
     {
-        var oldDateShipment = DateShipment;
         DateShipment = dateShipment;
-
-        if (oldDateShipment != DateShipment)
-        {
-            Raise(new ChangeLogAdded(Id, nameof(DateShipment),"Дата отгрузки",  oldDateShipment, DateShipment));
-        }
     }
-
-
+    
     private Invoice(string number,
         Guid contractorId,
         string? description,

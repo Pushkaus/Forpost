@@ -23,7 +23,7 @@ internal sealed class DbUnitOfWork : IDbUnitOfWork
         _identityProvider = identityProvider;
         _timeProvider = timeProvider;
     }
-
+    
     public IDbContextTransaction BeginTransaction() => _dbContext.Database.BeginTransaction();
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

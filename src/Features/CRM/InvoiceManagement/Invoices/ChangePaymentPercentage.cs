@@ -1,5 +1,3 @@
-using Forpost.Domain.ChangeLogs.Contracts;
-using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Domain.CRM.InvoiceManagement.Contracts;
 using Mediator;
 
@@ -8,13 +6,10 @@ namespace Forpost.Features.CRM.InvoiceManagement.Invoices;
 internal sealed class ChangePaymentPercentageCommandHandler : ICommandHandler<ChangePaymentPercentageCommand>
 {
     private readonly IInvoiceDomainRepository _invoiceDomainRepository;
-    private readonly IChangeLogDomainRepository _changeLogDomainRepository;
 
-    public ChangePaymentPercentageCommandHandler(IInvoiceDomainRepository invoiceDomainRepository,
-        IChangeLogDomainRepository changeLogDomainRepository)
+    public ChangePaymentPercentageCommandHandler(IInvoiceDomainRepository invoiceDomainRepository)
     {
         _invoiceDomainRepository = invoiceDomainRepository;
-        _changeLogDomainRepository = changeLogDomainRepository;
     }
 
     public async ValueTask<Unit> Handle(ChangePaymentPercentageCommand command, CancellationToken cancellationToken)
