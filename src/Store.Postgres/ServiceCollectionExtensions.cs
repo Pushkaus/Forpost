@@ -12,18 +12,21 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddForpostContextPostgres(this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.AddSingleton<ChangeHistoryInterceptor>();
         services.AddSingleton<DomainEventToOutboxMessageInterceptor>();
-        
+
         services.AddDbContext<ForpostContextPostgres>((serviceProvider, options) =>
         {
             var connectionString = configuration.GetConnectionString(ConnectionName)
                                    ?? throw new InvalidOperationException(
                                        $"Не удалось получить строку подключения: {ConnectionName}");
+
+            var domainEventInterceptor = serviceProvider.GetRequiredService<DomainEventToOutboxMessageInterceptor>();
+            var changeHistoryInterceptor = serviceProvider.GetRequiredService<ChangeHistoryInterceptor>();
             
-            var interceptor = serviceProvider.GetRequiredService<DomainEventToOutboxMessageInterceptor>();
-            
-            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            options.UseNpgsql(connectionString).AddInterceptors(interceptor).EnableSensitiveDataLogging();
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
+            options.UseNpgsql(connectionString).AddInterceptors(domainEventInterceptor, changeHistoryInterceptor)
+                .EnableSensitiveDataLogging();
         });
 
         return services;

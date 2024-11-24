@@ -1,4 +1,4 @@
-namespace Forpost.Application.Contracts.ChangeLogs;
+namespace Forpost.Application.Contracts.Changes;
 
 public sealed class ChangeLogFilter
 {
