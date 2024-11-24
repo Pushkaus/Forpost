@@ -31,6 +31,7 @@
     <ItemGroup>
       <None Remove="Files\8731bfd3-f693-4577-b8dc-2f96aff063ed\Текст к презентации. Мирганов П.А..docx" />
       <None Remove="Files\3850cca1-e744-4355-a081-76ac282aa3e2\Innovativer_HVDC-DC-Wandler_fur_Hochspannungs-Glei.pdf" />
+      <None Remove="Files\8731bfd3-f693-4577-b8dc-2f96aff063ed\Фичи.docx" />
     </ItemGroup>
     
     <PropertyGroup>

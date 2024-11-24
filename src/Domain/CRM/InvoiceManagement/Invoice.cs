@@ -1,5 +1,3 @@
-using Forpost.Domain.ChangeLogs;
-using Forpost.Domain.ChangeLogs.Events;
 using Forpost.Domain.CRM.InvoiceManagement.Events;
 using Forpost.Domain.Primitives.EntityTemplates;
 
@@ -19,7 +17,8 @@ public sealed class Invoice : AggregateRoot
     public PaymentStatus PaymentStatus { get; private set; }
     public InvoiceStatus InvoiceStatus { get; private set; }
 
-    public static Invoice Create(string number,
+    public static Invoice Create(
+        string number,
         Guid contractorId,
         string? description,
         Priority priority,
@@ -27,9 +26,17 @@ public sealed class Invoice : AggregateRoot
         DateTimeOffset? paymentDeadline,
         DateTimeOffset createDate)
     {
-        var invoice = new Invoice(GenerateNumber(number), contractorId, description, null, null, priority, paymentStatus,
+        var invoice = new Invoice(
+            GenerateNumber(number),
+            contractorId,
+            description,
+            null,
+            null,
+            priority,
+            paymentStatus,
             paymentDeadline,
-            InvoiceStatus.Created, createDate);
+            InvoiceStatus.Created,
+            createDate);
 
         invoice.UpdatePaymentPercentage();
 
@@ -39,48 +46,30 @@ public sealed class Invoice : AggregateRoot
 
     public void ChangePriority(int priority)
     {
-        var oldPriorityValue = Priority.Value;
         Priority = Priority.FromValue(priority);
-        Raise(new ChangeLogAdded(Id, nameof(Priority), "Приоритет", oldPriorityValue, Priority.Value));
     }
 
     public void ChangePaymentStatus(int paymentStatus)
     {
-        var oldPaymentStatus = PaymentStatus.Value;
         PaymentStatus = PaymentStatus.FromValue(paymentStatus);
         UpdatePaymentPercentage();
-
-        if (oldPaymentStatus == PaymentStatus.Value) return;
-        
-        Raise(new ChangeLogAdded(Id, nameof(PaymentStatus), "Статус оплаты", oldPaymentStatus, PaymentStatus.Value));
     }
-
 
     public void SetPaymentPercentage(decimal percentage)
     {
-        var oldPercentage = PaymentPercentage;
-        if (!PaymentStatus.Equals(PaymentStatus.AdvancePaid)) return;
-        PaymentPercentage = percentage;
+        if (!PaymentStatus.Equals(PaymentStatus.AdvancePaid))
+            return;
 
-        if (oldPercentage != PaymentPercentage)
-        {
-            Raise(new ChangeLogAdded(Id, nameof(PaymentPercentage), "Процент оплаты",  oldPercentage, PaymentPercentage));
-        }
+        PaymentPercentage = percentage;
     }
 
     public void SetShipmentDate(DateTimeOffset dateShipment)
     {
-        var oldDateShipment = DateShipment;
         DateShipment = dateShipment;
-
-        if (oldDateShipment != DateShipment)
-        {
-            Raise(new ChangeLogAdded(Id, nameof(DateShipment),"Дата отгрузки",  oldDateShipment, DateShipment));
-        }
     }
 
-
-    private Invoice(string number,
+    private Invoice(
+        string number,
         Guid contractorId,
         string? description,
         DateTimeOffset? dateShipment,
@@ -108,12 +97,16 @@ public sealed class Invoice : AggregateRoot
     {
         return $"{number}-{DateTime.Now.Year}";
     }
-    
+
     private void UpdatePaymentPercentage()
     {
-        PaymentPercentage = PaymentStatus.Equals(PaymentStatus.PaidFull) ? 100 :
+        var newPercentage = PaymentStatus.Equals(PaymentStatus.PaidFull) ? 100 :
             PaymentStatus.Equals(PaymentStatus.NotPaid) ? 0 :
-            PaymentPercentage; 
-    }
+            PaymentPercentage;
 
+        if (PaymentPercentage != newPercentage)
+        {
+            PaymentPercentage = newPercentage;
+        }
+    }
 }
