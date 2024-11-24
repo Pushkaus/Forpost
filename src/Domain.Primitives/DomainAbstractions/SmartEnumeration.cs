@@ -55,4 +55,6 @@ public abstract class SmartEnumeration<TEnum> : IEquatable<SmartEnumeration<TEnu
     public override bool Equals(object? obj) => obj is SmartEnumeration<TEnum> other && Equals(other);
 
     public override int GetHashCode() => Value.GetHashCode();
+    
+    public override string ToString() => Value.ToString();
 }

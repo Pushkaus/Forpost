@@ -1,7 +1,6 @@
 using Forpost.Application.Contracts;
-using Forpost.Application.Contracts.ChangeLogs;
+using Forpost.Application.Contracts.Changes;
 using Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
-using Forpost.Domain.ChangeLogs;
 using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Features.ChangeLogs;
 using Forpost.Features.CRM.InvoiceManagement.Invoices;
@@ -132,7 +131,7 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         /// Получить изменения в счете по ID
         /// </summary>
         [HttpGet("{id}/change-logs")]
-        [ProducesResponseType(typeof(EntityPagedResult<ChangeLog>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(EntityPagedResult<ChangeHistoryModel>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetChangeLogsByIdAsync(Guid id, [FromQuery] ChangeLogFilter filter,
             CancellationToken cancellationToken)
         {

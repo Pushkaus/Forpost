@@ -1487,6 +1487,64 @@
         }
       }
     },
+    "/api/v1/invoices/{id}": {
+      "get": {
+        "tags": [
+          "Invoice"
+        ],
+        "summary": "Получить счет по ID",
+        "operationId": "GetById3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Invoice"
+        ],
+        "summary": "Удалить счет по его id",
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/v1/invoices": {
       "get": {
         "tags": [
@@ -1639,32 +1697,6 @@
         }
       }
     },
-    "/api/v1/invoices/{id}": {
-      "delete": {
-        "tags": [
-          "Invoice"
-        ],
-        "summary": "Удалить счет по его id",
-        "operationId": "Delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/api/v1/invoices/{id}/payment-status": {
       "put": {
         "tags": [
@@ -1685,12 +1717,11 @@
           }
         ],
         "requestBody": {
-          "x-name": "paymentStatus",
+          "x-name": "request",
           "content": {
             "application/json": {
               "schema": {
-                "type": "integer",
-                "format": "int32"
+                "$ref": "#/components/schemas/PaymentStatusRequest"
               }
             }
           },
@@ -1724,12 +1755,11 @@
           }
         ],
         "requestBody": {
-          "x-name": "priority",
+          "x-name": "request",
           "content": {
             "application/json": {
               "schema": {
-                "type": "integer",
-                "format": "int32"
+                "$ref": "#/components/schemas/PriorityRequest"
               }
             }
           },
@@ -1763,12 +1793,11 @@
           }
         ],
         "requestBody": {
-          "x-name": "shipDate",
+          "x-name": "request",
           "content": {
             "application/json": {
               "schema": {
-                "type": "string",
-                "format": "date-time"
+                "$ref": "#/components/schemas/DateShipmentRequest"
               }
             }
           },
@@ -1778,6 +1807,95 @@
         "responses": {
           "204": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/invoices/{id}/payment-percentage": {
+      "put": {
+        "tags": [
+          "Invoice"
+        ],
+        "summary": "Изменить процент оплаты",
+        "operationId": "SetPaymentPercentage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentPercentageRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/invoices/{id}/change-logs": {
+      "get": {
+        "tags": [
+          "Invoice"
+        ],
+        "summary": "Получить изменения в счете по ID",
+        "operationId": "GetChangeLogsById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityPagedResultOfChangeHistoryModel"
+                }
+              }
+            }
           }
         }
       }
@@ -1945,7 +2063,7 @@
           "TechCard"
         ],
         "summary": "Получение тех.карты по Id",
-        "operationId": "GetById3",
+        "operationId": "GetById4",
         "parameters": [
           {
             "name": "id",
@@ -2610,7 +2728,7 @@
           "Step"
         ],
         "summary": "Получение этапа по Id",
-        "operationId": "GetById4",
+        "operationId": "GetById5",
         "parameters": [
           {
             "name": "id",
@@ -2884,7 +3002,7 @@
           "Role"
         ],
         "summary": "Получить роль по id",
-        "operationId": "GetById5",
+        "operationId": "GetById6",
         "parameters": [
           {
             "name": "id",
@@ -3056,7 +3174,7 @@
           "Product"
         ],
         "summary": "Получение продукта по id",
-        "operationId": "GetById6",
+        "operationId": "GetById7",
         "parameters": [
           {
             "name": "id",
@@ -3579,7 +3697,7 @@
           "Contractor"
         ],
         "summary": "Получить контрагента по id",
-        "operationId": "GetById7",
+        "operationId": "GetById8",
         "parameters": [
           {
             "name": "id",
@@ -3927,6 +4045,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "operationId": "LoginPage",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -4968,6 +5105,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "paymentDeadline": {
+            "type": "string",
+            "format": "date-time"
+          },
           "createDate": {
             "type": "string",
             "format": "date-time"
@@ -4996,6 +5137,96 @@
           "quantity": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "PaymentStatusRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "paymentStatusValue": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PriorityRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "priorityValue": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "DateShipmentRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "shipmentDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PaymentPercentageRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "paymentPercentage": {
+            "type": "number",
+            "format": "decimal"
+          }
+        }
+      },
+      "EntityPagedResultOfChangeHistoryModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChangeHistoryModel"
+            }
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ChangeHistoryModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "entityId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "entityName": {
+            "type": "string"
+          },
+          "propertyName": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedById": {
+            "type": "string",
+            "format": "guid"
+          },
+          "updatedByName": {
+            "type": "string"
           }
         }
       },
@@ -5513,7 +5744,8 @@
           },
           "categoryId": {
             "type": "string",
-            "format": "guid"
+            "format": "guid",
+            "nullable": true
           },
           "categoryName": {
             "type": "string"
