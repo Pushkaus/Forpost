@@ -66,6 +66,7 @@ public sealed class Invoice : AggregateRoot
     public void SetShipmentDate(DateTimeOffset dateShipment)
     {
         if (DateShipment != dateShipment) DateShipment = dateShipment;
+        InvoiceStatus = InvoiceStatus.Shipped;
     }
 
     private Invoice(
@@ -90,7 +91,6 @@ public sealed class Invoice : AggregateRoot
         PaymentDeadline = paymentDeadline;
         PaymentStatus = paymentStatus;
         InvoiceStatus = invoiceStatus;
-        UpdatePaymentPercentage();
     }
 
     private static string GenerateNumber(string number)

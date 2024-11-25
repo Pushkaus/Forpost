@@ -55,7 +55,7 @@ public sealed class ChangeHistoryInterceptor : SaveChangesInterceptor
                 ChangeLoggingEntities.GetValueOrDefault(entry.Entity.GetType(), Array.Empty<string>());
             foreach (var member in entry.Members.Where(x => trackingPropertyNames.Contains(x.Metadata.Name)))
             {
-                if (member.CurrentValue != entry.OriginalValues[member.Metadata.Name])
+                if (!Equals(member.CurrentValue, member.EntityEntry.OriginalValues[member.Metadata.Name]))
                 {
                     var entity = entry.Entity;
                     var change = new ChangeHistory
