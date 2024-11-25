@@ -16,6 +16,10 @@ public sealed class Contractor : AggregateRoot
     public string? LogisticInfo { get; private set; }
     public ContractorType ContractType { get; private set; }
 
+    private Contractor()
+    {
+        
+    }
     private Contractor(
         string name,
         string inn,
@@ -46,7 +50,8 @@ public sealed class Contractor : AggregateRoot
         decimal? discountLevel = null,
         string? logisticInfo = null)
     {
-        var contractor = new Contractor(name, inn, country, city, description, discountLevel, logisticInfo, contractType);
+        var contractor =
+            new Contractor(name, inn, country, city, description, discountLevel, logisticInfo, contractType);
 
         contractor.Raise(new ContractorAdded(contractor.Id));
         return contractor;

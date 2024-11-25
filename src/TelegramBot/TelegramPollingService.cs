@@ -22,8 +22,9 @@ namespace Forpost.TelegramBot
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
-            return Task.Run(() => StartPolling(_cancellationTokenSource.Token), stoppingToken);
+            // _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
+            // return Task.Run(() => StartPolling(_cancellationTokenSource.Token), stoppingToken);
+            return Task.CompletedTask;
         }
 
         private async Task StartPolling(CancellationToken cancellationToken)

@@ -6,4 +6,6 @@ public interface IContractorReadRepository : IApplicationReadRepository
 {
     public Task<EntityPagedResult<ContractorModel>> GetAllAsync(ContractorFilter filter,
         CancellationToken cancellationToken);
+    
+    public Task<ContractorModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 }

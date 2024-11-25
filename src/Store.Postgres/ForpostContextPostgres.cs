@@ -1,6 +1,7 @@
 using Forpost.Domain.Catalogs.Barcodes;
 using Forpost.Domain.Catalogs.Category;
 using Forpost.Domain.Catalogs.Contractors;
+using Forpost.Domain.Catalogs.Contractors.ContractorRepresentatives;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Products;
@@ -41,6 +42,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<Storage> Storages => Set<Storage>();
     public DbSet<StorageProduct> StorageProducts => Set<StorageProduct>();
     public DbSet<Contractor> Contractors => Set<Contractor>();
+    public DbSet<ContractorRepresentative> ContractorRepresentatives => Set<ContractorRepresentative>();
     public DbSet<File> Files => Set<File>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Issue> Issues => Set<Issue>();

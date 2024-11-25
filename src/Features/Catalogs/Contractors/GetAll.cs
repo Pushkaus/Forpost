@@ -1,22 +1,22 @@
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.Catalogs.Contractors;
 using Forpost.Domain.Catalogs.Contractors;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.Contractors;
 
 internal sealed class GetAllContractorsQueryHandler :
-    IQueryHandler<GetAllContractorsQuery, (IReadOnlyList<Contractor> Contractors, int TotalCount)>
+    IQueryHandler<GetAllContractorsQuery, EntityPagedResult<ContractorModel>>
 {
-    private readonly IContractorDomainRepository _domainRepository;
-
-    public GetAllContractorsQueryHandler(IContractorDomainRepository domainRepository)
+    private readonly IContractorReadRepository _contractorReadRepository;
+    public GetAllContractorsQueryHandler(IContractorReadRepository contractorReadRepository)
     {
-        _domainRepository = domainRepository;
+        _contractorReadRepository = contractorReadRepository;
     }
 
-    public async ValueTask<(IReadOnlyList<Contractor> Contractors, int TotalCount)> Handle(GetAllContractorsQuery request,
+    public async ValueTask<EntityPagedResult<ContractorModel>> Handle(GetAllContractorsQuery request,
         CancellationToken cancellationToken) =>
-        await _domainRepository.GetAllAsync(request.FilterExpression, request.FilterValues,
-            cancellationToken, request.Skip, request.Limit); 
+        await _contractorReadRepository.GetAllAsync(request.Filter, cancellationToken); 
 }
-public sealed record GetAllContractorsQuery(string? FilterExpression, object?[]? FilterValues, int Skip, int Limit) 
-    : IQuery<(IReadOnlyList<Contractor> Contractors, int TotalCount)>;
+public sealed record GetAllContractorsQuery(ContractorFilter Filter) 
+    : IQuery<EntityPagedResult<ContractorModel>>;

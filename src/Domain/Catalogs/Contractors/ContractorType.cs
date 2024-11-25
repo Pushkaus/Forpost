@@ -4,6 +4,7 @@ namespace Forpost.Domain.Catalogs.Contractors;
 
 public sealed class ContractorType : SmartEnumeration<ContractorType>
 {
+    public static readonly ContractorType NotType = new(nameof(NotType), 0);
     public static readonly ContractorType DirectClient = new(nameof(DirectClient), 100);
     public static readonly ContractorType Dealer = new(nameof(Dealer), 200);
     public static readonly ContractorType Partner = new(nameof(Partner), 300);

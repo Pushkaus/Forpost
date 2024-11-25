@@ -2,6 +2,7 @@ using AutoMapper;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Category;
 using Forpost.Domain.Catalogs.Contractors;
+using Forpost.Domain.Catalogs.Contractors.ContractorRepresentatives;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Products;
@@ -14,6 +15,7 @@ using Forpost.Domain.Catalogs.TechCardSteps;
 using Forpost.Features.Auth;
 using Forpost.Features.Catalogs.Categories;
 using Forpost.Features.Catalogs.Contractors;
+using Forpost.Features.Catalogs.Contractors.ContractorRepresentatives;
 using Forpost.Features.Catalogs.Employees;
 using Forpost.Features.Catalogs.Operations;
 using Forpost.Features.Catalogs.Products;
@@ -53,15 +55,22 @@ internal sealed class CatalogMappingProfile : Profile
         CreateMap<UpdateEmployeeCommand, Employee>().ValidateMemberList(MemberList.Destination);
         CreateMap<AddRoleCommand, Role>().ValidateMemberList(MemberList.Destination);
     }
+
     private void MapCategory()
     {
         CreateMap<UpdateCategoryCommand, Category>().ValidateMemberList(MemberList.Destination);
     }
+
     private void MapContractor()
     {
         CreateMap<AddContractorCommand, Contractor>().ValidateMemberList(MemberList.Destination);
         CreateMap<UpdateContractorCommand, Contractor>().ValidateMemberList(MemberList.Destination);
+        CreateMap<AddContractorRepresentativeCommand, ContractorRepresentative>()
+            .ValidateMemberList(MemberList.Destination);
+        CreateMap<UpdateContractorRepresentativeByIdCommand, ContractorRepresentative>(MemberList.Destination)
+            .ValidateMemberList(MemberList.Destination);
     }
+
     private void MapTechCardSteps()
     {
         CreateMap<TechCardStepCreateCommand, TechCardStep>().ValidateMemberList(MemberList.Destination);

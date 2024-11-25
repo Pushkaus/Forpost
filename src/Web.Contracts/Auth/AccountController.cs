@@ -43,12 +43,5 @@ public sealed class AccountController : ApiController
             request.Password), cancellationToken);
         return token;
     }
-
-    [HttpGet("login")]
-    [AllowAnonymous]
-    public IActionResult LoginPage()
-    {
-        return Ok();
-    }
 } 
 

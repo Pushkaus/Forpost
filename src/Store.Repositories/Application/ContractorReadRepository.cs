@@ -18,7 +18,7 @@ internal sealed class ContractorReadRepository: IContractorReadRepository
 
     public async Task<EntityPagedResult<ContractorModel>> GetAllAsync(ContractorFilter filter, CancellationToken cancellationToken)
     {
-        var totalCount = await _dbContext.Contractors.CountAsync(cancellationToken);
+        var totalCount = await _dbContext.Contractors.NotDeletedAt().CountAsync(cancellationToken);
         var query = _dbContext.Contractors.AsQueryable().NotDeletedAt()
             .Select(contractor => new ContractorModel
             {
@@ -53,5 +53,23 @@ internal sealed class ContractorReadRepository: IContractorReadRepository
             Items = result,
             TotalCount = totalCount
         };
+    }
+
+    public async Task<ContractorModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+       return await _dbContext.Contractors.AsQueryable().NotDeletedAt()
+            .Where(entity => entity.Id == id)
+            .Select(contractor => new ContractorModel
+            {
+                Id = contractor.Id,
+                Name = contractor.Name,
+                INN = contractor.INN,
+                Country = contractor.Country,
+                City = contractor.City,
+                Description = contractor.Description,
+                DiscountLevel = contractor.DiscountLevel,
+                LogisticInfo = contractor.LogisticInfo,
+                ContractType = contractor.ContractType
+            }).FirstOrDefaultAsync(cancellationToken);
     }
 }
