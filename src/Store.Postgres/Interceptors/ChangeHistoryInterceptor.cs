@@ -4,19 +4,11 @@ using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Domain.Primitives.EntityTemplates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Newtonsoft.Json;
 
 namespace Forpost.Store.Postgres.Interceptors;
 
 public sealed class ChangeHistoryInterceptor : SaveChangesInterceptor
 {
-    private readonly TimeProvider _timeProvider;
-
-    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
-    {
-        TypeNameHandling = TypeNameHandling.All
-    };
-
     private static readonly Dictionary<Type, string[]> ChangeLoggingEntities =
         new()
         {
@@ -26,11 +18,6 @@ public sealed class ChangeHistoryInterceptor : SaveChangesInterceptor
                 nameof(Invoice.PaymentStatus), nameof(Invoice.PaymentPercentage)
             ]
         };
-
-    public ChangeHistoryInterceptor(TimeProvider timeProvider)
-    {
-        _timeProvider = timeProvider;
-    }
 
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
         DbContextEventData eventData,
@@ -71,8 +58,6 @@ public sealed class ChangeHistoryInterceptor : SaveChangesInterceptor
                 }
             }
         }
-
-
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 }

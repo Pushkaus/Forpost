@@ -7,17 +7,48 @@ namespace Forpost.Domain.Catalogs.Contractors;
 /// </summary>
 public sealed class Contractor : AggregateRoot
 {
-    private Contractor(string name)
+    public string Name { get; private set; }
+    public string INN { get; private set; }
+    public string Country { get; private set; }
+    public string City { get; private set; }
+    public string? Description { get; private set; }
+    public decimal? DiscountLevel { get; private set; }
+    public string? LogisticInfo { get; private set; }
+    public ContractorType ContractType { get; private set; }
+
+    private Contractor(
+        string name,
+        string inn,
+        string country,
+        string city,
+        string? description,
+        decimal? discountLevel,
+        string? logisticInfo,
+        ContractorType contractType)
     {
         Name = name;
+        INN = inn;
+        Country = country;
+        City = city;
+        Description = description;
+        DiscountLevel = discountLevel;
+        LogisticInfo = logisticInfo;
+        ContractType = contractType;
     }
 
-    public static Contractor New(string name)
+    public static Contractor New(
+        string name,
+        string inn,
+        string country,
+        string city,
+        ContractorType contractType,
+        string? description = null,
+        decimal? discountLevel = null,
+        string? logisticInfo = null)
     {
-        var contractor = new Contractor(name);
-        
+        var contractor = new Contractor(name, inn, country, city, description, discountLevel, logisticInfo, contractType);
+
         contractor.Raise(new ContractorAdded(contractor.Id));
         return contractor;
     }
-    public string Name { get; set; }
 }

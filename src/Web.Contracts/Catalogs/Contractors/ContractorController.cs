@@ -19,7 +19,15 @@ public sealed class ContractorController : ApiController
     public async Task<IActionResult> CreateAsync([FromBody] ContractorRequest request,
         CancellationToken cancellationToken)
     {
-        var id = await Sender.Send(new AddContractorCommand(request.Name), cancellationToken);
+        var id = await Sender.Send(new AddContractorCommand(
+            request.Name,
+            request.INN,
+            request.Country,
+            request.City,
+            request.Description,
+            request.DiscountLevel,
+            request.LogisticInfo,
+            request.ContractorType), cancellationToken);
         return Ok(id);
     }
 
