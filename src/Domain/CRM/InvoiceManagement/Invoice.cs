@@ -65,7 +65,7 @@ public sealed class Invoice : AggregateRoot
 
     public void SetShipmentDate(DateTimeOffset dateShipment)
     {
-        DateShipment = dateShipment;
+        if (DateShipment != dateShipment) DateShipment = dateShipment;
     }
 
     private Invoice(
