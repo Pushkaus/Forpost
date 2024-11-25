@@ -23,7 +23,8 @@ public sealed class ChangeHistoryInterceptor : SaveChangesInterceptor
             [typeof(Invoice)] =
             [
                 nameof(Invoice.InvoiceStatus), nameof(Invoice.Priority),
-                nameof(Invoice.PaymentStatus), nameof(Invoice.PaymentPercentage)
+                nameof(Invoice.PaymentStatus), nameof(Invoice.PaymentPercentage),
+                nameof(Invoice.DateShipment)
             ]
         };
 
