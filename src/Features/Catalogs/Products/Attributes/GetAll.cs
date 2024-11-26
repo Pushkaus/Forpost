@@ -1,22 +1,22 @@
+using Forpost.Application.Contracts.Catalogs.Attributes;
 using Forpost.Domain.Catalogs.Products.Attributes;
 using Mediator;
-using Attribute = Forpost.Domain.Catalogs.Products.Attributes.Attribute;
 
 namespace Forpost.Features.Catalogs.Products.Attributes;
 
-internal sealed class GetAllValueByAttributeIdQueryHandler: IQueryHandler<GetAllValueByAttributeIdQuery, Attribute>
+public sealed class
+    GetAllAttributesQueryHandler : IQueryHandler<GetAllAttributesQuery, IReadOnlyCollection<AttributeModel>>
 {
-    private readonly IAttributeDomainRepository _attributeDomainRepository;
+    private readonly IAttributeReadRepository _attributeReadRepository;
 
-    public GetAllValueByAttributeIdQueryHandler(IAttributeDomainRepository attributeDomainRepository)
+    public GetAllAttributesQueryHandler(IAttributeReadRepository attributeReadRepository)
     {
-        _attributeDomainRepository = attributeDomainRepository;
+        _attributeReadRepository = attributeReadRepository;
     }
 
-    public async ValueTask<Attribute> Handle(GetAllValueByAttributeIdQuery query, CancellationToken cancellationToken)
-    {
-        var attribute = await _attributeDomainRepository.GetByIdAsync(query.AttributeId, cancellationToken);
-        return attribute;
-    }
+    public async ValueTask<IReadOnlyCollection<AttributeModel>> Handle(GetAllAttributesQuery query,
+        CancellationToken cancellationToken)
+        => await _attributeReadRepository.GetAllAsync(cancellationToken);
 }
-public record GetAllValueByAttributeIdQuery(Guid AttributeId): IQuery<Attribute>;
+
+public record GetAllAttributesQuery : IQuery<IReadOnlyCollection<AttributeModel>>;

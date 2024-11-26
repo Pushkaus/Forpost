@@ -62,6 +62,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<PriceList> PriceLists => Set<PriceList>();
     public DbSet<ProductBarcode> ProductBarcodes => Set<ProductBarcode>();
     public DbSet<EntryStorageHistory> EntryStorageHistories => Set<EntryStorageHistory>();
+    public DbSet<Attribute> Attributes => Set<Attribute>();
     #region ApplicationTables
     
     /// <summary>
