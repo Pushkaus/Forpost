@@ -14,7 +14,7 @@ public sealed class Contractor : AggregateRoot
     public string? Description { get; private set; }
     public decimal? DiscountLevel { get; private set; }
     public string? LogisticInfo { get; private set; }
-    public ContractorType ContractType { get; private set; }
+    public ContractorType ContractorType { get; private set; }
 
     private Contractor()
     {
@@ -28,7 +28,7 @@ public sealed class Contractor : AggregateRoot
         string? description,
         decimal? discountLevel,
         string? logisticInfo,
-        ContractorType contractType)
+        ContractorType contractorType)
     {
         Name = name;
         INN = inn;
@@ -37,7 +37,7 @@ public sealed class Contractor : AggregateRoot
         Description = description;
         DiscountLevel = discountLevel;
         LogisticInfo = logisticInfo;
-        ContractType = contractType;
+        ContractorType = contractorType;
     }
 
     public static Contractor New(
@@ -45,13 +45,13 @@ public sealed class Contractor : AggregateRoot
         string inn,
         string country,
         string city,
-        ContractorType contractType,
+        ContractorType contractorType,
         string? description = null,
         decimal? discountLevel = null,
         string? logisticInfo = null)
     {
         var contractor =
-            new Contractor(name, inn, country, city, description, discountLevel, logisticInfo, contractType);
+            new Contractor(name, inn, country, city, description, discountLevel, logisticInfo, contractorType);
 
         contractor.Raise(new ContractorAdded(contractor.Id));
         return contractor;

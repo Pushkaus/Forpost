@@ -12,5 +12,5 @@ public sealed class ContractorModel
     public string? Description { get; set; }
     public decimal? DiscountLevel { get; set; }
     public string? LogisticInfo { get; set; }
-    public ContractorType ContractType { get; set; }
+    public ContractorType ContractorType { get; set; }
 }

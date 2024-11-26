@@ -110,7 +110,7 @@ public sealed class ContractorController : ApiController
     /// Получить представителей контрагента
     /// </summary>
     [HttpGet("{contractorId:guid}/contractor-representatives")]
-    [ProducesResponseType(typeof(ContractorRepresentativeRequest), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ContractorRepresentative), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetContractorRepresentativeByContractorId(Guid contractorId,
         CancellationToken cancellationToken) =>
         Ok(await Sender.Send(new GetByContractorIdQuery(contractorId), cancellationToken));

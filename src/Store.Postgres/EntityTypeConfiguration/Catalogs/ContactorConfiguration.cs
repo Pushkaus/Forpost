@@ -14,7 +14,7 @@ internal sealed class ContactorConfiguration : IEntityTypeConfiguration<Contract
         
         builder.HasIndex(contractor => contractor.Name).IsUnique();
 
-        builder.Property(x => x.ContractType)
+        builder.Property(x => x.ContractorType)
             .ConfigureSmartEnumerationAsEnum();
     }
 }

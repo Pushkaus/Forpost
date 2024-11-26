@@ -30,17 +30,17 @@ internal sealed class ContractorReadRepository: IContractorReadRepository
                 Description = contractor.Description,
                 DiscountLevel = contractor.DiscountLevel,
                 LogisticInfo = contractor.LogisticInfo,
-                ContractType = contractor.ContractType
+                ContractorType = contractor.ContractorType
             });
         if (!string.IsNullOrWhiteSpace(filter.Name))
         {
             query = query.Where(contractor => contractor.Name.Contains(filter.Name));
         }
 
-        if (filter.ContractTypeValue.HasValue)
+        if (filter.ContractorTypeValue.HasValue)
         {
-            var contractorType = ContractorType.FromValue(filter.ContractTypeValue.Value);
-            query = query.Where(contractor => contractor.ContractType == contractorType);
+            var contractorType = ContractorType.FromValue(filter.ContractorTypeValue.Value);
+            query = query.Where(contractor => contractor.ContractorType == contractorType);
         }
 
         var result = await query
@@ -69,7 +69,7 @@ internal sealed class ContractorReadRepository: IContractorReadRepository
                 Description = contractor.Description,
                 DiscountLevel = contractor.DiscountLevel,
                 LogisticInfo = contractor.LogisticInfo,
-                ContractType = contractor.ContractType
+                ContractorType = contractor.ContractorType
             }).FirstOrDefaultAsync(cancellationToken);
     }
 }
