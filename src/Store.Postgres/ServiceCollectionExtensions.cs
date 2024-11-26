@@ -25,7 +25,8 @@ public static class ServiceCollectionExtensions
             var changeHistoryInterceptor = serviceProvider.GetRequiredService<ChangeHistoryInterceptor>();
             
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-            options.UseNpgsql(connectionString).AddInterceptors(domainEventInterceptor, changeHistoryInterceptor)
+            options.UseNpgsql(connectionString)
+                .AddInterceptors(domainEventInterceptor, changeHistoryInterceptor)
                 .EnableSensitiveDataLogging();
         });
 

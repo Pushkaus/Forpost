@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Forpost.Store.Migrations.Migrations
 {
     [DbContext(typeof(ForpostContextPostgres))]
-    partial class ForpostContextPostgresModelSnapshot : ModelSnapshot
+    [Migration("20241126082010_AddAttribute")]
+    partial class AddAttribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
