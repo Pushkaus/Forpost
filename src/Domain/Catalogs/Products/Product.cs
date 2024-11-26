@@ -16,6 +16,6 @@ public sealed class Product : DomainAuditableEntity
     /// <summary>
     /// Закупаемый продукт
     /// </summary>
-    public bool Purchased { get; set; } = false;
+    public bool Purchased { get; set; } 
     public Guid? CategoryId { get; set; } = Guid.Empty;
 }

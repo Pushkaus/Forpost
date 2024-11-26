@@ -25,6 +25,7 @@ using Forpost.Domain.StorageManagment.EntryStorageHistories;
 using Forpost.Domain.StorageManagment.StorageProducts;
 using Microsoft.EntityFrameworkCore;
 using File = Forpost.Domain.FileStorage.File;
+using Attribute = Forpost.Domain.Catalogs.Products.Attributes.Attribute;
 
 namespace Forpost.Store.Postgres;
 
@@ -54,7 +55,6 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<CompletedProduct> CompletedProducts => Set<CompletedProduct>();
     public DbSet<ManufacturingProcess> ManufacturingProcesses => Set<ManufacturingProcess>();
     public DbSet<ProductDevelopment> ProductDevelopments => Set<ProductDevelopment>();
-    public DbSet<ProductVersion> ProductVersions => Set<ProductVersion>();
     public DbSet<CompositionProduct> CompositionProducts => Set<CompositionProduct>();
     public DbSet<NotificationForUsers> NotificationsForUsers => Set<NotificationForUsers>();
     public DbSet<CompositionInvoice> CompositionInvoices => Set<CompositionInvoice>();
@@ -62,6 +62,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<PriceList> PriceLists => Set<PriceList>();
     public DbSet<ProductBarcode> ProductBarcodes => Set<ProductBarcode>();
     public DbSet<EntryStorageHistory> EntryStorageHistories => Set<EntryStorageHistory>();
+    public DbSet<Attribute> Attributes => Set<Attribute>();
     #region ApplicationTables
     
     /// <summary>
