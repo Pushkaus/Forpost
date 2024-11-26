@@ -16,9 +16,9 @@ internal sealed class DeleteContractorCommandHandler : ICommandHandler<DeleteCon
 
     public ValueTask<Unit> Handle(DeleteContractorCommand command, CancellationToken cancellationToken)
     {
-        _contractorDomainRepository.DeleteById(command.ContragentId);
+        _contractorDomainRepository.DeleteById(command.ContractorId);
         return Unit.ValueTask;
     }
 }
 
-public record DeleteContractorCommand(Guid ContragentId) : ICommand;
+public record DeleteContractorCommand(Guid ContractorId) : ICommand;

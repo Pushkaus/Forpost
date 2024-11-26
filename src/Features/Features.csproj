@@ -25,8 +25,4 @@
     <InternalsVisibleTo Include="Forpost.Infrastructure" />
   </ItemGroup>
   
-  <ItemGroup>
-    <Folder Include="ChangeLogs\Handlers\" />
-  </ItemGroup>
-  
 </Project>

@@ -1,23 +1,22 @@
+using Forpost.Application.Contracts.Catalogs.Contractors;
 using Forpost.Common;
 using Forpost.Domain.Catalogs.Contractors;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.Contractors;
 
-internal sealed class GetContractorByIdQueryHandler : IQueryHandler<GetContractorByIdQuery, Contractor>
+internal sealed class GetContractorByIdQueryHandler : IQueryHandler<GetContractorByIdQuery, ContractorModel?>
 {
-    private readonly IContractorDomainRepository _domainRepository;
-
-    public GetContractorByIdQueryHandler(IContractorDomainRepository domainRepository)
+    private readonly IContractorReadRepository _contractorReadRepository;
+    public GetContractorByIdQueryHandler(IContractorReadRepository contractorReadRepository)
     {
-        _domainRepository = domainRepository;
+        _contractorReadRepository = contractorReadRepository;
     }
 
-    public async ValueTask<Contractor> Handle(GetContractorByIdQuery request, CancellationToken cancellationToken)
+    public async ValueTask<ContractorModel?> Handle(GetContractorByIdQuery request, CancellationToken cancellationToken)
     {
-        var contractor = await _domainRepository.GetByIdAsync(request.Id, cancellationToken);
-        return contractor.EnsureFoundBy(entity => entity.Id, request.Id);
+        return await _contractorReadRepository.GetByIdAsync(request.Id, cancellationToken);
     }
 }
 
-public sealed record GetContractorByIdQuery(Guid Id) : IQuery<Contractor>;
+public sealed record GetContractorByIdQuery(Guid Id) : IQuery<ContractorModel?>;

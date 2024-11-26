@@ -23,4 +23,13 @@ public class UpdateContractorCommandHandler : ICommandHandler<UpdateContractorCo
     }
 }
 
-public record UpdateContractorCommand(Guid Id, string Name) : ICommand;
+public record UpdateContractorCommand(
+    Guid Id,
+    string Name,
+    string INN,
+    string Country,
+    string City,
+    string? Description,
+    decimal? DiscountLevel,
+    string? LogisticInfo,
+    ContractorType ContractorType) : ICommand;

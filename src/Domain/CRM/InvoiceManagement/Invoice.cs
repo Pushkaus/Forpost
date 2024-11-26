@@ -69,6 +69,12 @@ public sealed class Invoice : AggregateRoot
         InvoiceStatus = InvoiceStatus.Shipped;
     }
 
+    public void SetDateClosing(DateTimeOffset dateClosing)
+    {
+        DateClosing = dateClosing;
+        InvoiceStatus = InvoiceStatus.Completed;
+    }
+
     private Invoice(
         string number,
         Guid contractorId,

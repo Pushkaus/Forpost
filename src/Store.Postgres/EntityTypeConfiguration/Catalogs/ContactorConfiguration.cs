@@ -13,5 +13,8 @@ internal sealed class ContactorConfiguration : IEntityTypeConfiguration<Contract
             .HasMaxLength(DatabaseConstrains.MaxLength);
         
         builder.HasIndex(contractor => contractor.Name).IsUnique();
+
+        builder.Property(x => x.ContractType)
+            .ConfigureSmartEnumerationAsEnum();
     }
 }
