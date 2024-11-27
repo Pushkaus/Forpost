@@ -16,8 +16,9 @@ internal sealed class CreateAttributeCommandHandler: ICommandHandler<CreateAttri
     public ValueTask<Guid> Handle(CreateAttributeCommand command, CancellationToken cancellationToken)
     {
         var attribute = Attribute.Create(command.AttributeName);
+        attribute.AddPossibleValue(command.Values);
         var attributeId = _attributeDomainRepository.Add(attribute);
         return ValueTask.FromResult(attributeId);
     }
 }
-public record CreateAttributeCommand(string AttributeName): ICommand<Guid>;
+public record CreateAttributeCommand(string AttributeName, List<string> Values): ICommand<Guid>;

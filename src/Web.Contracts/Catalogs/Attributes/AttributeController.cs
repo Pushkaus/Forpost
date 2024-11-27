@@ -31,7 +31,7 @@ public sealed class AttributeController : ApiController
     }
 
     /// <summary>
-    /// Создать атрибут (без значения)
+    /// Создать атрибут
     /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
@@ -39,7 +39,7 @@ public sealed class AttributeController : ApiController
     public async Task<IActionResult> CreateAttributeAsync([FromBody] AttributeRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new CreateAttributeCommand(request.AttributeName);
+        var command = new CreateAttributeCommand(request.AttributeName, request.Values);
         var attributeId = await Sender.Send(command, cancellationToken);
 
         return CreatedAtRoute("", attributeId);
