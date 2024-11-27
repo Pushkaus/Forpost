@@ -35,6 +35,7 @@ internal sealed class InvoiceProductReadRepository: IInvoiceProductReadRepositor
                 invoice => invoice.Id,
                 (combined, invoice) => new InvoiceWithProductsModel
                 {
+                    Id = combined.Entity.Id,
                     ProductId = combined.Entity.Id,
                     InvoiceId = combined.Entity.InvoiceId,
                     Name = combined.Product.Name,

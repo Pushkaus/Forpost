@@ -44,6 +44,11 @@ public sealed class Invoice : AggregateRoot
         return invoice;
     }
 
+    public void ChangeDescription(string description)
+    {
+        Description = description;
+    }
+    
     public void ChangePriority(int priority)
     {
         Priority = Priority.FromValue(priority);

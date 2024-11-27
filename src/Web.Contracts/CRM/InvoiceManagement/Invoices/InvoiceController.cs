@@ -137,6 +137,16 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         {
             return Ok(await Sender.Send(new GetChangeLogsByIdQuery(id, filter), cancellationToken));
         }
-        
+        /// <summary>
+        /// Изменить описание счета
+        /// </summary>
+        [HttpPut("{id}/change-description")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> ChangeDescriptionInvoiceAsync(Guid id,
+            [FromBody] ChangeDescriptionRequest request, CancellationToken cancellationToken)
+        {
+            await Sender.Send(new ChangeDescriptionInvoiceCommand(id, request.Description), cancellationToken);
+            return NoContent();
+        }
     }
 }
