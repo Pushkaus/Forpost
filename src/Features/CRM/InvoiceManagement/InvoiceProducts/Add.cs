@@ -25,5 +25,4 @@ internal sealed class AddInvoiceProductCommandHandler: ICommandHandler<AddInvoic
         return await ValueTask.FromResult(Unit.Value);
     }
 }
-
 public record AddInvoiceProductCommand(Guid InvoiceId, Guid ProductId, int Quantity) : ICommand;

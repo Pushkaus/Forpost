@@ -1,4 +1,5 @@
 using Forpost.Application.Contracts.CRM.InvoiceManagement.CompositionInvoices;
+using Forpost.Application.Contracts.CRM.InvoiceManagement.InvoiceProducts;
 using Forpost.Features.CRM.InvoiceManagement.CompositionInvoices;
 using Forpost.Features.CRM.InvoiceManagement.InvoiceProducts;
 using Microsoft.AspNetCore.Http;
@@ -27,12 +28,11 @@ public sealed class InvoiceProductController : ApiController
     /// Получение продуктов по id счета
     /// </summary>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceProductResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<InvoiceWithProductsModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCompositionInvoiceAsync(Guid id, CancellationToken cancellationToken)
     {
         var compositionInvoice = await Sender.Send(new GetCompositionInvoiceQuery(id), cancellationToken);
-        var result = Mapper.Map<IReadOnlyCollection<InvoiceProductResponse>>(compositionInvoice);
-        return Ok(result);
+        return Ok(compositionInvoice);
     }
     
     /// <summary>
@@ -56,5 +56,26 @@ public sealed class InvoiceProductController : ApiController
     public async Task<IActionResult> GetCompositionInvoice(Guid invoiceId, CancellationToken cancellationToken)
     {
         return Ok(await Sender.Send(new GetCompletedCompositionInvoiceQuery(invoiceId), cancellationToken));
+    }
+    /// <summary>
+    /// Изменить количество продукта в счете
+    /// </summary>
+    [HttpPut("{id}/change-quantity")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> ChangeQuantityProductAsync(Guid id, [FromBody] ChangeQuantityRequest request,
+        CancellationToken cancellationToken)
+    {
+        await Sender.Send(new ChangeQuantityCommand(id, request.Quantity), cancellationToken);
+        return NoContent();
+    }
+    /// <summary>
+    /// Удалить продукт из счета
+    /// </summary>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> DeleteByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        await Sender.Send(new DeleteInvoiceProductCommand(id), cancellationToken);
+        return NoContent();
     }
 }

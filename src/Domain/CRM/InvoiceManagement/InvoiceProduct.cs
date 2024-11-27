@@ -7,9 +7,9 @@ namespace Forpost.Domain.CRM.InvoiceManagement;
 /// </summary>
 public sealed class InvoiceProduct : DomainEntity
 {
-    public Guid InvoiceId { get; set; }
-    public Guid ProductId { get; set; }
-    public int Quantity { get; set; }
+    public Guid InvoiceId { get; private set; }
+    public Guid ProductId { get; private set; }
+    public int Quantity { get; private set; }
     
     /// <summary>
     /// Добавление продуктов в выставленный счет
@@ -17,6 +17,11 @@ public sealed class InvoiceProduct : DomainEntity
     public static InvoiceProduct Add(Guid invoiceId, Guid productId, int quantity)
     {
         return new InvoiceProduct(invoiceId, productId, quantity);
+    }
+
+    public void ChangeQuantity(int quantity)
+    {
+        Quantity = quantity;
     }
     
     private InvoiceProduct(Guid invoiceId, Guid productId, int quantity)

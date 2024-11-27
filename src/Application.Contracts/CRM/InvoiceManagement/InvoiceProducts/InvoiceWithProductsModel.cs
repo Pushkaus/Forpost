@@ -2,6 +2,7 @@ namespace Forpost.Application.Contracts.CRM.InvoiceManagement.InvoiceProducts;
 
 public sealed class InvoiceWithProductsModel
 {
+    public Guid Id { get; set; }
     public Guid InvoiceId { get; set; }
     public Guid ProductId { get; set; }
     public string Name { get; set; }
