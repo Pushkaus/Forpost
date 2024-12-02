@@ -27,6 +27,7 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         /// Получить счет по ID
         /// </summary>
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(typeof(InvoiceModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
             => Ok(await Sender.Send(new GetInvoiceByIdQuery(id), cancellationToken));
 

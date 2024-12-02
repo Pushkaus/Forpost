@@ -15,10 +15,12 @@ namespace Forpost.Features.Catalogs.Employees
             _mapper = mapper;
         }
 
-        public ValueTask<Unit> Handle(UpdateEmployeeCommand command, CancellationToken cancellationToken)
+        public async ValueTask<Unit> Handle(UpdateEmployeeCommand command, CancellationToken cancellationToken)
         {
-            _domainRepository.Update(_mapper.Map<Employee>(command));
-            return ValueTask.FromResult(Unit.Value);
+            var employee = await _domainRepository.GetByIdAsync(command.Id, cancellationToken);
+            _mapper.Map(command, employee);
+            _domainRepository.Update(employee);
+            return Unit.Value;
         }
     }
 

@@ -17,6 +17,10 @@ public sealed class Employee : DomainAuditableEntity
         PasswordHash = passwordHash;
     }
 
+    private Employee()
+    {
+    }
+
     public static Employee Register(string firstName,
         string lastName,
         string post,
