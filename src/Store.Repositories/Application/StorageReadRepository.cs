@@ -16,6 +16,7 @@ internal sealed class StorageReadRepository : IStorageReadRepository
     public async Task<IReadOnlyCollection<StorageModel>> GetAllStorage(CancellationToken cancellationToken)
     {
         return await _dbContext.Storages
+            .NotDeletedAt()
             .Join(_dbContext.Employees,
                 storage => storage.ResponsibleId,
                 employee => employee.Id,

@@ -3,6 +3,9 @@ using Forpost.Domain.Primitives.EntityTemplates;
 
 namespace Forpost.Domain.CRM.InvoiceManagement;
 
+/// <summary>
+/// Счет
+/// </summary>
 public sealed class Invoice : AggregateRoot
 {
     public string Number { get; private set; }
@@ -16,6 +19,7 @@ public sealed class Invoice : AggregateRoot
     public Priority Priority { get; private set; }
     public PaymentStatus PaymentStatus { get; private set; }
     public InvoiceStatus InvoiceStatus { get; private set; }
+    public bool IsManufacturingOrderSent { get; private set; }
 
     public static Invoice Create(
         string number,
@@ -36,10 +40,11 @@ public sealed class Invoice : AggregateRoot
             paymentStatus,
             paymentDeadline,
             InvoiceStatus.Created,
-            createDate);
+            createDate,
+            false 
+        );
 
         invoice.UpdatePaymentPercentage();
-
         invoice.Raise(new InvoiceCreated(invoice.Id));
         return invoice;
     }
@@ -48,7 +53,7 @@ public sealed class Invoice : AggregateRoot
     {
         Description = description;
     }
-    
+
     public void ChangePriority(int priority)
     {
         Priority = Priority.FromValue(priority);
@@ -74,6 +79,11 @@ public sealed class Invoice : AggregateRoot
         InvoiceStatus = InvoiceStatus.Shipped;
     }
 
+    public void SentToManufacturingOrder()
+    {
+        IsManufacturingOrderSent = true;
+    }
+
     public void SetDateClosing(DateTimeOffset dateClosing)
     {
         DateClosing = dateClosing;
@@ -90,7 +100,8 @@ public sealed class Invoice : AggregateRoot
         PaymentStatus paymentStatus,
         DateTimeOffset? paymentDeadline,
         InvoiceStatus invoiceStatus,
-        DateTimeOffset createDate)
+        DateTimeOffset createDate,
+        bool isManufacturingOrderSent) 
     {
         Number = number;
         ContractorId = contractorId;
@@ -102,6 +113,7 @@ public sealed class Invoice : AggregateRoot
         PaymentDeadline = paymentDeadline;
         PaymentStatus = paymentStatus;
         InvoiceStatus = invoiceStatus;
+        IsManufacturingOrderSent = isManufacturingOrderSent;
     }
 
     private static string GenerateNumber(string number)

@@ -52,7 +52,9 @@ internal sealed class CatalogMappingProfile : Profile
 
     private void MapEmployee()
     {
-        CreateMap<UpdateEmployeeCommand, Employee>().ValidateMemberList(MemberList.Destination);
+        CreateMap<UpdateEmployeeCommand, Employee>()
+            .ForMember(entity => entity.PasswordHash, opt => opt.Ignore())
+            .ValidateMemberList(MemberList.Destination);
         CreateMap<AddRoleCommand, Role>().ValidateMemberList(MemberList.Destination);
     }
 
