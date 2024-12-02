@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.ProductCreating.ManufacturingOrder;
+namespace Forpost.Domain.ProductCreating.ManufacturingOrders;
 
 /// <summary>
 /// Заказ на производство
@@ -8,24 +8,24 @@ namespace Forpost.Domain.ProductCreating.ManufacturingOrder;
 public sealed class ManufacturingOrder : AggregateRoot
 {
     public Guid InvoiceId { get; private set; }
-    public string? Description { get; private set; }
+    public string? Comment { get; private set; }
     public ManufacturingOrderStatus ManufacturingOrderStatus { get; private set; }
 
-    public static ManufacturingOrder Create(Guid invoiceId, string? description) 
-        => new(invoiceId, description, ManufacturingOrderStatus.Pending);
+    public static ManufacturingOrder Create(Guid invoiceId) 
+        => new(invoiceId, null, ManufacturingOrderStatus.Pending);
 
-    public void ChangeDescription(string description)
+    public void ChangeComment(string comment)
     {
-        Description = description;
+        Comment = comment;
     }
     
     private ManufacturingOrder(
         Guid invoiceId,
-        string? description,
+        string? comment,
         ManufacturingOrderStatus manufacturingOrderStatus)
     {
         InvoiceId = invoiceId;
-        Description = description;
+        Comment = comment;
         ManufacturingOrderStatus = manufacturingOrderStatus;
     }
     

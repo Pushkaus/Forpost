@@ -18,6 +18,7 @@ using Forpost.Domain.MessagesManagement;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.CompositionProduct;
 using Forpost.Domain.ProductCreating.Issue;
+using Forpost.Domain.ProductCreating.ManufacturingOrders;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Forpost.Domain.StorageManagment;
@@ -63,6 +64,8 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<ProductBarcode> ProductBarcodes => Set<ProductBarcode>();
     public DbSet<EntryStorageHistory> EntryStorageHistories => Set<EntryStorageHistory>();
     public DbSet<Attribute> Attributes => Set<Attribute>();
+    public DbSet<ManufacturingOrder> ManufacturingOrders => Set<ManufacturingOrder>();
+    public DbSet<ManufacturingOrderComposition> ManufacturingOrderCompositions => Set<ManufacturingOrderComposition>();
     #region ApplicationTables
     
     /// <summary>

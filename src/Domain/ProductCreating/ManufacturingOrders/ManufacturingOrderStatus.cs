@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
 
-namespace Forpost.Domain.ProductCreating.ManufacturingOrder;
+namespace Forpost.Domain.ProductCreating.ManufacturingOrders;
 
 public sealed class ManufacturingOrderStatus: SmartEnumeration<ManufacturingOrderStatus>
 {
