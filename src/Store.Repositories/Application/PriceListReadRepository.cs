@@ -18,8 +18,6 @@ internal sealed class PriceListReadRepository : IPriceListReadRepository
     public async Task<(IReadOnlyCollection<PriceListModel> PriceList, int TotalCount)> GetAll(PriceListFilter filter,
         CancellationToken cancellationToken)
     {
-        var totalCount = await _dbContext.PriceLists.CountAsync(cancellationToken);
-
         var query = _dbContext.PriceLists.NotDeletedAt()
             .Join(_dbContext.Products,
                 priceList => priceList.ProductId,
@@ -50,7 +48,7 @@ internal sealed class PriceListReadRepository : IPriceListReadRepository
             query.Where(x => x.ProductName == filter.ProductName);
         }
 
-        totalCount = await query.CountAsync(cancellationToken);
+        var totalCount = await query.CountAsync(cancellationToken);
         var priceList = await query.OrderByDescending(x => x.UpdatedAt)
             .Skip(filter.Skip)
             .Take(filter.Limit)

@@ -20,9 +20,7 @@ internal sealed class ManufacturingOrderReadRepository : IManufacturingOrderRead
     public async Task<EntityPagedResult<ManufacturingOrderModel>> GetAllManufacturingOrdersAsync(
         ManufacturingOrderFilter filter, CancellationToken cancellationToken)
     {
-        var totalCount = await _dbContext.ManufacturingOrders.NotDeletedAt().CountAsync(cancellationToken);
-
-        var query = _dbContext.ManufacturingOrders
+        var query = _dbContext.ManufacturingOrders.NotDeletedAt()
             .Join(_dbContext.Invoices,
                 manufacturingOrder => manufacturingOrder.InvoiceId,
                 invoice => invoice.Id,
@@ -54,7 +52,7 @@ internal sealed class ManufacturingOrderReadRepository : IManufacturingOrderRead
                 m.ManufacturingOrderStatus ==
                 ManufacturingOrderStatus.FromValue(filter.ManufacturingOrderStatusValue.Value));
         }
-
+        var totalCount = await query.CountAsync(cancellationToken);
         var manufacturingOrders = await query
             .Skip(filter.Skip)
             .Take(filter.Limit)
