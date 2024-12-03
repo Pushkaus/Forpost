@@ -8,4 +8,7 @@
     <ItemGroup>
       <PackageReference Include="Telegram.Bot" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Handlers\InvoiceCreated\" />
+    </ItemGroup>
 </Project>

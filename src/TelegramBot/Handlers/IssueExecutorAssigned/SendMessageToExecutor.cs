@@ -8,7 +8,7 @@ using Telegram.Bot.Types;
 
 namespace Forpost.TelegramBot.Handlers.IssueExecutorAssigned;
 
-public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigned>, ITelegramBotSender
+public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigned>, ITelegramBotHandler
 {
     private readonly ITelegramBotClient _botClient;
     private readonly IIssueReadRepository _issueReadRepository;
