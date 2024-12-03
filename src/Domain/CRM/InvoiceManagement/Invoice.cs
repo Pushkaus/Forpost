@@ -82,9 +82,10 @@ public sealed class Invoice : AggregateRoot
     public void SentToManufacturingOrder()
     {
         IsManufacturingOrderSent = true;
+        InvoiceStatus = InvoiceStatus.Executed;
     }
 
-    public void SetDateClosing(DateTimeOffset dateClosing)
+    public void SetClosingDate(DateTimeOffset dateClosing)
     {
         DateClosing = dateClosing;
         InvoiceStatus = InvoiceStatus.Completed;

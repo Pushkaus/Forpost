@@ -22,13 +22,13 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         [ProducesResponseType(typeof(Invoice), StatusCodes.Status200OK)]
         public async Task<Invoice> GetByNumberAsync(string number, CancellationToken cancellationToken)
             => await Sender.Send(new GetInvoiceByNumberQuery(number), cancellationToken);
-        
+
         /// <summary>
         /// Получить счет по ID
         /// </summary>
         [HttpGet("{id:guid}")]
         [ProducesResponseType(typeof(InvoiceModel), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken) 
+        public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => Ok(await Sender.Send(new GetInvoiceByIdQuery(id), cancellationToken));
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
             await Sender.Send(new ChangePaymentPercentageCommand(id, request.PaymentPercentage), cancellationToken);
             return NoContent();
         }
-        
+
         /// <summary>
         /// Получить изменения в счете по ID
         /// </summary>
@@ -138,6 +138,7 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
         {
             return Ok(await Sender.Send(new GetChangeLogsByIdQuery(id, filter), cancellationToken));
         }
+        
         /// <summary>
         /// Изменить описание счета
         /// </summary>
@@ -147,6 +148,18 @@ namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
             [FromBody] ChangeDescriptionRequest request, CancellationToken cancellationToken)
         {
             await Sender.Send(new ChangeDescriptionInvoiceCommand(id, request.Description), cancellationToken);
+            return NoContent();
+        }
+        
+        /// <summary>
+        /// Установить дату закрытия счета
+        /// </summary>
+        [HttpPut("{id}/set-closing-date")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> SetClosingDateAsync(Guid id, [FromBody] SetClosingDateRequest request,
+            CancellationToken cancellationToken)
+        {
+            await Sender.Send(new SetClosingDateInvoiceCommand(id, request.ClosingDate), cancellationToken);
             return NoContent();
         }
     }
