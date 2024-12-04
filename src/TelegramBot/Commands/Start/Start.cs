@@ -32,7 +32,7 @@ internal sealed class Start : BaseCommandHandler
             }
             else
             {
-                await BotClient.SendTextMessageAsync(update.Message.Chat.Id, "help",
+                await BotClient.SendTextMessageAsync(update.Message.Chat.Id, "Вам необходимо авторизоваться",
                     cancellationToken: cancellationToken);
             }
         }
