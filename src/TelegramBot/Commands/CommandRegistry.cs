@@ -7,7 +7,7 @@ namespace Forpost.TelegramBot.Commands;
 
 public sealed class CommandRegistry
 {
-    private readonly List<ITelegramBotCommandHandler> _commandHandlers = new();
+    private readonly List<ITelegramBotCommandHandler> _commandHandlers;
     private readonly IServiceProvider _serviceProvider;
 
     public CommandRegistry(IServiceProvider serviceProvider)
