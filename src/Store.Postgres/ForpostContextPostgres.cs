@@ -1,3 +1,4 @@
+using Forpost.Common.ApplicationNotifications;
 using Forpost.Domain.Catalogs.Barcodes;
 using Forpost.Domain.Catalogs.Category;
 using Forpost.Domain.Catalogs.Contractors;
@@ -15,6 +16,7 @@ using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Domain.CRM.IssueHistory;
 using Forpost.Domain.CRM.PriceLists;
 using Forpost.Domain.MessagesManagement;
+using Forpost.Domain.MessagesManagement.ApplicationNotifications;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.CompositionProduct;
 using Forpost.Domain.ProductCreating.Issue;
@@ -66,6 +68,8 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<Attribute> Attributes => Set<Attribute>();
     public DbSet<ManufacturingOrder> ManufacturingOrders => Set<ManufacturingOrder>();
     public DbSet<ManufacturingOrderComposition> ManufacturingOrderCompositions => Set<ManufacturingOrderComposition>();
+    public DbSet<ApplicationUserNotification> ApplicationUserNotifications => Set<ApplicationUserNotification>();
+
     #region ApplicationTables
     
     /// <summary>
@@ -73,6 +77,7 @@ public sealed class ForpostContextPostgres : DbContext
     /// </summary>
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
     public DbSet<ChangeHistory> ChangeHistory => Set<ChangeHistory>();
+    public DbSet<ApplicationNotification> ApplicationNotifications => Set<ApplicationNotification>();
     
     #endregion
    

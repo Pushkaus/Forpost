@@ -1,6 +1,7 @@
+using Forpost.Common.ApplicationNotifications;
 using Forpost.Domain.Primitives.DomainAbstractions;
 
-namespace Forpost.Domain.Catalogs.Contractors;
+namespace Forpost.Domain.Catalogs.Contractors.Events;
 
 /// <summary>
 /// Контрагент создан

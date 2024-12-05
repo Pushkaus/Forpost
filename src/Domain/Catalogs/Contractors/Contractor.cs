@@ -1,3 +1,4 @@
+using Forpost.Domain.Catalogs.Contractors.Events;
 using Forpost.Domain.Primitives.EntityTemplates;
 
 namespace Forpost.Domain.Catalogs.Contractors;

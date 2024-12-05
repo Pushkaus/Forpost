@@ -1,4 +1,4 @@
-using Forpost.Application.Contracts.MessageManagment;
+using Forpost.Application.Contracts.MessageManagement;
 using Forpost.Features.MessageManagement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

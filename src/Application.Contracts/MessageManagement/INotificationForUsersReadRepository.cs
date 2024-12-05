@@ -1,6 +1,6 @@
 using Forpost.Common.DataAccess;
 
-namespace Forpost.Application.Contracts.MessageManagment;
+namespace Forpost.Application.Contracts.MessageManagement;
 
 public interface INotificationForUsersReadRepository: IApplicationReadRepository
 {
