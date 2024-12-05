@@ -14,7 +14,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton<ChangeHistoryInterceptor>();
         services.AddSingleton<DomainEventToOutboxMessageInterceptor>();
-
         services.AddDbContext<ForpostContextPostgres>((serviceProvider, options) =>
         {
             var connectionString = configuration.GetConnectionString(ConnectionName)

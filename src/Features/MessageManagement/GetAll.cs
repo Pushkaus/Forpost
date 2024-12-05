@@ -1,4 +1,4 @@
-using Forpost.Application.Contracts.MessageManagment;
+using Forpost.Application.Contracts.MessageManagement;
 using Mediator;
 
 namespace Forpost.Features.MessageManagement;

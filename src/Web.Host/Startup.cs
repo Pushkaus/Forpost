@@ -46,9 +46,10 @@ internal sealed class Startup
         services.AddScoped<IPasswordHasher<RegisterUserCommand>, PasswordHasher<RegisterUserCommand>>();
 
         services.AddForpostContextPostgres(_configuration);
+        
         services.AddSwaggerServices();
         services.AddSingleton(TimeProvider.System);
-
+        
         services.AddControllers();
 
         services.AddAutoMapper(WebContractsAssemblyReference.Assembly);
@@ -61,7 +62,8 @@ internal sealed class Startup
         services.AddHttpContextAccessor();
         services.AddControllers(options => options.Filters.Add<ForpostExceptionFilter>());
         services.AddEndpointsApiExplorer();
-
+        services.AddHostedService<ApplicationNotificationInitializer>();
+        
         var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("Jwt:Key") ??
                                           throw new AggregateException("Не указан Seq:ServerUri"));
         services.AddAuthentication(x =>
