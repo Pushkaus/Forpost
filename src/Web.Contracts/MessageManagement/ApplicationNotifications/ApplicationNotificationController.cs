@@ -39,7 +39,7 @@ public sealed class ApplicationNotificationController : ApiController
     /// <summary>
     /// Подписать пользователя на уведомление.
     /// </summary>
-    [HttpPost]
+    [HttpPost("user")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)] 
     [ProducesResponseType(StatusCodes.Status400BadRequest)] 
     public async Task<IActionResult> SubscribeUserToNotification([FromBody] SubscribeUserToNotificationRequest request,
@@ -56,9 +56,9 @@ public sealed class ApplicationNotificationController : ApiController
     }
 
     /// <summary>
-    /// Отписать пользователя от уведомления.
+    /// Отписать пользователя от уведомления. 
     /// </summary>
-    [HttpDelete("{id:guid}")]
+    [HttpDelete("user/{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)] 
     public async Task<IActionResult> UnsubscribeUserFromNotification(Guid id, CancellationToken cancellationToken)
     {
