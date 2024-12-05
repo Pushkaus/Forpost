@@ -15,6 +15,6 @@ internal sealed class FileDomainRepository : DomainRepository<File>, IFileDomain
 
     public async Task<IReadOnlyList<File>> GetAllByParentIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await DbSet.Where(entity => entity.ParentId == id).ToListAsync();
+        return await DbSet.Where(entity => entity.ParentId == id).ToListAsync(cancellationToken);
     }
 }
