@@ -11,7 +11,7 @@ namespace Forpost.Web.Contracts.MessageManagement.ApplicationNotifications;
 public sealed class ApplicationNotificationController : ApiController
 {
     /// <summary>
-    /// Получить все уведомления в приложении.
+    /// Получить все типы уведомлений в приложении.
     /// </summary>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<ApplicationNotification>), StatusCodes.Status200OK)] 
