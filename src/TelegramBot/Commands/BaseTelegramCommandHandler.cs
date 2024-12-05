@@ -4,11 +4,11 @@ using Telegram.Bot.Types;
 
 namespace Forpost.TelegramBot.Commands;
 
-internal abstract class BaseCommandHandler : ITelegramBotCommandHandler
+internal abstract class BaseTelegramCommandHandler : ITelegramBotCommandHandler
 {
     protected readonly ITelegramBotClient BotClient;
 
-    protected BaseCommandHandler(
+    protected BaseTelegramCommandHandler(
         ITelegramBotClient botClient)
     {
         BotClient = botClient;

@@ -4,7 +4,7 @@ using Telegram.Bot.Types;
 
 namespace Forpost.TelegramBot.Commands.Start;
 
-internal sealed class Start : BaseCommandHandler
+internal sealed class Start : BaseTelegramCommandHandler
 {
     private readonly ITelegramUserAuthDomainRepository _telegramUserAuthDomainRepository;
 

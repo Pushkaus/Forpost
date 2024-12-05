@@ -1,6 +1,6 @@
 namespace Forpost.TelegramBot.Models.Auth;
 
-public sealed class AuthModel
+public sealed class AuthModelCache
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
