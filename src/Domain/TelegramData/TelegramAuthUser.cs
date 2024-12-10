@@ -13,7 +13,11 @@ public sealed class TelegramAuthUser : DomainEntity
     public static TelegramAuthUser Create(Guid employeeId, long telegramUserId, bool isAdmin, bool isAuthorized,
         string telegramName)
         => new(employeeId, telegramUserId, isAdmin, isAuthorized, telegramName);
-    
+
+    public void SetAuthorize(bool isAuthorized)
+    {
+        IsAuthorized = isAuthorized;
+    }
     private TelegramAuthUser(Guid employeeId, long telegramUserId, bool isAdmin, bool isAuthorized, string telegramName)
     {
         EmployeeId = employeeId;

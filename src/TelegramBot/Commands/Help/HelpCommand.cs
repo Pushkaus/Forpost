@@ -4,9 +4,9 @@ using Telegram.Bot.Types.Enums;
 
 namespace Forpost.TelegramBot.Commands.Help;
 
-internal sealed class Help : BaseTelegramCommandHandler
+internal sealed class HelpCommand : BaseTelegramCommandHandler
 {
-    public Help(ITelegramBotClient botClient)
+    public HelpCommand(ITelegramBotClient botClient)
         : base(botClient)
     {
     }

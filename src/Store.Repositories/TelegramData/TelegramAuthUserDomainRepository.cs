@@ -13,6 +13,22 @@ internal sealed class TelegramAuthUserDomainRepository : DomainRepository<Telegr
     {
     }
 
-    public async Task<TelegramAuthUser?> GetUserByTelegramIdAsync(long telegramUserId, CancellationToken cancellationToken) 
+    public async Task<TelegramAuthUser?> GetByTelegramIdAsync(long telegramUserId, CancellationToken cancellationToken)
         => await DbSet.FirstOrDefaultAsync(entity => entity.TelegramUserId == telegramUserId, cancellationToken);
+
+    public async Task<TelegramAuthUser?> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+        => await DbSet.FirstOrDefaultAsync(entity => entity.EmployeeId == userId, cancellationToken);
+
+    public async Task LogoutAsync(long telegramUserId, CancellationToken cancellationToken)
+    {
+        var user = await DbSet.FirstOrDefaultAsync(entity => entity.TelegramUserId == telegramUserId, cancellationToken);
+    
+        if (user != null)
+        {
+            DbSet.Remove(user);
+        
+            await DbContext.SaveChangesAsync(cancellationToken);
+        }
+    }
+
 }

@@ -1,10 +1,11 @@
 using Forpost.TelegramBot.Handlers;
+using Mediator;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace Forpost.TelegramBot.Commands;
 
-internal abstract class BaseTelegramCommandHandler : ITelegramBotCommandHandler
+public abstract class BaseTelegramCommandHandler : ITelegramBotCommandHandler
 {
     protected readonly ITelegramBotClient BotClient;
 

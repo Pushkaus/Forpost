@@ -23,7 +23,7 @@ public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigne
     {
         Console.WriteLine($"{notification.ExecutorId} executor assigned");
         var issue = await _issueReadRepository.GetById(notification.IssueId, cancellationToken);
-        string messageText = $"Вы назначены исполнителем задачи:\n" +
+        var messageText = $"Вы назначены исполнителем задачи:\n" +
                              $"Операция: {issue.OperationName}\n" +
                              $"Продукт: {issue.ProductName}\n" +
                              $"Целевое количество: {issue.TargetQuantity}\n" +
