@@ -33,18 +33,22 @@ public sealed class InvoiceCreatedHandler : INotificationHandler<InvoiceCreated>
     {
         var invoice = await _invoiceReadRepository.GetByIdAsync(notification.InvoiceId, cancellationToken);
 
-        var messageText = $"Был создан счет!\n" +
-                          $"Номер счета: {invoice.Number}\n" +
-                          $"Контрагент: {invoice.ContragentName}\n" +
-                          $"Описание: {invoice.Description ?? "Нет описания"}\n" +
-                          $"Актуальность счета: {invoice.PaymentDeadline?.ToString("dd.MM.yyyy") ?? "Не указан"}\n" +
-                          $"Приоритет: {invoice.Priority.Name}\n" +
-                          $"Статус оплаты: {invoice.PaymentStatus.Name}\n";
+        var paymentStatusTranslation = InvoiceEnumTranslations.PaymentStatusTranslations[invoice.PaymentStatus.Name];
+        var priorityTranslation = InvoiceEnumTranslations.PriorityTranslations[invoice.Priority.Name];
+
+        var messageText = $"📄 *Был добавлен счет!*\n\n" +
+                          $"*Номер счета:* {invoice.Number}\n" +
+                          $"*Контрагент:* {invoice.ContragentName}\n" +
+                          $"*Описание:* {invoice.Description ?? "Нет описания"}\n" +
+                          $"*Актуальность счета:* {invoice.PaymentDeadline?.ToString("dd.MM.yyyy") ?? "Не указан"}\n" +
+                          $"*Приоритет:* {priorityTranslation}\n" +
+                          $"*Статус оплаты:* {paymentStatusTranslation}\n";
 
         var userNotifications = await _applicationUserNotificationDomainRepository
             .GetAlldByNotificationName(nameof(InvoiceCreated), cancellationToken);
-
-        var tasks = userNotifications.Select(async userNotification =>
+        
+        
+        foreach (var userNotification in userNotifications)
         {
             var telegramAuthUser = await _userAuthDomainRepository
                 .GetByUserIdAsync(userNotification.UserId, cancellationToken);
@@ -52,9 +56,12 @@ public sealed class InvoiceCreatedHandler : INotificationHandler<InvoiceCreated>
             if (telegramAuthUser != null)
             {
                 await _botClient.SendTextMessageAsync(
-                    telegramAuthUser.TelegramUserId, messageText, cancellationToken: cancellationToken);
+                    telegramAuthUser.TelegramUserId, 
+                    messageText, 
+                    parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown, 
+                    cancellationToken: cancellationToken);
             }
-        });
-        await Task.WhenAll(tasks);
+        }
     }
+
 }

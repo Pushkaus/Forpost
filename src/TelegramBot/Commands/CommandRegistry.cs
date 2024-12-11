@@ -1,29 +1,23 @@
 using Forpost.Domain.TelegramData;
 using Microsoft.Extensions.DependencyInjection;
-using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using System.Collections.Concurrent;
-using Forpost.TelegramBot.Commands.Auth;
 using Forpost.TelegramBot.Commands.Start;
+using Mediator;
 
 namespace Forpost.TelegramBot.Commands;
 
 public sealed class CommandRegistry
 {
     private readonly ConcurrentDictionary<string, ITelegramBotCommandHandler> _commandHandlers;
-    private readonly IServiceProvider _serviceProvider;
     private readonly ITelegramUserAuthDomainRepository _userAuthDomainRepository;
-    private readonly ITelegramBotClient _telegramBotClient;
 
     public CommandRegistry(
         IServiceProvider serviceProvider,
-        ITelegramUserAuthDomainRepository userAuthDomainRepository,
-        ITelegramBotClient telegramBotClient)
+        ITelegramUserAuthDomainRepository userAuthDomainRepository)
     {
-        _serviceProvider = serviceProvider;
         _userAuthDomainRepository = userAuthDomainRepository;
-        _telegramBotClient = telegramBotClient;
         _commandHandlers = new ConcurrentDictionary<string, ITelegramBotCommandHandler>(
             serviceProvider.GetServices<ITelegramBotCommandHandler>().ToDictionary(h => h.Command));
     }
@@ -48,17 +42,6 @@ public sealed class CommandRegistry
             }
             return;
         }
-        
-        // if (user == null || !user.IsAuthorized)
-        // {
-        //     var authHandler = _commandHandlers.Values.OfType<StartHandler>().FirstOrDefault();
-        //     if (authHandler != null)
-        //     {
-        //         await authHandler.HandleAsync(update, cancellationToken);
-        //     }
-        //     return;
-        // }
-        
         if (messageText.StartsWith("/") && user.IsAuthorized)
         {
             var command = messageText.Split(' ')[0];

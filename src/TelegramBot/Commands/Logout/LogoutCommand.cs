@@ -24,7 +24,7 @@ internal sealed class LogoutCommand : BaseTelegramCommandHandler
         
         await _userAuthDomainRepository.LogoutAsync(chatId, cancellationToken);
         
-        await BotClient.SendTextMessageAsync(chatId, "Вы вышли из аккаунта. Для повторной авторизации введите /auth",
+        await BotClient.SendTextMessageAsync(chatId, "Вы вышли из аккаунта. Для повторной авторизации введите /start",
             cancellationToken: cancellationToken);
     }
 }
