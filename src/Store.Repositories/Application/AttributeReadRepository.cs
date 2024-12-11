@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Forpost.Application.Contracts.Catalogs.Attributes;
 using Forpost.Application.Contracts.Catalogs.Products;
+using Forpost.Application.Contracts.Catalogs.Products.Attributes;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Attribute = Forpost.Domain.Catalogs.Products.Attributes.Attribute;

@@ -6,6 +6,7 @@ using Forpost.Domain.Catalogs.Contractors.ContractorRepresentatives;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Products;
+using Forpost.Domain.Catalogs.Products.ProductAttributes;
 using Forpost.Domain.Catalogs.Roles;
 using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.Catalogs.Storages;
@@ -66,6 +67,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<ProductBarcode> ProductBarcodes => Set<ProductBarcode>();
     public DbSet<EntryStorageHistory> EntryStorageHistories => Set<EntryStorageHistory>();
     public DbSet<Attribute> Attributes => Set<Attribute>();
+    public DbSet<ProductAttribute> ProductAttributes => Set<ProductAttribute>();
     public DbSet<ManufacturingOrder> ManufacturingOrders => Set<ManufacturingOrder>();
     public DbSet<ManufacturingOrderComposition> ManufacturingOrderCompositions => Set<ManufacturingOrderComposition>();
     public DbSet<ApplicationUserNotification> ApplicationUserNotifications => Set<ApplicationUserNotification>();

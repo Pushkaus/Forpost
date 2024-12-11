@@ -1,4 +1,4 @@
-namespace Forpost.Application.Contracts.Catalogs.Attributes;
+namespace Forpost.Application.Contracts.Catalogs.Products.Attributes;
 
 public sealed class AttributeModel
 {

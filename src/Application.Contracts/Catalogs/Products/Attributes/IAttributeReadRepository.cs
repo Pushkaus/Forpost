@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts.Catalogs.Products.Attributes;
 using Forpost.Common.DataAccess;
 
 namespace Forpost.Application.Contracts.Catalogs.Attributes;
