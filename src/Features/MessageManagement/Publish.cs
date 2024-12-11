@@ -1,4 +1,3 @@
-using AutoMapper;
 using Forpost.Common.Utils;
 using Forpost.Domain.MessagesManagement;
 using Mediator;

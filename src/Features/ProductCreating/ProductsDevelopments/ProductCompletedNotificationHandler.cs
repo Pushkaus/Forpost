@@ -1,5 +1,4 @@
 using Forpost.Domain.CRM.IssueHistory;
-using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.Issue.Events;
 using Mediator;
 

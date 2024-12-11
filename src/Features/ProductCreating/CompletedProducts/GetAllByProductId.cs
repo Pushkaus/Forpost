@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
-using Forpost.Domain.ProductCreating.CompletedProduct;
 using Mediator;
 
 namespace Forpost.Features.ProductCreating.CompletedProducts;

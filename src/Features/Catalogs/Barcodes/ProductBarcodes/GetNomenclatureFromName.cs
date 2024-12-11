@@ -1,5 +1,3 @@
-using ZXing;
-
 namespace Forpost.Features.Catalogs.Barcodes.ProductBarcodes;
 
 public static class BarcodeProcessor

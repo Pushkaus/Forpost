@@ -1,5 +1,3 @@
-using ZXing;
-
 namespace Forpost.Web.Contracts.Catalogs.Products;
 
 public sealed class BarcodeRequest

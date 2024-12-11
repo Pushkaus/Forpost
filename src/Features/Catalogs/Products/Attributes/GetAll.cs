@@ -1,5 +1,4 @@
-using Forpost.Application.Contracts.Catalogs.Attributes;
-using Forpost.Domain.Catalogs.Products.Attributes;
+using Forpost.Application.Contracts.Catalogs.Products.Attributes;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.Products.Attributes;

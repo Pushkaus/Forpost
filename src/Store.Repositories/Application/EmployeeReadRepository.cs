@@ -1,6 +1,3 @@
-using System.Linq.Dynamic.Core;
-using System.Linq.Dynamic.Core.Exceptions;
-using AutoMapper;
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.Employees;
 using Forpost.Store.Postgres;
@@ -12,7 +9,7 @@ internal sealed class EmployeeReadRepository : IEmployeeReadRepository
 {
     private readonly ForpostContextPostgres _dbContext;
 
-    public EmployeeReadRepository(ForpostContextPostgres dbContext, IMapper mapper)
+    public EmployeeReadRepository(ForpostContextPostgres dbContext)
     {
         _dbContext = dbContext;
     }

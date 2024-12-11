@@ -1,5 +1,3 @@
-using Forpost.Domain.Catalogs.Steps;
-
 namespace Forpost.Web.Contracts.StorageManagement.StorageProduct;
 
 public class StorageProductCreateRequest

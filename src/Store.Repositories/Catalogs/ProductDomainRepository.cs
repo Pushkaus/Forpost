@@ -1,7 +1,6 @@
 using AutoMapper;
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Store.Postgres;
-using Microsoft.EntityFrameworkCore;
 
 namespace Forpost.Store.Repositories.Catalogs;
 

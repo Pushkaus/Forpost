@@ -1,6 +1,4 @@
-using AutoMapper;
 using Forpost.Domain.Catalogs.Contractors;
-using Forpost.Store.Postgres;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.Contractors;

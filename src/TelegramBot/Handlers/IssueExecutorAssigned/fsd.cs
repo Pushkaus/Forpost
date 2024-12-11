@@ -1,8 +1,3 @@
-using System.Text;
-using Forpost.Application.Contracts.ProductCreating.Issues;
-using Forpost.Domain.ProductCreating.Issue;
-using Forpost.Domain.ProductCreating.Issue.Events;
-using Mediator;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 

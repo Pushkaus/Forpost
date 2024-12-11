@@ -1,6 +1,5 @@
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.Contractors;
-using Forpost.Domain.Catalogs.Contractors;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.Contractors;

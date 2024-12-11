@@ -1,4 +1,3 @@
-using Forpost.Domain.Catalogs.Category;
 using Forpost.Domain.Catalogs.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

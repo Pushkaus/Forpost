@@ -1,8 +1,6 @@
-using Forpost.Domain.Catalogs.Barcodes;
 using Forpost.Domain.StorageManagment.EntryStorageHistories;
 using Forpost.Domain.StorageManagment.Events;
 using Mediator;
-using Microsoft.Extensions.Logging;
 
 namespace Forpost.Features.StorageManagement.EntryStorageHistories;
 

@@ -3,7 +3,6 @@ using System.Linq.Dynamic.Core.Exceptions;
 using AutoMapper;
 using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Domain.Primitives.EntityAnnotations;
-using Forpost.Domain.Primitives.EntityTemplates;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
