@@ -2,11 +2,9 @@ using System.Linq.Dynamic.Core;
 using System.Linq.Dynamic.Core.Exceptions;
 using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
-using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Forpost.Store.Repositories.Application;
 

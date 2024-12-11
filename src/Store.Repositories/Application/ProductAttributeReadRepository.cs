@@ -1,7 +1,8 @@
-using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts.Catalogs.Products.ProductAttributes;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+
 
 namespace Forpost.Store.Repositories.Application;
 
@@ -16,28 +17,34 @@ internal sealed class ProductAttributeReadRepository : IProductAttributeReadRepo
 
     public async Task<IReadOnlyCollection<ProductAttributeModel>> GetAllAttributesByProductIdAsync(Guid productId, CancellationToken cancellationToken)
     {
-        return await _dbContext.ProductAttributes
+        var query = await _dbContext.ProductAttributes
             .Where(entity => entity.ProductId == productId)
             .Join(_dbContext.Attributes,
-                productAttribute => productAttribute.AttributeId, // Corrected join key
+                productAttribute => productAttribute.AttributeId, 
                 attribute => attribute.Id,
                 (productAttribute, attribute) => new { productAttribute, attribute })
             .Join(_dbContext.Products,
                 entity => entity.productAttribute.ProductId,
                 product => product.Id,
-                (entity, product) => new ProductAttributeModel
+                (entity, product) => new
                 {
-                    Id = entity.productAttribute.Id,
-                    ProductId = entity.productAttribute.ProductId,
-                    ProductName = product.Name, // Assuming Product has a Name property
+                    entity.productAttribute.Id,
+                    entity.productAttribute.ProductId,
+                    ProductName = product.Name, 
                     AttributeId = entity.attribute.Id,
-                    AttributeName = entity.attribute.Name, // Assuming Attribute has a Name property
-                    Values = _dbContext.Attributes // Assuming there's a table for attribute values
-                        .Where(av => av.Id == entity.attribute.Id)
-                        .Select(av => av.PossibleValuesJson) // Assuming AttributeValue has a Value property
-                        .ToList()
+                    AttributeName = entity.attribute.Name, 
+                    ValuesJson = entity.productAttribute.Values
                 })
             .ToListAsync(cancellationToken);
-    }
 
+        return query.Select(entity => new ProductAttributeModel
+        {
+            Id = entity.Id,
+            ProductId = entity.ProductId,
+            ProductName = entity.ProductName,
+            AttributeId = entity.AttributeId,
+            AttributeName = entity.AttributeName,
+            Values = JsonSerializer.Deserialize<List<string>>(entity.ValuesJson) ?? []
+        }).ToList();
+    }
 }

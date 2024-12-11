@@ -1,9 +1,7 @@
 using System.Text.Json;
-using Forpost.Application.Contracts.Catalogs.Attributes;
 using Forpost.Application.Contracts.Catalogs.Products.Attributes;
 using Forpost.Domain.Catalogs.Products.Attributes;
 using Mediator;
-using Attribute = Forpost.Domain.Catalogs.Products.Attributes.Attribute;
 
 namespace Forpost.Features.Catalogs.Products.Attributes;
 

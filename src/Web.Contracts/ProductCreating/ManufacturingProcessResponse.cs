@@ -1,4 +1,3 @@
-using Forpost.Application.Contracts.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 
 namespace Forpost.Web.Contracts.ProductCreating;

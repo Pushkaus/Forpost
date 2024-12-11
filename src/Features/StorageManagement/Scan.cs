@@ -1,7 +1,5 @@
 using Forpost.Domain.Catalogs.Barcodes;
 using Forpost.Domain.Catalogs.Steps;
-using Forpost.Domain.CRM.InvoiceManagement;
-using Forpost.Domain.StorageManagment;
 using Forpost.Domain.StorageManagment.StorageProducts;
 using Forpost.Features.Catalogs.Barcodes.ProductBarcodes;
 using Mediator;

@@ -1,4 +1,3 @@
-using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts.CRM.InvoiceManagement.CompositionInvoices;
 using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 using Forpost.Domain.ProductCreating.CompletedProduct;

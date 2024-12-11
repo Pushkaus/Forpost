@@ -2,7 +2,6 @@ using Forpost.Application.Contracts;
 using Forpost.Common;
 using Forpost.Common.DataAccess;
 using Forpost.Domain.Primitives.DomainAbstractions;
-using Forpost.Store.Postgres;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Forpost.Store.Repositories;

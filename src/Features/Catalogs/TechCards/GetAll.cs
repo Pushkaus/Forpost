@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.Catalogs.TechCards;
-using Forpost.Domain.Catalogs.TechCards;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.TechCards;

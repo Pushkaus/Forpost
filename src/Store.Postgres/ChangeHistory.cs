@@ -1,5 +1,3 @@
-using Forpost.Domain.Primitives.EntityTemplates;
-
 namespace Forpost.Store.Postgres;
 
 public sealed class ChangeHistory

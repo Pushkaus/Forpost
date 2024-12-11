@@ -4,22 +4,18 @@ using FluentValidation.AspNetCore;
 using Forpost.BackgroundJobs;
 using Forpost.Common.Utils;
 using Forpost.Domain.Catalogs.Employees;
-using Forpost.Domain.ProductCreating.Issue.Events;
 using Forpost.Features;
 using Forpost.Features.Auth;
 using Forpost.Infrastructure;
 using Forpost.Store.Postgres;
 using Forpost.TelegramBot;
-using Forpost.TelegramBot.Handlers.IssueExecutorAssigned;
 using Forpost.Web.Contracts;
 using Forpost.Web.Host.Infrastructure;
 using Forpost.Web.Host.Infrastructure.Auth;
 using Forpost.Web.Host.Middlewares;
-using Mediator;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Telegram.Bot;
 
 namespace Forpost.Web.Host;
 

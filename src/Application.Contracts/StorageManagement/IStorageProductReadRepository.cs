@@ -1,5 +1,4 @@
 using Forpost.Common.DataAccess;
-using Forpost.Domain.Catalogs.Products;
 
 namespace Forpost.Application.Contracts.StorageManagement;
 

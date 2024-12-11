@@ -1,5 +1,3 @@
-using Forpost.Domain.Catalogs.Contractors;
-
 namespace Forpost.Application.Contracts.Catalogs.Contractors;
 
 public sealed class ContractorFilter

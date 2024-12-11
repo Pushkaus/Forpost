@@ -1,4 +1,3 @@
-using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts.CRM.PriceLists;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;

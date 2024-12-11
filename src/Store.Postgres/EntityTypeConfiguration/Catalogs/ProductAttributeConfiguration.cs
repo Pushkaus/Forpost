@@ -9,5 +9,6 @@ public class ProductAttributeConfiguration: IEntityTypeConfiguration<ProductAttr
     public void Configure(EntityTypeBuilder<ProductAttribute> builder)
     {
         builder.ConfigureBaseEntity();
+        builder.Property(x => x.Values).HasColumnType("jsonb");
     }
 }

@@ -4,16 +4,16 @@ using Mediator;
 
 namespace Forpost.Features.Catalogs.Products.ProductAttributes;
 
-internal sealed class AddAttributeValuesCommandHandler: ICommandHandler<AddAttributeValuesCommand>
+internal sealed class AddProductAttributeValuesCommandHandler: ICommandHandler<AddProductAttributeValuesCommand>
 {
     private readonly IProductAttributeDomainRepository _productAttributeDomainRepository;
 
-    public AddAttributeValuesCommandHandler(IProductAttributeDomainRepository productAttributeDomainRepository)
+    public AddProductAttributeValuesCommandHandler(IProductAttributeDomainRepository productAttributeDomainRepository)
     {
         _productAttributeDomainRepository = productAttributeDomainRepository;
     }
 
-    public async ValueTask<Unit> Handle(AddAttributeValuesCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(AddProductAttributeValuesCommand command, CancellationToken cancellationToken)
     {
         var productAttribute = await _productAttributeDomainRepository.GetByIdAsync(command.Id, cancellationToken);
         if (productAttribute == null) throw ForpostErrors.NotFound<ProductAttribute>(command.Id);
@@ -26,4 +26,4 @@ internal sealed class AddAttributeValuesCommandHandler: ICommandHandler<AddAttri
     }
 }
 
-public record AddAttributeValuesCommand(Guid Id, List<string> Values) : ICommand; 
+public record AddProductAttributeValuesCommand(Guid Id, List<string> Values) : ICommand; 

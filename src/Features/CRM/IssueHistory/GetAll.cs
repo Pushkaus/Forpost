@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.CRM.IssueHistories;
-using Forpost.Application.Contracts.ProductCreating.Issues;
 using Mediator;
 
 namespace Forpost.Features.CRM.IssueHistory;

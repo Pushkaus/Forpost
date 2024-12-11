@@ -1,7 +1,6 @@
 ﻿using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 namespace Forpost.Store.Migrations;

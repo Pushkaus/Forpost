@@ -1,7 +1,5 @@
 using Forpost.Common.ApplicationNotifications;
-using Forpost.Domain.MessagesManagement.ApplicationNotifications;
 using Forpost.Features.MessageManagement.ApplicationNotifications;
-using Forpost.Features.MessageManagement.ApplicationNotifications.ApplicationUserNotifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

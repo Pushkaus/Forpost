@@ -1,4 +1,3 @@
-using Forpost.Application.Contracts.Catalogs.Attributes;
 using Forpost.Application.Contracts.Catalogs.Products.Attributes;
 using Forpost.Features.Catalogs.Products.Attributes;
 using Microsoft.AspNetCore.Http;

@@ -1,6 +1,5 @@
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.Catalogs.Storages;
-using Forpost.Domain.StorageManagment;
 using Forpost.Domain.StorageManagment.StorageProducts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -1,5 +1,4 @@
 using Forpost.Domain.Primitives.EntityAnnotations;
-using Mediator;
 
 namespace Forpost.Domain.Primitives.DomainAbstractions;
 

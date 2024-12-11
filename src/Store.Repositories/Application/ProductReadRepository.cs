@@ -1,4 +1,3 @@
-using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.Products;
 using Forpost.Store.Postgres;
