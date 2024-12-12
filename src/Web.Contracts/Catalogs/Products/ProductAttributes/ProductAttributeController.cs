@@ -9,7 +9,7 @@ namespace Forpost.Web.Contracts.Catalogs.Products.ProductAttributes;
 public sealed class ProductAttributeController : ApiController
 {
     /// <summary>
-    /// Добавление аттрибута к продукту
+    /// Добавление атрибута к продукту
     /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
@@ -22,7 +22,7 @@ public sealed class ProductAttributeController : ApiController
         return Ok(result);
     }
     /// <summary>
-    /// Добавление значений к аттрибуту 
+    /// Обновление значений атрибута
     /// </summary>
     [HttpPut("{productAttributeId:guid}/values")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -31,11 +31,11 @@ public sealed class ProductAttributeController : ApiController
         [FromBody] ProductAttributeValuesRequest request,
         CancellationToken cancellationToken)
     {
-        await Sender.Send(new AddProductAttributeValuesCommand(productAttributeId, request.Values), cancellationToken);
+        await Sender.Send(new UpdateProductAttributeValuesCommand(productAttributeId, request.Values), cancellationToken);
         return NoContent();
     }
     /// <summary>
-    /// Получение всех аттрибутов продукта
+    /// Получение всех атрибутов продукта
     /// </summary>
     [HttpGet("{productId}")]
     [ProducesResponseType(typeof(IReadOnlyCollection<ProductAttributeModel>), StatusCodes.Status200OK)]
@@ -46,7 +46,7 @@ public sealed class ProductAttributeController : ApiController
         return Ok(result);
     }
     /// <summary>
-    /// Удаление аттрибута продукта
+    /// Удаление атрибута продукта
     /// </summary>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
