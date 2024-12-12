@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Contracts", "src\Web.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Postgres", "src\Store.Postgres\Store.Postgres.csproj", "{B54B3EF5-292B-4659-9185-D14795872196}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Host", "src\Web.Host\Web.Host.csproj", "{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Host", "src\Host\Host.csproj", "{774F85EC-B1E6-485D-A882-C9BDF6C7ECCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "src\Common\Common.csproj", "{1F217EB3-4FBF-45A9-93FE-AD35F2962182}"
 EndProject

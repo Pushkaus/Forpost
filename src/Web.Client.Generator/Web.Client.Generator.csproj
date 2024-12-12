@@ -17,6 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Web.Host\Web.Host.csproj" />
+      <ProjectReference Include="..\Host\Host.csproj" />
     </ItemGroup>
 </Project>

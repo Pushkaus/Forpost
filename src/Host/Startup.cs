@@ -10,6 +10,7 @@ using Forpost.Infrastructure;
 using Forpost.Store.Postgres;
 using Forpost.TelegramBot;
 using Forpost.Web.Contracts;
+using Forpost.Web.Host;
 using Forpost.Web.Host.Infrastructure;
 using Forpost.Web.Host.Infrastructure.Auth;
 using Forpost.Web.Host.Middlewares;
@@ -17,7 +18,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Forpost.Web.Host;
+namespace Forpost.Host;
 
 internal sealed class Startup
 {
