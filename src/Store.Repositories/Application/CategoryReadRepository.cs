@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.Catalogs.Categories;
-using Forpost.Domain.Catalogs.Category;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 

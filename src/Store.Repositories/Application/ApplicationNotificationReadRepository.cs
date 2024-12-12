@@ -1,6 +1,5 @@
 using Forpost.Application.Contracts.MessageManagement.ApplicationNotifications;
 using Forpost.Common.ApplicationNotifications;
-using Forpost.Domain.MessagesManagement.ApplicationNotifications;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 

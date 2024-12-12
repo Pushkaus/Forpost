@@ -2,7 +2,6 @@ using AutoMapper;
 using Forpost.Application.Contracts.ProductCreating.Issues;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
-using Forpost.Features.ProductCreating.Issues;
 using Mediator;
 
 namespace Forpost.Features.ProductCreating.ManufacturingProcesses;

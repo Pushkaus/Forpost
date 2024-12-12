@@ -1,7 +1,6 @@
 using AutoMapper;
 using Forpost.Application.Contracts;
 using Forpost.Common;
-using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.ProductCreating.CompletedProduct;
 using Forpost.Domain.ProductCreating.CompositionProduct;
 using Forpost.Domain.ProductCreating.Issue;

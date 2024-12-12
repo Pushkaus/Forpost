@@ -1,5 +1,4 @@
 using Forpost.Domain.Catalogs.Steps;
-using Forpost.Domain.StorageManagment;
 using Forpost.Domain.StorageManagment.StorageProducts;
 using Mediator;
 

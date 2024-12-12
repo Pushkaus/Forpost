@@ -37,23 +37,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("ApplicationNotifications");
                 });
 
-            modelBuilder.Entity("Forpost.Common.ApplicationNotifications.ApplicationUserNotification", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("NotificationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationUserNotifications");
-                });
-
             modelBuilder.Entity("Forpost.Domain.CRM.InvoiceManagement.CompositionInvoice", b =>
                 {
                     b.Property<Guid>("Id")
@@ -544,6 +527,44 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Forpost.Domain.Catalogs.Products.ProductAttributes.ProductAttribute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AttributeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Values")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductAttributes");
+                });
+
+            modelBuilder.Entity("Forpost.Domain.Catalogs.Products.ProductCompatibilities.ProductCompatibility", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ParentProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCompatibilities");
+                });
+
             modelBuilder.Entity("Forpost.Domain.Catalogs.Roles.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -760,6 +781,23 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Files");
+                });
+
+            modelBuilder.Entity("Forpost.Domain.MessagesManagement.ApplicationNotifications.ApplicationUserNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("NotificationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationUserNotifications");
                 });
 
             modelBuilder.Entity("Forpost.Domain.MessagesManagement.NotificationForUsers", b =>

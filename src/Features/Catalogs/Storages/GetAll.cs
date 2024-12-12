@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.StorageManagement;
-using Forpost.Domain.Catalogs.Storages;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.Storages;

@@ -1,4 +1,3 @@
-using BarcodeStandard;
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.Products;
 using Forpost.Features.Catalogs.Barcodes.ProductBarcodes;
@@ -6,8 +5,6 @@ using Forpost.Features.Catalogs.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SkiaSharp;
-using ZXing;
 
 namespace Forpost.Web.Contracts.Catalogs.Products;
 

@@ -1,7 +1,6 @@
 using AutoMapper;
 using Forpost.Common;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
-using Forpost.Features.ProductCreating.ProductsDevelopments;
 using Mediator;
 
 namespace Forpost.Features.ProductCreating.ManufacturingProcesses;

@@ -3,7 +3,6 @@ using Forpost.Domain.Primitives.DomainAbstractions;
 using Forpost.Store.Postgres;
 using Mediator;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Quartz;

@@ -1,5 +1,4 @@
 using AutoMapper;
-using Forpost.Domain.StorageManagment;
 using Forpost.Domain.StorageManagment.StorageProducts;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;

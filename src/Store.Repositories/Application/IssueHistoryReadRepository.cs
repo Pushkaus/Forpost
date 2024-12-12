@@ -1,4 +1,3 @@
-using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts.CRM.IssueHistories;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;

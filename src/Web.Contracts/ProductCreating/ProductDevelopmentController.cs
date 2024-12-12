@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.ProductCreating.CompositionProduct;
-using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Forpost.Features.ProductCreating.ProductsDevelopments;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

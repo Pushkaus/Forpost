@@ -1,5 +1,4 @@
 using Forpost.Common.DataAccess;
-using Forpost.Domain.Catalogs.Category;
 
 namespace Forpost.Application.Contracts.Catalogs.Categories;
 

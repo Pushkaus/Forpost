@@ -1,5 +1,4 @@
 using Forpost.Store.Repositories;
-using Mediator;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Forpost.Features;

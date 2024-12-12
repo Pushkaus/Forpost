@@ -1,4 +1,3 @@
-using AutoMapper;
 using Moq;
 using Forpost.Common.Utils;
 using Forpost.Store.Postgres;

@@ -1,5 +1,3 @@
-using Forpost.Domain.CRM.InvoiceManagement;
-
 namespace Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
 
 public sealed class InvoiceFilter

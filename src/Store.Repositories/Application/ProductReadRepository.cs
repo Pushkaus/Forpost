@@ -1,4 +1,3 @@
-using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.Products;
 using Forpost.Store.Postgres;
@@ -18,18 +17,23 @@ internal sealed class ProductReadRepository: IProductReadRepository
     public async Task<ProductModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _dbContext.Products
-            .Join(_dbContext.Categories,
+            .GroupJoin(_dbContext.Categories,
                 product => product.CategoryId,
                 category => category.Id,
-                (product, category) => new ProductModel
+                (product, categories) => new { product, categories })
+            .SelectMany(
+                pc => pc.categories.DefaultIfEmpty(),
+                (pc, category) => new ProductModel
                 {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Purchased = product.Purchased,
-                    CategoryId = product.CategoryId,
+                    Id = pc.product.Id,
+                    Name = pc.product.Name,
+                    Purchased = pc.product.Purchased,
+                    CategoryId = pc.product.CategoryId,
                     CategoryName = category != null ? category.Name : "Без категории",
-                }).FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+                })
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
+
 
     public async Task<EntityPagedResult<ProductModel>> GetAllAsync(ProductFilter filter, CancellationToken cancellationToken)
     {

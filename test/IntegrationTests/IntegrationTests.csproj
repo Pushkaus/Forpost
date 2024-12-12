@@ -11,7 +11,7 @@
         <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
         <ProjectReference Include="..\..\src\Web.Client\Web.Client.csproj" />
         <ProjectReference Include="..\..\src\Web.Contracts\Web.Contracts.csproj" />
-        <ProjectReference Include="..\..\src\Web.Host\Web.Host.csproj" />
+        <ProjectReference Include="..\..\src\Host\Host.csproj" />
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="AutoFixture" />

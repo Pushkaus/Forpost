@@ -1,4 +1,3 @@
-using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts.ProductCreating.ManufacturingOrders.ManufacturingOrderCompositions;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
