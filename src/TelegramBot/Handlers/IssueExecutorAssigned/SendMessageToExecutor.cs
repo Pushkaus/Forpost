@@ -5,7 +5,7 @@ using Telegram.Bot;
 
 namespace Forpost.TelegramBot.Handlers.IssueExecutorAssigned;
 
-public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigned>, ITelegramBotSender
+public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigned>, ITelegramBotHandler
 {
     private readonly ITelegramBotClient _botClient;
     private readonly IIssueReadRepository _issueReadRepository;
@@ -20,7 +20,7 @@ public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigne
     {
         Console.WriteLine($"{notification.ExecutorId} executor assigned");
         var issue = await _issueReadRepository.GetById(notification.IssueId, cancellationToken);
-        string messageText = $"Вы назначены исполнителем задачи:\n" +
+        var messageText = $"Вы назначены исполнителем задачи:\n" +
                              $"Операция: {issue.OperationName}\n" +
                              $"Продукт: {issue.ProductName}\n" +
                              $"Целевое количество: {issue.TargetQuantity}\n" +

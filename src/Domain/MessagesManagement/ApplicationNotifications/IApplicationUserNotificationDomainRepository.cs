@@ -6,4 +6,7 @@ public interface IApplicationUserNotificationDomainRepository : IDomainRepositor
 {
     public Task<IReadOnlyCollection<ApplicationUserNotification>> GetAllNotificationsByUserId(Guid userId,
         CancellationToken cancellationToken);
+
+    public Task<IReadOnlyCollection<ApplicationUserNotification>> GetAlldByNotificationName(string notificationName,
+        CancellationToken cancellationToken);
 }

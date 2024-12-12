@@ -27,6 +27,7 @@ using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Forpost.Domain.StorageManagment.EntryStorageHistories;
 using Forpost.Domain.StorageManagment.StorageProducts;
+using Forpost.Domain.TelegramData;
 using Microsoft.EntityFrameworkCore;
 using File = Forpost.Domain.FileStorage.File;
 using Attribute = Forpost.Domain.Catalogs.Products.Attributes.Attribute;
@@ -71,6 +72,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<ProductCompatibility> ProductCompatibilities => Set<ProductCompatibility>();
     public DbSet<ManufacturingOrder> ManufacturingOrders => Set<ManufacturingOrder>();
     public DbSet<ManufacturingOrderComposition> ManufacturingOrderCompositions => Set<ManufacturingOrderComposition>();
+    public DbSet<TelegramAuthUser> TelegramAuthUsers => Set<TelegramAuthUser>();
     public DbSet<ApplicationUserNotification> ApplicationUserNotifications => Set<ApplicationUserNotification>();
 
     #region ApplicationTables
@@ -81,7 +83,7 @@ public sealed class ForpostContextPostgres : DbContext
     public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
     public DbSet<ChangeHistory> ChangeHistory => Set<ChangeHistory>();
     public DbSet<ApplicationNotification> ApplicationNotifications => Set<ApplicationNotification>();
-    
+
     #endregion
    
 
