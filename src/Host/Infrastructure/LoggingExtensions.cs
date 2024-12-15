@@ -3,7 +3,7 @@ using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Resources;
 
-namespace Forpost.Web.Host.Infrastructure;
+namespace Forpost.Host.Infrastructure;
 
 internal static class LoggingExtensions
 {

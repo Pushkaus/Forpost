@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="Telegram.Bot" />
     <PackageReference Include="ZXing.Net" />
   </ItemGroup>
   

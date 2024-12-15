@@ -4,7 +4,7 @@
 
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
-      "project": "../Web.Host/Web.Host.csproj",
+      "project": "../Host/Host.csproj",
       "msBuildProjectExtensionsPath": null,
       "configuration": null,
       "runtime": null,

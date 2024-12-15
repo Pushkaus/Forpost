@@ -1,4 +1,4 @@
-namespace Forpost.Web.Contracts.CRM.PriceLists;
+namespace Forpost.Web.Contracts.Crm.PriceLists;
 
 public sealed class PriceListRequest
 {

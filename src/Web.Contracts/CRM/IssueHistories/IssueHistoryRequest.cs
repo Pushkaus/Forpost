@@ -1,4 +1,4 @@
-namespace Forpost.Web.Contracts.CRM.IssueHistories;
+namespace Forpost.Web.Contracts.Crm.IssueHistories;
 
 public sealed class IssueHistoryRequest
 {

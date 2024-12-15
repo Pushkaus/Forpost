@@ -1,6 +1,4 @@
-using Forpost.Web.Client.Implementations;
-
-namespace Forpost.Web.Client;
+namespace Forpost.Web.Client.Implementations;
 
 public sealed class ForpostApiClient : IForpostApiClient
 {

@@ -1,9 +1,9 @@
 using AutoMapper;
 using Forpost.Application.Contracts.CRM.InvoiceManagement.InvoiceProducts;
 using Forpost.Domain.CRM.InvoiceManagement;
-using Forpost.Web.Contracts.CRM.InvoiceManagement.InvoiceProducts;
+using Forpost.Web.Contracts.Crm.InvoiceManagement.InvoiceProducts;
 
-namespace Forpost.Web.Contracts.CRM.InvoiceManagement;
+namespace Forpost.Web.Contracts.Crm.InvoiceManagement;
 
 internal sealed class InvoiceManagementMappingProfile : Profile
 {

@@ -1,7 +1,7 @@
 using NSwag.Generation.Processors;
 using NSwag.Generation.Processors.Contexts;
 
-namespace Forpost.Web.Host.Infrastructure.DocumentGeneration;
+namespace Forpost.Host.Infrastructure.DocumentGeneration;
 
 internal sealed class OperationIdControllerPrefixRemoveProcessor : IOperationProcessor
 {

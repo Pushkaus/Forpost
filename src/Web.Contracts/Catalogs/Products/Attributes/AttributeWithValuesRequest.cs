@@ -1,4 +1,4 @@
-namespace Forpost.Web.Contracts.Catalogs.Attributes;
+namespace Forpost.Web.Contracts.Catalogs.Products.Attributes;
 
 public sealed class AttributeWithValuesRequest
 {

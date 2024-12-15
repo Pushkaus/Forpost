@@ -5,7 +5,7 @@ using Forpost.Features.CRM.InvoiceManagement.InvoiceProducts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.CRM.InvoiceManagement.InvoiceProducts;
+namespace Forpost.Web.Contracts.Crm.InvoiceManagement.InvoiceProducts;
 
 [Route("api/v1/invoice-products")]
 public sealed class InvoiceProductController : ApiController

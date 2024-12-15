@@ -3,14 +3,14 @@ using Forpost.Domain.ProductCreating.Issue.Events;
 using Mediator;
 using Telegram.Bot;
 
-namespace Forpost.TelegramBot.Handlers.IssueExecutorAssigned;
+namespace Forpost.Features.ProductCreating.Issues;
 
-public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigned>, ITelegramBotSender
+internal sealed class ExecutorAssignedHandler : INotificationHandler<ExecutorAssigned>
 {
     private readonly ITelegramBotClient _botClient;
     private readonly IIssueReadRepository _issueReadRepository;
 
-    public SendMessageToExecutor(ITelegramBotClient botClient, IIssueReadRepository issueReadRepository)
+    public ExecutorAssignedHandler(ITelegramBotClient botClient, IIssueReadRepository issueReadRepository)
     {
         _botClient = botClient;
         _issueReadRepository = issueReadRepository;

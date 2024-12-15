@@ -1,5 +1,3 @@
-using Forpost.Common;
-using Forpost.TelegramBot.Handlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
@@ -13,13 +11,7 @@ public static class ServiceCollectionExtensions
         var telegramBotToken =
             configuration.GetSection("TelegramBot:Token").Value ?? throw new InvalidOperationException();
         services.AddSingleton<ITelegramBotClient>(new TelegramBotClient(telegramBotToken));
-        return services.AddTelegramBotHandlers();
-    }
+        return services;
 
-    private static IServiceCollection AddTelegramBotHandlers(this IServiceCollection services)
-    {
-        return services.AddAllTypesAssignableMarkerInterfaceTo<ITelegramBotSender>(
-            TelegramBotAssemblyReference.Assembly,
-            ServiceLifetime.Scoped);
     }
 }

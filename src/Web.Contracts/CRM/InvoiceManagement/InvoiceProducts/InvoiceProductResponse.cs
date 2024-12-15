@@ -1,4 +1,4 @@
-namespace Forpost.Web.Contracts.CRM.InvoiceManagement.InvoiceProducts;
+namespace Forpost.Web.Contracts.Crm.InvoiceManagement.InvoiceProducts;
 
 public class InvoiceProductResponse
 {
