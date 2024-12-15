@@ -4000,12 +4000,106 @@
         }
       }
     },
+    "/api/v1/product-compatibilities": {
+      "post": {
+        "tags": [
+          "ProductCompatibility"
+        ],
+        "summary": "Добавить совместимость для продукта",
+        "operationId": "AddProductCompatibility",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCompatibilityRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/product-compatibilities/{productId}": {
+      "get": {
+        "tags": [
+          "ProductCompatibility"
+        ],
+        "summary": "Получить список совместимых продуктов",
+        "operationId": "GetProductCompatibilityByProductId",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-compatibilities/{productCompabilityId}": {
+      "delete": {
+        "tags": [
+          "ProductCompatibility"
+        ],
+        "summary": "Удаление позиции",
+        "operationId": "DeleteProductCompabilityById",
+        "parameters": [
+          {
+            "name": "productCompabilityId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/product-attributes": {
       "post": {
         "tags": [
           "ProductAttribute"
         ],
-        "summary": "Добавление аттрибута к продукту",
+        "summary": "Добавление атрибута к продукту",
         "operationId": "CreateProductAttribute",
         "requestBody": {
           "x-name": "request",
@@ -4049,7 +4143,7 @@
         "tags": [
           "ProductAttribute"
         ],
-        "summary": "Добавление значений к аттрибуту",
+        "summary": "Обновление значений атрибута",
         "operationId": "AddProductAttributeValues",
         "parameters": [
           {
@@ -4097,7 +4191,7 @@
         "tags": [
           "ProductAttribute"
         ],
-        "summary": "Получение всех аттрибутов продукта",
+        "summary": "Получение всех атрибутов продукта",
         "operationId": "GetAllAttributesByProductId",
         "parameters": [
           {
@@ -4143,7 +4237,7 @@
         "tags": [
           "ProductAttribute"
         ],
-        "summary": "Удаление аттрибута продукта",
+        "summary": "Удаление атрибута продукта",
         "operationId": "DeleteProductAttribute",
         "parameters": [
           {
@@ -7244,6 +7338,20 @@
           },
           "barcode": {
             "type": "string"
+          }
+        }
+      },
+      "ProductCompatibilityRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "parentProductId": {
+            "type": "string",
+            "format": "guid"
           }
         }
       },
