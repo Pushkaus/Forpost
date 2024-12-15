@@ -1,3 +1,4 @@
+using Forpost.Host;
 using static Forpost.Store.Migrations.MigrationManager;
 
 namespace Forpost.Host;
@@ -37,9 +38,15 @@ internal sealed class Program
     {
         return Microsoft.Extensions.Hosting.Host
             .CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                var env = hostingContext.Configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+
+                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true);
+            })
             .ConfigureWebHostDefaults(webHostBuilderConfigurator);
     }
-
     private static void ConfigureWebHostBuilder(IWebHostBuilder webHostBuilder) => webHostBuilder.UseStartup<Startup>();
 }
 

@@ -3,6 +3,7 @@
     <ProjectReference Include="..\Application.Contracts\Application.Contracts.csproj" />
     <ProjectReference Include="..\Domain.Primitives\Domain.Primitives.csproj" />
     <ProjectReference Include="..\Features\Features.csproj" />
+    <ProjectReference Include="..\TelegramBot\TelegramBot.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mediator.SourceGenerator">
