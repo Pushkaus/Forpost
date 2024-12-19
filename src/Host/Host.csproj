@@ -23,11 +23,14 @@
     <ItemGroup>
       <Folder Include="Files\" />
       <Folder Include="Files\00000000-0000-0000-0000-000000000000\" />
+      <Folder Include="Files\25d7ed7f-95e3-4c82-bccc-68079133e7ac\" />
       <Folder Include="Files\3850cca1-e744-4355-a081-76ac282aa3e2\" />
+      <Folder Include="Files\54114667-8076-418e-85aa-8b571bd902b6\" />
       <Folder Include="Files\8067a853-5eef-462a-b1bb-f48850a3eeb9\" />
       <Folder Include="Files\8260ec2e-206c-4e4e-ad7f-c7d1440eaae5\" />
       <Folder Include="Files\84b403fc-8114-4f09-a777-ee734c414ab0\" />
       <Folder Include="Files\8731bfd3-f693-4577-b8dc-2f96aff063ed\" />
+      <Folder Include="Files\bae04b7c-ef6d-4604-8780-ff97f8c81198\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -35,6 +38,9 @@
       <None Remove="Files\3850cca1-e744-4355-a081-76ac282aa3e2\Innovativer_HVDC-DC-Wandler_fur_Hochspannungs-Glei.pdf" />
       <None Remove="Files\8731bfd3-f693-4577-b8dc-2f96aff063ed\Фичи.docx" />
       <None Remove="Files\84b403fc-8114-4f09-a777-ee734c414ab0\5277-09 (1).pdf" />
+      <None Remove="Files\bae04b7c-ef6d-4604-8780-ff97f8c81198\Письмо_сотрудникам_от_Иванова_Владимира_Валерьевича.pdf" />
+      <None Remove="Files\3850cca1-e744-4355-a081-76ac282aa3e2\Резюме_NET_Backend_Developer_Владислав_Сергеевич_Рудаков_от_01_11.pdf" />
+      <None Remove="Files\25d7ed7f-95e3-4c82-bccc-68079133e7ac\вах при 0.TXT" />
     </ItemGroup>
     
     <PropertyGroup>

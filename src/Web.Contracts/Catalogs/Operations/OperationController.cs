@@ -1,5 +1,5 @@
-using Forpost.Domain.Catalogs.Operations;
-using Forpost.Features.Catalogs.Operations;
+using Forpost.Domain.Catalogs.TechCards.Operations;
+using Forpost.Features.Catalogs.TechCards.Operations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

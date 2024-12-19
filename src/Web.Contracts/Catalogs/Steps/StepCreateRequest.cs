@@ -1,4 +1,5 @@
 using Forpost.Domain.Catalogs.Steps;
+using Forpost.Domain.Catalogs.TechCards.Steps;
 
 namespace Forpost.Web.Contracts.Catalogs.Steps;
 

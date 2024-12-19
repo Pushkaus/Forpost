@@ -1,6 +1,6 @@
 using Forpost.Domain.Catalogs.Products;
-using Forpost.Domain.Catalogs.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards;
+using Forpost.Domain.Catalogs.TechCards.TechCardItems;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

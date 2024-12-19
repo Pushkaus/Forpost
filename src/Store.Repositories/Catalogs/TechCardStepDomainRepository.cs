@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.Catalogs.TechCardSteps;
+using Forpost.Domain.Catalogs.TechCards.TechCardSteps;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 

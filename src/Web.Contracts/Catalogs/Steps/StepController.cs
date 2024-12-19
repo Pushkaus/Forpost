@@ -1,5 +1,6 @@
 using Forpost.Domain.Catalogs.Steps;
-using Forpost.Features.Catalogs.Steps;
+using Forpost.Domain.Catalogs.TechCards.Steps;
+using Forpost.Features.Catalogs.TechCards.Steps;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

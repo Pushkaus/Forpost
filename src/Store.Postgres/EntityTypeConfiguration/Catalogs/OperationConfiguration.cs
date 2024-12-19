@@ -1,4 +1,4 @@
-using Forpost.Domain.Catalogs.Operations;
+using Forpost.Domain.Catalogs.TechCards.Operations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

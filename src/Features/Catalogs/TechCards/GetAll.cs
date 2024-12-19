@@ -6,18 +6,19 @@ namespace Forpost.Features.Catalogs.TechCards;
 internal sealed class GetAllTechCardsQueryHandler :
     IQueryHandler<GetAllTechCardsQuery, (IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)>
 {
-    private readonly ITechCardReadRepository _domainRepository;
+    private readonly ITechCardReadRepository _techCardReadRepository;
 
-    public GetAllTechCardsQueryHandler(ITechCardReadRepository domainRepository)
+    public GetAllTechCardsQueryHandler(ITechCardReadRepository techCardReadRepository)
     {
-        _domainRepository = domainRepository;
+        _techCardReadRepository = techCardReadRepository;
     }
 
     public async ValueTask<(IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)> Handle(
         GetAllTechCardsQuery request,
         CancellationToken cancellationToken)
     {
-        return await _domainRepository.GetAllAsync(request.FilterExpression, request.FilterValues, request.Skip, request.Limit, cancellationToken);
+        return await _techCardReadRepository.GetAllAsync(request.FilterExpression, request.FilterValues, request.Skip,
+            request.Limit, cancellationToken);
     }
 }
 
