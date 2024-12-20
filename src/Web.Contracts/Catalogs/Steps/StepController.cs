@@ -1,5 +1,7 @@
+using Forpost.Application.Contracts.Catalogs.TechCards.Steps;
 using Forpost.Domain.Catalogs.Steps;
-using Forpost.Features.Catalogs.Steps;
+using Forpost.Domain.Catalogs.TechCards.Steps;
+using Forpost.Features.Catalogs.TechCards.Steps;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,13 +14,10 @@ public sealed class StepController : ApiController
     /// Получение этапа по Id 
     /// </summary>
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(Step), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(StepModel), StatusCodes.Status200OK)]
     public async Task<ActionResult<Step>> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var step = await Sender.Send(new GetStepByIdQuery(id), cancellationToken);
-        if (step == null)
-            return NotFound();
-
         return Ok(step);
     }
 
@@ -28,21 +27,11 @@ public sealed class StepController : ApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyCollection<Step>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
-        [FromQuery] string? filterExpression = null, [FromQuery] object?[]? filterValues = null)
+    public async Task<IActionResult> GetAllAsync([FromQuery] StepFilter filter, CancellationToken cancellationToken)
     {
-        var result = await Sender.Send(new GetAllStepsQuery(filterExpression, filterValues, skip, limit),
+        var result = await Sender.Send(new GetAllStepsQuery(filter),
             cancellationToken);
-
-        if (result.Steps.Count == 0)
-            return NoContent();
-
-        return Ok(new
-        {
-            Steps = result.Steps,
-            TotalCount = result.TotalCount
-        });
+        return Ok(result);
     }
 
     /// <summary>
@@ -50,19 +39,16 @@ public sealed class StepController : ApiController
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> CreateAsync([FromBody] StepCreateRequest step, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateAsync([FromBody] StepCreateRequest request, CancellationToken cancellationToken)
     {
         var stepId = await Sender.Send(new AddStepCommand
         {
-            TechCardId = step.TechCardId,
-            OperationId = step.OperationId,
-            Description = step.Description,
-            Duration = step.Duration,
-            Cost = step.Cost,
-            UnitOfMeasure = step.UnitOfMeasure,
+            OperationId = request.OperationId,
+            Description = request.Description,
+            Duration = request.Duration,
         }, cancellationToken);
 
-        return CreatedAtAction(nameof(GetByIdAsync), new { id = stepId }, stepId);
+        return CreatedAtAction("", new { id = stepId }, stepId);
     }
 
     /// <summary>
@@ -73,14 +59,11 @@ public sealed class StepController : ApiController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] StepCreateRequest step, CancellationToken cancellationToken)
     {
-        var result = await Sender.Send(new UpdateStepCommand(
-            StepId: id,
-            TechCardId: step.TechCardId,
+        await Sender.Send(new UpdateStepCommand(
+            Id: id,
             OperationId: step.OperationId,
             Description: step.Description,
-            Duration: step.Duration,
-            Cost: step.Cost,
-            UnitOfMeasure: step.UnitOfMeasure
+            Duration: step.Duration
         ), cancellationToken);
         return NoContent();
     }
@@ -95,7 +78,6 @@ public sealed class StepController : ApiController
     public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
         await Sender.Send(new DeleteStepCommand(id), cancellationToken);
-
         return NoContent();
     }
 }

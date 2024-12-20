@@ -1,6 +1,7 @@
-using Forpost.Domain.Catalogs.Operations;
 using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.Catalogs.TechCards;
+using Forpost.Domain.Catalogs.TechCards.Operations;
+using Forpost.Domain.Catalogs.TechCards.Steps;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,10 +16,6 @@ internal sealed class StepConfiguration : IEntityTypeConfiguration<Step>
         builder.HasOne<Operation>()
             .WithMany()
             .HasForeignKey(entity => entity.OperationId);
-
-        builder.HasOne<TechCard>()
-            .WithMany()
-            .HasForeignKey(key => key.TechCardId);
 
         builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);
 

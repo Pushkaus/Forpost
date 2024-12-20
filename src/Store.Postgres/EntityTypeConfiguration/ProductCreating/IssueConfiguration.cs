@@ -1,5 +1,6 @@
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Steps;
+using Forpost.Domain.Catalogs.TechCards.Steps;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Microsoft.EntityFrameworkCore;

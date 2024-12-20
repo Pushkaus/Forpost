@@ -38,9 +38,4 @@ public record AddTechCardCommand : ICommand<Guid>
     ///     Ссылка на продукт, относительно которого составляется тех.карта
     /// </summary>
     public Guid ProductId { get; set; }
-
-    /// <summary>
-    ///     Создатель тех.карты
-    /// </summary>
-    public Guid CreatedById { get; set; }
 }

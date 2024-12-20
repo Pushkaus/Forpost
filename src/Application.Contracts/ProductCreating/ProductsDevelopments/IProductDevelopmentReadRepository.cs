@@ -1,4 +1,5 @@
 using Forpost.Application.Contracts.Catalogs.TechCards;
+using Forpost.Application.Contracts.Catalogs.TechCards.TechCardItems;
 using Forpost.Common.DataAccess;
 
 namespace Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;

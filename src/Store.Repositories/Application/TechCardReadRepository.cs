@@ -1,5 +1,6 @@
 using System.Linq.Dynamic.Core;
 using System.Linq.Dynamic.Core.Exceptions;
+using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
@@ -18,68 +19,73 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
     public async Task<CompositionTechCardModel?> GetCompositionTechCardsAsync(Guid techCardId,
         CancellationToken cancellationToken)
     {
-        var queryResults = await _dbContext.TechCards
+        var techCard = await _dbContext.TechCards
             .Where(tc => tc.Id == techCardId)
-            .Select(techCard => new
+            .Select(tc => new
             {
-                TechCard = techCard,
-                TechCardItems = _dbContext.TechCardItems.Where(item => item.TechCardId == techCard.Id).ToList(),
-                Steps = (from techCardStep in _dbContext.TechCardSteps
-                    join step in _dbContext.Steps on techCardStep.StepId equals step.Id into gj
-                    from subStep in gj.DefaultIfEmpty()
-                    where techCardStep.TechCardId == techCard.Id
-                    select new { techCardStep, SubStep = subStep }).ToList(),
-                Product = _dbContext.Products.FirstOrDefault(p => p.Id == techCard.ProductId),
+                TechCard = tc,
+                ProductName = _dbContext.Products
+                    .Where(p => p.Id == tc.ProductId)
+                    .Select(p => p.Name)
+                    .FirstOrDefault()
+            })
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (techCard == null)
+        {
+            return null;
+        }
+
+        var techCardItems = await _dbContext.TechCardItems
+            .Where(item => item.TechCardId == techCardId)
+            .Select(item => new ItemSummary
+            {
+                Id = item.Id,
+                TechCardId = item.TechCardId,
+                ProductId = item.ProductId,
+                ProductName = _dbContext.Products
+                    .Where(p => p.Id == item.ProductId)
+                    .Select(p => p.Name)
+                    .FirstOrDefault() ?? string.Empty,
+                Quantity = item.Quantity
             })
             .ToListAsync(cancellationToken);
 
-        var techCard = queryResults
-            .Select(result => new CompositionTechCardModel
-            {
-                Id = result.TechCard.Id,
-                Number = result.TechCard.Number,
-                ProductName = result.Product.Name,
-                Description = result.TechCard.Description,
-                Steps = result.Steps
-                    .Where(s => s.SubStep != null) 
-                    .Select(item => new StepSummary
-                    {
-                        Id = item.SubStep.Id,
-                        TechCardId = item.techCardStep.TechCardId,
-                        OperationName = item.SubStep != null
-                            ? _dbContext.Operations.FirstOrDefault(o => o.Id == item.SubStep.OperationId)?.Name
-                            : string.Empty,
-                        Description = item.SubStep?.Description ?? string.Empty,
-                        Duration = item.SubStep?.Duration ?? TimeSpan.Zero,
-                        Cost = item.SubStep?.Cost ?? 0m,
-                        UnitOfMeasure = (UnitOfMeasure)(item.SubStep?.UnitOfMeasure ?? default)
-                    })
-                    .ToList(),
-                Items = result.TechCardItems
-                    .Select(item => new ItemSummary
-                    {
-                        Id = item.Id,
-                        TechCardId = item.TechCardId,
-                        ProductId = item.ProductId,
-                        ProductName = _dbContext.Products.FirstOrDefault(p => p.Id == item.ProductId)?.Name ??
-                                      string.Empty,
-                        Quantity = item.Quantity
-                    })
-                    .ToList()
-            })
-            .FirstOrDefault();
+        var steps = await _dbContext.TechCardSteps
+            .Where(techCardStep => techCardStep.TechCardId == techCardId)
+            .Join(_dbContext.Steps,
+                techCardStep => techCardStep.StepId,
+                step => step.Id,
+                (techCardStep, step) => new { techCardStep, step })
+            .Join(_dbContext.Operations,
+                combined => combined.step.OperationId,
+                operation => operation.Id,
+                (combined, operation) => new StepSummary
+                {
+                    Id = combined.step.Id,
+                    OperationName = operation.Name,
+                    OperationId = combined.step.OperationId,
+                    Description = combined.step.Description,
+                    Duration = combined.step.Duration
+                })
+            .ToListAsync(cancellationToken);
 
-        return techCard;
+
+        return new CompositionTechCardModel
+        {
+            Id = techCard.TechCard.Id,
+            Number = techCard.TechCard.Number,
+            ProductName = techCard.ProductName ?? string.Empty,
+            Description = techCard.TechCard.Description,
+            Steps = steps,
+            Items = techCardItems
+        };
     }
 
-    public async Task<(IReadOnlyCollection<TechCardModel> TechCards, int TotalCount)> GetAllAsync(
-        string? filterExpression,
-        object?[]? filterValues,
-        int skip,
-        int limit,
+
+    public async Task<EntityPagedResult<TechCardModel>> GetAllAsync(TechCardFilter filter,
         CancellationToken cancellationToken)
     {
-        var totalCount = await _dbContext.TechCards.CountAsync(cancellationToken);
         var query = _dbContext.TechCards
             .Join(_dbContext.Products,
                 techCard => techCard.ProductId,
@@ -91,25 +97,30 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
                     Description = techCard.Description,
                     ProductId = techCard.ProductId,
                     ProductName = product.Name
-                });
-        if (!string.IsNullOrWhiteSpace(filterExpression))
+                })
+            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(filter.Number))
         {
-            try
-            {
-                query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
-            }
-            catch (ParseException ex)
-            {
-                throw new ArgumentException("Некорректное выражение фильтрации.", ex);
-            }
+            query = query.Where(tc => tc.Number.Contains(filter.Number));
         }
-        totalCount = await query.CountAsync(cancellationToken);
-        
-        var techCards = await query
-            .Skip(skip)
-            .Take(limit)
+
+        if (filter.ProductId.HasValue)
+        {
+            query = query.Where(tc => tc.ProductId == filter.ProductId.Value);
+        }
+
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        var items = await query
+            .Skip(filter.Skip)
+            .Take(filter.Limit)
             .ToListAsync(cancellationToken);
 
-        return (techCards, totalCount);
+        return new EntityPagedResult<TechCardModel>
+        {
+            TotalCount = totalCount,
+            Items = items
+        };
     }
 }

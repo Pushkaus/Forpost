@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.Catalogs.Operations;
+using Forpost.Domain.Catalogs.TechCards.Operations;
 using Forpost.Store.Postgres;
 
 namespace Forpost.Store.Repositories.Catalogs;

@@ -1,6 +1,8 @@
+using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.Barcodes;
 using Forpost.Domain.Catalogs.Steps;
-using Forpost.Domain.StorageManagment.StorageProducts;
+using Forpost.Domain.Catalogs.TechCards.Steps;
+using Forpost.Domain.StorageManagement.StorageProducts;
 using Forpost.Features.Catalogs.Barcodes.ProductBarcodes;
 using Mediator;
 
@@ -43,7 +45,6 @@ internal sealed class ScanBarcodeProductOnStorageHandler : ICommandHandler<ScanB
             {
                 ProductId = command.ProductId,
                 StorageId = command.StorageId,
-                UnitOfMeasure = UnitOfMeasure.Piece,
                 Quantity = command.Quantity,
             };
             _storageProductDomainRepository.Add(storageProduct);

@@ -23,41 +23,20 @@ internal abstract class DomainRepository<TEntity> : IDomainRepository<TEntity> w
         DbSet = dbContext.Set<TEntity>();
     }
 
-    public async Task<(IReadOnlyList<TEntity> Items, int TotalCount)> GetAllAsync(
-        string? filterExpression,
-        object?[]? filterValues,
-        CancellationToken cancellationToken,
-        int skip = 0,
-        int limit = 100)
+    public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         IQueryable<TEntity> query = DbSet;
-        
+
         if (typeof(IAuditableEntity).IsAssignableFrom(typeof(TEntity)))
         {
             query = query.Where(e => ((IAuditableEntity)e).DeletedAt == null);
         }
-        
-        if (!string.IsNullOrWhiteSpace(filterExpression))
-        {
-            try
-            {
-                query = query.Where($"{filterExpression}.Contains(@0)", filterValues);
-            }
-            catch (ParseException ex)
-            {
-                throw new ArgumentException("Некорректное выражение фильтрации.", ex);
-            }
-        }
-        
-        var totalCount = await query.CountAsync(cancellationToken);
-    
-        var items = await query
-            .Skip(skip)
-            .Take(limit)
-            .ToListAsync(cancellationToken);
-        
-        return (items, totalCount);
+
+        var items = await query.ToListAsync(cancellationToken);
+
+        return items;
     }
+
 
     public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
         await DbSet.ById(id).FirstOrDefaultAsync(cancellationToken);

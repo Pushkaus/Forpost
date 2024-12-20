@@ -7,7 +7,7 @@ namespace Forpost.Features.Catalogs.TechCards;
 internal sealed class GetTechCardByIdQueryHandler : IQueryHandler<GetTechCardByIdQuery, TechCard>
 {
     private readonly ITechCardDomainRepository _domainRepository;
-
+    
     public GetTechCardByIdQueryHandler(ITechCardDomainRepository domainRepository)
     {
         _domainRepository = domainRepository;

@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.Catalogs.TechCardItems;
+using Forpost.Domain.Catalogs.TechCards.TechCardItems;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,17 +12,10 @@ internal sealed class TechCardItemDomainRepository : DomainRepository<TechCardIt
     {
     }
 
-    public async Task<IReadOnlyCollection<TechCardItem>> GetAllItemsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<TechCardItem>> 
+        GetAllItemsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
     {
-        return await DbSet.Where(entity => entity.TechCardId == techCardId).Join(DbContext.Products,
-            entity => entity.ProductId,
-            product => product.Id,
-            (entity, product) => new TechCardItem
-            {
-                TechCardId = techCardId,
-                ProductId = entity.ProductId,
-                Quantity = entity.Quantity,
-                Id = entity.Id
-            }).ToListAsync(cancellationToken);
+        return await DbSet.Where(entity => entity.TechCardId == techCardId)
+            .ToListAsync(cancellationToken);
     }
 }

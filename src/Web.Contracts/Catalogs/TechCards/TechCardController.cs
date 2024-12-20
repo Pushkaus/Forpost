@@ -1,3 +1,5 @@
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Features.Catalogs.TechCards;
 using Microsoft.AspNetCore.Http;
@@ -5,29 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forpost.Web.Contracts.Catalogs.TechCards;
 
-[Route("api/v1/techcard")]
+[Route("api/v1/techcards")]
 public sealed class TechCardController : ApiController
 {
     /// <summary>
     /// Получение состава тех.карты по Id 
     /// </summary>
-    [HttpGet("composition/{techCardId}")]
-    [ProducesResponseType(typeof(CompositionTechCardResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult?> GetCompositionTechCardAsync(Guid techCardId,
+    [HttpGet("composition/{techCardId:guid}")]
+    [ProducesResponseType(typeof(CompositionTechCardModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetCompositionTechCardAsync(Guid techCardId,
         CancellationToken cancellationToken)
     {
-        var techCard = await Sender.Send(new GetCompositionTechCardQuery(techCardId), cancellationToken);
-
-        var result = techCard != null
-            ? Mapper.Map<CompositionTechCardResponse>(techCard)
-            : new CompositionTechCardResponse
-            {
-                Id = techCardId,
-                Steps = Array.Empty<StepSummaryResponse>(),
-                Items = Array.Empty<ItemSummaryResponse>()
-            };
-
-        return Ok(result);
+        var composition = await Sender.Send(new GetCompositionTechCardQuery(techCardId), cancellationToken);
+        return Ok(composition);
     }
 
     /// <summary>
@@ -35,33 +28,24 @@ public sealed class TechCardController : ApiController
     /// </summary>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(TechCard), StatusCodes.Status200OK)]
-    public async Task<TechCard?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => await Sender.Send(new GetTechCardByIdQuery(id), cancellationToken);
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var techCard = await Sender.Send(new GetTechCardByIdQuery(id), cancellationToken);
+        return Ok(techCard);
+    }
 
     /// <summary>
     /// Получение всех тех.карт
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(EntityPagedResult<TechCardModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken,
-        [FromQuery] int skip = 0, [FromQuery] int limit = 100,
-        [FromQuery] string? filterExpression = null, [FromQuery] string?[]? filterValues = null)
+    public async Task<IActionResult> GetAllAsync([FromQuery] TechCardFilter filter,
+        CancellationToken cancellationToken)
     {
-        var result = await Sender.Send(new GetAllTechCardsQuery(filterExpression, filterValues, skip, limit),
-            cancellationToken);
-
-        if (result.TechCards.Count == 0)
-        {
-            return NoContent();
-        }
-
-        return Ok(new
-        {
-            TechCards = Mapper.Map<IReadOnlyCollection<TechCardResponse>>(result.TechCards),
-            TotalCount = result.TotalCount
-        });
+        var result = await Sender.Send(new GetAllTechCardsQuery(filter), cancellationToken);
+        return Ok(result);
     }
 
     /// <summary>
@@ -69,17 +53,16 @@ public sealed class TechCardController : ApiController
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<Guid> CreateAsync(TechCardCreateRequest card, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateAsync([FromBody] TechCardCreateRequest card, CancellationToken cancellationToken)
     {
         var techCardId = await Sender.Send(new AddTechCardCommand
         {
             Number = card.Number,
             Description = card.Description,
             ProductId = card.ProductId,
-            CreatedById = card.CreatedById,
         }, cancellationToken);
 
-        return techCardId;
+        return CreatedAtAction("", new { id = techCardId }, techCardId);
     }
 
     /// <summary>
@@ -104,7 +87,7 @@ public sealed class TechCardController : ApiController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        await Sender.Send(new DeleteTechCardCommand(id), cancellationToken);
+        var result = await Sender.Send(new DeleteTechCardCommand(id), cancellationToken);
         return NoContent();
     }
 }

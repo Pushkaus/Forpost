@@ -1,5 +1,6 @@
 using AutoMapper;
 using Forpost.Domain.Catalogs.Steps;
+using Forpost.Domain.Catalogs.TechCards.Steps;
 using Forpost.Store.Postgres;
 
 namespace Forpost.Store.Repositories.Catalogs;

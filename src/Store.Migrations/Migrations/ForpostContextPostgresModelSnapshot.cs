@@ -440,29 +440,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Catalogs.Operations.Operation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Operations");
-                });
-
             modelBuilder.Entity("Forpost.Domain.Catalogs.Products.Attributes.Attribute", b =>
                 {
                     b.Property<Guid>("Id")
@@ -584,40 +561,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Catalogs.Steps.Step", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("interval");
-
-                    b.Property<Guid>("OperationId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TechCardId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("UnitOfMeasure")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OperationId");
-
-                    b.HasIndex("TechCardId");
-
-                    b.ToTable("Steps");
-                });
-
             modelBuilder.Entity("Forpost.Domain.Catalogs.Storages.Storage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -661,52 +604,50 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("Storages");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCardItems.TechCardItem", b =>
+            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCards.Operations.Operation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<int>("Type")
                         .HasColumnType("integer");
-
-                    b.Property<Guid>("TechCardId")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("TechCardId");
-
-                    b.ToTable("TechCardItems");
+                    b.ToTable("Operations");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCardSteps.TechCardStep", b =>
+            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCards.Steps.Step", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("integer");
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
-                    b.Property<Guid>("StepId")
-                        .HasColumnType("uuid");
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("interval");
 
-                    b.Property<Guid>("TechCardId")
+                    b.Property<Guid>("OperationId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StepId");
+                    b.HasIndex("OperationId");
 
-                    b.HasIndex("TechCardId");
-
-                    b.ToTable("TechCardSteps");
+                    b.ToTable("Steps");
                 });
 
             modelBuilder.Entity("Forpost.Domain.Catalogs.TechCards.TechCard", b =>
@@ -752,6 +693,54 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("TechCards");
+                });
+
+            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCards.TechCardItems.TechCardItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("TechCardId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TechCardId");
+
+                    b.ToTable("TechCardItems");
+                });
+
+            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCards.TechCardSteps.TechCardStep", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("StepId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TechCardId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StepId");
+
+                    b.HasIndex("TechCardId");
+
+                    b.ToTable("TechCardSteps");
                 });
 
             modelBuilder.Entity("Forpost.Domain.FileStorage.File", b =>
@@ -1089,30 +1078,7 @@ namespace Forpost.Store.Migrations.Migrations
                     b.ToTable("ProductDevelopments");
                 });
 
-            modelBuilder.Entity("Forpost.Domain.StorageManagment.EntryStorageHistories.EntryStorageHistory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("EntryDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("StorageId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EntryStorageHistories");
-                });
-
-            modelBuilder.Entity("Forpost.Domain.StorageManagment.StorageProducts.StorageProduct", b =>
+            modelBuilder.Entity("Forpost.Domain.StorageManagement.StorageProducts.StorageProduct", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
@@ -1138,9 +1104,6 @@ namespace Forpost.Store.Migrations.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UnitOfMeasure")
-                        .HasColumnType("integer");
-
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -1155,6 +1118,29 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsUnique();
 
                     b.ToTable("StorageProducts");
+                });
+
+            modelBuilder.Entity("Forpost.Domain.StorageManagment.EntryStorageHistories.EntryStorageHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("EntryDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("StorageId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EntryStorageHistories");
                 });
 
             modelBuilder.Entity("Forpost.Domain.TelegramData.TelegramAuthUser", b =>
@@ -1295,21 +1281,6 @@ namespace Forpost.Store.Migrations.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Catalogs.Steps.Step", b =>
-                {
-                    b.HasOne("Forpost.Domain.Catalogs.Operations.Operation", null)
-                        .WithMany()
-                        .HasForeignKey("OperationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Forpost.Domain.Catalogs.TechCards.TechCard", null)
-                        .WithMany()
-                        .HasForeignKey("TechCardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Forpost.Domain.Catalogs.Storages.Storage", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.Employees.Employee", null)
@@ -1319,32 +1290,11 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCardItems.TechCardItem", b =>
+            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCards.Steps.Step", b =>
                 {
-                    b.HasOne("Forpost.Domain.Catalogs.Products.Product", null)
+                    b.HasOne("Forpost.Domain.Catalogs.TechCards.Operations.Operation", null)
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Forpost.Domain.Catalogs.TechCards.TechCard", null)
-                        .WithMany()
-                        .HasForeignKey("TechCardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCardSteps.TechCardStep", b =>
-                {
-                    b.HasOne("Forpost.Domain.Catalogs.Steps.Step", null)
-                        .WithMany()
-                        .HasForeignKey("StepId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Forpost.Domain.Catalogs.TechCards.TechCard", null)
-                        .WithMany()
-                        .HasForeignKey("TechCardId")
+                        .HasForeignKey("OperationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1360,6 +1310,36 @@ namespace Forpost.Store.Migrations.Migrations
                     b.HasOne("Forpost.Domain.Catalogs.Products.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCards.TechCardItems.TechCardItem", b =>
+                {
+                    b.HasOne("Forpost.Domain.Catalogs.Products.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Domain.Catalogs.TechCards.TechCard", null)
+                        .WithMany()
+                        .HasForeignKey("TechCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Forpost.Domain.Catalogs.TechCards.TechCardSteps.TechCardStep", b =>
+                {
+                    b.HasOne("Forpost.Domain.Catalogs.TechCards.Steps.Step", null)
+                        .WithMany()
+                        .HasForeignKey("StepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Forpost.Domain.Catalogs.TechCards.TechCard", null)
+                        .WithMany()
+                        .HasForeignKey("TechCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1399,7 +1379,7 @@ namespace Forpost.Store.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Forpost.Domain.Catalogs.Steps.Step", null)
+                    b.HasOne("Forpost.Domain.Catalogs.TechCards.Steps.Step", null)
                         .WithMany()
                         .HasForeignKey("StepId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1415,7 +1395,7 @@ namespace Forpost.Store.Migrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Forpost.Domain.StorageManagment.StorageProducts.StorageProduct", b =>
+            modelBuilder.Entity("Forpost.Domain.StorageManagement.StorageProducts.StorageProduct", b =>
                 {
                     b.HasOne("Forpost.Domain.Catalogs.Products.Product", null)
                         .WithMany()

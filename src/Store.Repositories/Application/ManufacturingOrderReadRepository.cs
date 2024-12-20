@@ -66,9 +66,9 @@ internal sealed class ManufacturingOrderReadRepository : IManufacturingOrderRead
     }
 
     public async Task<ManufacturingOrderModel?> GetManufacturingOrderByIdAsync(Guid id,
-        CancellationToken cancellationToken)
-    {
-        return await _dbContext.ManufacturingOrders
+        CancellationToken cancellationToken) =>
+        await _dbContext.ManufacturingOrders
+            .Where(entity => entity.Id == id)
             .Join(_dbContext.Invoices,
                 manufacturingOrder => manufacturingOrder.InvoiceId,
                 invoice => invoice.Id,
@@ -83,5 +83,4 @@ internal sealed class ManufacturingOrderReadRepository : IManufacturingOrderRead
                     CreatedAt = manufacturingOrder.CreatedAt,
                     ManufacturingOrderStatus = manufacturingOrder.ManufacturingOrderStatus,
                 }).FirstOrDefaultAsync(cancellationToken);
-    }
 }

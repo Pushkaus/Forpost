@@ -1,5 +1,6 @@
 using Forpost.Domain.Catalogs.Steps;
-using Forpost.Domain.StorageManagment.StorageProducts;
+using Forpost.Domain.Catalogs.TechCards.Steps;
+using Forpost.Domain.StorageManagement.StorageProducts;
 using Mediator;
 
 namespace Forpost.Features.StorageManagement.StorageProducts;
@@ -19,7 +20,6 @@ internal sealed class AddProducOnStorageCommandHandler: ICommandHandler<AddProdu
         {
             ProductId = command.ProductId,
             StorageId = command.StorageId,
-            UnitOfMeasure = UnitOfMeasure.Piece,
             Quantity = command.Quantity,
         };
         _storageProductDomainRepository.Add(product);
