@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Forpost.Common.Utils;
 
-namespace Forpost.Web.Host.Infrastructure.Auth;
+namespace Forpost.Host.Infrastructure.Auth;
 
 internal sealed class IdentityProvider : IIdentityProvider
 {

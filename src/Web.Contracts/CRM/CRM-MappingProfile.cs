@@ -1,8 +1,8 @@
 using AutoMapper;
 using Forpost.Application.Contracts.CRM.IssueHistories;
-using Forpost.Web.Contracts.CRM.IssueHistories;
+using Forpost.Web.Contracts.Crm.IssueHistories;
 
-namespace Forpost.Web.Contracts.CRM;
+namespace Forpost.Web.Contracts.Crm;
 
 internal sealed class CRM_MappingProfile: Profile
 {

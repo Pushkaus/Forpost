@@ -3,7 +3,8 @@ using Mediator;
 
 namespace Forpost.Infrastructure.Pipeline;
 
-internal sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IMessage
+internal sealed class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IMessage
 {
     private readonly IDbUnitOfWork _unitOfWork;
 

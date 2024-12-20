@@ -1,7 +1,7 @@
 using Forpost.Host;
 using static Forpost.Store.Migrations.MigrationManager;
 
-namespace Forpost.Web.Host;
+namespace Forpost.Host;
 
 internal sealed class Program
 {
@@ -49,3 +49,8 @@ internal sealed class Program
     }
     private static void ConfigureWebHostBuilder(IWebHostBuilder webHostBuilder) => webHostBuilder.UseStartup<Startup>();
 }
+
+/// <summary>
+/// Маркерный интерфейс для API-host
+/// </summary>
+public interface IApiMarker;

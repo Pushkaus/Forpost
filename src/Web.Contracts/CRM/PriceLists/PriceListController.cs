@@ -3,7 +3,7 @@ using Forpost.Features.CRM.PriceLists;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.CRM.PriceLists;
+namespace Forpost.Web.Contracts.Crm.PriceLists;
 
 [Route("api/v1/price-list")]
 public sealed class PriceListController : ApiController

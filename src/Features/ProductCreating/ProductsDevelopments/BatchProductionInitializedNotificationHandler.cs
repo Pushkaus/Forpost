@@ -15,7 +15,6 @@ public sealed class BatchProductionInitializedNotificationHandler :
     private readonly IProductDevelopmentDomainRepository _productDevelopmentDomainRepository;
     private readonly IIssueDomainRepository _issueDomainRepository;
     private readonly IMapper _mapper;
-    private readonly IDbUnitOfWork _dbUnitOfWork;
 
     public BatchProductionInitializedNotificationHandler(
         IProductDevelopmentDomainRepository productDevelopmentDomainRepository,
@@ -27,7 +26,6 @@ public sealed class BatchProductionInitializedNotificationHandler :
         _productDevelopmentReadRepository = productDevelopmentReadRepository;
         _mapper = mapper;
         _issueDomainRepository = issueDomainRepository;
-        _dbUnitOfWork = dbUnitOfWork;
     }
     
     public async ValueTask Handle(ManufacturingProcessLaunched notification, CancellationToken cancellationToken)

@@ -3,7 +3,7 @@ using Forpost.Features.Catalogs.Products.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.Catalogs.Attributes;
+namespace Forpost.Web.Contracts.Catalogs.Products.Attributes;
 
 [Route("api/v1/attributes")]
 public sealed class AttributeController : ApiController
