@@ -20,7 +20,6 @@ internal sealed class AddProducOnStorageCommandHandler: ICommandHandler<AddProdu
         {
             ProductId = command.ProductId,
             StorageId = command.StorageId,
-            UnitOfMeasure = UnitOfMeasure.Piece,
             Quantity = command.Quantity,
         };
         _storageProductDomainRepository.Add(product);

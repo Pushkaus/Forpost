@@ -1,3 +1,4 @@
+using Forpost.Domain.Catalogs.Roles;
 using Forpost.Features.Catalogs.Roles;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,12 +23,12 @@ public sealed class RoleController : ApiController
     /// Получить все роли
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<RoleResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyCollection<Role>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
     {
         var result = await Sender.Send(new GetAllRolesQuery(), cancellationToken);
-        return Ok(result.Roles);
+        return Ok(result);
     }
 
     /// <summary>

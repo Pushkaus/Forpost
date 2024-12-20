@@ -12,5 +12,7 @@ internal sealed class OperationConfiguration : IEntityTypeConfiguration<Operatio
 
         builder.Property(entity => entity.Name).HasMaxLength(DatabaseConstrains.MaxLength);
         builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);
+
+        builder.Property(entity => entity.Type).ConfigureSmartEnumerationAsEnum();
     }
 }

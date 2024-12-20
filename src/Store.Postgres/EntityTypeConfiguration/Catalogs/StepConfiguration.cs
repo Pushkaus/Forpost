@@ -17,10 +17,6 @@ internal sealed class StepConfiguration : IEntityTypeConfiguration<Step>
             .WithMany()
             .HasForeignKey(entity => entity.OperationId);
 
-        builder.HasOne<TechCard>()
-            .WithMany()
-            .HasForeignKey(key => key.TechCardId);
-
         builder.Property(entity => entity.Description).HasMaxLength(DatabaseConstrains.MaxLength);
 
     }

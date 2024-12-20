@@ -1,8 +1,11 @@
+using Forpost.Common.DataAccess;
+
 namespace Forpost.Application.Contracts.Catalogs.TechCards.TechCardItems;
 
-public interface ITechCardItemReadRepository
+public interface ITechCardItemReadRepository: IApplicationReadRepository
 {
-    public Task<EntityPagedResult<TechCardItemModel>> GetTechCardItemsAsync(
+    public Task<EntityPagedResult<TechCardItemModel>> GetItemsByTechCardIdAsync(
+        Guid techCardId,
         TechCardItemFilter filter,
         CancellationToken cancellationToken);
     

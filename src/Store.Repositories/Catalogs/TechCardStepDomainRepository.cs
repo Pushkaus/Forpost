@@ -12,23 +12,10 @@ internal sealed class TechCardStepDomainRepository : DomainRepository<TechCardSt
     {
     }
 
-    public async Task<IReadOnlyList<TechCardStep>> GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<TechCardStep>> 
+        GetAllStepsByTechCardId(Guid techCardId, CancellationToken cancellationToken)
     {
         return await DbSet.Where(techCardStep => techCardStep.TechCardId == techCardId)
-            .Join(DbContext.Steps,
-                techCardStep => techCardStep.StepId,
-                step => step.Id,
-                (techCardStep, step) => new { techCardStep, step }
-            )
-            .Join(DbContext.Operations,
-                techCardStep => techCardStep.step.OperationId,
-                operation => operation.Id,
-                (techCardStep, operation) => new TechCardStep
-                {
-                    TechCardId = techCardId,
-                    StepId = techCardStep.step.Id,
-                    Number = techCardStep.techCardStep.Number,
-                    Id = techCardStep.techCardStep.Id,
-                }).ToListAsync(cancellationToken);
+            .ToListAsync(cancellationToken);
     }
 }

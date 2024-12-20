@@ -35,4 +35,12 @@ public sealed class TechCard : AggregateRoot
     {
         return new TechCard(number, description, productId);
     }
+    public void UpdateDetails(string number, string? description, Guid productId)
+    {
+        Number = number;
+        Description = description;
+        ProductId = productId;
+    }
+
+
 }

@@ -1,21 +1,26 @@
-using Forpost.Domain.Catalogs.TechCards.TechCardSteps;
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.Catalogs.TechCards.TechCardSteps;
 using Mediator;
 
 namespace Forpost.Features.Catalogs.TechCards.TechCardSteps;
 
-internal sealed class GetTechCardStepByIdQueryHandler : IQueryHandler<GetTechCardStepByIdQuery, IReadOnlyCollection<TechCardStep>>
+internal sealed class
+    GetTechCardStepByIdQueryHandler : IQueryHandler<GetTechCardStepByIdQuery, EntityPagedResult<TechCardStepModel>>
 {
-    private readonly ITechCardStepDomainRepository _domainRepository;
+    private readonly ITechCardStepReadRepository _techCardStepReadRepository;
 
-    public GetTechCardStepByIdQueryHandler(ITechCardStepDomainRepository domainRepository)
+    public GetTechCardStepByIdQueryHandler(ITechCardStepReadRepository techCardStepReadRepository)
     {
-        _domainRepository = domainRepository;
+        _techCardStepReadRepository = techCardStepReadRepository;
     }
 
-    public async ValueTask<IReadOnlyCollection<TechCardStep>> Handle(GetTechCardStepByIdQuery request, CancellationToken cancellationToken)
+    public async ValueTask<EntityPagedResult<TechCardStepModel>> Handle(GetTechCardStepByIdQuery request,
+        CancellationToken cancellationToken)
     {
-        return await _domainRepository.GetAllStepsByTechCardId(request.TechCardId, cancellationToken);
+        return await _techCardStepReadRepository.GetTechCardStepsAsync(request.TechCardId, request.Filter,
+            cancellationToken);
     }
 }
 
-public sealed record GetTechCardStepByIdQuery(Guid TechCardId) : IQuery<IReadOnlyCollection<TechCardStep>>;
+public sealed record GetTechCardStepByIdQuery(Guid TechCardId, TechCardStepFilter Filter)
+    : IQuery<EntityPagedResult<TechCardStepModel>>;

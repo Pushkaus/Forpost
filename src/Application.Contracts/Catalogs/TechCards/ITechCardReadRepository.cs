@@ -7,5 +7,5 @@ public interface ITechCardReadRepository: IApplicationReadRepository
     public Task<CompositionTechCardModel?> GetCompositionTechCardsAsync(Guid techCardId,
         CancellationToken cancellationToken);
     
-    public Task<EntityPagedResult<EntityPagedResult<TechCardModel>>> GetAllAsync(TechCardFilter filter, CancellationToken cancellationToken);
+    public Task<EntityPagedResult<TechCardModel>> GetAllAsync(TechCardFilter filter, CancellationToken cancellationToken);
 }

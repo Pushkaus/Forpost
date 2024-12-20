@@ -1,4 +1,4 @@
-namespace Forpost.Application.Contracts.Catalogs.TechCards;
+namespace Forpost.Application.Contracts.Catalogs.TechCards.TechCardItems;
 
 public sealed class TechCardItemModel
 {

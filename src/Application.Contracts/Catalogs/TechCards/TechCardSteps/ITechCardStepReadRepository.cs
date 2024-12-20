@@ -1,6 +1,8 @@
+using Forpost.Common.DataAccess;
+
 namespace Forpost.Application.Contracts.Catalogs.TechCards.TechCardSteps;
 
-public interface ITechCardStepReadRepository
+public interface ITechCardStepReadRepository: IApplicationReadRepository
 {
     public Task<EntityPagedResult<TechCardStepModel>> GetTechCardStepsAsync(
         Guid techCardId,

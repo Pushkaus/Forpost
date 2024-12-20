@@ -29,4 +29,4 @@ internal sealed class AddTechCardStepCommandHandler : ICommandHandler<TechCardSt
     }
 }
 
-public record TechCardStepCreateCommand(Guid TechCardId, Guid StepId, int Number) : ICommand<Guid>;
+public record TechCardStepCreateCommand(Guid TechCardId, Guid StepId) : ICommand<Guid>;

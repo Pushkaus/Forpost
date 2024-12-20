@@ -15,10 +15,18 @@ internal sealed class UpdateTechCardCommandHandler: ICommandHandler<UpdateTechCa
         _mapper = mapper;
     }
 
-    public ValueTask<Unit> Handle(UpdateTechCardCommand command, CancellationToken cancellationToken)
+    public async ValueTask<Unit> Handle(UpdateTechCardCommand command, CancellationToken cancellationToken)
     {
-        _techCardRepository.Update(_mapper.Map<TechCard>(command));
-        return new ValueTask<Unit>(Unit.Value);
+        // Получаем существующую тех. карту из репозитория
+        var existingTechCard = await _techCardRepository.GetByIdAsync(command.Id, cancellationToken);
+
+        existingTechCard.UpdateDetails(command.Number, command.Description, command.ProductId);
+
+        // Сохраняем изменения в репозитории
+        _techCardRepository.Update(existingTechCard);
+
+        return Unit.Value;
     }
+
 }
 public record UpdateTechCardCommand(Guid Id, string Number, string? Description, Guid ProductId) : ICommand;

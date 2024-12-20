@@ -21,7 +21,6 @@ public sealed class StepSummaryResponse
     public string? Description { get; set; }
     public TimeSpan Duration { get; set; }
     public decimal Cost { get; set; }
-    public UnitOfMeasure UnitOfMeasure { get; set; }
 }
 
 public sealed class ItemSummaryResponse

@@ -1,6 +1,7 @@
 using System.Linq.Dynamic.Core;
 using System.Linq.Dynamic.Core.Exceptions;
 using Forpost.Application.Contracts.Catalogs.TechCards;
+using Forpost.Application.Contracts.Catalogs.TechCards.TechCardItems;
 using Forpost.Application.Contracts.ProductCreating.ProductsDevelopments;
 using Forpost.Domain.ProductCreating.ProductDevelopment;
 using Forpost.Store.Postgres;

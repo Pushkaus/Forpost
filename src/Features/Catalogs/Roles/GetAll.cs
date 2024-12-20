@@ -4,7 +4,7 @@ using Mediator;
 namespace Forpost.Features.Catalogs.Roles;
 
 internal sealed class GetAllRolesQueryHandler :
-    IQueryHandler<GetAllRolesQuery, (IReadOnlyCollection<Role> Roles, int TotalCount)>
+    IQueryHandler<GetAllRolesQuery, IReadOnlyCollection<Role>>
 {
     private readonly IRoleDomainRepository _domainRepository;
 
@@ -13,11 +13,11 @@ internal sealed class GetAllRolesQueryHandler :
         _domainRepository = domainRepository;
     }
 
-    public async ValueTask<(IReadOnlyCollection<Role> Roles, int TotalCount)> Handle(GetAllRolesQuery request, 
+    public async ValueTask<IReadOnlyCollection<Role>> Handle(GetAllRolesQuery request, 
         CancellationToken cancellationToken)
     {
-        var roles = await _domainRepository.GetAllAsync(null, null, cancellationToken);
+        var roles = await _domainRepository.GetAllAsync(cancellationToken);
         return roles;
     }
 }
-public sealed record GetAllRolesQuery : IQuery<(IReadOnlyCollection<Role> Roles, int TotalCount)>;
+public sealed record GetAllRolesQuery : IQuery<IReadOnlyCollection<Role>>;

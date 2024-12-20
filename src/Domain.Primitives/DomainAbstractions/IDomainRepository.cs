@@ -8,12 +8,7 @@ namespace Forpost.Domain.Primitives.DomainAbstractions;
 /// <typeparam name="TEntity">Сущность</typeparam>
 public interface IDomainRepository<TEntity> : IDomainRepository where TEntity : class, IEntity
 {
-    public Task<(IReadOnlyList<TEntity> Items, int TotalCount)> GetAllAsync(
-        string? filterExpression,
-        object?[]? filterValues,
-        CancellationToken cancellationToken,
-        int skip = 0,
-        int limit = 100);
+    public Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken);
     public Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     public Guid Add(TEntity entity);
     public void Update(TEntity entity);

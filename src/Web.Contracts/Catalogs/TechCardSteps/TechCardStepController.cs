@@ -1,3 +1,5 @@
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.Catalogs.TechCards.TechCardSteps;
 using Forpost.Domain.Catalogs.TechCards.TechCardSteps;
 using Forpost.Features.Catalogs.TechCards.TechCardSteps;
 using Forpost.Features.Catalogs.TechCardSteps;
@@ -13,20 +15,20 @@ public sealed class TechCardStepController : ApiController
     /// Получение всех этапов по Id тех.карты
     /// </summary>
     [HttpGet("{techCardId}")]
-    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardStep>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<TechCardStep>> GetStepsByTechCardIdAsync(Guid techCardId,
+    [ProducesResponseType(typeof(EntityPagedResult<TechCardStepModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetStepsByTechCardIdAsync(Guid techCardId, [FromQuery] TechCardStepFilter filter,
         CancellationToken cancellationToken) =>
-        await Sender.Send(new GetTechCardStepByIdQuery(techCardId), cancellationToken);
+        Ok(await Sender.Send(new GetTechCardStepByIdQuery(techCardId, filter), cancellationToken));
 
     /// <summary>
     /// Добавление этапа в техкарту
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<Guid> CreateAsync(TechCardStepRequest model, CancellationToken cancellationToken)
+    public async Task<Guid> CreateAsync([FromBody] TechCardStepRequest model, CancellationToken cancellationToken)
     {
         var techCardStepId = await Sender.Send(
-            new TechCardStepCreateCommand(model.TechCardId, model.StepId, model.Number), cancellationToken);
+            new TechCardStepCreateCommand(model.TechCardId, model.StepId), cancellationToken);
         return techCardStepId;
     }
 
@@ -36,7 +38,7 @@ public sealed class TechCardStepController : ApiController
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] TechCardStepRequest model,
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateTechCardStepRequest model,
         CancellationToken cancellationToken)
     {
         var result = await Sender.Send(new UpdateTechCardStepCommand(id, model.TechCardId, model.StepId, model.Number),

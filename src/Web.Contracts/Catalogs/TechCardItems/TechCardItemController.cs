@@ -1,3 +1,5 @@
+using Forpost.Application.Contracts;
+using Forpost.Application.Contracts.Catalogs.TechCards.TechCardItems;
 using Forpost.Domain.Catalogs.TechCards.TechCardItems;
 using Forpost.Features.Catalogs.TechCards.TechCardItems;
 using Microsoft.AspNetCore.Http;
@@ -12,11 +14,12 @@ public sealed class TechCardItemController : ApiController
     /// Получение состава тех.карты по TechCardId
     /// </summary>
     [HttpGet("{techCardId}")]
-    [ProducesResponseType(typeof(IReadOnlyCollection<TechCardItem>), StatusCodes.Status200OK)]
-    public async Task<IReadOnlyCollection<TechCardItem>> GetTechCardItems(Guid techCardId,
+    [ProducesResponseType(typeof(EntityPagedResult<TechCardItemModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTechCardItems(Guid techCardId,
+        [FromQuery] TechCardItemFilter filter,
         CancellationToken cancellationToken)
     {
-        return await Sender.Send(new GetTechCardItemByIdQuery(techCardId), cancellationToken);
+        return Ok(await Sender.Send(new GetTechCardItemByIdQuery(techCardId, filter), cancellationToken));
     }
 
     /// <summary>
@@ -24,7 +27,7 @@ public sealed class TechCardItemController : ApiController
     /// </summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<Guid> CreateAsync(TechCardItemRequest model, CancellationToken cancellationToken)
+    public async Task<Guid> CreateAsync([FromBody] TechCardItemRequest model, CancellationToken cancellationToken)
     {
         return await Sender.Send(new AddTechCardItemCommand(
             model.TechCardId,
@@ -46,7 +49,7 @@ public sealed class TechCardItemController : ApiController
             model.TechCardId,
             model.ProductId,
             model.Quantity), cancellationToken);
-            return NoContent();
+        return NoContent();
     }
 
     /// <summary>
