@@ -19,14 +19,7 @@
         <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
         <PackageReference Include="Swashbuckle.AspNetCore"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <None Remove="Files\8731bfd3-f693-4577-b8dc-2f96aff063ed\Текст к презентации. Мирганов П.А..docx" />
-        <None Remove="Files\3850cca1-e744-4355-a081-76ac282aa3e2\Innovativer_HVDC-DC-Wandler_fur_Hochspannungs-Glei.pdf" />
-        <None Remove="Files\8731bfd3-f693-4577-b8dc-2f96aff063ed\Фичи.docx" />
-        <None Remove="Files\84b403fc-8114-4f09-a777-ee734c414ab0\5277-09 (1).pdf" />
-    </ItemGroup>
-
+    
     <PropertyGroup>
         <UserSecretsId>TelegramBotToken</UserSecretsId>
     </PropertyGroup>
