@@ -1,4 +1,4 @@
-namespace Forpost.Web.Contracts.MessageManager;
+namespace Forpost.Web.Contracts.MessageManagement;
 
 public sealed class NotificationForUsersRequest
 {

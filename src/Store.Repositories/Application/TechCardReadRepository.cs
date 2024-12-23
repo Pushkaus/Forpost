@@ -2,6 +2,7 @@ using System.Linq.Dynamic.Core;
 using System.Linq.Dynamic.Core.Exceptions;
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.Catalogs.TechCards;
+using Forpost.Domain.Catalogs.TechCards.Operations;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +28,8 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
                 ProductName = _dbContext.Products
                     .Where(p => p.Id == tc.ProductId)
                     .Select(p => p.Name)
-                    .FirstOrDefault()
+                    .FirstOrDefault(),
+                ProductId = tc.ProductId
             })
             .FirstOrDefaultAsync(cancellationToken);
 
@@ -51,33 +53,35 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
             })
             .ToListAsync(cancellationToken);
 
-        var steps = await _dbContext.TechCardSteps
-            .Where(techCardStep => techCardStep.TechCardId == techCardId)
-            .Join(_dbContext.Steps,
-                techCardStep => techCardStep.StepId,
-                step => step.Id,
-                (techCardStep, step) => new { techCardStep, step })
-            .Join(_dbContext.Operations,
-                combined => combined.step.OperationId,
+        var operations = await _dbContext.TechCardOperations
+            .Where(techCardOperation => techCardOperation.TechCardId == techCardId)
+            .Join(
+                _dbContext.Operations,
+                techCardOperation => techCardOperation.OperationId,
                 operation => operation.Id,
-                (combined, operation) => new StepSummary
+                (techCardOperation, operation) => new
                 {
-                    Id = combined.step.Id,
-                    OperationName = operation.Name,
-                    OperationId = combined.step.OperationId,
-                    Description = combined.step.Description,
-                    Duration = combined.step.Duration
-                })
+                    techCardOperation,
+                    operation
+                }
+            )
+            .Select(o => new OperationSummary
+            {
+                Id = o.operation.Id,
+                Name = o.operation.Name,
+                Description = o.operation.Description,
+                Type = o.operation.Type 
+            })
             .ToListAsync(cancellationToken);
-
 
         return new CompositionTechCardModel
         {
             Id = techCard.TechCard.Id,
             Number = techCard.TechCard.Number,
             ProductName = techCard.ProductName ?? string.Empty,
+            ProductId = techCard.ProductId,
             Description = techCard.TechCard.Description,
-            Steps = steps,
+            Operations = operations,
             Items = techCardItems
         };
     }
@@ -87,6 +91,7 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
         CancellationToken cancellationToken)
     {
         var query = _dbContext.TechCards
+            .NotDeletedAt()
             .Join(_dbContext.Products,
                 techCard => techCard.ProductId,
                 product => product.Id,

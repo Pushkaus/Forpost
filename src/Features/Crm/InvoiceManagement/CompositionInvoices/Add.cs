@@ -2,7 +2,7 @@ using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Domain.CRM.InvoiceManagement.Contracts;
 using Mediator;
 
-namespace Forpost.Features.CRM.InvoiceManagement.CompositionInvoices;
+namespace Forpost.Features.Crm.InvoiceManagement.CompositionInvoices;
 
 internal sealed class AddCompositionInvoiceCommandHandler : ICommandHandler<AddCompositionInvoiceCommand>
 {

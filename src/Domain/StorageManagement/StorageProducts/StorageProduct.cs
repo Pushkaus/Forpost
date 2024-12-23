@@ -1,5 +1,5 @@
 using Forpost.Domain.Primitives.EntityTemplates;
-using Forpost.Domain.StorageManagment.Events;
+using Forpost.Domain.StorageManagement.Events;
 
 namespace Forpost.Domain.StorageManagement.StorageProducts;
 

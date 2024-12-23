@@ -1,4 +1,4 @@
-using Forpost.Features.CRM.InvoiceManagement.Invoices;
+using Forpost.Features.Crm.InvoiceManagement.Invoices;
 
 namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices;
 

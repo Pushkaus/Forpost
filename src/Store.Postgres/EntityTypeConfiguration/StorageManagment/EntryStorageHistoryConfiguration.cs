@@ -1,4 +1,4 @@
-using Forpost.Domain.StorageManagment.EntryStorageHistories;
+using Forpost.Domain.StorageManagement.EntryStorageHistories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

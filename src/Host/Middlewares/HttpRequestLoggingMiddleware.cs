@@ -1,6 +1,6 @@
 using Forpost.Common.Utils;
 
-namespace Forpost.Web.Host.Middlewares;
+namespace Forpost.Host.Middlewares;
 
 internal sealed class HttpRequestLoggingMiddleware
 {

@@ -3,7 +3,7 @@ using Forpost.Domain;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 
-namespace Forpost.Web.Host;
+namespace Forpost.Host;
 
 /// <summary>
 /// Сервис инициализации уведомлений при старте приложения

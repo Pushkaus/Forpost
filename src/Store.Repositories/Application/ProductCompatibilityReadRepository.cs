@@ -1,4 +1,3 @@
-using Forpost.Application.Contracts.Catalogs.Products.ProductCompatibility;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Forpost.Application.Contracts.Catalogs.Products.ProductCompatibilities;

@@ -2,7 +2,7 @@ using Forpost.Common.ApplicationNotifications;
 using Forpost.Domain.CRM.InvoiceManagement.Events;
 using Mediator;
 
-namespace Forpost.Features.CRM.InvoiceManagement.Invoices.Handlers;
+namespace Forpost.Features.Crm.InvoiceManagement.Invoices.Handlers;
 
 internal sealed class InvoiceCreatedNotificationHandler: INotificationHandler<InvoiceCreated>, IApplicationNotification
 {

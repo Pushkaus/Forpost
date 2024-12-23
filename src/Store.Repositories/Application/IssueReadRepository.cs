@@ -14,213 +14,23 @@ internal sealed class IssueReadRepository: IIssueReadRepository
         _dbContext = dbContext;
     }
 
-    public Task<List<IssueFromManufacturingProcessModel>> GetAllFromManufacturingProcessId(Guid manufacturingProcessId,
-        CancellationToken cancellationToken)
+    public Task<List<IssueFromManufacturingProcessModel>> GetAllFromManufacturingProcessId(Guid manufacturingProcessId, CancellationToken cancellationToken)
     {
-        return _dbContext.Issues
-            .NotDeletedAt()
-            .Where(i => i.ManufacturingProcessId == manufacturingProcessId)
-            .Join(_dbContext.Steps,
-                issue => issue.StepId,
-                step => step.Id,
-                (issue, step) => new
-                {
-                    Issue = issue,
-                    Step = step
-                })
-            .Join(_dbContext.Operations,
-                combined => combined.Step.OperationId,
-                operation => operation.Id,
-                (combined, operation) => new IssueFromManufacturingProcessModel
-                {
-                    Id = combined.Issue.Id,
-                    OperationName = operation.Name,
-                    IssueNumber = combined.Issue.IssueNumber,
-                    ExecutorId = combined.Issue.ExecutorId,
-                    ResponsibleId = combined.Issue.ResponsibleId,
-                    Description = combined.Issue.Description,
-                    CurrentQuantity = combined.Issue.CurrentQuantity,
-                    Status = (IssueStatusModel)combined.Issue.IssueStatus.Value,
-                    StartTime = combined.Issue.StartTime,
-                    EndTime = combined.Issue.EndTime,
-                    ProductCompositionFlag = combined.Issue.ProductCompositionSettingFlag
-                }
-            ).ToListAsync(cancellationToken);
+        throw new NotImplementedException();
     }
 
-    public async Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)>
-        GetIssuesByExecutorId(Guid executorId, CancellationToken cancellationToken, int skip, int limit)
+    public Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)> GetIssuesByExecutorId(Guid executorId, CancellationToken cancellationToken, int skip, int limit)
     {
-        var totalCount = await _dbContext.Issues.CountAsync(cancellationToken);
-
-        var issues = await _dbContext.Issues.Where(i => i.ExecutorId == executorId 
-                                                        && i.IssueStatus != IssueStatus.Completed)
-            .Join(_dbContext.Steps,
-                issue => issue.StepId,
-                step => step.Id,
-                (issue, step) => new
-                {
-                    Issue = issue,
-                    Step = step
-                })
-            .Join(_dbContext.Operations,
-                combined => combined.Step.OperationId,
-                operation => operation.Id,
-                (combined, operation) => new { combined, operation })
-            .Join(_dbContext.ManufacturingProcesses,
-                combined => combined.combined.Issue.ManufacturingProcessId,
-                manufacturingProcess => manufacturingProcess.Id,
-                (combined, manufacturingProcess) => new { combined, manufacturingProcess })
-            .Join(_dbContext.TechCards,
-                combined => combined.manufacturingProcess.TechnologicalCardId,
-                techCard => techCard.Id,
-                (combined, techCard) => new { combined, techCard })
-            .Join(_dbContext.Products,
-                combined => combined.techCard.ProductId,
-                product => product.Id,
-                (combined, product) => new { combined, product })
-            .Join(_dbContext.Employees,
-                combined => combined.combined.combined.combined.combined.Issue.ExecutorId,
-                executor => executor.Id,
-                (combined, executor) => new { combined, executor })
-            .Join(_dbContext.Employees,
-                combined => combined.combined.combined.combined.combined.combined.Issue.ResponsibleId,
-                responsible => responsible.Id,
-                (combined, responsible) => new IssueModel
-                {
-                    Id = combined.combined.combined.combined.combined.combined.Issue.Id,
-                    ProductName = combined.combined.product.Name,
-                    OperationName = combined.combined.combined.combined.combined.operation.Name,
-                    IssueNumber = combined.combined.combined.combined.combined.combined.Issue.IssueNumber,
-                    ExecutorId = combined.combined.combined.combined.combined.combined.Issue.ExecutorId,
-                    ExecutorName = combined.executor.FirstName + " " + combined.executor.LastName,
-                    ResponsibleId = combined.combined.combined.combined.combined.combined.Issue.ResponsibleId,
-                    ResponsibleName = responsible.FirstName + " " + responsible.LastName,
-                    Description = combined.combined.combined.combined.combined.combined.Issue.Description,
-                    CurrentQuantity = combined.combined.combined.combined.combined.combined.Issue.CurrentQuantity,
-                    TargetQuantity = combined.combined.combined.combined.manufacturingProcess.TargetQuantity,
-                    StartTime = combined.combined.combined.combined.combined.combined.Issue.StartTime,
-                    EndTime = combined.combined.combined.combined.combined.combined.Issue.EndTime,
-                    ProductCompositionFlag = combined.combined.combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
-                })
-            .Skip(skip)
-            .Take(limit)
-            .ToListAsync(cancellationToken);
-        return (issues, totalCount);
+        throw new NotImplementedException();
     }
 
-    public async Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)>
-        GetIssuesByResponsibleId(Guid responsibleId, CancellationToken cancellationToken, int skip, int limit)
+    public Task<(IReadOnlyCollection<IssueModel> Issues, int TotalCount)> GetIssuesByResponsibleId(Guid responsibleId, CancellationToken cancellationToken, int skip, int limit)
     {
-        var totalCount = await _dbContext.Issues.CountAsync(cancellationToken);
-
-        var issues = await _dbContext.Issues.Where(i => i.ResponsibleId == responsibleId 
-                                                        && i.IssueStatus != IssueStatus.Completed)
-            .Join(_dbContext.Steps,
-                issue => issue.StepId,
-                step => step.Id,
-                (issue, step) => new
-                {
-                    Issue = issue,
-                    Step = step
-                })
-            .Join(_dbContext.Operations,
-                combined => combined.Step.OperationId,
-                operation => operation.Id,
-                (combined, operation) => new { combined, operation })
-            .Join(_dbContext.ManufacturingProcesses,
-                combined => combined.combined.Issue.ManufacturingProcessId,
-                manufacturingProcess => manufacturingProcess.Id,
-                (combined, manufacturingProcess) => new { combined, manufacturingProcess })
-            .Join(_dbContext.TechCards,
-                combined => combined.manufacturingProcess.TechnologicalCardId,
-                techCard => techCard.Id,
-                (combined, techCard) => new { combined, techCard })
-            .Join(_dbContext.Products,
-                combined => combined.techCard.ProductId,
-                product => product.Id,
-                (combined, product) => new { combined, product })
-            .Join(_dbContext.Employees,
-                combined => combined.combined.combined.combined.combined.Issue.ExecutorId,
-                executor => executor.Id,
-                (combined, executor) => new { combined, executor })
-            .Join(_dbContext.Employees,
-                combined => combined.combined.combined.combined.combined.combined.Issue.ResponsibleId,
-                responsible => responsible.Id,
-                (combined, responsible) => new IssueModel
-                {
-                    Id = combined.combined.combined.combined.combined.combined.Issue.Id,
-                    ProductName = combined.combined.product.Name,
-                    OperationName = combined.combined.combined.combined.combined.operation.Name,
-                    IssueNumber = combined.combined.combined.combined.combined.combined.Issue.IssueNumber,
-                    ExecutorId = combined.combined.combined.combined.combined.combined.Issue.ExecutorId,
-                    ExecutorName = combined.executor.FirstName + " " + combined.executor.LastName,
-                    ResponsibleId = combined.combined.combined.combined.combined.combined.Issue.ResponsibleId,
-                    ResponsibleName = responsible.FirstName + " " + responsible.LastName,
-                    Description = combined.combined.combined.combined.combined.combined.Issue.Description,
-                    CurrentQuantity = combined.combined.combined.combined.combined.combined.Issue.CurrentQuantity,
-                    TargetQuantity = combined.combined.combined.combined.manufacturingProcess.TargetQuantity,
-                    StartTime = combined.combined.combined.combined.combined.combined.Issue.StartTime,
-                    EndTime = combined.combined.combined.combined.combined.combined.Issue.EndTime,
-                    ProductCompositionFlag = combined.combined.combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
-                })
-            .Skip(skip)
-            .Take(limit)
-            .ToListAsync(cancellationToken);
-        return (issues, totalCount);
+        throw new NotImplementedException();
     }
 
-    public async Task<IssueModel?> GetById(Guid id, CancellationToken cancellationToken)
+    public Task<IssueModel?> GetById(Guid id, CancellationToken cancellationToken)
     {
-        return await _dbContext.Issues.Where(i => i.Id == id)
-            .Join(_dbContext.Steps,
-                issue => issue.StepId,
-                step => step.Id,
-                (issue, step) => new
-                {
-                    Issue = issue,
-                    Step = step
-                })
-            .Join(_dbContext.Operations,
-                combined => combined.Step.OperationId,
-                operation => operation.Id,
-                (combined, operation) => new { combined, operation })
-            .Join(_dbContext.ManufacturingProcesses,
-                combined => combined.combined.Issue.ManufacturingProcessId,
-                manufacturingProcess => manufacturingProcess.Id,
-                (combined, manufacturingProcess) => new { combined, manufacturingProcess })
-            .Join(_dbContext.TechCards,
-                combined => combined.manufacturingProcess.TechnologicalCardId,
-                techCard => techCard.Id,
-                (combined, techCard) => new { combined, techCard })
-            .Join(_dbContext.Products,
-                combined => combined.techCard.ProductId,
-                product => product.Id,
-                (combined, product) => new { combined, product })
-            .Join(_dbContext.Employees,
-                combined => combined.combined.combined.combined.combined.Issue.ExecutorId,
-                executor => executor.Id,
-                (combined, executor) => new { combined, executor })
-            .Join(_dbContext.Employees,
-                combined => combined.combined.combined.combined.combined.combined.Issue.ResponsibleId,
-                responsible => responsible.Id,
-                (combined, responsible) => new IssueModel
-                {
-                    Id = combined.combined.combined.combined.combined.combined.Issue.Id,
-                    ProductName = combined.combined.product.Name,
-                    OperationName = combined.combined.combined.combined.combined.operation.Name,
-                    IssueNumber = combined.combined.combined.combined.combined.combined.Issue.IssueNumber,
-                    ExecutorId = combined.combined.combined.combined.combined.combined.Issue.ExecutorId,
-                    ExecutorName = combined.executor.FirstName + " " + combined.executor.LastName,
-                    ResponsibleId = combined.combined.combined.combined.combined.combined.Issue.ResponsibleId,
-                    ResponsibleName = responsible.FirstName + " " + responsible.LastName,
-                    Description = combined.combined.combined.combined.combined.combined.Issue.Description,
-                    CurrentQuantity = combined.combined.combined.combined.combined.combined.Issue.CurrentQuantity,
-                    TargetQuantity = combined.combined.combined.combined.manufacturingProcess.TargetQuantity,
-                    StartTime = combined.combined.combined.combined.combined.combined.Issue.StartTime,
-                    EndTime = combined.combined.combined.combined.combined.combined.Issue.EndTime,
-                    ProductCompositionFlag = combined.combined.combined.combined.combined.combined.Issue.ProductCompositionSettingFlag
-                })
-            .FirstOrDefaultAsync(cancellationToken);
+        throw new NotImplementedException();
     }
 }

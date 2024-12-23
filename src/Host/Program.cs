@@ -1,7 +1,6 @@
-using Forpost.Host;
 using static Forpost.Store.Migrations.MigrationManager;
 
-namespace Forpost.Web.Host;
+namespace Forpost.Host;
 
 internal sealed class Program
 {

@@ -1,4 +1,3 @@
-using Forpost.Application.Contracts.Catalogs.Products.ProductCompatibility;
 using Forpost.Common.DataAccess;
 
 namespace Forpost.Application.Contracts.Catalogs.Products.ProductCompatibilities;

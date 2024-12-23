@@ -1,8 +1,8 @@
+using Forpost.Host.Infrastructure.DocumentGeneration;
 using Forpost.Web.Contracts;
-using Forpost.Web.Host.Infrastructure.DocumentGeneration;
 using Microsoft.OpenApi.Models;
 
-namespace Forpost.Web.Host.Infrastructure;
+namespace Forpost.Host.Infrastructure;
 
 internal static class SwaggerExtensions
 {

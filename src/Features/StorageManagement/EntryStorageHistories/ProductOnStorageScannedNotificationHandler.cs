@@ -1,5 +1,5 @@
-using Forpost.Domain.StorageManagment.EntryStorageHistories;
-using Forpost.Domain.StorageManagment.Events;
+using Forpost.Domain.StorageManagement.EntryStorageHistories;
+using Forpost.Domain.StorageManagement.Events;
 using Mediator;
 
 namespace Forpost.Features.StorageManagement.EntryStorageHistories;

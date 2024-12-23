@@ -1,7 +1,7 @@
 using Forpost.Application.Contracts.CRM.PriceLists;
 using Mediator;
 
-namespace Forpost.Features.CRM.PriceLists;
+namespace Forpost.Features.Crm.PriceLists;
 
 internal sealed class GetAllPriceListQueryHandler : IQueryHandler<GetAllPriceListQuery, (
     IReadOnlyCollection<PriceListModel> PriceLists, int TotalCount)>

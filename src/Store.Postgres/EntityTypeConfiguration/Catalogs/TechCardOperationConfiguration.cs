@@ -1,15 +1,14 @@
-using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.Catalogs.TechCards;
-using Forpost.Domain.Catalogs.TechCards.Steps;
-using Forpost.Domain.Catalogs.TechCards.TechCardSteps;
+using Forpost.Domain.Catalogs.TechCards.Operations;
+using Forpost.Domain.Catalogs.TechCards.TechCardOperations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Forpost.Store.Postgres.EntityTypeConfiguration.Catalogs;
 
-internal sealed class TechCardStepConfiguration : IEntityTypeConfiguration<TechCardStep>
+internal sealed class TechCardOperationConfiguration : IEntityTypeConfiguration<TechCardOperation>
 {
-    public void Configure(EntityTypeBuilder<TechCardStep> builder)
+    public void Configure(EntityTypeBuilder<TechCardOperation> builder)
     {
         builder.ConfigureBaseEntity();
 
@@ -17,8 +16,8 @@ internal sealed class TechCardStepConfiguration : IEntityTypeConfiguration<TechC
             .WithMany()
             .HasForeignKey(key => key.TechCardId);
 
-        builder.HasOne<Step>()
+        builder.HasOne<Operation>()
             .WithMany()
-            .HasForeignKey(key => key.StepId);
+            .HasForeignKey(key => key.OperationId);
     }
 }
