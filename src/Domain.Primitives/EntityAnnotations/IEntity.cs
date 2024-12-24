@@ -5,5 +5,8 @@ namespace Forpost.Domain.Primitives.EntityAnnotations;
 /// </summary>
 public interface IEntity
 {
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
     public Guid Id { get; }
 }

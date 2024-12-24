@@ -3,7 +3,7 @@ using Forpost.Features.Crm.IssueHistory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.CRM.IssueHistories;
+namespace Forpost.Web.Contracts.Crm.IssueHistories;
 
 [Route("api/v1/issue-history")]
 public sealed class IssueHistoryController : ApiController

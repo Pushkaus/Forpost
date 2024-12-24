@@ -25,19 +25,17 @@ internal sealed class OutboxMessagesJob : IJob
     private readonly TimeProvider _timeProvider;
     private readonly ILogger<OutboxMessagesJob> _logger;
     private readonly IPublisher _publisher;
-    private readonly IServiceProvider _serviceProvider;
-
     private readonly ForpostContextPostgres _context;
+    
     public OutboxMessagesJob(
         IPublisher publisher,
         TimeProvider timeProvider,
-        ILogger<OutboxMessagesJob> logger, 
-        IServiceProvider serviceProvider, ForpostContextPostgres context)
+        ILogger<OutboxMessagesJob> logger,
+        ForpostContextPostgres context)
     {
         _publisher = publisher;
         _timeProvider = timeProvider;
         _logger = logger;
-        _serviceProvider = serviceProvider;
         _context = context;
     }
 

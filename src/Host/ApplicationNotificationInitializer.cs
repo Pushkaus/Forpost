@@ -7,7 +7,8 @@ namespace Forpost.Host;
 
 /// <summary>
 /// Сервис инициализации уведомлений при старте приложения
-/// </summary>
+/// </summary>\
+// TODO: переделать на QUARTZ (в BackgroundJob) и удалить TelegramBot.csproj
 public class ApplicationNotificationInitializer: IHostedService
 {
     private readonly IServiceProvider _serviceProvider;

@@ -1,4 +1,4 @@
-namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices;
+namespace Forpost.Web.Contracts.Crm.InvoiceManagement.Invoices;
 
 public sealed class DateShipmentRequest
 {

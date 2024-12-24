@@ -7,7 +7,7 @@ using Forpost.Features.Crm.InvoiceManagement.Invoices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices
+namespace Forpost.Web.Contracts.Crm.InvoiceManagement.Invoices
 {
     /// <summary>
     /// Контроллер для работы со счетами

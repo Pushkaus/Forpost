@@ -1,6 +1,6 @@
 using Forpost.Domain.ProductCreating.Issue;
 
-namespace Forpost.Web.Contracts.CRM.InvoiceManagement.Invoices;
+namespace Forpost.Web.Contracts.Crm.InvoiceManagement.Invoices;
 
 public class InvoiceUpdateRequest
 {

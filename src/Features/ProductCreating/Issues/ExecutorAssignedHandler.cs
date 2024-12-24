@@ -3,14 +3,14 @@ using Forpost.Domain.ProductCreating.Issue.Events;
 using Mediator;
 using Telegram.Bot;
 
-namespace Forpost.TelegramBot.Handlers.IssueExecutorAssigned;
+namespace Forpost.Features.ProductCreating.Issues;
 
-public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigned>, ITelegramBotHandler
+internal sealed class ExecutorAssignedHandler : INotificationHandler<ExecutorAssigned>
 {
     private readonly ITelegramBotClient _botClient;
     private readonly IIssueReadRepository _issueReadRepository;
 
-    public SendMessageToExecutor(ITelegramBotClient botClient, IIssueReadRepository issueReadRepository)
+    public ExecutorAssignedHandler(ITelegramBotClient botClient, IIssueReadRepository issueReadRepository)
     {
         _botClient = botClient;
         _issueReadRepository = issueReadRepository;
@@ -20,7 +20,7 @@ public sealed class SendMessageToExecutor : INotificationHandler<ExecutorAssigne
     {
         Console.WriteLine($"{notification.ExecutorId} executor assigned");
         var issue = await _issueReadRepository.GetById(notification.IssueId, cancellationToken);
-        var messageText = $"Вы назначены исполнителем задачи:\n" +
+        string messageText = $"Вы назначены исполнителем задачи:\n" +
                              $"Операция: {issue.OperationName}\n" +
                              $"Продукт: {issue.ProductName}\n" +
                              $"Целевое количество: {issue.TargetQuantity}\n" +
