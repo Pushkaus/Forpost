@@ -67,10 +67,12 @@ internal sealed class TechCardReadRepository : ITechCardReadRepository
             )
             .Select(o => new OperationSummary
             {
-                Id = o.operation.Id,
-                Name = o.operation.Name,
+                Id = o.techCardOperation.Id,
+                OperationId = o.operation.Id,
+                OperationName = o.operation.Name,
                 Description = o.operation.Description,
-                Type = o.operation.Type 
+                Type = o.operation.Type,
+                Number = o.techCardOperation.Number
             })
             .ToListAsync(cancellationToken);
 

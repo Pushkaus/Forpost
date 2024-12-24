@@ -16,9 +16,11 @@ public sealed class CompositionTechCardModel
 public sealed class OperationSummary
 {
     public Guid Id { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public Guid OperationId { get; set; }
+    public string OperationName { get; set; } = string.Empty;
     public string? Description { get; set; }
     public OperationType Type { get; set; }
+    public int Number { get; set; }
 }
 
 public sealed class ItemSummary
