@@ -1,4 +1,4 @@
-namespace Forpost.Application.Contracts.Catalogs.Products.ProductCompatibility;
+namespace Forpost.Application.Contracts.Catalogs.Products.ProductCompatibilities;
 
 public sealed class ProductCompatibilityModel
 {

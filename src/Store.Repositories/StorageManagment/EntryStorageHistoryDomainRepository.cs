@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.StorageManagment.EntryStorageHistories;
+using Forpost.Domain.StorageManagement.EntryStorageHistories;
 using Forpost.Store.Postgres;
 
 namespace Forpost.Store.Repositories.StorageManagment;

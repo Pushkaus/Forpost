@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.StorageManagment.EntryStorageHistories;
+namespace Forpost.Domain.StorageManagement.EntryStorageHistories;
 
 public sealed class EntryStorageHistory: DomainEntity
 {

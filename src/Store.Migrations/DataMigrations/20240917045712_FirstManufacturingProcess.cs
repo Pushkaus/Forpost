@@ -10,7 +10,7 @@ namespace Forpost.Store.Migrations.DataMigrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            GenerateFirstManufacturingProcess(migrationBuilder);
+            //GenerateFirstManufacturingProcess(migrationBuilder);
         }
 
         /// <inheritdoc />

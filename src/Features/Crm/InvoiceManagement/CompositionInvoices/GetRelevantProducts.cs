@@ -2,7 +2,7 @@ using Forpost.Application.Contracts.CRM.InvoiceManagement.CompositionInvoices;
 using Forpost.Application.Contracts.ProductCreating.CompletedProducts;
 using Mediator;
 
-namespace Forpost.Features.CRM.InvoiceManagement.CompositionInvoices;
+namespace Forpost.Features.Crm.InvoiceManagement.CompositionInvoices;
 
 internal sealed class GetRelevantProductsQueryHandler: 
     IQueryHandler<GetRelevantProductsQuery, IReadOnlyCollection<CompletedProductModel>>

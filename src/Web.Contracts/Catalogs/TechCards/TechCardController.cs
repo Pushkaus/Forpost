@@ -62,7 +62,7 @@ public sealed class TechCardController : ApiController
             ProductId = card.ProductId,
         }, cancellationToken);
 
-        return CreatedAtAction("", new { id = techCardId }, techCardId);
+        return CreatedAtRoute("", techCardId);
     }
 
     /// <summary>

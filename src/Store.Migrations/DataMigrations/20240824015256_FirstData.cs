@@ -11,7 +11,7 @@ namespace Forpost.Store.Migrations.DataMigrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             GenerateFirstUser(migrationBuilder);
-            GenerateFirstTechCard(migrationBuilder);
+           // GenerateFirstTechCard(migrationBuilder);
         }
 
         /// <inheritdoc />

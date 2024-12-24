@@ -1,5 +1,3 @@
-using Forpost.Domain.Catalogs.Steps;
-using Forpost.Domain.Catalogs.TechCards.Steps;
 using Forpost.Domain.StorageManagement.StorageProducts;
 using Mediator;
 

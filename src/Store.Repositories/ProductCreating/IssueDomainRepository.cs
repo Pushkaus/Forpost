@@ -19,7 +19,7 @@ internal sealed class IssueDomainRepository : DomainRepository<Issue>, IIssueDom
 
     public async Task<int> GetIssueNumber(Guid techCardId, Guid stepId, CancellationToken cancellationToken)
     {
-        return await DbContext.TechCardSteps.Where(entity => entity.TechCardId == techCardId && entity.StepId == stepId)
+        return await DbContext.TechCardOperations.Where(entity => entity.TechCardId == techCardId && entity.OperationId == stepId)
             .Select(entity => entity.Number).FirstOrDefaultAsync(cancellationToken);
     }
 

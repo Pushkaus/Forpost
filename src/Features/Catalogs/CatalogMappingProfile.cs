@@ -6,13 +6,11 @@ using Forpost.Domain.Catalogs.Contractors.ContractorRepresentatives;
 using Forpost.Domain.Catalogs.Employees;
 using Forpost.Domain.Catalogs.Products;
 using Forpost.Domain.Catalogs.Roles;
-using Forpost.Domain.Catalogs.Steps;
 using Forpost.Domain.Catalogs.Storages;
 using Forpost.Domain.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.TechCards.Operations;
-using Forpost.Domain.Catalogs.TechCards.Steps;
 using Forpost.Domain.Catalogs.TechCards.TechCardItems;
-using Forpost.Domain.Catalogs.TechCards.TechCardSteps;
+using Forpost.Domain.Catalogs.TechCards.TechCardOperations;
 using Forpost.Features.Auth;
 using Forpost.Features.Catalogs.Categories;
 using Forpost.Features.Catalogs.Contractors;
@@ -23,10 +21,8 @@ using Forpost.Features.Catalogs.Roles;
 using Forpost.Features.Catalogs.Storages;
 using Forpost.Features.Catalogs.TechCards;
 using Forpost.Features.Catalogs.TechCards.Operations;
-using Forpost.Features.Catalogs.TechCards.Steps;
 using Forpost.Features.Catalogs.TechCards.TechCardItems;
-using Forpost.Features.Catalogs.TechCards.TechCardSteps;
-using Forpost.Features.Catalogs.TechCardSteps;
+using Forpost.Features.Catalogs.TechCards.TechCardOperations;
 
 namespace Forpost.Features.Catalogs;
 
@@ -37,7 +33,6 @@ internal sealed class CatalogMappingProfile : Profile
         MapStorages();
         MapTechCardSteps();
         MapTechCards();
-        MapSteps();
         MapProducts();
         MapOperations();
         MapAuth();
@@ -77,8 +72,8 @@ internal sealed class CatalogMappingProfile : Profile
 
     private void MapTechCardSteps()
     {
-        CreateMap<TechCardStepCreateCommand, TechCardStep>().ValidateMemberList(MemberList.Destination);
-        CreateMap<UpdateTechCardStepCommand, TechCardStep>().ValidateMemberList(MemberList.Destination);
+        CreateMap<TechCardOperationCreateCommand, TechCardOperation>().ValidateMemberList(MemberList.Destination);
+        CreateMap<UpdateTechCardOperationCommand, TechCardOperation>().ValidateMemberList(MemberList.Destination);
     }
 
     private void MapTechCards()
@@ -87,12 +82,6 @@ internal sealed class CatalogMappingProfile : Profile
         CreateMap<AddTechCardItemCommand, TechCardItem>().ValidateMemberList(MemberList.Destination);
         CreateMap<UpdateTechCardCommand, TechCard>().ValidateMemberList(MemberList.Destination);
         CreateMap<UpdateTechCardItemCommand, TechCardItem>().ValidateMemberList(MemberList.Destination);
-    }
-
-    private void MapSteps()
-    {
-        CreateMap<AddStepCommand, Step>().ValidateMemberList(MemberList.Destination);
-        CreateMap<UpdateStepCommand, Step>().ValidateMemberList(MemberList.Destination);
     }
 
     private void MapProducts()

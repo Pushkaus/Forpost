@@ -1,7 +1,7 @@
 using Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
 using Mediator;
 
-namespace Forpost.Features.CRM.InvoiceManagement.Invoices;
+namespace Forpost.Features.Crm.InvoiceManagement.Invoices;
 
 internal sealed class GetInvoiceByIdQueryHandler: IQueryHandler<GetInvoiceByIdQuery, InvoiceModel?>
 {

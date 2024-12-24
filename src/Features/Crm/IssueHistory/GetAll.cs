@@ -1,7 +1,7 @@
 using Forpost.Application.Contracts.CRM.IssueHistories;
 using Mediator;
 
-namespace Forpost.Features.CRM.IssueHistory;
+namespace Forpost.Features.Crm.IssueHistory;
 
 internal sealed class
     GetAllQueryHandler : IQueryHandler<GetAllQuery, (IReadOnlyCollection<IssueHistoryModel> Issues, int TotalCount)>

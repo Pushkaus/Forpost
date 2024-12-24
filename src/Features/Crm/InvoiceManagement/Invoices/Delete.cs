@@ -1,7 +1,7 @@
 using Forpost.Domain.CRM.InvoiceManagement.Contracts;
 using Mediator;
 
-namespace Forpost.Features.CRM.InvoiceManagement.Invoices;
+namespace Forpost.Features.Crm.InvoiceManagement.Invoices;
 
 internal sealed class DeleteInvoiceCommandHandler: ICommandHandler<DeleteInvoiceCommand>
 {

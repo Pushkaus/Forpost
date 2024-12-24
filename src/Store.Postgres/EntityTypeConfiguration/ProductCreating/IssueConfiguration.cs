@@ -1,6 +1,4 @@
 using Forpost.Domain.Catalogs.Employees;
-using Forpost.Domain.Catalogs.Steps;
-using Forpost.Domain.Catalogs.TechCards.Steps;
 using Forpost.Domain.ProductCreating.Issue;
 using Forpost.Domain.ProductCreating.ManufacturingProcesses;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +11,6 @@ internal sealed class IssueConfiguration: IEntityTypeConfiguration<Issue>
     public void Configure(EntityTypeBuilder<Issue> builder)
     {
         builder.ConfigureBaseEntity();
-        
-        builder.HasOne<Step>()
-            .WithMany()
-            .HasForeignKey(fk => fk.StepId);
         
         builder.HasOne<ManufacturingProcess>()
             .WithMany()

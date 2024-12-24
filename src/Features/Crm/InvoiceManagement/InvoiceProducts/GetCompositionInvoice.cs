@@ -1,7 +1,7 @@
 using Forpost.Application.Contracts.CRM.InvoiceManagement.InvoiceProducts;
 using Mediator;
 
-namespace Forpost.Features.CRM.InvoiceManagement.InvoiceProducts;
+namespace Forpost.Features.Crm.InvoiceManagement.InvoiceProducts;
 
 internal sealed class GetProductsFromInvoiceQueryHandler: IQueryHandler<GetCompositionInvoiceQuery, IReadOnlyCollection<InvoiceWithProductsModel>>
 {

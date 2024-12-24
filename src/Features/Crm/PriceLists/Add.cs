@@ -1,7 +1,7 @@
 using Forpost.Domain.CRM.PriceLists;
 using Mediator;
 
-namespace Forpost.Features.CRM.PriceLists;
+namespace Forpost.Features.Crm.PriceLists;
 
 internal sealed class AddPriceListCommandHandler : ICommandHandler<AddPriceListCommand, Guid>
 {

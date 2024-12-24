@@ -48,7 +48,7 @@ internal sealed class AuthCommand : BaseTelegramCommandHandler
             return;
         }
 
-        var parts = messageText.Split([' ', ','], StringSplitOptions.RemoveEmptyEntries);
+        var parts = messageText.Split([' ', ',']);
 
         if (parts.Length != 3)
         {

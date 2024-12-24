@@ -5,7 +5,7 @@ using Forpost.Domain.CRM.InvoiceManagement.Contracts;
 using Mediator;
 using Microsoft.Extensions.Logging;
 
-namespace Forpost.Features.CRM.InvoiceManagement.Invoices;
+namespace Forpost.Features.Crm.InvoiceManagement.Invoices;
 
 internal sealed class AddInvoiceCommandHandler : ICommandHandler<AddInvoiceCommand, Guid>
 {

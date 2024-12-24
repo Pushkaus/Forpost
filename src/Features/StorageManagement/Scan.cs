@@ -1,7 +1,5 @@
 using Forpost.Application.Contracts.Catalogs.TechCards;
 using Forpost.Domain.Catalogs.Barcodes;
-using Forpost.Domain.Catalogs.Steps;
-using Forpost.Domain.Catalogs.TechCards.Steps;
 using Forpost.Domain.StorageManagement.StorageProducts;
 using Forpost.Features.Catalogs.Barcodes.ProductBarcodes;
 using Mediator;

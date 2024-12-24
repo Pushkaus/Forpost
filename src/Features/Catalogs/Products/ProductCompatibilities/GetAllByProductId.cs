@@ -1,5 +1,4 @@
 using Forpost.Application.Contracts.Catalogs.Products.ProductCompatibilities;
-using Forpost.Application.Contracts.Catalogs.Products.ProductCompatibility;
 using Forpost.Domain.Catalogs.Products.ProductCompatibilities;
 using Mediator;
 

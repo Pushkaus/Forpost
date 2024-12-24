@@ -3,7 +3,7 @@ using Forpost.Application.Contracts.Changes;
 using Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
 using Forpost.Domain.CRM.InvoiceManagement;
 using Forpost.Features.ChangeLogs;
-using Forpost.Features.CRM.InvoiceManagement.Invoices;
+using Forpost.Features.Crm.InvoiceManagement.Invoices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
