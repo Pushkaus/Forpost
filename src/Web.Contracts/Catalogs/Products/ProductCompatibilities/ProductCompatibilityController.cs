@@ -36,7 +36,7 @@ public sealed class ProductCompatibilityController : ApiController
     /// <param name="productCompabilityId"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    [HttpDelete("{productCompabilityId}")]
+    [HttpDelete("{productCompabilityId:guid}")]
     public async Task<IActionResult> DeleteProductCompabilityById(Guid productCompabilityId,
         CancellationToken cancellationToken)
     {

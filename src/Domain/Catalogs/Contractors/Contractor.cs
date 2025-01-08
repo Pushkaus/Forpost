@@ -41,7 +41,7 @@ public sealed class Contractor : AggregateRoot
         ContractorType = contractorType;
     }
 
-    public static Contractor New(
+    public static Contractor Create(
         string name,
         string inn,
         string country,

@@ -14,7 +14,7 @@ internal sealed class AddContractorCommandHandler : ICommandHandler<AddContracto
 
     public ValueTask<Guid> Handle(AddContractorCommand request, CancellationToken cancellationToken)
     {
-        var contractor = Contractor.New(
+        var contractor = Contractor.Create(
             request.Name,
             request.INN,
             request.Country,

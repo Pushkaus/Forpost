@@ -15,6 +15,7 @@ using Forpost.TelegramBot;
 using Forpost.Web.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Forpost.Host;
@@ -34,7 +35,7 @@ internal sealed class Startup
         services.AddInfrastructure();
 
         services.AddSingleton<IIdentityProvider, IdentityProvider>();
-
+        
         services.AddTelegramBot(_configuration);
         services.AddHostedService<TelegramPollingService>();
 
@@ -47,7 +48,6 @@ internal sealed class Startup
         services.AddSingleton(TimeProvider.System);
         
         services.AddControllers();
-
         services.AddAutoMapper(WebContractsAssemblyReference.Assembly);
         services.AddAutoMapper(FeatureAssemblyReference.Assembly);
 
@@ -58,6 +58,7 @@ internal sealed class Startup
         services.AddHttpContextAccessor();
         services.AddControllers(options => options.Filters.Add<ForpostExceptionFilter>());
         services.AddEndpointsApiExplorer();
+        
         services.AddHostedService<ApplicationNotificationInitializer>();
         
         var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("Jwt:Key") ??
@@ -105,6 +106,7 @@ internal sealed class Startup
 
     public static void Configure(IApplicationBuilder app)
     {
+        
         app.UseCors();
         app.UseRouting();
         app.UseAuthentication();
@@ -118,5 +120,7 @@ internal sealed class Startup
 
         app.UseHttpRequestLoggingWithEmployeeId();
         app.UseEndpoints(options => options.MapControllers());
+        
+
     }
 }

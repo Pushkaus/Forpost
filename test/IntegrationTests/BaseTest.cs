@@ -6,19 +6,22 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Forpost.IntegrationTests;
 
-public abstract class BaseTest:IClassFixture<TestApplication>, IAsyncLifetime
+public abstract class BaseTest: IClassFixture<TestApplication>, IAsyncLifetime
 {
     protected readonly IForpostApiClient Client;
 
     protected readonly ForpostContextPostgres DbContext;
     protected readonly IIdentityProvider IdentityProvider;
     protected readonly IServiceProvider ServiceProvider;
+    
     protected BaseTest(TestApplication application)
     {
         Client = application.Services.GetRequiredService<IForpostApiClient>();
         var scope = application.Services.CreateScope();
+        
         DbContext = scope.ServiceProvider.GetRequiredService<ForpostContextPostgres>();
         ServiceProvider = application.Services;
+        
         var identityProviderMock = new Mock<IIdentityProvider>();
 
         identityProviderMock.Setup(x => x.GetUserId()).Returns(Guid.Parse("15492e30-8df3-132f-9de6-3fcd91e38923"));

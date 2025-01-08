@@ -34,9 +34,15 @@ public sealed class EmployeeController : ApiController
         CancellationToken cancellationToken)
     {
         await Sender.Send(
-            new UpdateEmployeeCommand(id, request.FirstName, request.LastName, request.Patronymic, request.Post,
+            new UpdateEmployeeCommand(
+                id,
+                request.FirstName,
+                request.LastName,
+                request.Patronymic,
+                request.Post,
                 request.RoleId,
-                request.Email, request.PhoneNumber),
+                request.Email,
+                request.PhoneNumber),
             cancellationToken);
         return NoContent();
     }

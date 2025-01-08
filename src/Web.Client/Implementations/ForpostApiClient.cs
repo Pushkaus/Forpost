@@ -7,33 +7,33 @@ public sealed class ForpostApiClient : IForpostApiClient
         IInvoiceClient invoiceClient,
         IInvoiceProductClient invoiceProductClient, 
         ITechCardClient techCardClient,
-        ITechCardStepClient techCardStepClient,
         ITechCardItemClient techCardItemClient,
         IStorageClient storageClient,
-        IStepClient stepClient, 
         IRoleClient roleClient, 
         IProductClient productClient, 
         IOperationClient operationClient,
         IEmployeeClient employeeClient,
         IContractorClient contractorClient, 
-        IAccountClient accountClient)
+        IAccountClient accountClient, IApplicationNotificationClient applicationNotificationClient)
     {
         IssueClient = issueClient;
         ManufacturingProcessClient = manufacturingProcessClient;
         InvoiceClient = invoiceClient;
         InvoiceProductClient = invoiceProductClient;
         TechCardClient = techCardClient;
-        TechCardStepClient = techCardStepClient;
         TechCardItemClient = techCardItemClient;
         StorageClient = storageClient;
-        StepClient = stepClient;
         RoleClient = roleClient;
         ProductClient = productClient;
         OperationClient = operationClient;
         EmployeeClient = employeeClient;
         ContractorClient = contractorClient;
         AccountClient = accountClient;
+        ApplicationNotificationClient = applicationNotificationClient;
     }
+
+    public IApplicationNotificationClient ApplicationNotificationClient { get; }
+    
     public IIssueClient IssueClient { get; }
     
     public IManufacturingProcessClient ManufacturingProcessClient { get; }
@@ -44,13 +44,9 @@ public sealed class ForpostApiClient : IForpostApiClient
     
     public ITechCardClient TechCardClient { get; }
     
-    public ITechCardStepClient TechCardStepClient { get; }
-    
     public ITechCardItemClient TechCardItemClient { get; }
     
     public IStorageClient StorageClient { get; }
-    
-    public IStepClient StepClient { get; }
     
     public IRoleClient RoleClient { get; }
     

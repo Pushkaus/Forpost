@@ -2,11 +2,13 @@ using System.Net.Http.Headers;
 using Forpost.Host;
 using Forpost.Store.Migrations;
 using Forpost.Web.Client;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Testcontainers.PostgreSql;
+using static Forpost.Store.Migrations.MigrationManager;
 
 namespace Forpost.IntegrationTests;
 
@@ -42,7 +44,16 @@ public sealed class TestApplication: WebApplicationFactory<IApiMarker>, IAsyncLi
         };
 
         builder.ConfigureAppConfiguration(x => x.AddInMemoryCollection(overridenConfiguration!));
+        
+        builder.ConfigureServices((_, services) =>
+        {
+            using var scope = services.BuildServiceProvider().CreateScope();
+            var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
+            MigrateSchema(configuration).GetAwaiter().GetResult();
+            MigrateData(configuration).GetAwaiter().GetResult();
+        });
+        
         return base.CreateHost(builder);
     }
 
@@ -50,7 +61,7 @@ public sealed class TestApplication: WebApplicationFactory<IApiMarker>, IAsyncLi
     {
         var client = CreateClient();
         const string token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlc3QiLCJmYW1pbHlfbmFtZSI6InRlc3QiLCJuYW1laWQiOiIxNTQ5MmUzMC04ZGYzLTEzMmYtOWRlNi0zZmNkOTFlMzg5MjMiLCJyb2xlIjoiMDU0OTJlMzAtOGRmMy00MzJmLTlkZTYtM2ZjZDkxZTM4OWY1IiwibmJmIjoxNzI2MDQxNjI2LCJleHAiOjE3MjY2NDY0MjYsImlhdCI6MTcyNjA0MTYyNn0.-u4dyiiKw6JZYyTwRKKKXsp2bsDl5HzKj0XH9vgPZKk";
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InRlc3QiLCJmYW1pbHlfbmFtZSI6InRlc3QiLCJuYW1laWQiOiIxNTQ5MmUzMC04ZGYzLTEzMmYtOWRlNi0zZmNkOTFlMzg5MjMiLCJyb2xlIjoiMDU0OTJlMzAtOGRmMy00MzJmLTlkZTYtM2ZjZDkxZTM4OWY1IiwibmJmIjoxNzM2MTk2NDc4LCJleHAiOjE3MzY4MDEyNzgsImlhdCI6MTczNjE5NjQ3OH0.o2n8zqAoDTvcCToWoXIfM9GSBi3WT-5SY-zbjGeWsQI";
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         return client;
@@ -59,10 +70,8 @@ public sealed class TestApplication: WebApplicationFactory<IApiMarker>, IAsyncLi
     public async Task InitializeAsync()
     {
         await _dbContainer.StartAsync();
-        var configuration = Services.GetRequiredService<IConfiguration>();
-        await MigrationManager.MigrateSchema(configuration);
-        await MigrationManager.MigrateData(configuration);
     }
+
 
     public new async Task DisposeAsync()
     {

@@ -30,40 +30,40 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех продуктов на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageProductModel>> GetAllProductsAsync(System.Guid storageId, int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageProductModel>> StorageProduct_GetAllProductsAsync(System.Guid storageId, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить список всех продуктов на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageProductModel>> GetAllProductsAsync(System.Guid storageId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageProductModel>> StorageProduct_GetAllProductsAsync(System.Guid storageId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Добавить продукт на склад
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task CreateAsync(StorageProductCreateRequest request);
+        System.Threading.Tasks.Task StorageProduct_CreateAsync(StorageProductCreateRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить продукт на склад
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task CreateAsync(StorageProductCreateRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task StorageProduct_CreateAsync(StorageProductCreateRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Сканирование продукта на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ScanBarcodeAsync(ScanBarcodeRequest request);
+        System.Threading.Tasks.Task StorageProduct_ScanBarcodeAsync(ScanBarcodeRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Сканирование продукта на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ScanBarcodeAsync(ScanBarcodeRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task StorageProduct_ScanBarcodeAsync(ScanBarcodeRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -99,9 +99,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех продуктов на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageProductModel>> GetAllProductsAsync(System.Guid storageId, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageProductModel>> StorageProduct_GetAllProductsAsync(System.Guid storageId, int? skip, int? limit)
         {
-            return GetAllProductsAsync(storageId, skip, limit, System.Threading.CancellationToken.None);
+            return StorageProduct_GetAllProductsAsync(storageId, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -109,7 +109,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех продуктов на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageProductModel>> GetAllProductsAsync(System.Guid storageId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageProductModel>> StorageProduct_GetAllProductsAsync(System.Guid storageId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             if (storageId == null)
                 throw new System.ArgumentNullException("storageId");
@@ -195,9 +195,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить продукт на склад
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task CreateAsync(StorageProductCreateRequest request)
+        public virtual System.Threading.Tasks.Task StorageProduct_CreateAsync(StorageProductCreateRequest request)
         {
-            return CreateAsync(request, System.Threading.CancellationToken.None);
+            return StorageProduct_CreateAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -205,7 +205,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить продукт на склад
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task CreateAsync(StorageProductCreateRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task StorageProduct_CreateAsync(StorageProductCreateRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -278,9 +278,9 @@ namespace Forpost.Web.Client.Implementations
         /// Сканирование продукта на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ScanBarcodeAsync(ScanBarcodeRequest request)
+        public virtual System.Threading.Tasks.Task StorageProduct_ScanBarcodeAsync(ScanBarcodeRequest request)
         {
-            return ScanBarcodeAsync(request, System.Threading.CancellationToken.None);
+            return StorageProduct_ScanBarcodeAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -288,7 +288,7 @@ namespace Forpost.Web.Client.Implementations
         /// Сканирование продукта на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ScanBarcodeAsync(ScanBarcodeRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task StorageProduct_ScanBarcodeAsync(ScanBarcodeRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -483,14 +483,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех поступлений на склад
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger> GetAllEntriesAsync(bool? purchased, int? days, int? month, int? year, int? skip, int? limit);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger> EntryStorageHistory_GetAllEntriesAsync(bool? purchased, int? days, int? month, int? year, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех поступлений на склад
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger> GetAllEntriesAsync(bool? purchased, int? days, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger> EntryStorageHistory_GetAllEntriesAsync(bool? purchased, int? days, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -526,9 +526,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех поступлений на склад
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger> GetAllEntriesAsync(bool? purchased, int? days, int? month, int? year, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger> EntryStorageHistory_GetAllEntriesAsync(bool? purchased, int? days, int? month, int? year, int? skip, int? limit)
         {
-            return GetAllEntriesAsync(purchased, days, month, year, skip, limit, System.Threading.CancellationToken.None);
+            return EntryStorageHistory_GetAllEntriesAsync(purchased, days, month, year, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -536,7 +536,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех поступлений на склад
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger> GetAllEntriesAsync(bool? purchased, int? days, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfEntryStorageHistoryModelAndInteger> EntryStorageHistory_GetAllEntriesAsync(bool? purchased, int? days, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -756,27 +756,27 @@ namespace Forpost.Web.Client.Implementations
         /// Список всех готовых продуктов на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> CompletedProduct_GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Список всех готовых продуктов на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> CompletedProduct_GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Список готовых продуктов по ProductID (справочный ID)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageByProductIdAsync(System.Guid productId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> CompletedProduct_GetAllOnStorageByProductIdAsync(System.Guid productId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Список готовых продуктов по ProductID (справочный ID)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> CompletedProduct_GetAllOnStorageByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -812,9 +812,9 @@ namespace Forpost.Web.Client.Implementations
         /// Список всех готовых продуктов на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> CompletedProduct_GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllOnStorageAsync(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
+            return CompletedProduct_GetAllOnStorageAsync(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -822,7 +822,7 @@ namespace Forpost.Web.Client.Implementations
         /// Список всех готовых продуктов на складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> CompletedProduct_GetAllOnStorageAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -912,9 +912,9 @@ namespace Forpost.Web.Client.Implementations
         /// Список готовых продуктов по ProductID (справочный ID)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageByProductIdAsync(System.Guid productId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> CompletedProduct_GetAllOnStorageByProductIdAsync(System.Guid productId)
         {
-            return GetAllOnStorageByProductIdAsync(productId, System.Threading.CancellationToken.None);
+            return CompletedProduct_GetAllOnStorageByProductIdAsync(productId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -922,7 +922,7 @@ namespace Forpost.Web.Client.Implementations
         /// Список готовых продуктов по ProductID (справочный ID)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> GetAllOnStorageByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompletedProductModel>> CompletedProduct_GetAllOnStorageByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
         {
             if (productId == null)
                 throw new System.ArgumentNullException("productId");
@@ -1110,92 +1110,92 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех задач производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> Issue_GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех задач производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> Issue_GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение задач для исполнителя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForExecutorAsync(int? skip, int? limit);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Получение задач для исполнителя
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForExecutorAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Получение задач для исполнителя
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForResponsibleAsync(int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> Issue_GetIssuesForExecutorAsync(int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение задач для исполнителя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForResponsibleAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> Issue_GetIssuesForExecutorAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> Issue_GetIssuesForResponsibleAsync(int? skip, int? limit);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение задач для исполнителя
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> Issue_GetIssuesForResponsibleAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Запуск задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task LaunchAsync(System.Guid id);
+        System.Threading.Tasks.Task Issue_LaunchAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Запуск задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task LaunchAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Issue_LaunchAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Назначение исполнителя задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AssignExecutorAsync(System.Guid issueId, System.Guid? executorId);
+        System.Threading.Tasks.Task Issue_AssignExecutorAsync(System.Guid issueId, System.Guid? executorId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Назначение исполнителя задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AssignExecutorAsync(System.Guid issueId, System.Guid? executorId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Issue_AssignExecutorAsync(System.Guid issueId, System.Guid? executorId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Завершение задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task CloseAsync(System.Guid id);
+        System.Threading.Tasks.Task Issue_CloseAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Завершение задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task CloseAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Issue_CloseAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение задачи по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<IssueModel> GetByIdAsync(System.Guid issueId);
+        System.Threading.Tasks.Task<IssueModel> Issue_GetByIdAsync(System.Guid issueId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение задачи по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<IssueModel> GetByIdAsync(System.Guid issueId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<IssueModel> Issue_GetByIdAsync(System.Guid issueId, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -1231,9 +1231,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех задач производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> Issue_GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId)
         {
-            return GetIssuesFromManufacturingProcessAsync(manufacturingProcessId, System.Threading.CancellationToken.None);
+            return Issue_GetIssuesFromManufacturingProcessAsync(manufacturingProcessId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1241,7 +1241,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех задач производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueFromManufacturingProcessModel>> Issue_GetIssuesFromManufacturingProcessAsync(System.Guid manufacturingProcessId, System.Threading.CancellationToken cancellationToken)
         {
             if (manufacturingProcessId == null)
                 throw new System.ArgumentNullException("manufacturingProcessId");
@@ -1317,9 +1317,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение задач для исполнителя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForExecutorAsync(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> Issue_GetIssuesForExecutorAsync(int? skip, int? limit)
         {
-            return GetIssuesForExecutorAsync(skip, limit, System.Threading.CancellationToken.None);
+            return Issue_GetIssuesForExecutorAsync(skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1327,7 +1327,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение задач для исполнителя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForExecutorAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> Issue_GetIssuesForExecutorAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1409,9 +1409,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение задач для исполнителя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForResponsibleAsync(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> Issue_GetIssuesForResponsibleAsync(int? skip, int? limit)
         {
-            return GetIssuesForResponsibleAsync(skip, limit, System.Threading.CancellationToken.None);
+            return Issue_GetIssuesForResponsibleAsync(skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1419,7 +1419,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение задач для исполнителя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> GetIssuesForResponsibleAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueModel>> Issue_GetIssuesForResponsibleAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1501,9 +1501,9 @@ namespace Forpost.Web.Client.Implementations
         /// Запуск задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task LaunchAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task Issue_LaunchAsync(System.Guid id)
         {
-            return LaunchAsync(id, System.Threading.CancellationToken.None);
+            return Issue_LaunchAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1511,7 +1511,7 @@ namespace Forpost.Web.Client.Implementations
         /// Запуск задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task LaunchAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Issue_LaunchAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1593,9 +1593,9 @@ namespace Forpost.Web.Client.Implementations
         /// Назначение исполнителя задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task AssignExecutorAsync(System.Guid issueId, System.Guid? executorId)
+        public virtual System.Threading.Tasks.Task Issue_AssignExecutorAsync(System.Guid issueId, System.Guid? executorId)
         {
-            return AssignExecutorAsync(issueId, executorId, System.Threading.CancellationToken.None);
+            return Issue_AssignExecutorAsync(issueId, executorId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1603,7 +1603,7 @@ namespace Forpost.Web.Client.Implementations
         /// Назначение исполнителя задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task AssignExecutorAsync(System.Guid issueId, System.Guid? executorId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Issue_AssignExecutorAsync(System.Guid issueId, System.Guid? executorId, System.Threading.CancellationToken cancellationToken)
         {
             if (issueId == null)
                 throw new System.ArgumentNullException("issueId");
@@ -1691,9 +1691,9 @@ namespace Forpost.Web.Client.Implementations
         /// Завершение задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task CloseAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task Issue_CloseAsync(System.Guid id)
         {
-            return CloseAsync(id, System.Threading.CancellationToken.None);
+            return Issue_CloseAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1701,7 +1701,7 @@ namespace Forpost.Web.Client.Implementations
         /// Завершение задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task CloseAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Issue_CloseAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1783,9 +1783,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение задачи по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<IssueModel> GetByIdAsync(System.Guid issueId)
+        public virtual System.Threading.Tasks.Task<IssueModel> Issue_GetByIdAsync(System.Guid issueId)
         {
-            return GetByIdAsync(issueId, System.Threading.CancellationToken.None);
+            return Issue_GetByIdAsync(issueId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1793,7 +1793,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение задачи по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<IssueModel> GetByIdAsync(System.Guid issueId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<IssueModel> Issue_GetByIdAsync(System.Guid issueId, System.Threading.CancellationToken cancellationToken)
         {
             if (issueId == null)
                 throw new System.ArgumentNullException("issueId");
@@ -1981,60 +1981,60 @@ namespace Forpost.Web.Client.Implementations
         /// Планирование производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> ScheduleAsync(ScheduledManufacturingProcessCommand command);
+        System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_ScheduleAsync(ScheduledManufacturingProcessCommand command);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Планирование производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> ScheduleAsync(ScheduledManufacturingProcessCommand command, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_ScheduleAsync(ScheduledManufacturingProcessCommand command, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить все производственные процессы
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> ManufacturingProcess_GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все производственные процессы
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> ManufacturingProcess_GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> GetById2Async(System.Guid id);
+        System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> ManufacturingProcess_GetByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> GetById2Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> ManufacturingProcess_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Запуск производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> Launch2Async(System.Guid id);
+        System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_LaunchAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Запуск производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> Launch2Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_LaunchAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Завершение производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> CompleteAsync(System.Guid id);
+        System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_CompleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Завершение производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> CompleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_CompleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -2070,9 +2070,9 @@ namespace Forpost.Web.Client.Implementations
         /// Планирование производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> ScheduleAsync(ScheduledManufacturingProcessCommand command)
+        public virtual System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_ScheduleAsync(ScheduledManufacturingProcessCommand command)
         {
-            return ScheduleAsync(command, System.Threading.CancellationToken.None);
+            return ManufacturingProcess_ScheduleAsync(command, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2080,7 +2080,7 @@ namespace Forpost.Web.Client.Implementations
         /// Планирование производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> ScheduleAsync(ScheduledManufacturingProcessCommand command, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_ScheduleAsync(ScheduledManufacturingProcessCommand command, System.Threading.CancellationToken cancellationToken)
         {
             if (command == null)
                 throw new System.ArgumentNullException("command");
@@ -2157,9 +2157,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все производственные процессы
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> ManufacturingProcess_GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllAllAsync(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
+            return ManufacturingProcess_GetAllAsync(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2167,7 +2167,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все производственные процессы
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> GetAllAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ManufacturingProcessResponse>> ManufacturingProcess_GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2254,14 +2254,14 @@ namespace Forpost.Web.Client.Implementations
         }
 
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> GetById2Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> ManufacturingProcess_GetByIdAsync(System.Guid id)
         {
-            return GetById2Async(id, System.Threading.CancellationToken.None);
+            return ManufacturingProcess_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> GetById2Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ManufacturingProcessWithDetailsModel> ManufacturingProcess_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2337,9 +2337,9 @@ namespace Forpost.Web.Client.Implementations
         /// Запуск производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> Launch2Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_LaunchAsync(System.Guid id)
         {
-            return Launch2Async(id, System.Threading.CancellationToken.None);
+            return ManufacturingProcess_LaunchAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2347,7 +2347,7 @@ namespace Forpost.Web.Client.Implementations
         /// Запуск производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> Launch2Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_LaunchAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2423,9 +2423,9 @@ namespace Forpost.Web.Client.Implementations
         /// Завершение производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> CompleteAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_CompleteAsync(System.Guid id)
         {
-            return CompleteAsync(id, System.Threading.CancellationToken.None);
+            return ManufacturingProcess_CompleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2433,7 +2433,7 @@ namespace Forpost.Web.Client.Implementations
         /// Завершение производственного процесса
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> CompleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> ManufacturingProcess_CompleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2621,79 +2621,79 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов в разработке
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> ProductDevelopment_GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех продуктов в разработке
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> ProductDevelopment_GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Заполнение состава продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SetCompositionProductAsync(CompositionProductRequest request);
+        System.Threading.Tasks.Task ProductDevelopment_SetCompositionProductAsync(CompositionProductRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Заполнение состава продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SetCompositionProductAsync(CompositionProductRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ProductDevelopment_SetCompositionProductAsync(CompositionProductRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение всех продуктов по ID задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> ProductDevelopment_GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех продуктов по ID задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> ProductDevelopment_GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Завершить задачу, переход на следующий этап или создание готового продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task CompleteIssueAsync(CompleteIssueRequest request);
+        System.Threading.Tasks.Task ProductDevelopment_CompleteIssueAsync(CompleteIssueRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Завершить задачу, переход на следующий этап или создание готового продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task CompleteIssueAsync(CompleteIssueRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ProductDevelopment_CompleteIssueAsync(CompleteIssueRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение состава продукта по ProductDevelopmentId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CompositionProductGroupModel> GetCompositionProductAsync(System.Guid productDevelopmentId);
+        System.Threading.Tasks.Task<CompositionProductGroupModel> ProductDevelopment_GetCompositionProductAsync(System.Guid productDevelopmentId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение состава продукта по ProductDevelopmentId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CompositionProductGroupModel> GetCompositionProductAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<CompositionProductGroupModel> ProductDevelopment_GetCompositionProductAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение состава тех.карты по ProductDevelopmentId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId);
+        System.Threading.Tasks.Task<FileResponse> ProductDevelopment_GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение состава тех.карты по ProductDevelopmentId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> ProductDevelopment_GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -2729,9 +2729,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов в разработке
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> ProductDevelopment_GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
         {
-            return GetAllAll2Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
+            return ProductDevelopment_GetAllAsync(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2739,7 +2739,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов в разработке
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllAll2Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> ProductDevelopment_GetAllAsync(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2829,9 +2829,9 @@ namespace Forpost.Web.Client.Implementations
         /// Заполнение состава продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SetCompositionProductAsync(CompositionProductRequest request)
+        public virtual System.Threading.Tasks.Task ProductDevelopment_SetCompositionProductAsync(CompositionProductRequest request)
         {
-            return SetCompositionProductAsync(request, System.Threading.CancellationToken.None);
+            return ProductDevelopment_SetCompositionProductAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2839,7 +2839,7 @@ namespace Forpost.Web.Client.Implementations
         /// Заполнение состава продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SetCompositionProductAsync(CompositionProductRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ProductDevelopment_SetCompositionProductAsync(CompositionProductRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -2912,9 +2912,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов по ID задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> ProductDevelopment_GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit)
         {
-            return GetAllByIssueIdAsync(issueId, skip, limit, System.Threading.CancellationToken.None);
+            return ProductDevelopment_GetAllByIssueIdAsync(issueId, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2922,7 +2922,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов по ID задачи
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductDevelopmentResponse>> ProductDevelopment_GetAllByIssueIdAsync(System.Guid issueId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             if (issueId == null)
                 throw new System.ArgumentNullException("issueId");
@@ -3008,9 +3008,9 @@ namespace Forpost.Web.Client.Implementations
         /// Завершить задачу, переход на следующий этап или создание готового продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task CompleteIssueAsync(CompleteIssueRequest request)
+        public virtual System.Threading.Tasks.Task ProductDevelopment_CompleteIssueAsync(CompleteIssueRequest request)
         {
-            return CompleteIssueAsync(request, System.Threading.CancellationToken.None);
+            return ProductDevelopment_CompleteIssueAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -3018,7 +3018,7 @@ namespace Forpost.Web.Client.Implementations
         /// Завершить задачу, переход на следующий этап или создание готового продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task CompleteIssueAsync(CompleteIssueRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ProductDevelopment_CompleteIssueAsync(CompleteIssueRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -3091,9 +3091,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава продукта по ProductDevelopmentId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<CompositionProductGroupModel> GetCompositionProductAsync(System.Guid productDevelopmentId)
+        public virtual System.Threading.Tasks.Task<CompositionProductGroupModel> ProductDevelopment_GetCompositionProductAsync(System.Guid productDevelopmentId)
         {
-            return GetCompositionProductAsync(productDevelopmentId, System.Threading.CancellationToken.None);
+            return ProductDevelopment_GetCompositionProductAsync(productDevelopmentId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -3101,7 +3101,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава продукта по ProductDevelopmentId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CompositionProductGroupModel> GetCompositionProductAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<CompositionProductGroupModel> ProductDevelopment_GetCompositionProductAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken)
         {
             if (productDevelopmentId == null)
                 throw new System.ArgumentNullException("productDevelopmentId");
@@ -3178,9 +3178,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава тех.карты по ProductDevelopmentId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId)
+        public virtual System.Threading.Tasks.Task<FileResponse> ProductDevelopment_GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId)
         {
-            return GetTechCardItemsByProductDevelopmentIdAsync(productDevelopmentId, System.Threading.CancellationToken.None);
+            return ProductDevelopment_GetTechCardItemsByProductDevelopmentIdAsync(productDevelopmentId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -3188,7 +3188,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава тех.карты по ProductDevelopmentId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> ProductDevelopment_GetTechCardItemsByProductDevelopmentIdAsync(System.Guid productDevelopmentId, System.Threading.CancellationToken cancellationToken)
         {
             if (productDevelopmentId == null)
                 throw new System.ArgumentNullException("productDevelopmentId");
@@ -3375,53 +3375,53 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все заказы в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfManufacturingOrderModel> GetAllAsync(string? number, int? priority, int? manufacturingOrderStatusValue, int? skip, int? limit);
+        System.Threading.Tasks.Task<EntityPagedResultOfManufacturingOrderModel> ManufacturingOrder_GetAllAsync(string? number, int? priority, int? manufacturingOrderStatusValue, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все заказы в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfManufacturingOrderModel> GetAllAsync(string? number, int? priority, int? manufacturingOrderStatusValue, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfManufacturingOrderModel> ManufacturingOrder_GetAllAsync(string? number, int? priority, int? manufacturingOrderStatusValue, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создать заказ в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create2Async(CreateManufacturingOrderRequest request);
+        System.Threading.Tasks.Task<System.Guid> ManufacturingOrder_CreateAsync(CreateManufacturingOrderRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создать заказ в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create2Async(CreateManufacturingOrderRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> ManufacturingOrder_CreateAsync(CreateManufacturingOrderRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Добавить комментарий к заказу в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangeCommentAsync(System.Guid id, ChangeCommentManufacturingOrderRequest request);
+        System.Threading.Tasks.Task ManufacturingOrder_ChangeCommentAsync(System.Guid id, ChangeCommentManufacturingOrderRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить комментарий к заказу в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangeCommentAsync(System.Guid id, ChangeCommentManufacturingOrderRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ManufacturingOrder_ChangeCommentAsync(System.Guid id, ChangeCommentManufacturingOrderRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить заказ в производство по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ManufacturingOrderModel> GetById3Async(System.Guid id);
+        System.Threading.Tasks.Task<ManufacturingOrderModel> ManufacturingOrder_GetByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить заказ в производство по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ManufacturingOrderModel> GetById3Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ManufacturingOrderModel> ManufacturingOrder_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -3457,9 +3457,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все заказы в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EntityPagedResultOfManufacturingOrderModel> GetAllAsync(string? number, int? priority, int? manufacturingOrderStatusValue, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfManufacturingOrderModel> ManufacturingOrder_GetAllAsync(string? number, int? priority, int? manufacturingOrderStatusValue, int? skip, int? limit)
         {
-            return GetAllAsync(number, priority, manufacturingOrderStatusValue, skip, limit, System.Threading.CancellationToken.None);
+            return ManufacturingOrder_GetAllAsync(number, priority, manufacturingOrderStatusValue, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -3467,7 +3467,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все заказы в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfManufacturingOrderModel> GetAllAsync(string? number, int? priority, int? manufacturingOrderStatusValue, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfManufacturingOrderModel> ManufacturingOrder_GetAllAsync(string? number, int? priority, int? manufacturingOrderStatusValue, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -3571,9 +3571,9 @@ namespace Forpost.Web.Client.Implementations
         /// Создать заказ в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> Create2Async(CreateManufacturingOrderRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> ManufacturingOrder_CreateAsync(CreateManufacturingOrderRequest request)
         {
-            return Create2Async(request, System.Threading.CancellationToken.None);
+            return ManufacturingOrder_CreateAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -3581,7 +3581,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создать заказ в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> Create2Async(CreateManufacturingOrderRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> ManufacturingOrder_CreateAsync(CreateManufacturingOrderRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -3670,9 +3670,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить комментарий к заказу в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ChangeCommentAsync(System.Guid id, ChangeCommentManufacturingOrderRequest request)
+        public virtual System.Threading.Tasks.Task ManufacturingOrder_ChangeCommentAsync(System.Guid id, ChangeCommentManufacturingOrderRequest request)
         {
-            return ChangeCommentAsync(id, request, System.Threading.CancellationToken.None);
+            return ManufacturingOrder_ChangeCommentAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -3680,7 +3680,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить комментарий к заказу в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ChangeCommentAsync(System.Guid id, ChangeCommentManufacturingOrderRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ManufacturingOrder_ChangeCommentAsync(System.Guid id, ChangeCommentManufacturingOrderRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3777,9 +3777,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить заказ в производство по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ManufacturingOrderModel> GetById3Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ManufacturingOrderModel> ManufacturingOrder_GetByIdAsync(System.Guid id)
         {
-            return GetById3Async(id, System.Threading.CancellationToken.None);
+            return ManufacturingOrder_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -3787,7 +3787,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить заказ в производство по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ManufacturingOrderModel> GetById3Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ManufacturingOrderModel> ManufacturingOrder_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3985,53 +3985,53 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить продукт в заказ на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> AddAsync(AddManufacturingOrderCompositionRequest request);
+        System.Threading.Tasks.Task<System.Guid> ManufacturingOrderComposition_AddAsync(AddManufacturingOrderCompositionRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить продукт в заказ на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> AddAsync(AddManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> ManufacturingOrderComposition_AddAsync(AddManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Изменить количество продукта в составе заказа на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangeQuantityAsync(System.Guid id, ChangeQuantityManufacturingOrderCompositionRequest request);
+        System.Threading.Tasks.Task ManufacturingOrderComposition_ChangeQuantityAsync(System.Guid id, ChangeQuantityManufacturingOrderCompositionRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Изменить количество продукта в составе заказа на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangeQuantityAsync(System.Guid id, ChangeQuantityManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ManufacturingOrderComposition_ChangeQuantityAsync(System.Guid id, ChangeQuantityManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удалить продукт из состава заказа на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteAsync(System.Guid id);
+        System.Threading.Tasks.Task ManufacturingOrderComposition_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удалить продукт из состава заказа на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ManufacturingOrderComposition_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить состав заказа в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> GetById4Async(System.Guid id);
+        System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> ManufacturingOrderComposition_GetByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить состав заказа в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> GetById4Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> ManufacturingOrderComposition_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -4067,9 +4067,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить продукт в заказ на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> AddAsync(AddManufacturingOrderCompositionRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> ManufacturingOrderComposition_AddAsync(AddManufacturingOrderCompositionRequest request)
         {
-            return AddAsync(request, System.Threading.CancellationToken.None);
+            return ManufacturingOrderComposition_AddAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4077,7 +4077,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить продукт в заказ на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> AddAsync(AddManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> ManufacturingOrderComposition_AddAsync(AddManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -4166,9 +4166,9 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить количество продукта в составе заказа на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ChangeQuantityAsync(System.Guid id, ChangeQuantityManufacturingOrderCompositionRequest request)
+        public virtual System.Threading.Tasks.Task ManufacturingOrderComposition_ChangeQuantityAsync(System.Guid id, ChangeQuantityManufacturingOrderCompositionRequest request)
         {
-            return ChangeQuantityAsync(id, request, System.Threading.CancellationToken.None);
+            return ManufacturingOrderComposition_ChangeQuantityAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4176,7 +4176,7 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить количество продукта в составе заказа на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ChangeQuantityAsync(System.Guid id, ChangeQuantityManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ManufacturingOrderComposition_ChangeQuantityAsync(System.Guid id, ChangeQuantityManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4273,9 +4273,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить продукт из состава заказа на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task ManufacturingOrderComposition_DeleteAsync(System.Guid id)
         {
-            return DeleteAsync(id, System.Threading.CancellationToken.None);
+            return ManufacturingOrderComposition_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4283,7 +4283,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить продукт из состава заказа на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ManufacturingOrderComposition_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4363,9 +4363,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить состав заказа в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> GetById4Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> ManufacturingOrderComposition_GetByIdAsync(System.Guid id)
         {
-            return GetById4Async(id, System.Threading.CancellationToken.None);
+            return ManufacturingOrderComposition_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4373,7 +4373,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить состав заказа в производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> GetById4Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> ManufacturingOrderComposition_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4571,27 +4571,27 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все уведомления для пользователей
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotificationForUsersModel>> GetAllAll3Async(int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotificationForUsersModel>> NotificationForUsers_GetAllAsync(int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все уведомления для пользователей
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotificationForUsersModel>> GetAllAll3Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotificationForUsersModel>> NotificationForUsers_GetAllAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Добавить уведомление для пользователей
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task PublishAsync(NotificationForUsersRequest request);
+        System.Threading.Tasks.Task NotificationForUsers_PublishAsync(NotificationForUsersRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить уведомление для пользователей
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task PublishAsync(NotificationForUsersRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task NotificationForUsers_PublishAsync(NotificationForUsersRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -4627,9 +4627,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все уведомления для пользователей
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotificationForUsersModel>> GetAllAll3Async(int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotificationForUsersModel>> NotificationForUsers_GetAllAsync(int? skip, int? limit)
         {
-            return GetAllAll3Async(skip, limit, System.Threading.CancellationToken.None);
+            return NotificationForUsers_GetAllAsync(skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4637,7 +4637,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все уведомления для пользователей
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotificationForUsersModel>> GetAllAll3Async(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotificationForUsersModel>> NotificationForUsers_GetAllAsync(int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -4719,9 +4719,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить уведомление для пользователей
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task PublishAsync(NotificationForUsersRequest request)
+        public virtual System.Threading.Tasks.Task NotificationForUsers_PublishAsync(NotificationForUsersRequest request)
         {
-            return PublishAsync(request, System.Threading.CancellationToken.None);
+            return NotificationForUsers_PublishAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4729,7 +4729,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить уведомление для пользователей
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task PublishAsync(NotificationForUsersRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task NotificationForUsers_PublishAsync(NotificationForUsersRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -4914,14 +4914,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все типы уведомлений в приложении.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationNotification>> GetAllApplicationNotificationsAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationNotification>> ApplicationNotification_GetAllApplicationNotificationsAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все типы уведомлений в приложении.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationNotification>> GetAllApplicationNotificationsAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationNotification>> ApplicationNotification_GetAllApplicationNotificationsAsync(System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -4957,9 +4957,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все типы уведомлений в приложении.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationNotification>> GetAllApplicationNotificationsAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationNotification>> ApplicationNotification_GetAllApplicationNotificationsAsync()
         {
-            return GetAllApplicationNotificationsAsync(System.Threading.CancellationToken.None);
+            return ApplicationNotification_GetAllApplicationNotificationsAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4967,7 +4967,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все типы уведомлений в приложении.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationNotification>> GetAllApplicationNotificationsAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationNotification>> ApplicationNotification_GetAllApplicationNotificationsAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -5151,40 +5151,40 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все подписки пользователя на уведомления.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationUserNotification>> GetApplicationNotificationsByUserIdAsync(System.Guid userId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationUserNotification>> ApplicationUserNotification_GetApplicationNotificationsByUserIdAsync(System.Guid userId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все подписки пользователя на уведомления.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationUserNotification>> GetApplicationNotificationsByUserIdAsync(System.Guid userId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationUserNotification>> ApplicationUserNotification_GetApplicationNotificationsByUserIdAsync(System.Guid userId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Подписать пользователя на уведомление.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> SubscribeUserToNotificationAsync(SubscribeUserToNotificationRequest request);
+        System.Threading.Tasks.Task<System.Guid> ApplicationUserNotification_SubscribeUserToNotificationAsync(SubscribeUserToNotificationRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Подписать пользователя на уведомление.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> SubscribeUserToNotificationAsync(SubscribeUserToNotificationRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> ApplicationUserNotification_SubscribeUserToNotificationAsync(SubscribeUserToNotificationRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Отписать пользователя от уведомления.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UnsubscribeUserFromNotificationAsync(System.Guid id);
+        System.Threading.Tasks.Task ApplicationUserNotification_UnsubscribeUserFromNotificationAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Отписать пользователя от уведомления.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UnsubscribeUserFromNotificationAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ApplicationUserNotification_UnsubscribeUserFromNotificationAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -5220,9 +5220,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все подписки пользователя на уведомления.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationUserNotification>> GetApplicationNotificationsByUserIdAsync(System.Guid userId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationUserNotification>> ApplicationUserNotification_GetApplicationNotificationsByUserIdAsync(System.Guid userId)
         {
-            return GetApplicationNotificationsByUserIdAsync(userId, System.Threading.CancellationToken.None);
+            return ApplicationUserNotification_GetApplicationNotificationsByUserIdAsync(userId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5230,7 +5230,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все подписки пользователя на уведомления.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationUserNotification>> GetApplicationNotificationsByUserIdAsync(System.Guid userId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ApplicationUserNotification>> ApplicationUserNotification_GetApplicationNotificationsByUserIdAsync(System.Guid userId, System.Threading.CancellationToken cancellationToken)
         {
             if (userId == null)
                 throw new System.ArgumentNullException("userId");
@@ -5316,9 +5316,9 @@ namespace Forpost.Web.Client.Implementations
         /// Подписать пользователя на уведомление.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> SubscribeUserToNotificationAsync(SubscribeUserToNotificationRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> ApplicationUserNotification_SubscribeUserToNotificationAsync(SubscribeUserToNotificationRequest request)
         {
-            return SubscribeUserToNotificationAsync(request, System.Threading.CancellationToken.None);
+            return ApplicationUserNotification_SubscribeUserToNotificationAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5326,7 +5326,7 @@ namespace Forpost.Web.Client.Implementations
         /// Подписать пользователя на уведомление.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> SubscribeUserToNotificationAsync(SubscribeUserToNotificationRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> ApplicationUserNotification_SubscribeUserToNotificationAsync(SubscribeUserToNotificationRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -5415,9 +5415,9 @@ namespace Forpost.Web.Client.Implementations
         /// Отписать пользователя от уведомления.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UnsubscribeUserFromNotificationAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task ApplicationUserNotification_UnsubscribeUserFromNotificationAsync(System.Guid id)
         {
-            return UnsubscribeUserFromNotificationAsync(id, System.Threading.CancellationToken.None);
+            return ApplicationUserNotification_UnsubscribeUserFromNotificationAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5425,7 +5425,7 @@ namespace Forpost.Web.Client.Implementations
         /// Отписать пользователя от уведомления.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UnsubscribeUserFromNotificationAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ApplicationUserNotification_UnsubscribeUserFromNotificationAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5607,53 +5607,53 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление файла
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UploadFileAsync(System.Guid? parentId, FileParameter file);
+        System.Threading.Tasks.Task File_UploadFileAsync(System.Guid? parentId, FileParameter file);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление файла
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UploadFileAsync(System.Guid? parentId, FileParameter file, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task File_UploadFileAsync(System.Guid? parentId, FileParameter file, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Скачивание файла с сервера
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<DownloadFileResponse> DownloadFileAsync(System.Guid id);
+        System.Threading.Tasks.Task<DownloadFileResponse> File_DownloadFileAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Скачивание файла с сервера
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<DownloadFileResponse> DownloadFileAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<DownloadFileResponse> File_DownloadFileAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление файла из БД
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteFileAsync(System.Guid id);
+        System.Threading.Tasks.Task File_DeleteFileAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление файла из БД
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteFileAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task File_DeleteFileAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение списка файлов по родительскому идентификатору
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FilesResponse>> GetAllFilesAsync(System.Guid parentId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FilesResponse>> File_GetAllFilesAsync(System.Guid parentId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение списка файлов по родительскому идентификатору
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FilesResponse>> GetAllFilesAsync(System.Guid parentId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FilesResponse>> File_GetAllFilesAsync(System.Guid parentId, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -5689,9 +5689,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление файла
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UploadFileAsync(System.Guid? parentId, FileParameter file)
+        public virtual System.Threading.Tasks.Task File_UploadFileAsync(System.Guid? parentId, FileParameter file)
         {
-            return UploadFileAsync(parentId, file, System.Threading.CancellationToken.None);
+            return File_UploadFileAsync(parentId, file, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5699,7 +5699,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление файла
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UploadFileAsync(System.Guid? parentId, FileParameter file, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task File_UploadFileAsync(System.Guid? parentId, FileParameter file, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -5794,9 +5794,9 @@ namespace Forpost.Web.Client.Implementations
         /// Скачивание файла с сервера
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<DownloadFileResponse> DownloadFileAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task<DownloadFileResponse> File_DownloadFileAsync(System.Guid id)
         {
-            return DownloadFileAsync(id, System.Threading.CancellationToken.None);
+            return File_DownloadFileAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5804,7 +5804,7 @@ namespace Forpost.Web.Client.Implementations
         /// Скачивание файла с сервера
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<DownloadFileResponse> DownloadFileAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<DownloadFileResponse> File_DownloadFileAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5890,9 +5890,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление файла из БД
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteFileAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task File_DeleteFileAsync(System.Guid id)
         {
-            return DeleteFileAsync(id, System.Threading.CancellationToken.None);
+            return File_DeleteFileAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5900,7 +5900,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление файла из БД
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteFileAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task File_DeleteFileAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5980,9 +5980,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение списка файлов по родительскому идентификатору
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FilesResponse>> GetAllFilesAsync(System.Guid parentId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FilesResponse>> File_GetAllFilesAsync(System.Guid parentId)
         {
-            return GetAllFilesAsync(parentId, System.Threading.CancellationToken.None);
+            return File_GetAllFilesAsync(parentId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5990,7 +5990,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение списка файлов по родительскому идентификатору
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FilesResponse>> GetAllFilesAsync(System.Guid parentId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<FilesResponse>> File_GetAllFilesAsync(System.Guid parentId, System.Threading.CancellationToken cancellationToken)
         {
             if (parentId == null)
                 throw new System.ArgumentNullException("parentId");
@@ -6188,27 +6188,27 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление позиции в прайс-лист
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> Add2Async(PriceListRequest request);
+        System.Threading.Tasks.Task<FileResponse> PriceList_AddAsync(PriceListRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление позиции в прайс-лист
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> Add2Async(PriceListRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> PriceList_AddAsync(PriceListRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение всех позиций прайс-листа
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> GetAll2Async(int? skip, int? limit, string? productName);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> PriceList_GetAllAsync(int? skip, int? limit, string? productName);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех позиций прайс-листа
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> GetAll2Async(int? skip, int? limit, string? productName, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> PriceList_GetAllAsync(int? skip, int? limit, string? productName, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -6244,9 +6244,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление позиции в прайс-лист
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> Add2Async(PriceListRequest request)
+        public virtual System.Threading.Tasks.Task<FileResponse> PriceList_AddAsync(PriceListRequest request)
         {
-            return Add2Async(request, System.Threading.CancellationToken.None);
+            return PriceList_AddAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6254,7 +6254,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление позиции в прайс-лист
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> Add2Async(PriceListRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> PriceList_AddAsync(PriceListRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -6331,9 +6331,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех позиций прайс-листа
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> GetAll2Async(int? skip, int? limit, string? productName)
+        public virtual System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> PriceList_GetAllAsync(int? skip, int? limit, string? productName)
         {
-            return GetAll2Async(skip, limit, productName, System.Threading.CancellationToken.None);
+            return PriceList_GetAllAsync(skip, limit, productName, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6341,7 +6341,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех позиций прайс-листа
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> GetAll2Async(int? skip, int? limit, string? productName, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ValueTupleOfIReadOnlyCollectionOfPriceListModelAndInteger> PriceList_GetAllAsync(int? skip, int? limit, string? productName, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -6539,14 +6539,14 @@ namespace Forpost.Web.Client.Implementations
         /// Получение истории задач
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> GetAllAll4Async(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> IssueHistory_GetAllAsync(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение истории задач
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> GetAllAll4Async(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> IssueHistory_GetAllAsync(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -6582,9 +6582,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение истории задач
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> GetAllAll4Async(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> IssueHistory_GetAllAsync(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit)
         {
-            return GetAllAll4Async(executorId, responsibleId, month, year, skip, limit, System.Threading.CancellationToken.None);
+            return IssueHistory_GetAllAsync(executorId, responsibleId, month, year, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6592,7 +6592,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение истории задач
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> GetAllAll4Async(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<IssueHistoryModel>> IssueHistory_GetAllAsync(System.Guid? executorId, System.Guid? responsibleId, int? month, int? year, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -6802,157 +6802,157 @@ namespace Forpost.Web.Client.Implementations
         /// Получить счет по его номеру
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Invoice> GetByNumberAsync(string number);
+        System.Threading.Tasks.Task<Invoice> Invoice_GetByNumberAsync(string number);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить счет по его номеру
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Invoice> GetByNumberAsync(string number, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Invoice> Invoice_GetByNumberAsync(string number, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить счет по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<InvoiceModel> GetById5Async(System.Guid id);
+        System.Threading.Tasks.Task<InvoiceModel> Invoice_GetByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить счет по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<InvoiceModel> GetById5Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<InvoiceModel> Invoice_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удалить счет по его id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete2Async(System.Guid id);
+        System.Threading.Tasks.Task Invoice_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удалить счет по его id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete2Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Invoice_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить все счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfInvoiceModel> GetAll3Async(string? number, System.Guid? contractorId, System.DateTimeOffset? dateShipment, System.DateTimeOffset? dateClosing, int? priority, int? paymentStatus, int? invoiceStatus, int? skip, int? limit);
+        System.Threading.Tasks.Task<EntityPagedResultOfInvoiceModel> Invoice_GetAllAsync(string? number, System.Guid? contractorId, System.DateTimeOffset? dateShipment, System.DateTimeOffset? dateClosing, int? priority, int? paymentStatus, int? invoiceStatus, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfInvoiceModel> GetAll3Async(string? number, System.Guid? contractorId, System.DateTimeOffset? dateShipment, System.DateTimeOffset? dateClosing, int? priority, int? paymentStatus, int? invoiceStatus, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfInvoiceModel> Invoice_GetAllAsync(string? number, System.Guid? contractorId, System.DateTimeOffset? dateShipment, System.DateTimeOffset? dateClosing, int? priority, int? paymentStatus, int? invoiceStatus, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создать счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create3Async(InvoiceCreateRequest request);
+        System.Threading.Tasks.Task<System.Guid> Invoice_CreateAsync(InvoiceCreateRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создать счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create3Async(InvoiceCreateRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> Invoice_CreateAsync(InvoiceCreateRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Изменить статус оплаты счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangePaymentStatusAsync(System.Guid id, PaymentStatusRequest request);
+        System.Threading.Tasks.Task Invoice_ChangePaymentStatusAsync(System.Guid id, PaymentStatusRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Изменить статус оплаты счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangePaymentStatusAsync(System.Guid id, PaymentStatusRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Invoice_ChangePaymentStatusAsync(System.Guid id, PaymentStatusRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Изменить приоритет счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangePriorityAsync(System.Guid id, PriorityRequest request);
+        System.Threading.Tasks.Task Invoice_ChangePriorityAsync(System.Guid id, PriorityRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Изменить приоритет счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangePriorityAsync(System.Guid id, PriorityRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Invoice_ChangePriorityAsync(System.Guid id, PriorityRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Отгрузить счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ShipInvoiceAsync(System.Guid id, DateShipmentRequest request);
+        System.Threading.Tasks.Task Invoice_ShipInvoiceAsync(System.Guid id, DateShipmentRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Отгрузить счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ShipInvoiceAsync(System.Guid id, DateShipmentRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Invoice_ShipInvoiceAsync(System.Guid id, DateShipmentRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Изменить процент оплаты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SetPaymentPercentageAsync(System.Guid id, PaymentPercentageRequest request);
+        System.Threading.Tasks.Task Invoice_SetPaymentPercentageAsync(System.Guid id, PaymentPercentageRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Изменить процент оплаты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SetPaymentPercentageAsync(System.Guid id, PaymentPercentageRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Invoice_SetPaymentPercentageAsync(System.Guid id, PaymentPercentageRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить изменения в счете по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfChangeHistoryModel> GetChangeLogsByIdAsync(System.Guid id, int? skip, int? limit);
+        System.Threading.Tasks.Task<EntityPagedResultOfChangeHistoryModel> Invoice_GetChangeLogsByIdAsync(System.Guid id, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить изменения в счете по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfChangeHistoryModel> GetChangeLogsByIdAsync(System.Guid id, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfChangeHistoryModel> Invoice_GetChangeLogsByIdAsync(System.Guid id, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Изменить описание счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangeDescriptionInvoiceAsync(System.Guid id, ChangeDescriptionRequest request);
+        System.Threading.Tasks.Task Invoice_ChangeDescriptionInvoiceAsync(System.Guid id, ChangeDescriptionRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Изменить описание счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangeDescriptionInvoiceAsync(System.Guid id, ChangeDescriptionRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Invoice_ChangeDescriptionInvoiceAsync(System.Guid id, ChangeDescriptionRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Установить дату закрытия счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SetClosingDateAsync(System.Guid id, SetClosingDateRequest request);
+        System.Threading.Tasks.Task Invoice_SetClosingDateAsync(System.Guid id, SetClosingDateRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Установить дату закрытия счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SetClosingDateAsync(System.Guid id, SetClosingDateRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Invoice_SetClosingDateAsync(System.Guid id, SetClosingDateRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -6988,9 +6988,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить счет по его номеру
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Invoice> GetByNumberAsync(string number)
+        public virtual System.Threading.Tasks.Task<Invoice> Invoice_GetByNumberAsync(string number)
         {
-            return GetByNumberAsync(number, System.Threading.CancellationToken.None);
+            return Invoice_GetByNumberAsync(number, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -6998,7 +6998,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить счет по его номеру
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Invoice> GetByNumberAsync(string number, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Invoice> Invoice_GetByNumberAsync(string number, System.Threading.CancellationToken cancellationToken)
         {
             if (number == null)
                 throw new System.ArgumentNullException("number");
@@ -7074,9 +7074,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить счет по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<InvoiceModel> GetById5Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<InvoiceModel> Invoice_GetByIdAsync(System.Guid id)
         {
-            return GetById5Async(id, System.Threading.CancellationToken.None);
+            return Invoice_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7084,7 +7084,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить счет по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<InvoiceModel> GetById5Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<InvoiceModel> Invoice_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7160,9 +7160,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить счет по его id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete2Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task Invoice_DeleteAsync(System.Guid id)
         {
-            return Delete2Async(id, System.Threading.CancellationToken.None);
+            return Invoice_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7170,7 +7170,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить счет по его id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete2Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Invoice_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7240,9 +7240,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EntityPagedResultOfInvoiceModel> GetAll3Async(string? number, System.Guid? contractorId, System.DateTimeOffset? dateShipment, System.DateTimeOffset? dateClosing, int? priority, int? paymentStatus, int? invoiceStatus, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfInvoiceModel> Invoice_GetAllAsync(string? number, System.Guid? contractorId, System.DateTimeOffset? dateShipment, System.DateTimeOffset? dateClosing, int? priority, int? paymentStatus, int? invoiceStatus, int? skip, int? limit)
         {
-            return GetAll3Async(number, contractorId, dateShipment, dateClosing, priority, paymentStatus, invoiceStatus, skip, limit, System.Threading.CancellationToken.None);
+            return Invoice_GetAllAsync(number, contractorId, dateShipment, dateClosing, priority, paymentStatus, invoiceStatus, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7250,7 +7250,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfInvoiceModel> GetAll3Async(string? number, System.Guid? contractorId, System.DateTimeOffset? dateShipment, System.DateTimeOffset? dateClosing, int? priority, int? paymentStatus, int? invoiceStatus, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfInvoiceModel> Invoice_GetAllAsync(string? number, System.Guid? contractorId, System.DateTimeOffset? dateShipment, System.DateTimeOffset? dateClosing, int? priority, int? paymentStatus, int? invoiceStatus, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -7360,9 +7360,9 @@ namespace Forpost.Web.Client.Implementations
         /// Создать счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> Create3Async(InvoiceCreateRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> Invoice_CreateAsync(InvoiceCreateRequest request)
         {
-            return Create3Async(request, System.Threading.CancellationToken.None);
+            return Invoice_CreateAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7370,7 +7370,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создать счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> Create3Async(InvoiceCreateRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> Invoice_CreateAsync(InvoiceCreateRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -7459,9 +7459,9 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить статус оплаты счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ChangePaymentStatusAsync(System.Guid id, PaymentStatusRequest request)
+        public virtual System.Threading.Tasks.Task Invoice_ChangePaymentStatusAsync(System.Guid id, PaymentStatusRequest request)
         {
-            return ChangePaymentStatusAsync(id, request, System.Threading.CancellationToken.None);
+            return Invoice_ChangePaymentStatusAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7469,7 +7469,7 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить статус оплаты счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ChangePaymentStatusAsync(System.Guid id, PaymentStatusRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Invoice_ChangePaymentStatusAsync(System.Guid id, PaymentStatusRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7547,9 +7547,9 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить приоритет счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ChangePriorityAsync(System.Guid id, PriorityRequest request)
+        public virtual System.Threading.Tasks.Task Invoice_ChangePriorityAsync(System.Guid id, PriorityRequest request)
         {
-            return ChangePriorityAsync(id, request, System.Threading.CancellationToken.None);
+            return Invoice_ChangePriorityAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7557,7 +7557,7 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить приоритет счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ChangePriorityAsync(System.Guid id, PriorityRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Invoice_ChangePriorityAsync(System.Guid id, PriorityRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7635,9 +7635,9 @@ namespace Forpost.Web.Client.Implementations
         /// Отгрузить счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ShipInvoiceAsync(System.Guid id, DateShipmentRequest request)
+        public virtual System.Threading.Tasks.Task Invoice_ShipInvoiceAsync(System.Guid id, DateShipmentRequest request)
         {
-            return ShipInvoiceAsync(id, request, System.Threading.CancellationToken.None);
+            return Invoice_ShipInvoiceAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7645,7 +7645,7 @@ namespace Forpost.Web.Client.Implementations
         /// Отгрузить счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ShipInvoiceAsync(System.Guid id, DateShipmentRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Invoice_ShipInvoiceAsync(System.Guid id, DateShipmentRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7723,9 +7723,9 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить процент оплаты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SetPaymentPercentageAsync(System.Guid id, PaymentPercentageRequest request)
+        public virtual System.Threading.Tasks.Task Invoice_SetPaymentPercentageAsync(System.Guid id, PaymentPercentageRequest request)
         {
-            return SetPaymentPercentageAsync(id, request, System.Threading.CancellationToken.None);
+            return Invoice_SetPaymentPercentageAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7733,7 +7733,7 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить процент оплаты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SetPaymentPercentageAsync(System.Guid id, PaymentPercentageRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Invoice_SetPaymentPercentageAsync(System.Guid id, PaymentPercentageRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7811,9 +7811,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить изменения в счете по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EntityPagedResultOfChangeHistoryModel> GetChangeLogsByIdAsync(System.Guid id, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfChangeHistoryModel> Invoice_GetChangeLogsByIdAsync(System.Guid id, int? skip, int? limit)
         {
-            return GetChangeLogsByIdAsync(id, skip, limit, System.Threading.CancellationToken.None);
+            return Invoice_GetChangeLogsByIdAsync(id, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7821,7 +7821,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить изменения в счете по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfChangeHistoryModel> GetChangeLogsByIdAsync(System.Guid id, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfChangeHistoryModel> Invoice_GetChangeLogsByIdAsync(System.Guid id, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7908,9 +7908,9 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить описание счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ChangeDescriptionInvoiceAsync(System.Guid id, ChangeDescriptionRequest request)
+        public virtual System.Threading.Tasks.Task Invoice_ChangeDescriptionInvoiceAsync(System.Guid id, ChangeDescriptionRequest request)
         {
-            return ChangeDescriptionInvoiceAsync(id, request, System.Threading.CancellationToken.None);
+            return Invoice_ChangeDescriptionInvoiceAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -7918,7 +7918,7 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить описание счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ChangeDescriptionInvoiceAsync(System.Guid id, ChangeDescriptionRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Invoice_ChangeDescriptionInvoiceAsync(System.Guid id, ChangeDescriptionRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -7996,9 +7996,9 @@ namespace Forpost.Web.Client.Implementations
         /// Установить дату закрытия счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SetClosingDateAsync(System.Guid id, SetClosingDateRequest request)
+        public virtual System.Threading.Tasks.Task Invoice_SetClosingDateAsync(System.Guid id, SetClosingDateRequest request)
         {
-            return SetClosingDateAsync(id, request, System.Threading.CancellationToken.None);
+            return Invoice_SetClosingDateAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -8006,7 +8006,7 @@ namespace Forpost.Web.Client.Implementations
         /// Установить дату закрытия счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SetClosingDateAsync(System.Guid id, SetClosingDateRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Invoice_SetClosingDateAsync(System.Guid id, SetClosingDateRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -8196,79 +8196,79 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление продуктов в счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create4Async(InvoiceProductRequest request);
+        System.Threading.Tasks.Task InvoiceProduct_CreateAsync(InvoiceProductRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление продуктов в счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create4Async(InvoiceProductRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task InvoiceProduct_CreateAsync(InvoiceProductRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение продуктов по id счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceWithProductsModel>> GetCompositionInvoiceAsync(System.Guid id);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceWithProductsModel>> InvoiceProduct_GetCompositionInvoiceAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение продуктов по id счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceWithProductsModel>> GetCompositionInvoiceAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceWithProductsModel>> InvoiceProduct_GetCompositionInvoiceAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удалить продукт из счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteByIdAsync(System.Guid id);
+        System.Threading.Tasks.Task InvoiceProduct_DeleteByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удалить продукт из счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task InvoiceProduct_DeleteByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Заполнение состава счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SetCompositionInvoiceAsync(CompositionInvoiceRequest request);
+        System.Threading.Tasks.Task InvoiceProduct_SetCompositionInvoiceAsync(CompositionInvoiceRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Заполнение состава счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SetCompositionInvoiceAsync(CompositionInvoiceRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task InvoiceProduct_SetCompositionInvoiceAsync(CompositionInvoiceRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение состава счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompositionInvoiceModel>> GetCompositionInvoice2Async(System.Guid invoiceId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompositionInvoiceModel>> InvoiceProduct_GetCompositionInvoice2Async(System.Guid invoiceId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение состава счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompositionInvoiceModel>> GetCompositionInvoice2Async(System.Guid invoiceId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompositionInvoiceModel>> InvoiceProduct_GetCompositionInvoice2Async(System.Guid invoiceId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Изменить количество продукта в счете
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangeQuantityProductAsync(System.Guid id, ChangeQuantityRequest request);
+        System.Threading.Tasks.Task InvoiceProduct_ChangeQuantityProductAsync(System.Guid id, ChangeQuantityRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Изменить количество продукта в счете
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ChangeQuantityProductAsync(System.Guid id, ChangeQuantityRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task InvoiceProduct_ChangeQuantityProductAsync(System.Guid id, ChangeQuantityRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -8304,9 +8304,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление продуктов в счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Create4Async(InvoiceProductRequest request)
+        public virtual System.Threading.Tasks.Task InvoiceProduct_CreateAsync(InvoiceProductRequest request)
         {
-            return Create4Async(request, System.Threading.CancellationToken.None);
+            return InvoiceProduct_CreateAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -8314,7 +8314,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление продуктов в счет
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Create4Async(InvoiceProductRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task InvoiceProduct_CreateAsync(InvoiceProductRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -8387,9 +8387,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение продуктов по id счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceWithProductsModel>> GetCompositionInvoiceAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceWithProductsModel>> InvoiceProduct_GetCompositionInvoiceAsync(System.Guid id)
         {
-            return GetCompositionInvoiceAsync(id, System.Threading.CancellationToken.None);
+            return InvoiceProduct_GetCompositionInvoiceAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -8397,7 +8397,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение продуктов по id счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceWithProductsModel>> GetCompositionInvoiceAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<InvoiceWithProductsModel>> InvoiceProduct_GetCompositionInvoiceAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -8473,9 +8473,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить продукт из счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteByIdAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task InvoiceProduct_DeleteByIdAsync(System.Guid id)
         {
-            return DeleteByIdAsync(id, System.Threading.CancellationToken.None);
+            return InvoiceProduct_DeleteByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -8483,7 +8483,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить продукт из счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task InvoiceProduct_DeleteByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -8553,9 +8553,9 @@ namespace Forpost.Web.Client.Implementations
         /// Заполнение состава счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SetCompositionInvoiceAsync(CompositionInvoiceRequest request)
+        public virtual System.Threading.Tasks.Task InvoiceProduct_SetCompositionInvoiceAsync(CompositionInvoiceRequest request)
         {
-            return SetCompositionInvoiceAsync(request, System.Threading.CancellationToken.None);
+            return InvoiceProduct_SetCompositionInvoiceAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -8563,7 +8563,7 @@ namespace Forpost.Web.Client.Implementations
         /// Заполнение состава счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SetCompositionInvoiceAsync(CompositionInvoiceRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task InvoiceProduct_SetCompositionInvoiceAsync(CompositionInvoiceRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -8636,9 +8636,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompositionInvoiceModel>> GetCompositionInvoice2Async(System.Guid invoiceId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompositionInvoiceModel>> InvoiceProduct_GetCompositionInvoice2Async(System.Guid invoiceId)
         {
-            return GetCompositionInvoice2Async(invoiceId, System.Threading.CancellationToken.None);
+            return InvoiceProduct_GetCompositionInvoice2Async(invoiceId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -8646,7 +8646,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава счета
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompositionInvoiceModel>> GetCompositionInvoice2Async(System.Guid invoiceId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CompositionInvoiceModel>> InvoiceProduct_GetCompositionInvoice2Async(System.Guid invoiceId, System.Threading.CancellationToken cancellationToken)
         {
             if (invoiceId == null)
                 throw new System.ArgumentNullException("invoiceId");
@@ -8723,9 +8723,9 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить количество продукта в счете
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ChangeQuantityProductAsync(System.Guid id, ChangeQuantityRequest request)
+        public virtual System.Threading.Tasks.Task InvoiceProduct_ChangeQuantityProductAsync(System.Guid id, ChangeQuantityRequest request)
         {
-            return ChangeQuantityProductAsync(id, request, System.Threading.CancellationToken.None);
+            return InvoiceProduct_ChangeQuantityProductAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -8733,7 +8733,7 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить количество продукта в счете
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ChangeQuantityProductAsync(System.Guid id, ChangeQuantityRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task InvoiceProduct_ChangeQuantityProductAsync(System.Guid id, ChangeQuantityRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -8923,79 +8923,79 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CompositionTechCardResponse> GetCompositionTechCardAsync(System.Guid techCardId);
+        System.Threading.Tasks.Task<CompositionTechCardModel> TechCard_GetCompositionTechCardAsync(System.Guid techCardId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение состава тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CompositionTechCardResponse> GetCompositionTechCardAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<CompositionTechCardModel> TechCard_GetCompositionTechCardAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TechCard> GetById6Async(System.Guid id);
+        System.Threading.Tasks.Task<TechCard> TechCard_GetByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TechCard> GetById6Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<TechCard> TechCard_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление информации о тех.карте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateAsync(System.Guid id, TechCardCreateRequest card);
+        System.Threading.Tasks.Task TechCard_UpdateAsync(System.Guid id, TechCardCreateRequest card);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление информации о тех.карте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateAsync(System.Guid id, TechCardCreateRequest card, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TechCard_UpdateAsync(System.Guid id, TechCardCreateRequest card, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete3Async(System.Guid id);
+        System.Threading.Tasks.Task TechCard_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete3Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TechCard_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll5Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues);
+        System.Threading.Tasks.Task<EntityPagedResultOfTechCardModel> TechCard_GetAllAsync(string? number, System.Guid? productId, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех тех.карт
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll5Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfTechCardModel> TechCard_GetAllAsync(string? number, System.Guid? productId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создание тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create5Async(TechCardCreateRequest card);
+        System.Threading.Tasks.Task TechCard_CreateAsync(TechCardCreateRequest card);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создание тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create5Async(TechCardCreateRequest card, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TechCard_CreateAsync(TechCardCreateRequest card, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -9031,9 +9031,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<CompositionTechCardResponse> GetCompositionTechCardAsync(System.Guid techCardId)
+        public virtual System.Threading.Tasks.Task<CompositionTechCardModel> TechCard_GetCompositionTechCardAsync(System.Guid techCardId)
         {
-            return GetCompositionTechCardAsync(techCardId, System.Threading.CancellationToken.None);
+            return TechCard_GetCompositionTechCardAsync(techCardId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9041,7 +9041,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CompositionTechCardResponse> GetCompositionTechCardAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<CompositionTechCardModel> TechCard_GetCompositionTechCardAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken)
         {
             if (techCardId == null)
                 throw new System.ArgumentNullException("techCardId");
@@ -9057,8 +9057,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/techcard/composition/{techCardId}"
-                    urlBuilder_.Append("api/v1/techcard/composition/");
+                    // Operation Path: "api/v1/techcards/composition/{techCardId}"
+                    urlBuilder_.Append("api/v1/techcards/composition/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(techCardId, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -9086,12 +9086,22 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<CompositionTechCardResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<CompositionTechCardModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -9117,9 +9127,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<TechCard> GetById6Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<TechCard> TechCard_GetByIdAsync(System.Guid id)
         {
-            return GetById6Async(id, System.Threading.CancellationToken.None);
+            return TechCard_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9127,7 +9137,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение тех.карты по Id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TechCard> GetById6Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<TechCard> TechCard_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -9143,8 +9153,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/techcard/{id}"
-                    urlBuilder_.Append("api/v1/techcard/");
+                    // Operation Path: "api/v1/techcards/{id}"
+                    urlBuilder_.Append("api/v1/techcards/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -9180,6 +9190,16 @@ namespace Forpost.Web.Client.Implementations
                             return objectResponse_.Object;
                         }
                         else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
@@ -9203,9 +9223,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление информации о тех.карте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateAsync(System.Guid id, TechCardCreateRequest card)
+        public virtual System.Threading.Tasks.Task TechCard_UpdateAsync(System.Guid id, TechCardCreateRequest card)
         {
-            return UpdateAsync(id, card, System.Threading.CancellationToken.None);
+            return TechCard_UpdateAsync(id, card, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9213,7 +9233,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление информации о тех.карте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateAsync(System.Guid id, TechCardCreateRequest card, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TechCard_UpdateAsync(System.Guid id, TechCardCreateRequest card, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -9235,8 +9255,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/techcard/{id}"
-                    urlBuilder_.Append("api/v1/techcard/");
+                    // Operation Path: "api/v1/techcards/{id}"
+                    urlBuilder_.Append("api/v1/techcards/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -9300,9 +9320,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete3Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task TechCard_DeleteAsync(System.Guid id)
         {
-            return Delete3Async(id, System.Threading.CancellationToken.None);
+            return TechCard_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9310,7 +9330,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete3Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TechCard_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -9325,8 +9345,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/techcard/{id}"
-                    urlBuilder_.Append("api/v1/techcard/");
+                    // Operation Path: "api/v1/techcards/{id}"
+                    urlBuilder_.Append("api/v1/techcards/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -9390,9 +9410,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех тех.карт
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll5Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfTechCardModel> TechCard_GetAllAsync(string? number, System.Guid? productId, int? skip, int? limit)
         {
-            return GetAllAll5Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
+            return TechCard_GetAllAsync(number, productId, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9400,7 +9420,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех тех.карт
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardResponse>> GetAllAll5Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<string?>? filterValues, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfTechCardModel> TechCard_GetAllAsync(string? number, System.Guid? productId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -9413,24 +9433,24 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/techcard"
-                    urlBuilder_.Append("api/v1/techcard");
+                    // Operation Path: "api/v1/techcards"
+                    urlBuilder_.Append("api/v1/techcards");
                     urlBuilder_.Append('?');
+                    if (number != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Number")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(number, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (productId != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("ProductId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(productId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
                     if (skip != null)
                     {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
                     }
                     if (limit != null)
                     {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (filterExpression != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (filterValues != null)
-                    {
-                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
                     }
                     urlBuilder_.Length--;
 
@@ -9459,7 +9479,7 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<TechCardResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<EntityPagedResultOfTechCardModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -9471,16 +9491,6 @@ namespace Forpost.Web.Client.Implementations
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
-                        }
-                        else
-                        if (status_ == 404)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -9506,9 +9516,9 @@ namespace Forpost.Web.Client.Implementations
         /// Создание тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> Create5Async(TechCardCreateRequest card)
+        public virtual System.Threading.Tasks.Task TechCard_CreateAsync(TechCardCreateRequest card)
         {
-            return Create5Async(card, System.Threading.CancellationToken.None);
+            return TechCard_CreateAsync(card, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9516,7 +9526,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создание тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> Create5Async(TechCardCreateRequest card, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TechCard_CreateAsync(TechCardCreateRequest card, System.Threading.CancellationToken cancellationToken)
         {
             if (card == null)
                 throw new System.ArgumentNullException("card");
@@ -9532,12 +9542,11 @@ namespace Forpost.Web.Client.Implementations
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/techcard"
-                    urlBuilder_.Append("api/v1/techcard");
+                    // Operation Path: "api/v1/techcards"
+                    urlBuilder_.Append("api/v1/techcards");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -9564,12 +9573,7 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 201)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Guid>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
+                            return;
                         }
                         else
                         {
@@ -9701,70 +9705,70 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface ITechCardStepClient : Forpost.Web.Client.IForpostClient
+    public partial interface ITechCardOperationClient : Forpost.Web.Client.IForpostClient
     {
         /// <summary>
         /// Получение всех этапов по Id тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardStep>> GetStepsByTechCardIdAsync(System.Guid techCardId);
+        System.Threading.Tasks.Task<EntityPagedResultOfTechCardOperationModel> TechCardOperation_GetOperationsByTechCardIdAsync(System.Guid techCardId, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех этапов по Id тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardStep>> GetStepsByTechCardIdAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfTechCardOperationModel> TechCardOperation_GetOperationsByTechCardIdAsync(System.Guid techCardId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Добавление этапа в техкарту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create6Async(TechCardStepRequest model);
+        System.Threading.Tasks.Task<System.Guid> TechCardOperation_CreateAsync(TechCardOperationRequest model);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление этапа в техкарту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create6Async(TechCardStepRequest model, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> TechCardOperation_CreateAsync(TechCardOperationRequest model, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление этапа в техкарте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update2Async(System.Guid id, TechCardStepRequest model);
+        System.Threading.Tasks.Task TechCardOperation_UpdateAsync(System.Guid id, UpdateTechCardOperationRequest model);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление этапа в техкарте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update2Async(System.Guid id, TechCardStepRequest model, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TechCardOperation_UpdateAsync(System.Guid id, UpdateTechCardOperationRequest model, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление этапа
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete4Async(System.Guid id);
+        System.Threading.Tasks.Task TechCardOperation_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление этапа
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete4Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TechCardOperation_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    internal partial class TechCardStepClient : Forpost.Web.Client.Implementations.BaseClient, ITechCardStepClient
+    internal partial class TechCardOperationClient : Forpost.Web.Client.Implementations.BaseClient, ITechCardOperationClient
     {
         private System.Net.Http.HttpClient _httpClient;
         private static System.Lazy<System.Text.Json.JsonSerializerOptions> _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings, true);
 
     #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public TechCardStepClient(System.Net.Http.HttpClient httpClient)
+        public TechCardOperationClient(System.Net.Http.HttpClient httpClient)
     #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             _httpClient = httpClient;
@@ -9789,9 +9793,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех этапов по Id тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardStep>> GetStepsByTechCardIdAsync(System.Guid techCardId)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfTechCardOperationModel> TechCardOperation_GetOperationsByTechCardIdAsync(System.Guid techCardId, int? skip, int? limit)
         {
-            return GetStepsByTechCardIdAsync(techCardId, System.Threading.CancellationToken.None);
+            return TechCardOperation_GetOperationsByTechCardIdAsync(techCardId, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9799,7 +9803,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех этапов по Id тех.карты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardStep>> GetStepsByTechCardIdAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfTechCardOperationModel> TechCardOperation_GetOperationsByTechCardIdAsync(System.Guid techCardId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             if (techCardId == null)
                 throw new System.ArgumentNullException("techCardId");
@@ -9815,9 +9819,19 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/tech-card-step/{techCardId}"
-                    urlBuilder_.Append("api/v1/tech-card-step/");
+                    // Operation Path: "api/v1/tech-card-operation/{techCardId}"
+                    urlBuilder_.Append("api/v1/tech-card-operation/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(techCardId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append('?');
+                    if (skip != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -9844,7 +9858,7 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<TechCardStep>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<EntityPagedResultOfTechCardOperationModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -9875,9 +9889,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление этапа в техкарту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> Create6Async(TechCardStepRequest model)
+        public virtual System.Threading.Tasks.Task<System.Guid> TechCardOperation_CreateAsync(TechCardOperationRequest model)
         {
-            return Create6Async(model, System.Threading.CancellationToken.None);
+            return TechCardOperation_CreateAsync(model, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9885,7 +9899,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление этапа в техкарту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> Create6Async(TechCardStepRequest model, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> TechCardOperation_CreateAsync(TechCardOperationRequest model, System.Threading.CancellationToken cancellationToken)
         {
             if (model == null)
                 throw new System.ArgumentNullException("model");
@@ -9905,8 +9919,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/tech-card-step"
-                    urlBuilder_.Append("api/v1/tech-card-step");
+                    // Operation Path: "api/v1/tech-card-operation"
+                    urlBuilder_.Append("api/v1/tech-card-operation");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -9964,9 +9978,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление этапа в техкарте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Update2Async(System.Guid id, TechCardStepRequest model)
+        public virtual System.Threading.Tasks.Task TechCardOperation_UpdateAsync(System.Guid id, UpdateTechCardOperationRequest model)
         {
-            return Update2Async(id, model, System.Threading.CancellationToken.None);
+            return TechCardOperation_UpdateAsync(id, model, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -9974,7 +9988,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление этапа в техкарте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Update2Async(System.Guid id, TechCardStepRequest model, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TechCardOperation_UpdateAsync(System.Guid id, UpdateTechCardOperationRequest model, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -9996,8 +10010,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/tech-card-step/{id}"
-                    urlBuilder_.Append("api/v1/tech-card-step/");
+                    // Operation Path: "api/v1/tech-card-operation/{id}"
+                    urlBuilder_.Append("api/v1/tech-card-operation/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -10061,9 +10075,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление этапа
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete4Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task TechCardOperation_DeleteAsync(System.Guid id)
         {
-            return Delete4Async(id, System.Threading.CancellationToken.None);
+            return TechCardOperation_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -10071,7 +10085,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление этапа
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete4Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TechCardOperation_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -10086,8 +10100,8 @@ namespace Forpost.Web.Client.Implementations
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
-                    // Operation Path: "api/v1/tech-card-step/{id}"
-                    urlBuilder_.Append("api/v1/tech-card-step/");
+                    // Operation Path: "api/v1/tech-card-operation/{id}"
+                    urlBuilder_.Append("api/v1/tech-card-operation/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -10263,53 +10277,53 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава тех.карты по TechCardId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardItem>> GetTechCardItemsAsync(System.Guid techCardId);
+        System.Threading.Tasks.Task<EntityPagedResultOfTechCardItemModel> TechCardItem_GetTechCardItemsAsync(System.Guid techCardId, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение состава тех.карты по TechCardId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardItem>> GetTechCardItemsAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfTechCardItemModel> TechCardItem_GetTechCardItemsAsync(System.Guid techCardId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Добавление компонента в техкарту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create7Async(TechCardItemRequest model);
+        System.Threading.Tasks.Task<System.Guid> TechCardItem_CreateAsync(TechCardItemRequest model);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление компонента в техкарту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create7Async(TechCardItemRequest model, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> TechCardItem_CreateAsync(TechCardItemRequest model, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление компонента в техкарте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update3Async(System.Guid id, TechCardItemRequest model);
+        System.Threading.Tasks.Task TechCardItem_UpdateAsync(System.Guid id, TechCardItemRequest model);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление компонента в техкарте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update3Async(System.Guid id, TechCardItemRequest model, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TechCardItem_UpdateAsync(System.Guid id, TechCardItemRequest model, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление компонента из техкарты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete5Async(System.Guid id);
+        System.Threading.Tasks.Task TechCardItem_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление компонента из техкарты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete5Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TechCardItem_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -10345,9 +10359,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава тех.карты по TechCardId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardItem>> GetTechCardItemsAsync(System.Guid techCardId)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfTechCardItemModel> TechCardItem_GetTechCardItemsAsync(System.Guid techCardId, int? skip, int? limit)
         {
-            return GetTechCardItemsAsync(techCardId, System.Threading.CancellationToken.None);
+            return TechCardItem_GetTechCardItemsAsync(techCardId, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -10355,7 +10369,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение состава тех.карты по TechCardId
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TechCardItem>> GetTechCardItemsAsync(System.Guid techCardId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfTechCardItemModel> TechCardItem_GetTechCardItemsAsync(System.Guid techCardId, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             if (techCardId == null)
                 throw new System.ArgumentNullException("techCardId");
@@ -10374,6 +10388,16 @@ namespace Forpost.Web.Client.Implementations
                     // Operation Path: "api/v1/tech-card-item/{techCardId}"
                     urlBuilder_.Append("api/v1/tech-card-item/");
                     urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(techCardId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append('?');
+                    if (skip != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    if (limit != null)
+                    {
+                        urlBuilder_.Append(System.Uri.EscapeDataString("Limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
+                    }
+                    urlBuilder_.Length--;
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -10400,7 +10424,7 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<TechCardItem>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<EntityPagedResultOfTechCardItemModel>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -10431,9 +10455,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление компонента в техкарту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> Create7Async(TechCardItemRequest model)
+        public virtual System.Threading.Tasks.Task<System.Guid> TechCardItem_CreateAsync(TechCardItemRequest model)
         {
-            return Create7Async(model, System.Threading.CancellationToken.None);
+            return TechCardItem_CreateAsync(model, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -10441,7 +10465,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление компонента в техкарту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> Create7Async(TechCardItemRequest model, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> TechCardItem_CreateAsync(TechCardItemRequest model, System.Threading.CancellationToken cancellationToken)
         {
             if (model == null)
                 throw new System.ArgumentNullException("model");
@@ -10520,9 +10544,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление компонента в техкарте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Update3Async(System.Guid id, TechCardItemRequest model)
+        public virtual System.Threading.Tasks.Task TechCardItem_UpdateAsync(System.Guid id, TechCardItemRequest model)
         {
-            return Update3Async(id, model, System.Threading.CancellationToken.None);
+            return TechCardItem_UpdateAsync(id, model, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -10530,7 +10554,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление компонента в техкарте
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Update3Async(System.Guid id, TechCardItemRequest model, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TechCardItem_UpdateAsync(System.Guid id, TechCardItemRequest model, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -10617,9 +10641,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление компонента из техкарты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete5Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task TechCardItem_DeleteAsync(System.Guid id)
         {
-            return Delete5Async(id, System.Threading.CancellationToken.None);
+            return TechCardItem_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -10627,7 +10651,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление компонента из техкарты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete5Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TechCardItem_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -10819,53 +10843,53 @@ namespace Forpost.Web.Client.Implementations
         /// Создание нового склада
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create8Async(StorageCreateRequest request);
+        System.Threading.Tasks.Task Storage_CreateAsync(StorageCreateRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создание нового склада
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create8Async(StorageCreateRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Storage_CreateAsync(StorageCreateRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить список всех складов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageModel>> GetAllAll6Async();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageModel>> Storage_GetAllAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить список всех складов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageModel>> GetAllAll6Async(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageModel>> Storage_GetAllAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление информации о складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update4Async(System.Guid id, StorageCreateRequest request);
+        System.Threading.Tasks.Task Storage_UpdateAsync(System.Guid id, StorageCreateRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление информации о складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update4Async(System.Guid id, StorageCreateRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Storage_UpdateAsync(System.Guid id, StorageCreateRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление склада
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete6Async(System.Guid id);
+        System.Threading.Tasks.Task Storage_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление склада
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete6Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Storage_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -10901,9 +10925,9 @@ namespace Forpost.Web.Client.Implementations
         /// Создание нового склада
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Create8Async(StorageCreateRequest request)
+        public virtual System.Threading.Tasks.Task Storage_CreateAsync(StorageCreateRequest request)
         {
-            return Create8Async(request, System.Threading.CancellationToken.None);
+            return Storage_CreateAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -10911,7 +10935,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создание нового склада
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Create8Async(StorageCreateRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Storage_CreateAsync(StorageCreateRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -10984,9 +11008,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех складов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageModel>> GetAllAll6Async()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageModel>> Storage_GetAllAsync()
         {
-            return GetAllAll6Async(System.Threading.CancellationToken.None);
+            return Storage_GetAllAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -10994,7 +11018,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех складов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageModel>> GetAllAll6Async(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<StorageModel>> Storage_GetAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -11072,9 +11096,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление информации о складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Update4Async(System.Guid id, StorageCreateRequest request)
+        public virtual System.Threading.Tasks.Task Storage_UpdateAsync(System.Guid id, StorageCreateRequest request)
         {
-            return Update4Async(id, request, System.Threading.CancellationToken.None);
+            return Storage_UpdateAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -11082,7 +11106,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление информации о складе
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Update4Async(System.Guid id, StorageCreateRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Storage_UpdateAsync(System.Guid id, StorageCreateRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -11169,9 +11193,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление склада
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete6Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task Storage_DeleteAsync(System.Guid id)
         {
-            return Delete6Async(id, System.Threading.CancellationToken.None);
+            return Storage_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -11179,7 +11203,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление склада
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete6Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Storage_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -11234,679 +11258,6 @@ namespace Forpost.Web.Client.Implementations
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        protected struct ObjectResponseResult<T>
-        {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
-                this.Object = responseObject;
-                this.Text = responseText;
-            }
-
-            public T Object { get; }
-
-            public string Text { get; }
-        }
-
-        public bool ReadResponseAsString { get; set; }
-
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
-        {
-            if (response == null || response.Content == null)
-            {
-                return new ObjectResponseResult<T>(default(T)!, string.Empty);
-            }
-
-            if (ReadResponseAsString)
-            {
-                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    var typedBody = System.Text.Json.JsonSerializer.Deserialize<T>(responseText, JsonSerializerSettings);
-                    return new ObjectResponseResult<T>(typedBody!, responseText);
-                }
-                catch (System.Text.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new ApiException(message, (int)response.StatusCode, responseText, headers, exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    {
-                        var typedBody = await System.Text.Json.JsonSerializer.DeserializeAsync<T>(responseStream, JsonSerializerSettings, cancellationToken).ConfigureAwait(false);
-                        return new ObjectResponseResult<T>(typedBody!, string.Empty);
-                    }
-                }
-                catch (System.Text.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new ApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
-                }
-            }
-        }
-
-        private string ConvertToString(object? value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
-                return "";
-            }
-
-            if (value is System.Enum)
-            {
-                var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
-                            as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
-                        {
-                            return attribute.Value != null ? attribute.Value : name;
-                        }
-                    }
-
-                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
-                    return converted == null ? string.Empty : converted;
-                }
-            }
-            else if (value is bool) 
-            {
-                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
-            }
-            else if (value is byte[])
-            {
-                return System.Convert.ToBase64String((byte[]) value);
-            }
-            else if (value is string[])
-            {
-                return string.Join(",", (string[])value);
-            }
-            else if (value.GetType().IsArray)
-            {
-                var valueArray = (System.Array)value;
-                var valueTextArray = new string[valueArray.Length];
-                for (var i = 0; i < valueArray.Length; i++)
-                {
-                    valueTextArray[i] = ConvertToString(valueArray.GetValue(i), cultureInfo);
-                }
-                return string.Join(",", valueTextArray);
-            }
-
-            var result = System.Convert.ToString(value, cultureInfo);
-            return result == null ? "" : result;
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IStepClient : Forpost.Web.Client.IForpostClient
-    {
-        /// <summary>
-        /// Получение этапа по Id
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Step> GetById7Async(System.Guid id);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Получение этапа по Id
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Step> GetById7Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Обновление этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update5Async(System.Guid id, StepCreateRequest step);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Обновление этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update5Async(System.Guid id, StepCreateRequest step, System.Threading.CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Удаление этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete7Async(System.Guid id);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Удаление этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete7Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Получение всех этапов
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll7Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<object?>? filterValues);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Получение всех этапов
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll7Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<object?>? filterValues, System.Threading.CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Создание этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create9Async(StepCreateRequest step);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Создание этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create9Async(StepCreateRequest step, System.Threading.CancellationToken cancellationToken);
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    internal partial class StepClient : Forpost.Web.Client.Implementations.BaseClient, IStepClient
-    {
-        private System.Net.Http.HttpClient _httpClient;
-        private static System.Lazy<System.Text.Json.JsonSerializerOptions> _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings, true);
-
-    #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public StepClient(System.Net.Http.HttpClient httpClient)
-    #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        {
-            _httpClient = httpClient;
-        }
-
-        private static System.Text.Json.JsonSerializerOptions CreateSerializerSettings()
-        {
-            var settings = new System.Text.Json.JsonSerializerOptions();
-            UpdateJsonSerializerSettings(settings);
-            return settings;
-        }
-
-        protected System.Text.Json.JsonSerializerOptions JsonSerializerSettings { get { return _settings.Value; } }
-
-        static partial void UpdateJsonSerializerSettings(System.Text.Json.JsonSerializerOptions settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-
-        /// <summary>
-        /// Получение этапа по Id
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Step> GetById7Async(System.Guid id)
-        {
-            return GetById7Async(id, System.Threading.CancellationToken.None);
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Получение этапа по Id
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Step> GetById7Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
-        {
-            if (id == null)
-                throw new System.ArgumentNullException("id");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                    var urlBuilder_ = new System.Text.StringBuilder();
-                
-                    // Operation Path: "api/v1/steps/{id}"
-                    urlBuilder_.Append("api/v1/steps/");
-                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
-                        foreach (var item_ in response_.Headers)
-                            headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Step>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Обновление этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Update5Async(System.Guid id, StepCreateRequest step)
-        {
-            return Update5Async(id, step, System.Threading.CancellationToken.None);
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Обновление этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Update5Async(System.Guid id, StepCreateRequest step, System.Threading.CancellationToken cancellationToken)
-        {
-            if (id == null)
-                throw new System.ArgumentNullException("id");
-
-            if (step == null)
-                throw new System.ArgumentNullException("step");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(step, _settings.Value);
-                    var content_ = new System.Net.Http.ByteArrayContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("PUT");
-
-                    var urlBuilder_ = new System.Text.StringBuilder();
-                
-                    // Operation Path: "api/v1/steps/{id}"
-                    urlBuilder_.Append("api/v1/steps/");
-                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
-                        foreach (var item_ in response_.Headers)
-                            headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 204)
-                        {
-                            return;
-                        }
-                        else
-                        if (status_ == 404)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Удаление этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete7Async(System.Guid id)
-        {
-            return Delete7Async(id, System.Threading.CancellationToken.None);
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Удаление этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete7Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
-        {
-            if (id == null)
-                throw new System.ArgumentNullException("id");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("DELETE");
-
-                    var urlBuilder_ = new System.Text.StringBuilder();
-                
-                    // Operation Path: "api/v1/steps/{id}"
-                    urlBuilder_.Append("api/v1/steps/");
-                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
-                        foreach (var item_ in response_.Headers)
-                            headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 204)
-                        {
-                            return;
-                        }
-                        else
-                        if (status_ == 404)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Получение всех этапов
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll7Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<object?>? filterValues)
-        {
-            return GetAllAll7Async(skip, limit, filterExpression, filterValues, System.Threading.CancellationToken.None);
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Получение всех этапов
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Step>> GetAllAll7Async(int? skip, int? limit, string? filterExpression, System.Collections.Generic.ICollection<object?>? filterValues, System.Threading.CancellationToken cancellationToken)
-        {
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                    var urlBuilder_ = new System.Text.StringBuilder();
-                
-                    // Operation Path: "api/v1/steps"
-                    urlBuilder_.Append("api/v1/steps");
-                    urlBuilder_.Append('?');
-                    if (skip != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("skip")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(skip, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (limit != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("limit")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (filterExpression != null)
-                    {
-                        urlBuilder_.Append(System.Uri.EscapeDataString("filterExpression")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(filterExpression, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
-                    }
-                    if (filterValues != null)
-                    {
-                        foreach (var item_ in filterValues) { urlBuilder_.Append(System.Uri.EscapeDataString("filterValues")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append('&'); }
-                    }
-                    urlBuilder_.Length--;
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
-                        foreach (var item_ in response_.Headers)
-                            headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Step>>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ == 404)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <summary>
-        /// Создание этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Create9Async(StepCreateRequest step)
-        {
-            return Create9Async(step, System.Threading.CancellationToken.None);
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Создание этапа
-        /// </summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Create9Async(StepCreateRequest step, System.Threading.CancellationToken cancellationToken)
-        {
-            if (step == null)
-                throw new System.ArgumentNullException("step");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(step, _settings.Value);
-                    var content_ = new System.Net.Http.ByteArrayContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("POST");
-
-                    var urlBuilder_ = new System.Text.StringBuilder();
-                
-                    // Operation Path: "api/v1/steps"
-                    urlBuilder_.Append("api/v1/steps");
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
-                        foreach (var item_ in response_.Headers)
-                            headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 201)
-                        {
-                            return;
                         }
                         else
                         {
@@ -12044,40 +11395,40 @@ namespace Forpost.Web.Client.Implementations
         /// Создать новую роль
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create10Async(string name);
+        System.Threading.Tasks.Task Role_CreateAsync(string name);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создать новую роль
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create10Async(string name, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Role_CreateAsync(string name, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить все роли
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RoleResponse>> GetAllAll8Async();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Role>> Role_GetAllAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все роли
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RoleResponse>> GetAllAll8Async(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Role>> Role_GetAllAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить роль по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<RoleResponse> GetById8Async(System.Guid id);
+        System.Threading.Tasks.Task<RoleResponse> Role_GetByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить роль по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<RoleResponse> GetById8Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<RoleResponse> Role_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -12113,9 +11464,9 @@ namespace Forpost.Web.Client.Implementations
         /// Создать новую роль
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Create10Async(string name)
+        public virtual System.Threading.Tasks.Task Role_CreateAsync(string name)
         {
-            return Create10Async(name, System.Threading.CancellationToken.None);
+            return Role_CreateAsync(name, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -12123,7 +11474,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создать новую роль
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Create10Async(string name, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Role_CreateAsync(string name, System.Threading.CancellationToken cancellationToken)
         {
             if (name == null)
                 throw new System.ArgumentNullException("name");
@@ -12196,9 +11547,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все роли
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RoleResponse>> GetAllAll8Async()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Role>> Role_GetAllAsync()
         {
-            return GetAllAll8Async(System.Threading.CancellationToken.None);
+            return Role_GetAllAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -12206,7 +11557,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все роли
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<RoleResponse>> GetAllAll8Async(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Role>> Role_GetAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -12247,7 +11598,7 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<RoleResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Role>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -12288,9 +11639,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить роль по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<RoleResponse> GetById8Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<RoleResponse> Role_GetByIdAsync(System.Guid id)
         {
-            return GetById8Async(id, System.Threading.CancellationToken.None);
+            return Role_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -12298,7 +11649,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить роль по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<RoleResponse> GetById8Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<RoleResponse> Role_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -12486,92 +11837,92 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfProductModel> GetAll4Async(string? name, System.Guid? categoryId, string? categoryName, bool? purchased, int? skip, int? limit);
+        System.Threading.Tasks.Task<EntityPagedResultOfProductModel> Product_GetAllAsync(string? name, System.Guid? categoryId, string? categoryName, bool? purchased, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfProductModel> GetAll4Async(string? name, System.Guid? categoryId, string? categoryName, bool? purchased, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfProductModel> Product_GetAllAsync(string? name, System.Guid? categoryId, string? categoryName, bool? purchased, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создать продукт
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create11Async(ProductCreateRequest request);
+        System.Threading.Tasks.Task Product_CreateAsync(ProductCreateRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создать продукт
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Create11Async(ProductCreateRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Product_CreateAsync(ProductCreateRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update6Async(ProductUpdateRequest request);
+        System.Threading.Tasks.Task Product_UpdateAsync(ProductUpdateRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update6Async(ProductUpdateRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Product_UpdateAsync(ProductUpdateRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProductModel> GetById9Async(System.Guid id);
+        System.Threading.Tasks.Task<ProductModel> Product_GetByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProductModel> GetById9Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ProductModel> Product_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete8Async(System.Guid id);
+        System.Threading.Tasks.Task Product_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete8Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Product_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<byte[]> GetBarcodePngsAsync(System.Guid productId);
+        System.Threading.Tasks.Task<byte[]> Product_GetBarcodePngsAsync(System.Guid productId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<byte[]> GetBarcodePngsAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<byte[]> Product_GetBarcodePngsAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Добавить штрихкод продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateBarcodeAsync(BarcodeRequest request);
+        System.Threading.Tasks.Task Product_UpdateBarcodeAsync(BarcodeRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить штрихкод продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateBarcodeAsync(BarcodeRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Product_UpdateBarcodeAsync(BarcodeRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -12607,9 +11958,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EntityPagedResultOfProductModel> GetAll4Async(string? name, System.Guid? categoryId, string? categoryName, bool? purchased, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfProductModel> Product_GetAllAsync(string? name, System.Guid? categoryId, string? categoryName, bool? purchased, int? skip, int? limit)
         {
-            return GetAll4Async(name, categoryId, categoryName, purchased, skip, limit, System.Threading.CancellationToken.None);
+            return Product_GetAllAsync(name, categoryId, categoryName, purchased, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -12617,7 +11968,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfProductModel> GetAll4Async(string? name, System.Guid? categoryId, string? categoryName, bool? purchased, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfProductModel> Product_GetAllAsync(string? name, System.Guid? categoryId, string? categoryName, bool? purchased, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -12731,9 +12082,9 @@ namespace Forpost.Web.Client.Implementations
         /// Создать продукт
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Create11Async(ProductCreateRequest request)
+        public virtual System.Threading.Tasks.Task Product_CreateAsync(ProductCreateRequest request)
         {
-            return Create11Async(request, System.Threading.CancellationToken.None);
+            return Product_CreateAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -12741,7 +12092,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создать продукт
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Create11Async(ProductCreateRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Product_CreateAsync(ProductCreateRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -12814,9 +12165,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Update6Async(ProductUpdateRequest request)
+        public virtual System.Threading.Tasks.Task Product_UpdateAsync(ProductUpdateRequest request)
         {
-            return Update6Async(request, System.Threading.CancellationToken.None);
+            return Product_UpdateAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -12824,7 +12175,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Update6Async(ProductUpdateRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Product_UpdateAsync(ProductUpdateRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -12897,9 +12248,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ProductModel> GetById9Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ProductModel> Product_GetByIdAsync(System.Guid id)
         {
-            return GetById9Async(id, System.Threading.CancellationToken.None);
+            return Product_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -12907,7 +12258,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение продукта по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProductModel> GetById9Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ProductModel> Product_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -12983,9 +12334,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete8Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task Product_DeleteAsync(System.Guid id)
         {
-            return Delete8Async(id, System.Threading.CancellationToken.None);
+            return Product_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -12993,7 +12344,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete8Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Product_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -13073,9 +12424,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<byte[]> GetBarcodePngsAsync(System.Guid productId)
+        public virtual System.Threading.Tasks.Task<byte[]> Product_GetBarcodePngsAsync(System.Guid productId)
         {
-            return GetBarcodePngsAsync(productId, System.Threading.CancellationToken.None);
+            return Product_GetBarcodePngsAsync(productId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -13083,7 +12434,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение QR-продукта. Содержит JSON с Id и Name продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<byte[]> GetBarcodePngsAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<byte[]> Product_GetBarcodePngsAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
         {
             if (productId == null)
                 throw new System.ArgumentNullException("productId");
@@ -13170,9 +12521,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить штрихкод продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateBarcodeAsync(BarcodeRequest request)
+        public virtual System.Threading.Tasks.Task Product_UpdateBarcodeAsync(BarcodeRequest request)
         {
-            return UpdateBarcodeAsync(request, System.Threading.CancellationToken.None);
+            return Product_UpdateBarcodeAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -13180,7 +12531,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить штрихкод продукта.
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateBarcodeAsync(BarcodeRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Product_UpdateBarcodeAsync(BarcodeRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -13385,40 +12736,40 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить совместимость для продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddProductCompatibilityAsync(ProductCompatibilityRequest request);
+        System.Threading.Tasks.Task ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить совместимость для продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddProductCompatibilityAsync(ProductCompatibilityRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить список совместимых продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> GetProductCompatibilityByProductIdAsync(System.Guid productId);
+        System.Threading.Tasks.Task<FileResponse> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить список совместимых продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> GetProductCompatibilityByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление позиции
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> DeleteProductCompabilityByIdAsync(System.Guid productCompabilityId);
+        System.Threading.Tasks.Task<FileResponse> ProductCompatibility_DeleteProductCompabilityByIdAsync(System.Guid productCompabilityId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление позиции
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> DeleteProductCompabilityByIdAsync(System.Guid productCompabilityId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> ProductCompatibility_DeleteProductCompabilityByIdAsync(System.Guid productCompabilityId, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -13454,9 +12805,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить совместимость для продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task AddProductCompatibilityAsync(ProductCompatibilityRequest request)
+        public virtual System.Threading.Tasks.Task ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request)
         {
-            return AddProductCompatibilityAsync(request, System.Threading.CancellationToken.None);
+            return ProductCompatibility_AddProductCompatibilityAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -13464,7 +12815,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить совместимость для продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task AddProductCompatibilityAsync(ProductCompatibilityRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -13537,9 +12888,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список совместимых продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> GetProductCompatibilityByProductIdAsync(System.Guid productId)
+        public virtual System.Threading.Tasks.Task<FileResponse> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId)
         {
-            return GetProductCompatibilityByProductIdAsync(productId, System.Threading.CancellationToken.None);
+            return ProductCompatibility_GetProductCompatibilityByProductIdAsync(productId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -13547,7 +12898,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список совместимых продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> GetProductCompatibilityByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
         {
             if (productId == null)
                 throw new System.ArgumentNullException("productId");
@@ -13621,9 +12972,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление позиции
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> DeleteProductCompabilityByIdAsync(System.Guid productCompabilityId)
+        public virtual System.Threading.Tasks.Task<FileResponse> ProductCompatibility_DeleteProductCompabilityByIdAsync(System.Guid productCompabilityId)
         {
-            return DeleteProductCompabilityByIdAsync(productCompabilityId, System.Threading.CancellationToken.None);
+            return ProductCompatibility_DeleteProductCompabilityByIdAsync(productCompabilityId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -13631,7 +12982,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление позиции
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> DeleteProductCompabilityByIdAsync(System.Guid productCompabilityId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> ProductCompatibility_DeleteProductCompabilityByIdAsync(System.Guid productCompabilityId, System.Threading.CancellationToken cancellationToken)
         {
             if (productCompabilityId == null)
                 throw new System.ArgumentNullException("productCompabilityId");
@@ -13817,53 +13168,53 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление атрибута к продукту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> CreateProductAttributeAsync(ProductAttributeRequest request);
+        System.Threading.Tasks.Task<System.Guid> ProductAttribute_CreateProductAttributeAsync(ProductAttributeRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление атрибута к продукту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> CreateProductAttributeAsync(ProductAttributeRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> ProductAttribute_CreateProductAttributeAsync(ProductAttributeRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление значений атрибута
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddProductAttributeValuesAsync(System.Guid productAttributeId, ProductAttributeValuesRequest request);
+        System.Threading.Tasks.Task ProductAttribute_AddProductAttributeValuesAsync(System.Guid productAttributeId, ProductAttributeValuesRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление значений атрибута
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddProductAttributeValuesAsync(System.Guid productAttributeId, ProductAttributeValuesRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ProductAttribute_AddProductAttributeValuesAsync(System.Guid productAttributeId, ProductAttributeValuesRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение всех атрибутов продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductAttributeModel>> GetAllAttributesByProductIdAsync(System.Guid productId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductAttributeModel>> ProductAttribute_GetAllAttributesByProductIdAsync(System.Guid productId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех атрибутов продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductAttributeModel>> GetAllAttributesByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductAttributeModel>> ProductAttribute_GetAllAttributesByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление атрибута продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteProductAttributeAsync(System.Guid id);
+        System.Threading.Tasks.Task ProductAttribute_DeleteProductAttributeAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление атрибута продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteProductAttributeAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task ProductAttribute_DeleteProductAttributeAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -13899,9 +13250,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление атрибута к продукту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> CreateProductAttributeAsync(ProductAttributeRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> ProductAttribute_CreateProductAttributeAsync(ProductAttributeRequest request)
         {
-            return CreateProductAttributeAsync(request, System.Threading.CancellationToken.None);
+            return ProductAttribute_CreateProductAttributeAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -13909,7 +13260,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление атрибута к продукту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> CreateProductAttributeAsync(ProductAttributeRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> ProductAttribute_CreateProductAttributeAsync(ProductAttributeRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -13998,9 +13349,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление значений атрибута
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task AddProductAttributeValuesAsync(System.Guid productAttributeId, ProductAttributeValuesRequest request)
+        public virtual System.Threading.Tasks.Task ProductAttribute_AddProductAttributeValuesAsync(System.Guid productAttributeId, ProductAttributeValuesRequest request)
         {
-            return AddProductAttributeValuesAsync(productAttributeId, request, System.Threading.CancellationToken.None);
+            return ProductAttribute_AddProductAttributeValuesAsync(productAttributeId, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14008,7 +13359,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление значений атрибута
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task AddProductAttributeValuesAsync(System.Guid productAttributeId, ProductAttributeValuesRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ProductAttribute_AddProductAttributeValuesAsync(System.Guid productAttributeId, ProductAttributeValuesRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (productAttributeId == null)
                 throw new System.ArgumentNullException("productAttributeId");
@@ -14096,9 +13447,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех атрибутов продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductAttributeModel>> GetAllAttributesByProductIdAsync(System.Guid productId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductAttributeModel>> ProductAttribute_GetAllAttributesByProductIdAsync(System.Guid productId)
         {
-            return GetAllAttributesByProductIdAsync(productId, System.Threading.CancellationToken.None);
+            return ProductAttribute_GetAllAttributesByProductIdAsync(productId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14106,7 +13457,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех атрибутов продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductAttributeModel>> GetAllAttributesByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductAttributeModel>> ProductAttribute_GetAllAttributesByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
         {
             if (productId == null)
                 throw new System.ArgumentNullException("productId");
@@ -14192,9 +13543,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление атрибута продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteProductAttributeAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task ProductAttribute_DeleteProductAttributeAsync(System.Guid id)
         {
-            return DeleteProductAttributeAsync(id, System.Threading.CancellationToken.None);
+            return ProductAttribute_DeleteProductAttributeAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14202,7 +13553,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление атрибута продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteProductAttributeAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ProductAttribute_DeleteProductAttributeAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -14394,79 +13745,79 @@ namespace Forpost.Web.Client.Implementations
         /// Получить атрибут по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AttributeModel> GetAttributeWithValueAsync(System.Guid attributeId);
+        System.Threading.Tasks.Task<AttributeModel> Attribute_GetAttributeWithValueAsync(System.Guid attributeId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить атрибут по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AttributeModel> GetAttributeWithValueAsync(System.Guid attributeId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AttributeModel> Attribute_GetAttributeWithValueAsync(System.Guid attributeId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удалить атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteAttributeAsync(System.Guid attributeId);
+        System.Threading.Tasks.Task Attribute_DeleteAttributeAsync(System.Guid attributeId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удалить атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteAttributeAsync(System.Guid attributeId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Attribute_DeleteAttributeAsync(System.Guid attributeId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить все атрибуты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AttributeModel>> GetAllAttributesAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AttributeModel>> Attribute_GetAllAttributesAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все атрибуты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AttributeModel>> GetAllAttributesAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AttributeModel>> Attribute_GetAllAttributesAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Создать атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> CreateAttributeAsync(AttributeRequest request);
+        System.Threading.Tasks.Task<System.Guid> Attribute_CreateAttributeAsync(AttributeRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создать атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> CreateAttributeAsync(AttributeRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> Attribute_CreateAttributeAsync(AttributeRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Изменить атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateAttributeAsync(AttributeWithValuesRequest request);
+        System.Threading.Tasks.Task Attribute_UpdateAttributeAsync(AttributeWithValuesRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Изменить атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdateAttributeAsync(AttributeWithValuesRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Attribute_UpdateAttributeAsync(AttributeWithValuesRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Добавить значения к атрибуту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddValuesAttributeAsync(System.Guid attributeId, AttributeValuesRequest request);
+        System.Threading.Tasks.Task Attribute_AddValuesAttributeAsync(System.Guid attributeId, AttributeValuesRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить значения к атрибуту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddValuesAttributeAsync(System.Guid attributeId, AttributeValuesRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Attribute_AddValuesAttributeAsync(System.Guid attributeId, AttributeValuesRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -14502,9 +13853,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить атрибут по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<AttributeModel> GetAttributeWithValueAsync(System.Guid attributeId)
+        public virtual System.Threading.Tasks.Task<AttributeModel> Attribute_GetAttributeWithValueAsync(System.Guid attributeId)
         {
-            return GetAttributeWithValueAsync(attributeId, System.Threading.CancellationToken.None);
+            return Attribute_GetAttributeWithValueAsync(attributeId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14512,7 +13863,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить атрибут по ID
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AttributeModel> GetAttributeWithValueAsync(System.Guid attributeId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<AttributeModel> Attribute_GetAttributeWithValueAsync(System.Guid attributeId, System.Threading.CancellationToken cancellationToken)
         {
             if (attributeId == null)
                 throw new System.ArgumentNullException("attributeId");
@@ -14598,9 +13949,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteAttributeAsync(System.Guid attributeId)
+        public virtual System.Threading.Tasks.Task Attribute_DeleteAttributeAsync(System.Guid attributeId)
         {
-            return DeleteAttributeAsync(attributeId, System.Threading.CancellationToken.None);
+            return Attribute_DeleteAttributeAsync(attributeId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14608,7 +13959,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteAttributeAsync(System.Guid attributeId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Attribute_DeleteAttributeAsync(System.Guid attributeId, System.Threading.CancellationToken cancellationToken)
         {
             if (attributeId == null)
                 throw new System.ArgumentNullException("attributeId");
@@ -14688,9 +14039,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все атрибуты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AttributeModel>> GetAllAttributesAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AttributeModel>> Attribute_GetAllAttributesAsync()
         {
-            return GetAllAttributesAsync(System.Threading.CancellationToken.None);
+            return Attribute_GetAllAttributesAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14698,7 +14049,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все атрибуты
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AttributeModel>> GetAllAttributesAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<AttributeModel>> Attribute_GetAllAttributesAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -14770,9 +14121,9 @@ namespace Forpost.Web.Client.Implementations
         /// Создать атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> CreateAttributeAsync(AttributeRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> Attribute_CreateAttributeAsync(AttributeRequest request)
         {
-            return CreateAttributeAsync(request, System.Threading.CancellationToken.None);
+            return Attribute_CreateAttributeAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14780,7 +14131,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создать атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> CreateAttributeAsync(AttributeRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> Attribute_CreateAttributeAsync(AttributeRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -14869,9 +14220,9 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateAttributeAsync(AttributeWithValuesRequest request)
+        public virtual System.Threading.Tasks.Task Attribute_UpdateAttributeAsync(AttributeWithValuesRequest request)
         {
-            return UpdateAttributeAsync(request, System.Threading.CancellationToken.None);
+            return Attribute_UpdateAttributeAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14879,7 +14230,7 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить атрибут
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateAttributeAsync(AttributeWithValuesRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Attribute_UpdateAttributeAsync(AttributeWithValuesRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -14972,9 +14323,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить значения к атрибуту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task AddValuesAttributeAsync(System.Guid attributeId, AttributeValuesRequest request)
+        public virtual System.Threading.Tasks.Task Attribute_AddValuesAttributeAsync(System.Guid attributeId, AttributeValuesRequest request)
         {
-            return AddValuesAttributeAsync(attributeId, request, System.Threading.CancellationToken.None);
+            return Attribute_AddValuesAttributeAsync(attributeId, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -14982,7 +14333,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить значения к атрибуту
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task AddValuesAttributeAsync(System.Guid attributeId, AttributeValuesRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Attribute_AddValuesAttributeAsync(System.Guid attributeId, AttributeValuesRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (attributeId == null)
                 throw new System.ArgumentNullException("attributeId");
@@ -15192,27 +14543,66 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление операции
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Add3Async(string operationName);
+        System.Threading.Tasks.Task<System.Guid> Operation_AddAsync(OperationRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление операции
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Add3Async(string operationName, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> Operation_AddAsync(OperationRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получение всех операций
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> GetAllAll9Async();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> Operation_GetAllAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получение всех операций
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> GetAllAll9Async(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> Operation_GetAllAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Изменить описание операции
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task Operation_ChangeOperationDescriptionAsync(System.Guid id, OperationDescriptionRequest request);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Изменить описание операции
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task Operation_ChangeOperationDescriptionAsync(System.Guid id, OperationDescriptionRequest request, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Удаление операции по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task Operation_DeleteOperationAsync(System.Guid id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Удаление операции по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task Operation_DeleteOperationAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получить операцию по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Operation> Operation_GetOperationByIdAsync(System.Guid id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получить операцию по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Operation> Operation_GetOperationByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -15248,9 +14638,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление операции
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> Add3Async(string operationName)
+        public virtual System.Threading.Tasks.Task<System.Guid> Operation_AddAsync(OperationRequest request)
         {
-            return Add3Async(operationName, System.Threading.CancellationToken.None);
+            return Operation_AddAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -15258,10 +14648,10 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление операции
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> Add3Async(string operationName, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> Operation_AddAsync(OperationRequest request, System.Threading.CancellationToken cancellationToken)
         {
-            if (operationName == null)
-                throw new System.ArgumentNullException("operationName");
+            if (request == null)
+                throw new System.ArgumentNullException("request");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -15269,7 +14659,7 @@ namespace Forpost.Web.Client.Implementations
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(operationName, _settings.Value);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
                     var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
@@ -15337,9 +14727,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех операций
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> GetAllAll9Async()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> Operation_GetAllAsync()
         {
-            return GetAllAll9Async(System.Threading.CancellationToken.None);
+            return Operation_GetAllAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -15347,7 +14737,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получение всех операций
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> GetAllAll9Async(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Operation>> Operation_GetAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -15389,6 +14779,270 @@ namespace Forpost.Web.Client.Implementations
                         if (status_ == 200)
                         {
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Operation>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Изменить описание операции
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task Operation_ChangeOperationDescriptionAsync(System.Guid id, OperationDescriptionRequest request)
+        {
+            return Operation_ChangeOperationDescriptionAsync(id, request, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Изменить описание операции
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task Operation_ChangeOperationDescriptionAsync(System.Guid id, OperationDescriptionRequest request, System.Threading.CancellationToken cancellationToken)
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/operations/{id}/description"
+                    urlBuilder_.Append("api/v1/operations/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/description");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 204)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Удаление операции по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task Operation_DeleteOperationAsync(System.Guid id)
+        {
+            return Operation_DeleteOperationAsync(id, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Удаление операции по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task Operation_DeleteOperationAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/operations/{id}"
+                    urlBuilder_.Append("api/v1/operations/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 204)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Получить операцию по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Operation> Operation_GetOperationByIdAsync(System.Guid id)
+        {
+            return Operation_GetOperationByIdAsync(id, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получить операцию по ID
+        /// </summary>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Operation> Operation_GetOperationByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/operations/{id}"
+                    urlBuilder_.Append("api/v1/operations/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Operation>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -15541,53 +15195,53 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех сотрудников
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> GetAll5Async(string? lastname, int? skip, int? limit);
+        System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> Employee_GetAllAsync(string? lastname, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить список всех сотрудников
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> GetAll5Async(string? lastname, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> Employee_GetAllAsync(string? lastname, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление информации о сотруднике
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update7Async(System.Guid id, EmployeeRequest request);
+        System.Threading.Tasks.Task Employee_UpdateAsync(System.Guid id, EmployeeRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление информации о сотруднике
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update7Async(System.Guid id, EmployeeRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Employee_UpdateAsync(System.Guid id, EmployeeRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete9Async(System.Guid id);
+        System.Threading.Tasks.Task Employee_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete9Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Employee_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление пароля пользователя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdatePasswordAsync(System.Guid id, UpdatePasswordRequest request);
+        System.Threading.Tasks.Task Employee_UpdatePasswordAsync(System.Guid id, UpdatePasswordRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление пароля пользователя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdatePasswordAsync(System.Guid id, UpdatePasswordRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Employee_UpdatePasswordAsync(System.Guid id, UpdatePasswordRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -15623,9 +15277,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех сотрудников
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> GetAll5Async(string? lastname, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> Employee_GetAllAsync(string? lastname, int? skip, int? limit)
         {
-            return GetAll5Async(lastname, skip, limit, System.Threading.CancellationToken.None);
+            return Employee_GetAllAsync(lastname, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -15633,7 +15287,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список всех сотрудников
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> GetAll5Async(string? lastname, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfEmployeeWithRoleModel> Employee_GetAllAsync(string? lastname, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -15735,9 +15389,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление информации о сотруднике
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Update7Async(System.Guid id, EmployeeRequest request)
+        public virtual System.Threading.Tasks.Task Employee_UpdateAsync(System.Guid id, EmployeeRequest request)
         {
-            return Update7Async(id, request, System.Threading.CancellationToken.None);
+            return Employee_UpdateAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -15745,7 +15399,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление информации о сотруднике
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Update7Async(System.Guid id, EmployeeRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Employee_UpdateAsync(System.Guid id, EmployeeRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -15832,9 +15486,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete9Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task Employee_DeleteAsync(System.Guid id)
         {
-            return Delete9Async(id, System.Threading.CancellationToken.None);
+            return Employee_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -15842,7 +15496,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete9Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Employee_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -15922,9 +15576,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление пароля пользователя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdatePasswordAsync(System.Guid id, UpdatePasswordRequest request)
+        public virtual System.Threading.Tasks.Task Employee_UpdatePasswordAsync(System.Guid id, UpdatePasswordRequest request)
         {
-            return UpdatePasswordAsync(id, request, System.Threading.CancellationToken.None);
+            return Employee_UpdatePasswordAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -15932,7 +15586,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление пароля пользователя
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdatePasswordAsync(System.Guid id, UpdatePasswordRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Employee_UpdatePasswordAsync(System.Guid id, UpdatePasswordRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -16132,118 +15786,118 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create12Async(ContractorRequest request);
+        System.Threading.Tasks.Task<System.Guid> Contractor_CreateAsync(ContractorRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Create12Async(ContractorRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> Contractor_CreateAsync(ContractorRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить всех контрагентов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfContractorModel> GetAll6Async(string? name, int? contractorTypeValue, int? skip, int? limit);
+        System.Threading.Tasks.Task<EntityPagedResultOfContractorModel> Contractor_GetAllAsync(string? name, int? contractorTypeValue, int? skip, int? limit);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить всех контрагентов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EntityPagedResultOfContractorModel> GetAll6Async(string? name, int? contractorTypeValue, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EntityPagedResultOfContractorModel> Contractor_GetAllAsync(string? name, int? contractorTypeValue, int? skip, int? limit, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить контрагента по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ContractorModel> GetById10Async(System.Guid id);
+        System.Threading.Tasks.Task<ContractorModel> Contractor_GetByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить контрагента по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ContractorModel> GetById10Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ContractorModel> Contractor_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update8Async(System.Guid id, ContractorRequest request);
+        System.Threading.Tasks.Task Contractor_UpdateAsync(System.Guid id, ContractorRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update8Async(System.Guid id, ContractorRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Contractor_UpdateAsync(System.Guid id, ContractorRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete10Async(System.Guid id);
+        System.Threading.Tasks.Task Contractor_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete10Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Contractor_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Добавить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddContractorRepresantativeByContractorIdAsync(ContractorRepresentativeRequest request);
+        System.Threading.Tasks.Task Contractor_AddContractorRepresantativeByContractorIdAsync(ContractorRepresentativeRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddContractorRepresantativeByContractorIdAsync(ContractorRepresentativeRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Contractor_AddContractorRepresantativeByContractorIdAsync(ContractorRepresentativeRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить представителей контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ContractorRepresentative> GetContractorRepresentativeByContractorIdAsync(System.Guid contractorId);
+        System.Threading.Tasks.Task<ContractorRepresentative> Contractor_GetContractorRepresentativeByContractorIdAsync(System.Guid contractorId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить представителей контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ContractorRepresentative> GetContractorRepresentativeByContractorIdAsync(System.Guid contractorId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ContractorRepresentative> Contractor_GetContractorRepresentativeByContractorIdAsync(System.Guid contractorId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удалить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> DeleteContractorRepresentativeByIdAsync(System.Guid id);
+        System.Threading.Tasks.Task<FileResponse> Contractor_DeleteContractorRepresentativeByIdAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удалить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> DeleteContractorRepresentativeByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> Contractor_DeleteContractorRepresentativeByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Изменить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> UpdateContractorRepresentativeByIdAsync(System.Guid id, ContractorRepresentativeRequest request);
+        System.Threading.Tasks.Task<FileResponse> Contractor_UpdateContractorRepresentativeByIdAsync(System.Guid id, ContractorRepresentativeRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Изменить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> UpdateContractorRepresentativeByIdAsync(System.Guid id, ContractorRepresentativeRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<FileResponse> Contractor_UpdateContractorRepresentativeByIdAsync(System.Guid id, ContractorRepresentativeRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -16279,9 +15933,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> Create12Async(ContractorRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> Contractor_CreateAsync(ContractorRequest request)
         {
-            return Create12Async(request, System.Threading.CancellationToken.None);
+            return Contractor_CreateAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -16289,7 +15943,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> Create12Async(ContractorRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> Contractor_CreateAsync(ContractorRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -16368,9 +16022,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить всех контрагентов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EntityPagedResultOfContractorModel> GetAll6Async(string? name, int? contractorTypeValue, int? skip, int? limit)
+        public virtual System.Threading.Tasks.Task<EntityPagedResultOfContractorModel> Contractor_GetAllAsync(string? name, int? contractorTypeValue, int? skip, int? limit)
         {
-            return GetAll6Async(name, contractorTypeValue, skip, limit, System.Threading.CancellationToken.None);
+            return Contractor_GetAllAsync(name, contractorTypeValue, skip, limit, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -16378,7 +16032,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить всех контрагентов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfContractorModel> GetAll6Async(string? name, int? contractorTypeValue, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EntityPagedResultOfContractorModel> Contractor_GetAllAsync(string? name, int? contractorTypeValue, int? skip, int? limit, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -16478,9 +16132,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить контрагента по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ContractorModel> GetById10Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ContractorModel> Contractor_GetByIdAsync(System.Guid id)
         {
-            return GetById10Async(id, System.Threading.CancellationToken.None);
+            return Contractor_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -16488,7 +16142,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить контрагента по id
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ContractorModel> GetById10Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ContractorModel> Contractor_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -16564,9 +16218,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Update8Async(System.Guid id, ContractorRequest request)
+        public virtual System.Threading.Tasks.Task Contractor_UpdateAsync(System.Guid id, ContractorRequest request)
         {
-            return Update8Async(id, request, System.Threading.CancellationToken.None);
+            return Contractor_UpdateAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -16574,7 +16228,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Update8Async(System.Guid id, ContractorRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Contractor_UpdateAsync(System.Guid id, ContractorRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -16661,9 +16315,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete10Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task Contractor_DeleteAsync(System.Guid id)
         {
-            return Delete10Async(id, System.Threading.CancellationToken.None);
+            return Contractor_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -16671,7 +16325,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete10Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Contractor_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -16751,9 +16405,9 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task AddContractorRepresantativeByContractorIdAsync(ContractorRepresentativeRequest request)
+        public virtual System.Threading.Tasks.Task Contractor_AddContractorRepresantativeByContractorIdAsync(ContractorRepresentativeRequest request)
         {
-            return AddContractorRepresantativeByContractorIdAsync(request, System.Threading.CancellationToken.None);
+            return Contractor_AddContractorRepresantativeByContractorIdAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -16761,7 +16415,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task AddContractorRepresantativeByContractorIdAsync(ContractorRepresentativeRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Contractor_AddContractorRepresantativeByContractorIdAsync(ContractorRepresentativeRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -16834,9 +16488,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить представителей контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ContractorRepresentative> GetContractorRepresentativeByContractorIdAsync(System.Guid contractorId)
+        public virtual System.Threading.Tasks.Task<ContractorRepresentative> Contractor_GetContractorRepresentativeByContractorIdAsync(System.Guid contractorId)
         {
-            return GetContractorRepresentativeByContractorIdAsync(contractorId, System.Threading.CancellationToken.None);
+            return Contractor_GetContractorRepresentativeByContractorIdAsync(contractorId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -16844,7 +16498,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить представителей контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ContractorRepresentative> GetContractorRepresentativeByContractorIdAsync(System.Guid contractorId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ContractorRepresentative> Contractor_GetContractorRepresentativeByContractorIdAsync(System.Guid contractorId, System.Threading.CancellationToken cancellationToken)
         {
             if (contractorId == null)
                 throw new System.ArgumentNullException("contractorId");
@@ -16921,9 +16575,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> DeleteContractorRepresentativeByIdAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task<FileResponse> Contractor_DeleteContractorRepresentativeByIdAsync(System.Guid id)
         {
-            return DeleteContractorRepresentativeByIdAsync(id, System.Threading.CancellationToken.None);
+            return Contractor_DeleteContractorRepresentativeByIdAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -16931,7 +16585,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удалить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> DeleteContractorRepresentativeByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> Contractor_DeleteContractorRepresentativeByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -17005,9 +16659,9 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> UpdateContractorRepresentativeByIdAsync(System.Guid id, ContractorRepresentativeRequest request)
+        public virtual System.Threading.Tasks.Task<FileResponse> Contractor_UpdateContractorRepresentativeByIdAsync(System.Guid id, ContractorRepresentativeRequest request)
         {
-            return UpdateContractorRepresentativeByIdAsync(id, request, System.Threading.CancellationToken.None);
+            return Contractor_UpdateContractorRepresentativeByIdAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -17015,7 +16669,7 @@ namespace Forpost.Web.Client.Implementations
         /// Изменить представителя контрагента
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> UpdateContractorRepresentativeByIdAsync(System.Guid id, ContractorRepresentativeRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<FileResponse> Contractor_UpdateContractorRepresentativeByIdAsync(System.Guid id, ContractorRepresentativeRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -17208,53 +16862,53 @@ namespace Forpost.Web.Client.Implementations
         /// Создание категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Add4Async(CategoryRequest request);
+        System.Threading.Tasks.Task<System.Guid> Category_AddAsync(CategoryRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Создание категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Guid> Add4Async(CategoryRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> Category_AddAsync(CategoryRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить все категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> GetAllAll10Async(string? name, System.Guid? parentCategoryId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> Category_GetAllAsync(string? name, System.Guid? parentCategoryId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить все категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> GetAllAll10Async(string? name, System.Guid? parentCategoryId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> Category_GetAllAsync(string? name, System.Guid? parentCategoryId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Обновление категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update9Async(System.Guid id, CategoryRequest request);
+        System.Threading.Tasks.Task Category_UpdateAsync(System.Guid id, CategoryRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Обновление категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Update9Async(System.Guid id, CategoryRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Category_UpdateAsync(System.Guid id, CategoryRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete11Async(System.Guid id);
+        System.Threading.Tasks.Task Category_DeleteAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Удаление категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task Delete11Async(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Category_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -17290,9 +16944,9 @@ namespace Forpost.Web.Client.Implementations
         /// Создание категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Guid> Add4Async(CategoryRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> Category_AddAsync(CategoryRequest request)
         {
-            return Add4Async(request, System.Threading.CancellationToken.None);
+            return Category_AddAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -17300,7 +16954,7 @@ namespace Forpost.Web.Client.Implementations
         /// Создание категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Guid> Add4Async(CategoryRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> Category_AddAsync(CategoryRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -17379,9 +17033,9 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> GetAllAll10Async(string? name, System.Guid? parentCategoryId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> Category_GetAllAsync(string? name, System.Guid? parentCategoryId)
         {
-            return GetAllAll10Async(name, parentCategoryId, System.Threading.CancellationToken.None);
+            return Category_GetAllAsync(name, parentCategoryId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -17389,7 +17043,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить все категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> GetAllAll10Async(string? name, System.Guid? parentCategoryId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CategoryWithChildrenModel>> Category_GetAllAsync(string? name, System.Guid? parentCategoryId, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -17471,9 +17125,9 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Update9Async(System.Guid id, CategoryRequest request)
+        public virtual System.Threading.Tasks.Task Category_UpdateAsync(System.Guid id, CategoryRequest request)
         {
-            return Update9Async(id, request, System.Threading.CancellationToken.None);
+            return Category_UpdateAsync(id, request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -17481,7 +17135,7 @@ namespace Forpost.Web.Client.Implementations
         /// Обновление категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Update9Async(System.Guid id, CategoryRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Category_UpdateAsync(System.Guid id, CategoryRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -17568,9 +17222,9 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Delete11Async(System.Guid id)
+        public virtual System.Threading.Tasks.Task Category_DeleteAsync(System.Guid id)
         {
-            return Delete11Async(id, System.Threading.CancellationToken.None);
+            return Category_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -17578,7 +17232,7 @@ namespace Forpost.Web.Client.Implementations
         /// Удаление категории
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Delete11Async(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Category_DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -17770,27 +17424,27 @@ namespace Forpost.Web.Client.Implementations
         /// Регистрация сотрудника (регистрирует только админ)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task RegisterAsync(RegisterUserRequest request);
+        System.Threading.Tasks.Task<System.Guid> Account_RegisterAsync(RegisterUserRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Регистрация сотрудника (регистрирует только админ)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task RegisterAsync(RegisterUserRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> Account_RegisterAsync(RegisterUserRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Логин сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<string> LoginAsync(LoginUserRequest request);
+        System.Threading.Tasks.Task<string> Account_LoginAsync(LoginUserRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Логин сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<string> LoginAsync(LoginUserRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<string> Account_LoginAsync(LoginUserRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -17826,9 +17480,9 @@ namespace Forpost.Web.Client.Implementations
         /// Регистрация сотрудника (регистрирует только админ)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task RegisterAsync(RegisterUserRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> Account_RegisterAsync(RegisterUserRequest request)
         {
-            return RegisterAsync(request, System.Threading.CancellationToken.None);
+            return Account_RegisterAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -17836,7 +17490,7 @@ namespace Forpost.Web.Client.Implementations
         /// Регистрация сотрудника (регистрирует только админ)
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task RegisterAsync(RegisterUserRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> Account_RegisterAsync(RegisterUserRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -17852,6 +17506,7 @@ namespace Forpost.Web.Client.Implementations
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
@@ -17883,7 +17538,12 @@ namespace Forpost.Web.Client.Implementations
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 201)
                         {
-                            return;
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Guid>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         if (status_ == 400)
@@ -17919,9 +17579,9 @@ namespace Forpost.Web.Client.Implementations
         /// Логин сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<string> LoginAsync(LoginUserRequest request)
+        public virtual System.Threading.Tasks.Task<string> Account_LoginAsync(LoginUserRequest request)
         {
-            return LoginAsync(request, System.Threading.CancellationToken.None);
+            return Account_LoginAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -17929,7 +17589,7 @@ namespace Forpost.Web.Client.Implementations
         /// Логин сотрудника
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<string> LoginAsync(LoginUserRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<string> Account_LoginAsync(LoginUserRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -19380,38 +19040,41 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CompositionTechCardResponse
+    public partial class CompositionTechCardModel
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
         public System.Guid Id { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("productName")]
-        public string ProductName { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("number")]
         public string Number { get; set; } = default!;
 
+        [System.Text.Json.Serialization.JsonPropertyName("productName")]
+        public string ProductName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productId")]
+        public System.Guid ProductId { get; set; } = default!;
+
         [System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("steps")]
-        public System.Collections.Generic.ICollection<StepSummaryResponse>? Steps { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("operations")]
+        public System.Collections.Generic.ICollection<OperationSummary>? Operations { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("items")]
-        public System.Collections.Generic.ICollection<ItemSummaryResponse>? Items { get; set; } = default!;
+        public System.Collections.Generic.ICollection<ItemSummary>? Items { get; set; } = default!;
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class StepSummaryResponse
+    public partial class OperationSummary
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
         public System.Guid Id { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
-        public System.Guid TechCardId { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("operationId")]
+        public System.Guid OperationId { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("operationName")]
         public string OperationName { get; set; } = default!;
@@ -19419,27 +19082,34 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("duration")]
-        public System.TimeSpan Duration { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("type")]
+        public OperationType Type { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("cost")]
-        public decimal Cost { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("unitOfMeasure")]
-        public UnitOfMeasure UnitOfMeasure { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("number")]
+        public int Number { get; set; } = default!;
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum UnitOfMeasure
+    public partial class OperationType : SmartEnumerationOfOperationType
     {
 
-        Piece = 1,
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public abstract partial class SmartEnumerationOfOperationType
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("value")]
+        public int Value { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; } = default!;
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ItemSummaryResponse
+    public partial class ItemSummary
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
@@ -19475,29 +19145,29 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TechCardResponse
+    public partial class EntityPagedResultOfTechCardModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("items")]
+        public System.Collections.Generic.ICollection<TechCardModel> Items { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("totalCount")]
+        public int TotalCount { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TechCardModel
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
         public System.Guid Id { get; set; } = default!;
 
-        /// <summary>
-        /// Номер тех.карты
-        /// </summary>
-
         [System.Text.Json.Serialization.JsonPropertyName("number")]
         public string Number { get; set; } = default!;
 
-        /// <summary>
-        /// Описание
-        /// </summary>
-
         [System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; } = default!;
-
-        /// <summary>
-        /// Ссылка на продукт, относительно которого составляется тех.карта
-        /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("productId")]
         public System.Guid ProductId { get; set; } = default!;
@@ -19534,25 +19204,38 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("productId")]
         public System.Guid ProductId { get; set; } = default!;
 
-        /// <summary>
-        /// Создатель тех.карты
-        /// <br/>            
-        /// </summary>
+    }
 
-        [System.Text.Json.Serialization.JsonPropertyName("createdById")]
-        public System.Guid CreatedById { get; set; } = default!;
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class EntityPagedResultOfTechCardOperationModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("items")]
+        public System.Collections.Generic.ICollection<TechCardOperationModel> Items { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("totalCount")]
+        public int TotalCount { get; set; } = default!;
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TechCardStep : DomainEntity
+    public partial class TechCardOperationModel
     {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("techCardNumber")]
+        public string TechCardNumber { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
         public System.Guid TechCardId { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("stepId")]
-        public System.Guid StepId { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("operationName")]
+        public string OperationName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("operationId")]
+        public System.Guid OperationId { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("number")]
         public int Number { get; set; } = default!;
@@ -19560,19 +19243,26 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TechCardStepRequest
+    public partial class TechCardOperationRequest
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
         public System.Guid TechCardId { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("stepId")]
-        public System.Guid StepId { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("operationId")]
+        public System.Guid OperationId { get; set; } = default!;
 
-        /// <summary>
-        /// Номер в очереди
-        /// <br/>            
-        /// </summary>
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class UpdateTechCardOperationRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
+        public System.Guid TechCardId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("operationId")]
+        public System.Guid OperationId { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("number")]
         public int Number { get; set; } = default!;
@@ -19580,14 +19270,32 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TechCardItem : DomainEntity
+    public partial class EntityPagedResultOfTechCardItemModel
     {
+
+        [System.Text.Json.Serialization.JsonPropertyName("items")]
+        public System.Collections.Generic.ICollection<TechCardItemModel> Items { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("totalCount")]
+        public int TotalCount { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TechCardItemModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
         public System.Guid TechCardId { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("productId")]
         public System.Guid ProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productName")]
+        public string ProductName { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("quantity")]
         public int Quantity { get; set; } = default!;
@@ -19650,79 +19358,11 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Step : DomainEntity
+    public partial class Role : DomainEntity
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
-        public System.Guid TechCardId { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("operationId")]
-        public System.Guid OperationId { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("duration")]
-        public System.TimeSpan Duration { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("cost")]
-        public decimal Cost { get; set; } = default!;
-
-        [System.Text.Json.Serialization.JsonPropertyName("unitOfMeasure")]
-        public UnitOfMeasure UnitOfMeasure { get; set; } = default!;
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class StepCreateRequest
-    {
-        /// <summary>
-        /// Ссылка на тех.карту
-        /// <br/>            
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
-        public System.Guid TechCardId { get; set; } = default!;
-
-        /// <summary>
-        /// Ссылка на операцию (пайка/мойка/сборка и тд)
-        /// <br/>            
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("operationId")]
-        public System.Guid OperationId { get; set; } = default!;
-
-        /// <summary>
-        /// Описание задачи
-        /// <br/>            
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string? Description { get; set; } = default!;
-
-        /// <summary>
-        /// Длительность задачи
-        /// <br/>            
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("duration")]
-        public System.TimeSpan Duration { get; set; } = default!;
-
-        /// <summary>
-        /// Стоимость задачи
-        /// <br/>            
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("cost")]
-        public decimal Cost { get; set; } = default!;
-
-        /// <summary>
-        /// Единица измерения
-        /// <br/>            
-        /// </summary>
-
-        [System.Text.Json.Serialization.JsonPropertyName("unitOfMeasure")]
-        public UnitOfMeasure UnitOfMeasure { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; } = default!;
 
     }
 
@@ -19928,6 +19568,30 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class OperationRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string? Description { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("operationTypeValue")]
+        public int OperationTypeValue { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class OperationDescriptionRequest
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Operation : DomainEntity
     {
 
@@ -19939,16 +19603,6 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("type")]
         public OperationType Type { get; set; } = default!;
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum OperationType
-    {
-
-        Preparatory = 100,
-
-        Basic = 200,
 
     }
 

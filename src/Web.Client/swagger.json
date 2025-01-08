@@ -12,7 +12,7 @@
           "StorageProduct"
         ],
         "summary": "Получить список всех продуктов на складе",
-        "operationId": "GetAllProducts",
+        "operationId": "StorageProduct_GetAllProducts",
         "parameters": [
           {
             "name": "storageId",
@@ -68,7 +68,7 @@
           "StorageProduct"
         ],
         "summary": "Добавить продукт на склад",
-        "operationId": "Create",
+        "operationId": "StorageProduct_Create",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -94,7 +94,7 @@
           "StorageProduct"
         ],
         "summary": "Сканирование продукта на складе",
-        "operationId": "ScanBarcode",
+        "operationId": "StorageProduct_ScanBarcode",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -130,7 +130,7 @@
           "EntryStorageHistory"
         ],
         "summary": "Получение всех поступлений на склад",
-        "operationId": "GetAllEntries",
+        "operationId": "EntryStorageHistory_GetAllEntries",
         "parameters": [
           {
             "name": "Purchased",
@@ -220,7 +220,7 @@
           "CompletedProduct"
         ],
         "summary": "Список всех готовых продуктов на складе",
-        "operationId": "GetAllOnStorage",
+        "operationId": "CompletedProduct_GetAllOnStorage",
         "parameters": [
           {
             "name": "skip",
@@ -290,7 +290,7 @@
           "CompletedProduct"
         ],
         "summary": "Список готовых продуктов по ProductID (справочный ID)",
-        "operationId": "GetAllOnStorageByProductId",
+        "operationId": "CompletedProduct_GetAllOnStorageByProductId",
         "parameters": [
           {
             "name": "productId",
@@ -326,7 +326,7 @@
           "Issue"
         ],
         "summary": "Получение всех задач производственного процесса",
-        "operationId": "GetIssuesFromManufacturingProcess",
+        "operationId": "Issue_GetIssuesFromManufacturingProcess",
         "parameters": [
           {
             "name": "manufacturingProcessId",
@@ -362,7 +362,7 @@
           "Issue"
         ],
         "summary": "Получение задач для исполнителя",
-        "operationId": "GetIssuesForExecutor",
+        "operationId": "Issue_GetIssuesForExecutor",
         "parameters": [
           {
             "name": "skip",
@@ -408,7 +408,7 @@
           "Issue"
         ],
         "summary": "Получение задач для исполнителя",
-        "operationId": "GetIssuesForResponsible",
+        "operationId": "Issue_GetIssuesForResponsible",
         "parameters": [
           {
             "name": "skip",
@@ -454,7 +454,7 @@
           "Issue"
         ],
         "summary": "Запуск задачи",
-        "operationId": "Launch",
+        "operationId": "Issue_Launch",
         "parameters": [
           {
             "name": "id",
@@ -490,7 +490,7 @@
           "Issue"
         ],
         "summary": "Назначение исполнителя задачи",
-        "operationId": "AssignExecutor",
+        "operationId": "Issue_AssignExecutor",
         "parameters": [
           {
             "name": "issueId",
@@ -535,7 +535,7 @@
           "Issue"
         ],
         "summary": "Завершение задачи",
-        "operationId": "Close",
+        "operationId": "Issue_Close",
         "parameters": [
           {
             "name": "id",
@@ -571,7 +571,7 @@
           "Issue"
         ],
         "summary": "Получение задачи по ID",
-        "operationId": "GetById",
+        "operationId": "Issue_GetById",
         "parameters": [
           {
             "name": "issueId",
@@ -604,7 +604,7 @@
           "ManufacturingProcess"
         ],
         "summary": "Планирование производственного процесса",
-        "operationId": "Schedule",
+        "operationId": "ManufacturingProcess_Schedule",
         "requestBody": {
           "x-name": "command",
           "content": {
@@ -636,7 +636,7 @@
           "ManufacturingProcess"
         ],
         "summary": "Получить все производственные процессы",
-        "operationId": "GetAllAll",
+        "operationId": "ManufacturingProcess_GetAll",
         "parameters": [
           {
             "name": "skip",
@@ -705,7 +705,7 @@
         "tags": [
           "ManufacturingProcess"
         ],
-        "operationId": "GetById2",
+        "operationId": "ManufacturingProcess_GetById",
         "parameters": [
           {
             "name": "id",
@@ -738,7 +738,7 @@
           "ManufacturingProcess"
         ],
         "summary": "Запуск производственного процесса",
-        "operationId": "Launch2",
+        "operationId": "ManufacturingProcess_Launch",
         "parameters": [
           {
             "name": "id",
@@ -772,7 +772,7 @@
           "ManufacturingProcess"
         ],
         "summary": "Завершение производственного процесса",
-        "operationId": "Complete",
+        "operationId": "ManufacturingProcess_Complete",
         "parameters": [
           {
             "name": "id",
@@ -806,7 +806,7 @@
           "ProductDevelopment"
         ],
         "summary": "Получение всех продуктов в разработке",
-        "operationId": "GetAllAll2",
+        "operationId": "ProductDevelopment_GetAll",
         "parameters": [
           {
             "name": "skip",
@@ -874,7 +874,7 @@
           "ProductDevelopment"
         ],
         "summary": "Заполнение состава продукта",
-        "operationId": "SetCompositionProduct",
+        "operationId": "ProductDevelopment_SetCompositionProduct",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -900,7 +900,7 @@
           "ProductDevelopment"
         ],
         "summary": "Получение всех продуктов по ID задачи",
-        "operationId": "GetAllByIssueId",
+        "operationId": "ProductDevelopment_GetAllByIssueId",
         "parameters": [
           {
             "name": "issueId",
@@ -956,7 +956,7 @@
           "ProductDevelopment"
         ],
         "summary": "Завершить задачу, переход на следующий этап или создание готового продукта",
-        "operationId": "CompleteIssue",
+        "operationId": "ProductDevelopment_CompleteIssue",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -982,7 +982,7 @@
           "ProductDevelopment"
         ],
         "summary": "Получение состава продукта по ProductDevelopmentId",
-        "operationId": "GetCompositionProduct",
+        "operationId": "ProductDevelopment_GetCompositionProduct",
         "parameters": [
           {
             "name": "productDevelopmentId",
@@ -1015,7 +1015,7 @@
           "ProductDevelopment"
         ],
         "summary": "Получение состава тех.карты по ProductDevelopmentId",
-        "operationId": "GetTechCardItemsByProductDevelopmentId",
+        "operationId": "ProductDevelopment_GetTechCardItemsByProductDevelopmentId",
         "parameters": [
           {
             "name": "productDevelopmentId",
@@ -1049,7 +1049,7 @@
           "ManufacturingOrder"
         ],
         "summary": "Получить все заказы в производство",
-        "operationId": "GetAll",
+        "operationId": "ManufacturingOrder_GetAll",
         "parameters": [
           {
             "name": "Number",
@@ -1127,7 +1127,7 @@
           "ManufacturingOrder"
         ],
         "summary": "Создать заказ в производство",
-        "operationId": "Create2",
+        "operationId": "ManufacturingOrder_Create",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -1171,7 +1171,7 @@
           "ManufacturingOrder"
         ],
         "summary": "Добавить комментарий к заказу в производство",
-        "operationId": "ChangeComment",
+        "operationId": "ManufacturingOrder_ChangeComment",
         "parameters": [
           {
             "name": "id",
@@ -1227,7 +1227,7 @@
           "ManufacturingOrder"
         ],
         "summary": "Получить заказ в производство по ID",
-        "operationId": "GetById3",
+        "operationId": "ManufacturingOrder_GetById",
         "parameters": [
           {
             "name": "id",
@@ -1270,7 +1270,7 @@
           "ManufacturingOrderComposition"
         ],
         "summary": "Добавить продукт в заказ на производство",
-        "operationId": "Add",
+        "operationId": "ManufacturingOrderComposition_Add",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -1314,7 +1314,7 @@
           "ManufacturingOrderComposition"
         ],
         "summary": "Изменить количество продукта в составе заказа на производство",
-        "operationId": "ChangeQuantity",
+        "operationId": "ManufacturingOrderComposition_ChangeQuantity",
         "parameters": [
           {
             "name": "id",
@@ -1370,7 +1370,7 @@
           "ManufacturingOrderComposition"
         ],
         "summary": "Удалить продукт из состава заказа на производство",
-        "operationId": "Delete",
+        "operationId": "ManufacturingOrderComposition_Delete",
         "parameters": [
           {
             "name": "id",
@@ -1404,7 +1404,7 @@
           "ManufacturingOrderComposition"
         ],
         "summary": "Получить состав заказа в производство",
-        "operationId": "GetById4",
+        "operationId": "ManufacturingOrderComposition_GetById",
         "parameters": [
           {
             "name": "id",
@@ -1447,7 +1447,7 @@
           "NotificationForUsers"
         ],
         "summary": "Получить все уведомления для пользователей",
-        "operationId": "GetAllAll3",
+        "operationId": "NotificationForUsers_GetAll",
         "parameters": [
           {
             "name": "skip",
@@ -1491,7 +1491,7 @@
           "NotificationForUsers"
         ],
         "summary": "Добавить уведомление для пользователей",
-        "operationId": "Publish",
+        "operationId": "NotificationForUsers_Publish",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -1517,7 +1517,7 @@
           "ApplicationNotification"
         ],
         "summary": "Получить все типы уведомлений в приложении.",
-        "operationId": "GetAllApplicationNotifications",
+        "operationId": "ApplicationNotification_GetAllApplicationNotifications",
         "responses": {
           "200": {
             "description": "",
@@ -1541,7 +1541,7 @@
           "ApplicationUserNotification"
         ],
         "summary": "Получить все подписки пользователя на уведомления.",
-        "operationId": "GetApplicationNotificationsByUserId",
+        "operationId": "ApplicationUserNotification_GetApplicationNotificationsByUserId",
         "parameters": [
           {
             "name": "userId",
@@ -1587,7 +1587,7 @@
           "ApplicationUserNotification"
         ],
         "summary": "Подписать пользователя на уведомление.",
-        "operationId": "SubscribeUserToNotification",
+        "operationId": "ApplicationUserNotification_SubscribeUserToNotification",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -1631,7 +1631,7 @@
           "ApplicationUserNotification"
         ],
         "summary": "Отписать пользователя от уведомления.",
-        "operationId": "UnsubscribeUserFromNotification",
+        "operationId": "ApplicationUserNotification_UnsubscribeUserFromNotification",
         "parameters": [
           {
             "name": "id",
@@ -1657,7 +1657,7 @@
           "File"
         ],
         "summary": "Добавление файла",
-        "operationId": "UploadFile",
+        "operationId": "File_UploadFile",
         "parameters": [
           {
             "name": "ParentId",
@@ -1708,7 +1708,7 @@
           "File"
         ],
         "summary": "Скачивание файла с сервера",
-        "operationId": "DownloadFile",
+        "operationId": "File_DownloadFile",
         "parameters": [
           {
             "name": "id",
@@ -1751,7 +1751,7 @@
           "File"
         ],
         "summary": "Удаление файла из БД",
-        "operationId": "DeleteFile",
+        "operationId": "File_DeleteFile",
         "parameters": [
           {
             "name": "id",
@@ -1787,7 +1787,7 @@
           "File"
         ],
         "summary": "Получение списка файлов по родительскому идентификатору",
-        "operationId": "GetAllFiles",
+        "operationId": "File_GetAllFiles",
         "parameters": [
           {
             "name": "parentId",
@@ -1833,7 +1833,7 @@
           "PriceList"
         ],
         "summary": "Добавление позиции в прайс-лист",
-        "operationId": "Add2",
+        "operationId": "PriceList_Add",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -1865,7 +1865,7 @@
           "PriceList"
         ],
         "summary": "Получение всех позиций прайс-листа",
-        "operationId": "GetAll2",
+        "operationId": "PriceList_GetAll",
         "parameters": [
           {
             "name": "Skip",
@@ -1915,7 +1915,7 @@
           "IssueHistory"
         ],
         "summary": "Получение истории задач",
-        "operationId": "GetAllAll4",
+        "operationId": "IssueHistory_GetAll",
         "parameters": [
           {
             "name": "ExecutorId",
@@ -1999,7 +1999,7 @@
           "Invoice"
         ],
         "summary": "Получить счет по его номеру",
-        "operationId": "GetByNumber",
+        "operationId": "Invoice_GetByNumber",
         "parameters": [
           {
             "name": "number",
@@ -2031,7 +2031,7 @@
           "Invoice"
         ],
         "summary": "Получить счет по ID",
-        "operationId": "GetById5",
+        "operationId": "Invoice_GetById",
         "parameters": [
           {
             "name": "id",
@@ -2062,7 +2062,7 @@
           "Invoice"
         ],
         "summary": "Удалить счет по его id",
-        "operationId": "Delete2",
+        "operationId": "Invoice_Delete",
         "parameters": [
           {
             "name": "id",
@@ -2088,7 +2088,7 @@
           "Invoice"
         ],
         "summary": "Получить все счета",
-        "operationId": "GetAll3",
+        "operationId": "Invoice_GetAll",
         "parameters": [
           {
             "name": "Number",
@@ -2196,7 +2196,7 @@
           "Invoice"
         ],
         "summary": "Создать счет",
-        "operationId": "Create3",
+        "operationId": "Invoice_Create",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -2240,7 +2240,7 @@
           "Invoice"
         ],
         "summary": "Изменить статус оплаты счета",
-        "operationId": "ChangePaymentStatus",
+        "operationId": "Invoice_ChangePaymentStatus",
         "parameters": [
           {
             "name": "id",
@@ -2278,7 +2278,7 @@
           "Invoice"
         ],
         "summary": "Изменить приоритет счета",
-        "operationId": "ChangePriority",
+        "operationId": "Invoice_ChangePriority",
         "parameters": [
           {
             "name": "id",
@@ -2316,7 +2316,7 @@
           "Invoice"
         ],
         "summary": "Отгрузить счет",
-        "operationId": "ShipInvoice",
+        "operationId": "Invoice_ShipInvoice",
         "parameters": [
           {
             "name": "id",
@@ -2354,7 +2354,7 @@
           "Invoice"
         ],
         "summary": "Изменить процент оплаты",
-        "operationId": "SetPaymentPercentage",
+        "operationId": "Invoice_SetPaymentPercentage",
         "parameters": [
           {
             "name": "id",
@@ -2392,7 +2392,7 @@
           "Invoice"
         ],
         "summary": "Получить изменения в счете по ID",
-        "operationId": "GetChangeLogsById",
+        "operationId": "Invoice_GetChangeLogsById",
         "parameters": [
           {
             "name": "id",
@@ -2443,7 +2443,7 @@
           "Invoice"
         ],
         "summary": "Изменить описание счета",
-        "operationId": "ChangeDescriptionInvoice",
+        "operationId": "Invoice_ChangeDescriptionInvoice",
         "parameters": [
           {
             "name": "id",
@@ -2481,7 +2481,7 @@
           "Invoice"
         ],
         "summary": "Установить дату закрытия счета",
-        "operationId": "SetClosingDate",
+        "operationId": "Invoice_SetClosingDate",
         "parameters": [
           {
             "name": "id",
@@ -2519,7 +2519,7 @@
           "InvoiceProduct"
         ],
         "summary": "Добавление продуктов в счет",
-        "operationId": "Create4",
+        "operationId": "InvoiceProduct_Create",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -2545,7 +2545,7 @@
           "InvoiceProduct"
         ],
         "summary": "Получение продуктов по id счета",
-        "operationId": "GetCompositionInvoice",
+        "operationId": "InvoiceProduct_GetCompositionInvoice",
         "parameters": [
           {
             "name": "id",
@@ -2579,7 +2579,7 @@
           "InvoiceProduct"
         ],
         "summary": "Удалить продукт из счета",
-        "operationId": "DeleteById",
+        "operationId": "InvoiceProduct_DeleteById",
         "parameters": [
           {
             "name": "id",
@@ -2605,7 +2605,7 @@
           "InvoiceProduct"
         ],
         "summary": "Заполнение состава счета",
-        "operationId": "SetCompositionInvoice",
+        "operationId": "InvoiceProduct_SetCompositionInvoice",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -2631,7 +2631,7 @@
           "InvoiceProduct"
         ],
         "summary": "Получение состава счета",
-        "operationId": "GetCompositionInvoice2",
+        "operationId": "InvoiceProduct_GetCompositionInvoice2",
         "parameters": [
           {
             "name": "invoiceId",
@@ -2667,7 +2667,7 @@
           "InvoiceProduct"
         ],
         "summary": "Изменить количество продукта в счете",
-        "operationId": "ChangeQuantityProduct",
+        "operationId": "InvoiceProduct_ChangeQuantityProduct",
         "parameters": [
           {
             "name": "id",
@@ -2699,13 +2699,13 @@
         }
       }
     },
-    "/api/v1/techcard/composition/{techCardId}": {
+    "/api/v1/techcards/composition/{techCardId}": {
       "get": {
         "tags": [
           "TechCard"
         ],
         "summary": "Получение состава тех.карты по Id",
-        "operationId": "GetCompositionTechCard",
+        "operationId": "TechCard_GetCompositionTechCard",
         "parameters": [
           {
             "name": "techCardId",
@@ -2724,7 +2724,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CompositionTechCardResponse"
+                  "$ref": "#/components/schemas/CompositionTechCardModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -2732,13 +2742,13 @@
         }
       }
     },
-    "/api/v1/techcard/{id}": {
+    "/api/v1/techcards/{id}": {
       "get": {
         "tags": [
           "TechCard"
         ],
         "summary": "Получение тех.карты по Id",
-        "operationId": "GetById6",
+        "operationId": "TechCard_GetById",
         "parameters": [
           {
             "name": "id",
@@ -2761,6 +2771,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       },
@@ -2769,7 +2789,7 @@
           "TechCard"
         ],
         "summary": "Обновление информации о тех.карте",
-        "operationId": "Update",
+        "operationId": "TechCard_Update",
         "parameters": [
           {
             "name": "id",
@@ -2815,7 +2835,7 @@
           "TechCard"
         ],
         "summary": "Удаление тех.карты",
-        "operationId": "Delete3",
+        "operationId": "TechCard_Delete",
         "parameters": [
           {
             "name": "id",
@@ -2845,55 +2865,48 @@
         }
       }
     },
-    "/api/v1/techcard": {
+    "/api/v1/techcards": {
       "get": {
         "tags": [
           "TechCard"
         ],
         "summary": "Получение всех тех.карт",
-        "operationId": "GetAllAll5",
+        "operationId": "TechCard_GetAll",
         "parameters": [
           {
-            "name": "skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            },
-            "x-position": 1
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            },
-            "x-position": 2
-          },
-          {
-            "name": "filterExpression",
+            "name": "Number",
             "in": "query",
             "schema": {
               "type": "string",
               "nullable": true
             },
+            "x-position": 1
+          },
+          {
+            "name": "ProductId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "guid",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
             "x-position": 3
           },
           {
-            "name": "filterValues",
+            "name": "Limit",
             "in": "query",
-            "style": "form",
-            "explode": true,
             "schema": {
-              "type": "array",
-              "nullable": true,
-              "items": {
-                "type": "string",
-                "nullable": true
-              }
+              "type": "integer",
+              "format": "int32"
             },
             "x-position": 4
           }
@@ -2904,26 +2917,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TechCardResponse"
-                  }
+                  "$ref": "#/components/schemas/EntityPagedResultOfTechCardModel"
                 }
               }
             }
           },
           "204": {
             "description": ""
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
           }
         }
       },
@@ -2932,7 +2932,7 @@
           "TechCard"
         ],
         "summary": "Создание тех.карты",
-        "operationId": "Create5",
+        "operationId": "TechCard_Create",
         "requestBody": {
           "x-name": "card",
           "content": {
@@ -2947,26 +2947,18 @@
         },
         "responses": {
           "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string",
-                  "format": "guid"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
     },
-    "/api/v1/tech-card-step/{techCardId}": {
+    "/api/v1/tech-card-operation/{techCardId}": {
       "get": {
         "tags": [
-          "TechCardStep"
+          "TechCardOperation"
         ],
         "summary": "Получение всех этапов по Id тех.карты",
-        "operationId": "GetStepsByTechCardId",
+        "operationId": "TechCardOperation_GetOperationsByTechCardId",
         "parameters": [
           {
             "name": "techCardId",
@@ -2977,6 +2969,24 @@
               "format": "guid"
             },
             "x-position": 1
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
           }
         ],
         "responses": {
@@ -2985,10 +2995,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TechCardStep"
-                  }
+                  "$ref": "#/components/schemas/EntityPagedResultOfTechCardOperationModel"
                 }
               }
             }
@@ -2996,19 +3003,19 @@
         }
       }
     },
-    "/api/v1/tech-card-step": {
+    "/api/v1/tech-card-operation": {
       "post": {
         "tags": [
-          "TechCardStep"
+          "TechCardOperation"
         ],
         "summary": "Добавление этапа в техкарту",
-        "operationId": "Create6",
+        "operationId": "TechCardOperation_Create",
         "requestBody": {
           "x-name": "model",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TechCardStepRequest"
+                "$ref": "#/components/schemas/TechCardOperationRequest"
               }
             }
           },
@@ -3030,13 +3037,13 @@
         }
       }
     },
-    "/api/v1/tech-card-step/{id}": {
+    "/api/v1/tech-card-operation/{id}": {
       "put": {
         "tags": [
-          "TechCardStep"
+          "TechCardOperation"
         ],
         "summary": "Обновление этапа в техкарте",
-        "operationId": "Update2",
+        "operationId": "TechCardOperation_Update",
         "parameters": [
           {
             "name": "id",
@@ -3054,7 +3061,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TechCardStepRequest"
+                "$ref": "#/components/schemas/UpdateTechCardOperationRequest"
               }
             }
           },
@@ -3079,10 +3086,10 @@
       },
       "delete": {
         "tags": [
-          "TechCardStep"
+          "TechCardOperation"
         ],
         "summary": "Удаление этапа",
-        "operationId": "Delete4",
+        "operationId": "TechCardOperation_Delete",
         "parameters": [
           {
             "name": "id",
@@ -3118,7 +3125,7 @@
           "TechCardItem"
         ],
         "summary": "Получение состава тех.карты по TechCardId",
-        "operationId": "GetTechCardItems",
+        "operationId": "TechCardItem_GetTechCardItems",
         "parameters": [
           {
             "name": "techCardId",
@@ -3129,6 +3136,24 @@
               "format": "guid"
             },
             "x-position": 1
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
           }
         ],
         "responses": {
@@ -3137,10 +3162,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TechCardItem"
-                  }
+                  "$ref": "#/components/schemas/EntityPagedResultOfTechCardItemModel"
                 }
               }
             }
@@ -3154,7 +3176,7 @@
           "TechCardItem"
         ],
         "summary": "Добавление компонента в техкарту",
-        "operationId": "Create7",
+        "operationId": "TechCardItem_Create",
         "requestBody": {
           "x-name": "model",
           "content": {
@@ -3188,7 +3210,7 @@
           "TechCardItem"
         ],
         "summary": "Обновление компонента в техкарте",
-        "operationId": "Update3",
+        "operationId": "TechCardItem_Update",
         "parameters": [
           {
             "name": "id",
@@ -3234,7 +3256,7 @@
           "TechCardItem"
         ],
         "summary": "Удаление компонента из техкарты",
-        "operationId": "Delete5",
+        "operationId": "TechCardItem_Delete",
         "parameters": [
           {
             "name": "id",
@@ -3270,7 +3292,7 @@
           "Storage"
         ],
         "summary": "Создание нового склада",
-        "operationId": "Create8",
+        "operationId": "Storage_Create",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -3294,7 +3316,7 @@
           "Storage"
         ],
         "summary": "Получить список всех складов",
-        "operationId": "GetAllAll6",
+        "operationId": "Storage_GetAll",
         "responses": {
           "200": {
             "description": "",
@@ -3321,7 +3343,7 @@
           "Storage"
         ],
         "summary": "Обновление информации о складе",
-        "operationId": "Update4",
+        "operationId": "Storage_Update",
         "parameters": [
           {
             "name": "id",
@@ -3367,7 +3389,7 @@
           "Storage"
         ],
         "summary": "Удаление склада",
-        "operationId": "Delete6",
+        "operationId": "Storage_Delete",
         "parameters": [
           {
             "name": "id",
@@ -3393,222 +3415,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/v1/steps/{id}": {
-      "get": {
-        "tags": [
-          "Step"
-        ],
-        "summary": "Получение этапа по Id",
-        "operationId": "GetById7",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Step"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Step"
-        ],
-        "summary": "Обновление этапа",
-        "operationId": "Update5",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
-        "requestBody": {
-          "x-name": "step",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StepCreateRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 2
-        },
-        "responses": {
-          "204": {
-            "description": ""
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Step"
-        ],
-        "summary": "Удаление этапа",
-        "operationId": "Delete7",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "guid"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": ""
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/steps": {
-      "get": {
-        "tags": [
-          "Step"
-        ],
-        "summary": "Получение всех этапов",
-        "operationId": "GetAllAll7",
-        "parameters": [
-          {
-            "name": "skip",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            },
-            "x-position": 1
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 100
-            },
-            "x-position": 2
-          },
-          {
-            "name": "filterExpression",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            },
-            "x-position": 3
-          },
-          {
-            "name": "filterValues",
-            "in": "query",
-            "style": "form",
-            "explode": true,
-            "schema": {
-              "type": "array",
-              "nullable": true,
-              "items": {
-                "nullable": true
-              }
-            },
-            "x-position": 4
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Step"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Step"
-        ],
-        "summary": "Создание этапа",
-        "operationId": "Create9",
-        "requestBody": {
-          "x-name": "step",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/StepCreateRequest"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "201": {
-            "description": ""
           }
         }
       }
@@ -3619,7 +3425,7 @@
           "Role"
         ],
         "summary": "Создать новую роль",
-        "operationId": "Create10",
+        "operationId": "Role_Create",
         "requestBody": {
           "x-name": "name",
           "content": {
@@ -3643,7 +3449,7 @@
           "Role"
         ],
         "summary": "Получить все роли",
-        "operationId": "GetAllAll8",
+        "operationId": "Role_GetAll",
         "responses": {
           "200": {
             "description": "",
@@ -3652,7 +3458,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/RoleResponse"
+                    "$ref": "#/components/schemas/Role"
                   }
                 }
               }
@@ -3677,7 +3483,7 @@
           "Role"
         ],
         "summary": "Получить роль по id",
-        "operationId": "GetById8",
+        "operationId": "Role_GetById",
         "parameters": [
           {
             "name": "id",
@@ -3710,7 +3516,7 @@
           "Product"
         ],
         "summary": "Получение всех продуктов",
-        "operationId": "GetAll4",
+        "operationId": "Product_GetAll",
         "parameters": [
           {
             "name": "Name",
@@ -3799,7 +3605,7 @@
           "Product"
         ],
         "summary": "Создать продукт",
-        "operationId": "Create11",
+        "operationId": "Product_Create",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -3823,7 +3629,7 @@
           "Product"
         ],
         "summary": "Обновление продукта по id",
-        "operationId": "Update6",
+        "operationId": "Product_Update",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -3849,7 +3655,7 @@
           "Product"
         ],
         "summary": "Получение продукта по id",
-        "operationId": "GetById9",
+        "operationId": "Product_GetById",
         "parameters": [
           {
             "name": "id",
@@ -3880,7 +3686,7 @@
           "Product"
         ],
         "summary": "Удаление продукта",
-        "operationId": "Delete8",
+        "operationId": "Product_Delete",
         "parameters": [
           {
             "name": "id",
@@ -3916,7 +3722,7 @@
           "Product"
         ],
         "summary": "Получение QR-продукта. Содержит JSON с Id и Name продукта.",
-        "operationId": "GetBarcodePngs",
+        "operationId": "Product_GetBarcodePngs",
         "parameters": [
           {
             "name": "productId",
@@ -3960,7 +3766,7 @@
           "Product"
         ],
         "summary": "Добавить штрихкод продукта.",
-        "operationId": "UpdateBarcode",
+        "operationId": "Product_UpdateBarcode",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -4006,7 +3812,7 @@
           "ProductCompatibility"
         ],
         "summary": "Добавить совместимость для продукта",
-        "operationId": "AddProductCompatibility",
+        "operationId": "ProductCompatibility_AddProductCompatibility",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -4032,7 +3838,7 @@
           "ProductCompatibility"
         ],
         "summary": "Получить список совместимых продуктов",
-        "operationId": "GetProductCompatibilityByProductId",
+        "operationId": "ProductCompatibility_GetProductCompatibilityByProductId",
         "parameters": [
           {
             "name": "productId",
@@ -4066,7 +3872,7 @@
           "ProductCompatibility"
         ],
         "summary": "Удаление позиции",
-        "operationId": "DeleteProductCompabilityById",
+        "operationId": "ProductCompatibility_DeleteProductCompabilityById",
         "parameters": [
           {
             "name": "productCompabilityId",
@@ -4100,7 +3906,7 @@
           "ProductAttribute"
         ],
         "summary": "Добавление атрибута к продукту",
-        "operationId": "CreateProductAttribute",
+        "operationId": "ProductAttribute_CreateProductAttribute",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -4144,7 +3950,7 @@
           "ProductAttribute"
         ],
         "summary": "Обновление значений атрибута",
-        "operationId": "AddProductAttributeValues",
+        "operationId": "ProductAttribute_AddProductAttributeValues",
         "parameters": [
           {
             "name": "productAttributeId",
@@ -4192,7 +3998,7 @@
           "ProductAttribute"
         ],
         "summary": "Получение всех атрибутов продукта",
-        "operationId": "GetAllAttributesByProductId",
+        "operationId": "ProductAttribute_GetAllAttributesByProductId",
         "parameters": [
           {
             "name": "productId",
@@ -4238,7 +4044,7 @@
           "ProductAttribute"
         ],
         "summary": "Удаление атрибута продукта",
-        "operationId": "DeleteProductAttribute",
+        "operationId": "ProductAttribute_DeleteProductAttribute",
         "parameters": [
           {
             "name": "id",
@@ -4274,7 +4080,7 @@
           "Attribute"
         ],
         "summary": "Получить атрибут по ID",
-        "operationId": "GetAttributeWithValue",
+        "operationId": "Attribute_GetAttributeWithValue",
         "parameters": [
           {
             "name": "attributeId",
@@ -4315,7 +4121,7 @@
           "Attribute"
         ],
         "summary": "Удалить атрибут",
-        "operationId": "DeleteAttribute",
+        "operationId": "Attribute_DeleteAttribute",
         "parameters": [
           {
             "name": "attributeId",
@@ -4351,7 +4157,7 @@
           "Attribute"
         ],
         "summary": "Получить все атрибуты",
-        "operationId": "GetAllAttributes",
+        "operationId": "Attribute_GetAllAttributes",
         "responses": {
           "200": {
             "description": "",
@@ -4373,7 +4179,7 @@
           "Attribute"
         ],
         "summary": "Создать атрибут",
-        "operationId": "CreateAttribute",
+        "operationId": "Attribute_CreateAttribute",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -4415,7 +4221,7 @@
           "Attribute"
         ],
         "summary": "Изменить атрибут",
-        "operationId": "UpdateAttribute",
+        "operationId": "Attribute_UpdateAttribute",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -4461,7 +4267,7 @@
           "Attribute"
         ],
         "summary": "Добавить значения к атрибуту",
-        "operationId": "AddValuesAttribute",
+        "operationId": "Attribute_AddValuesAttribute",
         "parameters": [
           {
             "name": "attributeId",
@@ -4519,13 +4325,13 @@
           "Operation"
         ],
         "summary": "Добавление операции",
-        "operationId": "Add3",
+        "operationId": "Operation_Add",
         "requestBody": {
-          "x-name": "operationName",
+          "x-name": "request",
           "content": {
             "application/json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/OperationRequest"
               }
             }
           },
@@ -4551,7 +4357,7 @@
           "Operation"
         ],
         "summary": "Получение всех операций",
-        "operationId": "GetAllAll9",
+        "operationId": "Operation_GetAll",
         "responses": {
           "200": {
             "description": "",
@@ -4579,13 +4385,118 @@
         }
       }
     },
+    "/api/v1/operations/{id}/description": {
+      "put": {
+        "tags": [
+          "Operation"
+        ],
+        "summary": "Изменить описание операции",
+        "operationId": "Operation_ChangeOperationDescription",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OperationDescriptionRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/operations/{id}": {
+      "delete": {
+        "tags": [
+          "Operation"
+        ],
+        "summary": "Удаление операции по ID",
+        "operationId": "Operation_DeleteOperation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Operation"
+        ],
+        "summary": "Получить операцию по ID",
+        "operationId": "Operation_GetOperationById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/employees": {
       "get": {
         "tags": [
           "Employee"
         ],
         "summary": "Получить список всех сотрудников",
-        "operationId": "GetAll5",
+        "operationId": "Employee_GetAll",
         "parameters": [
           {
             "name": "Lastname",
@@ -4648,7 +4559,7 @@
           "Employee"
         ],
         "summary": "Обновление информации о сотруднике",
-        "operationId": "Update7",
+        "operationId": "Employee_Update",
         "parameters": [
           {
             "name": "id",
@@ -4694,7 +4605,7 @@
           "Employee"
         ],
         "summary": "Удаление сотрудника",
-        "operationId": "Delete9",
+        "operationId": "Employee_Delete",
         "parameters": [
           {
             "name": "id",
@@ -4730,7 +4641,7 @@
           "Employee"
         ],
         "summary": "Обновление пароля пользователя",
-        "operationId": "UpdatePassword",
+        "operationId": "Employee_UpdatePassword",
         "parameters": [
           {
             "name": "id",
@@ -4778,7 +4689,7 @@
           "Contractor"
         ],
         "summary": "Добавление контрагента",
-        "operationId": "Create12",
+        "operationId": "Contractor_Create",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -4810,7 +4721,7 @@
           "Contractor"
         ],
         "summary": "Получить всех контрагентов",
-        "operationId": "GetAll6",
+        "operationId": "Contractor_GetAll",
         "parameters": [
           {
             "name": "Name",
@@ -4880,7 +4791,7 @@
           "Contractor"
         ],
         "summary": "Получить контрагента по id",
-        "operationId": "GetById10",
+        "operationId": "Contractor_GetById",
         "parameters": [
           {
             "name": "id",
@@ -4911,7 +4822,7 @@
           "Contractor"
         ],
         "summary": "Обновление контрагента",
-        "operationId": "Update8",
+        "operationId": "Contractor_Update",
         "parameters": [
           {
             "name": "id",
@@ -4957,7 +4868,7 @@
           "Contractor"
         ],
         "summary": "Удаление контрагента",
-        "operationId": "Delete10",
+        "operationId": "Contractor_Delete",
         "parameters": [
           {
             "name": "id",
@@ -4993,7 +4904,7 @@
           "Contractor"
         ],
         "summary": "Добавить представителя контрагента",
-        "operationId": "AddContractorRepresantativeByContractorId",
+        "operationId": "Contractor_AddContractorRepresantativeByContractorId",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -5019,7 +4930,7 @@
           "Contractor"
         ],
         "summary": "Получить представителей контрагента",
-        "operationId": "GetContractorRepresentativeByContractorId",
+        "operationId": "Contractor_GetContractorRepresentativeByContractorId",
         "parameters": [
           {
             "name": "contractorId",
@@ -5052,7 +4963,7 @@
           "Contractor"
         ],
         "summary": "Удалить представителя контрагента",
-        "operationId": "DeleteContractorRepresentativeById",
+        "operationId": "Contractor_DeleteContractorRepresentativeById",
         "parameters": [
           {
             "name": "id",
@@ -5084,7 +4995,7 @@
           "Contractor"
         ],
         "summary": "Изменить представителя контрагента",
-        "operationId": "UpdateContractorRepresentativeById",
+        "operationId": "Contractor_UpdateContractorRepresentativeById",
         "parameters": [
           {
             "name": "id",
@@ -5130,7 +5041,7 @@
           "Category"
         ],
         "summary": "Создание категории",
-        "operationId": "Add4",
+        "operationId": "Category_Add",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -5162,7 +5073,7 @@
           "Category"
         ],
         "summary": "Получить все категории",
-        "operationId": "GetAllAll10",
+        "operationId": "Category_GetAll",
         "parameters": [
           {
             "name": "Name",
@@ -5207,7 +5118,7 @@
           "Category"
         ],
         "summary": "Обновление категории",
-        "operationId": "Update9",
+        "operationId": "Category_Update",
         "parameters": [
           {
             "name": "id",
@@ -5253,7 +5164,7 @@
           "Category"
         ],
         "summary": "Удаление категории",
-        "operationId": "Delete11",
+        "operationId": "Category_Delete",
         "parameters": [
           {
             "name": "id",
@@ -5289,7 +5200,7 @@
           "Account"
         ],
         "summary": "Регистрация сотрудника (регистрирует только админ)",
-        "operationId": "Register",
+        "operationId": "Account_Register",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -5304,7 +5215,15 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "guid"
+                }
+              }
+            }
           },
           "400": {
             "description": "",
@@ -5325,7 +5244,7 @@
           "Account"
         ],
         "summary": "Логин сотрудника",
-        "operationId": "Login",
+        "operationId": "Account_Login",
         "requestBody": {
           "x-name": "request",
           "content": {
@@ -6861,7 +6780,7 @@
           }
         }
       },
-      "CompositionTechCardResponse": {
+      "CompositionTechCardModel": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -6869,33 +6788,37 @@
             "type": "string",
             "format": "guid"
           },
+          "number": {
+            "type": "string"
+          },
           "productName": {
             "type": "string"
           },
-          "number": {
-            "type": "string"
+          "productId": {
+            "type": "string",
+            "format": "guid"
           },
           "description": {
             "type": "string",
             "nullable": true
           },
-          "steps": {
+          "operations": {
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/StepSummaryResponse"
+              "$ref": "#/components/schemas/OperationSummary"
             }
           },
           "items": {
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/ItemSummaryResponse"
+              "$ref": "#/components/schemas/ItemSummary"
             }
           }
         }
       },
-      "StepSummaryResponse": {
+      "OperationSummary": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -6903,7 +6826,7 @@
             "type": "string",
             "format": "guid"
           },
-          "techCardId": {
+          "operationId": {
             "type": "string",
             "format": "guid"
           },
@@ -6914,30 +6837,41 @@
             "type": "string",
             "nullable": true
           },
-          "duration": {
-            "type": "string",
-            "format": "duration"
+          "type": {
+            "$ref": "#/components/schemas/OperationType"
           },
-          "cost": {
-            "type": "number",
-            "format": "decimal"
-          },
-          "unitOfMeasure": {
-            "$ref": "#/components/schemas/UnitOfMeasure"
+          "number": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
-      "UnitOfMeasure": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Piece"
-        ],
-        "enum": [
-          1
+      "OperationType": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SmartEnumerationOfOperationType"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
         ]
       },
-      "ItemSummaryResponse": {
+      "SmartEnumerationOfOperationType": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "ItemSummary": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -6986,7 +6920,23 @@
           }
         ]
       },
-      "TechCardResponse": {
+      "EntityPagedResultOfTechCardModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TechCardModel"
+            }
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TechCardModel": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -6995,17 +6945,14 @@
             "format": "guid"
           },
           "number": {
-            "type": "string",
-            "description": "Номер тех.карты"
+            "type": "string"
           },
           "description": {
             "type": "string",
-            "description": "Описание",
             "nullable": true
           },
           "productId": {
             "type": "string",
-            "description": "Ссылка на продукт, относительно которого составляется тех.карта",
             "format": "guid"
           },
           "productName": {
@@ -7030,40 +6977,54 @@
             "type": "string",
             "description": "Ссылка на продукт, относительно которого составляется тех.карта\n            ",
             "format": "guid"
-          },
-          "createdById": {
-            "type": "string",
-            "description": "Создатель тех.карты\n            ",
-            "format": "guid"
           }
         }
       },
-      "TechCardStep": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/DomainEntity"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "techCardId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "stepId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "number": {
-                "type": "integer",
-                "format": "int32"
-              }
+      "EntityPagedResultOfTechCardOperationModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TechCardOperationModel"
             }
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
           }
-        ]
+        }
       },
-      "TechCardStepRequest": {
+      "TechCardOperationModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "techCardNumber": {
+            "type": "string"
+          },
+          "techCardId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "operationName": {
+            "type": "string"
+          },
+          "operationId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TechCardOperationRequest": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -7071,41 +7032,70 @@
             "type": "string",
             "format": "guid"
           },
-          "stepId": {
+          "operationId": {
+            "type": "string",
+            "format": "guid"
+          }
+        }
+      },
+      "UpdateTechCardOperationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "techCardId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "operationId": {
             "type": "string",
             "format": "guid"
           },
           "number": {
             "type": "integer",
-            "description": "Номер в очереди\n            ",
             "format": "int32"
           }
         }
       },
-      "TechCardItem": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/DomainEntity"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "techCardId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "productId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "quantity": {
-                "type": "integer",
-                "format": "int32"
-              }
+      "EntityPagedResultOfTechCardItemModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TechCardItemModel"
             }
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
           }
-        ]
+        }
+      },
+      "TechCardItemModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "techCardId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
       },
       "TechCardItemRequest": {
         "type": "object",
@@ -7160,7 +7150,7 @@
           }
         }
       },
-      "Step": {
+      "Role": {
         "allOf": [
           {
             "$ref": "#/components/schemas/DomainEntity"
@@ -7169,71 +7159,12 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "techCardId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "operationId": {
-                "type": "string",
-                "format": "guid"
-              },
-              "description": {
-                "type": "string",
-                "nullable": true
-              },
-              "duration": {
-                "type": "string",
-                "format": "duration"
-              },
-              "cost": {
-                "type": "number",
-                "format": "decimal"
-              },
-              "unitOfMeasure": {
-                "$ref": "#/components/schemas/UnitOfMeasure"
+              "name": {
+                "type": "string"
               }
             }
           }
         ]
-      },
-      "StepCreateRequest": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "techCardId": {
-            "type": "string",
-            "description": "Ссылка на тех.карту\n            ",
-            "format": "guid"
-          },
-          "operationId": {
-            "type": "string",
-            "description": "Ссылка на операцию (пайка/мойка/сборка и тд)\n            ",
-            "format": "guid"
-          },
-          "description": {
-            "type": "string",
-            "description": "Описание задачи\n            ",
-            "nullable": true
-          },
-          "duration": {
-            "type": "string",
-            "description": "Длительность задачи\n            ",
-            "format": "duration"
-          },
-          "cost": {
-            "type": "number",
-            "description": "Стоимость задачи\n            ",
-            "format": "decimal"
-          },
-          "unitOfMeasure": {
-            "description": "Единица измерения\n            ",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/UnitOfMeasure"
-              }
-            ]
-          }
-        }
       },
       "RoleResponse": {
         "type": "object",
@@ -7476,6 +7407,32 @@
           }
         }
       },
+      "OperationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "operationTypeValue": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "OperationDescriptionRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string"
+          }
+        }
+      },
       "Operation": {
         "allOf": [
           {
@@ -7497,18 +7454,6 @@
               }
             }
           }
-        ]
-      },
-      "OperationType": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Preparatory",
-          "Basic"
-        ],
-        "enum": [
-          100,
-          200
         ]
       },
       "EntityPagedResultOfEmployeeWithRoleModel": {

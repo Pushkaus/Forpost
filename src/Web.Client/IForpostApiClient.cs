@@ -7,6 +7,8 @@ namespace Forpost.Web.Client;
 /// </summary>
 public interface IForpostApiClient
 {
+    public IApplicationNotificationClient ApplicationNotificationClient { get; }
+    
     public IIssueClient IssueClient { get; }
     
     public IManufacturingProcessClient ManufacturingProcessClient { get; }
@@ -17,13 +19,9 @@ public interface IForpostApiClient
     
     public ITechCardClient TechCardClient { get; }
     
-    public ITechCardStepClient TechCardStepClient { get; }
-    
     public ITechCardItemClient TechCardItemClient { get; }
     
     public IStorageClient StorageClient { get; }
-    
-    public IStepClient StepClient { get; }
     
     public IRoleClient RoleClient { get; }
     

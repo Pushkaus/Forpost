@@ -14,8 +14,10 @@ internal sealed class AddInvoiceCommandHandler : ICommandHandler<AddInvoiceComma
     private readonly ILogger<AddInvoiceCommandHandler> _logger;
     private readonly IValidator<AddInvoiceCommand> _validator;
 
-    public AddInvoiceCommandHandler(IInvoiceDomainRepository invoiceDomainRepository,
-        IInvoiceProductDomainRepository invoiceProductDomainRepository, ILogger<AddInvoiceCommandHandler> logger,
+    public AddInvoiceCommandHandler(
+        IInvoiceDomainRepository invoiceDomainRepository,
+        IInvoiceProductDomainRepository invoiceProductDomainRepository,
+        ILogger<AddInvoiceCommandHandler> logger,
         IValidator<AddInvoiceCommand> validator)
     {
         _invoiceDomainRepository = invoiceDomainRepository;

@@ -12,7 +12,7 @@ internal sealed class OperationIdControllerPrefixRemoveProcessor : IOperationPro
             var operationIdWithControllerPrefix = operationDescription.Operation.OperationId;
             var operationIdWithoutControllerPrefix = operationIdWithControllerPrefix.Split('_').LastOrDefault();
 
-            operationDescription.Operation.OperationId = operationIdWithoutControllerPrefix;
+           // operationDescription.Operation.OperationId = operationIdWithoutControllerPrefix;
         }
         return true;
     }
