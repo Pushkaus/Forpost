@@ -1,4 +1,3 @@
-
 using Forpost.IntegrationTests.TestData;
 using Forpost.Web.Client.Implementations;
 
@@ -6,18 +5,17 @@ namespace Forpost.IntegrationTests.InvoiceManagment;
 
 public sealed class InvoiceEndpointTests : BaseTest
 {
-    private readonly ValidData _validData;
     
-    public InvoiceEndpointTests(TestApplication application, ValidData validData) : base(application)
+    public InvoiceEndpointTests(TestApplication application) : base(application)
     {
-        _validData = validData;
     }
 
     [Fact(DisplayName = "Добавление счета, успешное добавление")]
-    public async Task AddInvoice_ValidInput_Return201()
+    public async Task AddInvoice_ValidInput_ReturnGuid()
     {
         // Arrange
-        var product = _validData.AddProduct();
+        var product = ValidData.GetProduct();
+        DbContext.Add(product);
         
         var validProduct = new InvoiceProductCreate
         {
@@ -27,8 +25,9 @@ public sealed class InvoiceEndpointTests : BaseTest
 
         var products = new List<InvoiceProductCreate> { validProduct };
 
-        var contractor = _validData.AddContractor();
-
+        var contractor = ValidData.GetContractor();
+        DbContext.Add(contractor);
+        
         await DbContext.SaveChangesAsync();
 
         var invoice = new InvoiceCreateRequest
@@ -45,11 +44,10 @@ public sealed class InvoiceEndpointTests : BaseTest
         };
 
         // Act
-        var response = await Client.InvoiceClient.Invoice_CreateAsync(invoice);
+        var invoiceId = await Client.InvoiceClient.Invoice_CreateAsync(invoice);
         
         // Assert
-        response.Should<Guid>();
+        invoiceId.Should().NotBe(Guid.Empty);
+        invoiceId.Should<Guid>();
     }
-
-    
 }
