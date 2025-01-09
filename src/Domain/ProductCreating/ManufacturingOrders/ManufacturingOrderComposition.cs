@@ -8,13 +8,14 @@ namespace Forpost.Domain.ProductCreating.ManufacturingOrders;
 public sealed class ManufacturingOrderComposition : DomainEntity
 {
     public Guid ManufacturingProcessOrderId { get; private set; }
-    public Guid ProductId { get; private set; }
+    public Guid TechCardId { get; private set; }
     public int Quantity { get; private set; }
 
-    public static ManufacturingOrderComposition Create(Guid manufacturingProcessOrderId, Guid productId, int quantity)
-    {
-        return new ManufacturingOrderComposition(manufacturingProcessOrderId, productId, quantity);
-    }
+    public static ManufacturingOrderComposition Create(
+        Guid manufacturingProcessOrderId,
+        Guid techCardId,
+        int quantity) 
+        => new(manufacturingProcessOrderId, techCardId, quantity);
 
     public void ChangeQuantity(int quantity)
     {
@@ -23,11 +24,11 @@ public sealed class ManufacturingOrderComposition : DomainEntity
     
     private ManufacturingOrderComposition(
         Guid manufacturingProcessOrderId,
-        Guid productId,
+        Guid techCardId,
         int quantity)
     {
         ManufacturingProcessOrderId = manufacturingProcessOrderId;
-        ProductId = productId;
+        TechCardId = techCardId;
         Quantity = quantity;
     }
 }

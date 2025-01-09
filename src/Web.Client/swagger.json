@@ -1269,7 +1269,7 @@
         "tags": [
           "ManufacturingOrderComposition"
         ],
-        "summary": "Добавить продукт в заказ на производство",
+        "summary": "Добавить тех.карту в заказ на производство",
         "operationId": "ManufacturingOrderComposition_Add",
         "requestBody": {
           "x-name": "request",
@@ -1434,6 +1434,39 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/manufacturing-order-composition/{manufacturingOrderId}/tracking-products": {
+      "get": {
+        "tags": [
+          "ManufacturingOrderComposition"
+        ],
+        "operationId": "ManufacturingOrderComposition_GetTrackingProducts",
+        "parameters": [
+          {
+            "name": "manufacturingOrderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -3826,8 +3859,16 @@
           "x-position": 1
         },
         "responses": {
-          "200": {
-            "description": ""
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "guid"
+                }
+              }
+            }
           }
         }
       }
@@ -3855,10 +3896,12 @@
           "200": {
             "description": "",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductCompatibilityModel"
+                  }
                 }
               }
             }
@@ -6002,7 +6045,7 @@
             "type": "string",
             "format": "guid"
           },
-          "productId": {
+          "techCardId": {
             "type": "string",
             "format": "guid"
           },
@@ -6033,6 +6076,13 @@
           "manufacturingProcessOrderId": {
             "type": "string",
             "format": "guid"
+          },
+          "techCardId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "techCardNumber": {
+            "type": "string"
           },
           "productId": {
             "type": "string",
@@ -7283,6 +7333,30 @@
           "parentProductId": {
             "type": "string",
             "format": "guid"
+          }
+        }
+      },
+      "ProductCompatibilityModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "parentProductId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "parentProductName": {
+            "type": "string"
           }
         }
       },

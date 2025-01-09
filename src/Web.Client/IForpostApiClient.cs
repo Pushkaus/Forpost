@@ -9,6 +9,10 @@ public interface IForpostApiClient
 {
     public IApplicationNotificationClient ApplicationNotificationClient { get; }
     
+    public IManufacturingOrderClient ManufacturingOrderClient { get; }
+    
+    public IManufacturingOrderCompositionClient ManufacturingOrderCompositionClient { get; }
+    
     public IIssueClient IssueClient { get; }
     
     public IManufacturingProcessClient ManufacturingProcessClient { get; }

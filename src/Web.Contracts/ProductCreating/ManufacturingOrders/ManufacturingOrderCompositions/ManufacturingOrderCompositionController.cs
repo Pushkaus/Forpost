@@ -9,7 +9,7 @@ namespace Forpost.Web.Contracts.ProductCreating.ManufacturingOrders.Manufacturin
 public sealed class ManufacturingOrderCompositionController : ApiController
 {
     /// <summary>
-    /// Добавить продукт в заказ на производство
+    /// Добавить тех.карту в заказ на производство
     /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
@@ -18,7 +18,7 @@ public sealed class ManufacturingOrderCompositionController : ApiController
         CancellationToken cancellationToken)
     {
         var command =
-            new AddManufacturingOrderCompositionCommand(request.ManufacturingOrderId, request.ProductId,
+            new AddManufacturingOrderCompositionCommand(request.ManufacturingOrderId, request.TechCardId,
                 request.Quantity);
         var result = await Sender.Send(command, cancellationToken);
         return CreatedAtRoute(null, result);
@@ -65,6 +65,13 @@ public sealed class ManufacturingOrderCompositionController : ApiController
     public async Task<IActionResult> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await Sender.Send(new GetByIdManufacturingOrderCompositionQuery(id), cancellationToken);
+        return Ok(result);
+    }
+
+    [HttpGet("{manufacturingOrderId}/tracking-products")]
+    public async Task<IActionResult> GetTrackingProductsAsync(Guid manufacturingOrderId, CancellationToken cancellationToken)
+    {
+        var result = await Sender.Send(new GetTrackingNotAddedProductsQuery(manufacturingOrderId), cancellationToken);
         return Ok(result);
     }
 }
