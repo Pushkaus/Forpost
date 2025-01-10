@@ -3,6 +3,6 @@ namespace Forpost.Web.Contracts.ProductCreating.ManufacturingOrders.Manufacturin
 public sealed class AddManufacturingOrderCompositionRequest
 {
     public Guid ManufacturingOrderId { get; set; }
-    public Guid ProductId { get; set; }
+    public Guid TechCardId { get; set; }
     public int Quantity { get; set; }
 }

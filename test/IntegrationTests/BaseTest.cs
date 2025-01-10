@@ -1,5 +1,6 @@
 using Moq;
 using Forpost.Common.Utils;
+using Forpost.IntegrationTests.TestData;
 using Forpost.Store.Postgres;
 using Forpost.Web.Client;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ public abstract class BaseTest: IClassFixture<TestApplication>, IAsyncLifetime
     protected readonly ForpostContextPostgres DbContext;
     protected readonly IIdentityProvider IdentityProvider;
     protected readonly IServiceProvider ServiceProvider;
-    
+    protected readonly ValidData ValidData;
     protected BaseTest(TestApplication application)
     {
         Client = application.Services.GetRequiredService<IForpostApiClient>();
@@ -28,6 +29,8 @@ public abstract class BaseTest: IClassFixture<TestApplication>, IAsyncLifetime
         identityProviderMock.Setup(x => x.GetRoleId()).Returns(Guid.Parse("05492e30-8df3-432f-9de6-3fcd91e389f5"));
         
         IdentityProvider = identityProviderMock.Object;
+        
+        ValidData = new ValidData(DbContext);
     }
 
     public Task InitializeAsync() => Task.CompletedTask;

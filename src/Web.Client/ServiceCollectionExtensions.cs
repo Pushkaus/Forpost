@@ -20,6 +20,8 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IEmployeeClient, EmployeeClient>(nameof(EmployeeClient), _ => new EmployeeClient(client.Invoke()));
         services.AddHttpClient<IContractorClient, ContractorClient>(nameof(ContractorClient), _ => new ContractorClient(client.Invoke()));
         services.AddHttpClient<IAccountClient, AccountClient>(nameof(AccountClient), _ => new AccountClient(client.Invoke()));
+        services.AddHttpClient<IManufacturingOrderClient, ManufacturingOrderClient>(nameof(ManufacturingOrderClient), _ => new ManufacturingOrderClient(client.Invoke()));
+        services.AddHttpClient<IManufacturingOrderCompositionClient, ManufacturingOrderCompositionClient>(nameof(ManufacturingOrderCompositionClient), _ => new ManufacturingOrderCompositionClient(client.Invoke()));
         services.AddHttpClient<IApplicationNotificationClient, ApplicationNotificationClient>(nameof(ApplicationNotificationClient), _ => new ApplicationNotificationClient(client.Invoke()));
         services.AddSingleton<IForpostApiClient, ForpostApiClient>();
         return services;

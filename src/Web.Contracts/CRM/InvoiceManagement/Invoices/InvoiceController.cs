@@ -49,7 +49,7 @@ namespace Forpost.Web.Contracts.Crm.InvoiceManagement.Invoices
         [HttpPost]
         [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Guid>> CreateAsync([FromBody] InvoiceCreateRequest request,
+        public async Task<IActionResult> CreateAsync([FromBody] InvoiceCreateRequest request,
             CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

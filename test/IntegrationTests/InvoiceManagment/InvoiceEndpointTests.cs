@@ -1,24 +1,21 @@
-
 using Forpost.IntegrationTests.TestData;
 using Forpost.Web.Client.Implementations;
+
 
 namespace Forpost.IntegrationTests.InvoiceManagment;
 
 public sealed class InvoiceEndpointTests : BaseTest
 {
-    private readonly ValidData _validData;
-    
-    public InvoiceEndpointTests(TestApplication application, ValidData validData) : base(application)
+
+    public InvoiceEndpointTests(TestApplication application) : base(application)
     {
-        _validData = validData;
     }
 
     [Fact(DisplayName = "Добавление счета, успешное добавление")]
-    public async Task AddInvoice_ValidInput_Return201()
+    public async Task AddInvoice_ValidInput_ReturnGuid()
     {
         // Arrange
-        var product = _validData.AddProduct();
-        
+        var product = ValidData.GetProduct(); 
         var validProduct = new InvoiceProductCreate
         {
             ProductId = product.Id,
@@ -27,10 +24,8 @@ public sealed class InvoiceEndpointTests : BaseTest
 
         var products = new List<InvoiceProductCreate> { validProduct };
 
-        var contractor = _validData.AddContractor();
-
-        await DbContext.SaveChangesAsync();
-
+        var contractor = ValidData.GetContractor(); 
+        
         var invoice = new InvoiceCreateRequest
         {
             Number = "Number10",
@@ -38,18 +33,17 @@ public sealed class InvoiceEndpointTests : BaseTest
             Description = "Description",
             Priority = 100,
             PaymentStatus = 100,
-            PaymentDeadline = TimeProvider.System.GetUtcNow().AddDays(7),
-            CreateDate = TimeProvider.System.GetUtcNow(),
+            PaymentDeadline = DateTime.UtcNow.AddDays(7), 
+            CreateDate = DateTime.UtcNow, 
             PaymentPercentage = 100,
             Products = products
         };
 
         // Act
-        var response = await Client.InvoiceClient.Invoice_CreateAsync(invoice);
+        var invoiceId = await Client.InvoiceClient.Invoice_CreateAsync(invoice);
         
         // Assert
-        response.Should<Guid>();
+        invoiceId.Should().NotBe(Guid.Empty);
+        invoiceId.Should<Guid>(); 
     }
-
-    
 }

@@ -1,6 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Application.Contracts\Application.Contracts.csproj" />
     <ProjectReference Include="..\..\src\Domain.Primitives\Domain.Primitives.csproj" />
     <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\src\Features\Features.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\ProductsCreating\ManufacturingOrders\" />
   </ItemGroup>
 </Project>

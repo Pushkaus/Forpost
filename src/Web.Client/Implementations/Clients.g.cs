@@ -3982,14 +3982,14 @@ namespace Forpost.Web.Client.Implementations
     public partial interface IManufacturingOrderCompositionClient : Forpost.Web.Client.IForpostClient
     {
         /// <summary>
-        /// Добавить продукт в заказ на производство
+        /// Добавить тех.карту в заказ на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Guid> ManufacturingOrderComposition_AddAsync(AddManufacturingOrderCompositionRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Добавить продукт в заказ на производство
+        /// Добавить тех.карту в заказ на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<System.Guid> ManufacturingOrderComposition_AddAsync(AddManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken);
@@ -4033,6 +4033,13 @@ namespace Forpost.Web.Client.Implementations
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> ManufacturingOrderComposition_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId, System.Threading.CancellationToken cancellationToken);
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -4064,7 +4071,7 @@ namespace Forpost.Web.Client.Implementations
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
         /// <summary>
-        /// Добавить продукт в заказ на производство
+        /// Добавить тех.карту в заказ на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<System.Guid> ManufacturingOrderComposition_AddAsync(AddManufacturingOrderCompositionRequest request)
@@ -4074,7 +4081,7 @@ namespace Forpost.Web.Client.Implementations
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Добавить продукт в заказ на производство
+        /// Добавить тех.карту в заказ на производство
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Guid> ManufacturingOrderComposition_AddAsync(AddManufacturingOrderCompositionRequest request, System.Threading.CancellationToken cancellationToken)
@@ -4434,6 +4441,85 @@ namespace Forpost.Web.Client.Implementations
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             throw new ApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<FileResponse> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId)
+        {
+            return ManufacturingOrderComposition_GetTrackingProductsAsync(manufacturingOrderId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<FileResponse> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (manufacturingOrderId == null)
+                throw new System.ArgumentNullException("manufacturingOrderId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                
+                    // Operation Path: "api/v1/manufacturing-order-composition/{manufacturingOrderId}/tracking-products"
+                    urlBuilder_.Append("api/v1/manufacturing-order-composition/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(manufacturingOrderId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/tracking-products");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200 || status_ == 206)
+                        {
+                            var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await response_.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
+                            disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
+                            return fileResponse_;
                         }
                         else
                         {
@@ -12736,27 +12822,27 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить совместимость для продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request);
+        System.Threading.Tasks.Task<System.Guid> ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Добавить совместимость для продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Guid> ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Получить список совместимых продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductCompatibilityModel>> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Получить список совместимых продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductCompatibilityModel>> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Удаление позиции
@@ -12805,7 +12891,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить совместимость для продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request)
+        public virtual System.Threading.Tasks.Task<System.Guid> ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request)
         {
             return ProductCompatibility_AddProductCompatibilityAsync(request, System.Threading.CancellationToken.None);
         }
@@ -12815,7 +12901,7 @@ namespace Forpost.Web.Client.Implementations
         /// Добавить совместимость для продукта
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Guid> ProductCompatibility_AddProductCompatibilityAsync(ProductCompatibilityRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -12831,6 +12917,7 @@ namespace Forpost.Web.Client.Implementations
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
@@ -12860,9 +12947,14 @@ namespace Forpost.Web.Client.Implementations
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
+                        if (status_ == 201)
                         {
-                            return;
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Guid>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -12888,7 +12980,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список совместимых продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductCompatibilityModel>> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId)
         {
             return ProductCompatibility_GetProductCompatibilityByProductIdAsync(productId, System.Threading.CancellationToken.None);
         }
@@ -12898,7 +12990,7 @@ namespace Forpost.Web.Client.Implementations
         /// Получить список совместимых продуктов
         /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProductCompatibilityModel>> ProductCompatibility_GetProductCompatibilityByProductIdAsync(System.Guid productId, System.Threading.CancellationToken cancellationToken)
         {
             if (productId == null)
                 throw new System.ArgumentNullException("productId");
@@ -12910,7 +13002,7 @@ namespace Forpost.Web.Client.Implementations
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
@@ -12941,12 +13033,14 @@ namespace Forpost.Web.Client.Implementations
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200 || status_ == 206)
+                        if (status_ == 200)
                         {
-                            var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await response_.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
-                            disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
-                            return fileResponse_;
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ProductCompatibilityModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -18413,8 +18507,8 @@ namespace Forpost.Web.Client.Implementations
         [System.Text.Json.Serialization.JsonPropertyName("manufacturingOrderId")]
         public System.Guid ManufacturingOrderId { get; set; } = default!;
 
-        [System.Text.Json.Serialization.JsonPropertyName("productId")]
-        public System.Guid ProductId { get; set; } = default!;
+        [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
+        public System.Guid TechCardId { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("quantity")]
         public int Quantity { get; set; } = default!;
@@ -18439,6 +18533,12 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("manufacturingProcessOrderId")]
         public System.Guid ManufacturingProcessOrderId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("techCardId")]
+        public System.Guid TechCardId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("techCardNumber")]
+        public string TechCardNumber { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("productId")]
         public System.Guid ProductId { get; set; } = default!;
@@ -19468,6 +19568,27 @@ namespace Forpost.Web.Client.Implementations
 
         [System.Text.Json.Serialization.JsonPropertyName("parentProductId")]
         public System.Guid ParentProductId { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ProductCompatibilityModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productId")]
+        public System.Guid ProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productName")]
+        public string ProductName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("parentProductId")]
+        public System.Guid ParentProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("parentProductName")]
+        public string ParentProductName { get; set; } = default!;
 
     }
 

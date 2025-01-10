@@ -1,3 +1,4 @@
+using System.Linq.Dynamic.Core;
 using Forpost.Application.Contracts.ProductCreating.ManufacturingOrders.ManufacturingOrderCompositions;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
@@ -17,17 +18,23 @@ internal sealed class ManufacturingOrderCompositionReadRepository : IManufacturi
     public async Task<IReadOnlyCollection<ManufacturingOrderCompositionModel>> GetCompositionByOrderIdAsync(
         Guid manufacturingOrderId, CancellationToken cancellationToken) =>
         await _dbContext.ManufacturingOrderCompositions
-            .Where(x=>x.ManufacturingProcessOrderId == manufacturingOrderId)
+            .Where(x => x.ManufacturingProcessOrderId == manufacturingOrderId)
+            .Join(_dbContext.TechCards,
+                composition => composition.TechCardId,
+                techCard => techCard.Id,
+                (composition, techCard) => new { composition, techCard })
             .Join(_dbContext.Products,
-                composition => composition.ProductId,
+                combined => combined.techCard.ProductId,
                 product => product.Id,
-                (composition, product) => new ManufacturingOrderCompositionModel
+                (combined, product) => new ManufacturingOrderCompositionModel
                 {
-                    Id = composition.Id,
-                    ManufacturingProcessOrderId = composition.ManufacturingProcessOrderId,
-                    ProductId = composition.ProductId,
+                    Id = combined.composition.Id,
+                    ManufacturingProcessOrderId = combined.composition.ManufacturingProcessOrderId,
+                    TechCardId = combined.composition.TechCardId,
+                    TechCardNumber = combined.techCard.Number,
+                    ProductId = combined.techCard.ProductId,
                     ProductName = product.Name,
-                    Quantity = composition.Quantity,
+                    Quantity = combined.composition.Quantity
                 })
             .ToListAsync(cancellationToken);
 }

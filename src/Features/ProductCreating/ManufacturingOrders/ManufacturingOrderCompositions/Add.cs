@@ -18,10 +18,10 @@ internal sealed class
     public ValueTask<Guid> Handle(AddManufacturingOrderCompositionCommand command, CancellationToken cancellationToken)
     {
         var manufacturingOrderComposition =
-            ManufacturingOrderComposition.Create(command.ManufacturingOrderId, command.ProductId, command.Quantity);
+            ManufacturingOrderComposition.Create(command.ManufacturingOrderId, command.TechCardId, command.Quantity);
         return ValueTask.FromResult(_manufacturingOrderCompositionDomainRepository.Add(manufacturingOrderComposition));
     }
 }
 
-public record AddManufacturingOrderCompositionCommand(Guid ManufacturingOrderId, Guid ProductId, int Quantity)
+public record AddManufacturingOrderCompositionCommand(Guid ManufacturingOrderId, Guid TechCardId, int Quantity)
     : ICommand<Guid>;

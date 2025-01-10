@@ -14,7 +14,7 @@ public sealed class ForpostApiClient : IForpostApiClient
         IOperationClient operationClient,
         IEmployeeClient employeeClient,
         IContractorClient contractorClient, 
-        IAccountClient accountClient, IApplicationNotificationClient applicationNotificationClient)
+        IAccountClient accountClient, IApplicationNotificationClient applicationNotificationClient, IManufacturingOrderClient manufacturingOrderClient, IManufacturingOrderCompositionClient manufacturingOrderCompositionClient)
     {
         IssueClient = issueClient;
         ManufacturingProcessClient = manufacturingProcessClient;
@@ -30,10 +30,16 @@ public sealed class ForpostApiClient : IForpostApiClient
         ContractorClient = contractorClient;
         AccountClient = accountClient;
         ApplicationNotificationClient = applicationNotificationClient;
+        ManufacturingOrderClient = manufacturingOrderClient;
+        ManufacturingOrderCompositionClient = manufacturingOrderCompositionClient;
     }
 
     public IApplicationNotificationClient ApplicationNotificationClient { get; }
     
+    public IManufacturingOrderClient ManufacturingOrderClient { get; }
+    
+    public IManufacturingOrderCompositionClient ManufacturingOrderCompositionClient { get; }
+
     public IIssueClient IssueClient { get; }
     
     public IManufacturingProcessClient ManufacturingProcessClient { get; }

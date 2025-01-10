@@ -1,3 +1,4 @@
+using Forpost.Application.Contracts.Catalogs.Products.ProductCompatibilities;
 using Forpost.Domain.Catalogs.Products.ProductCompatibilities;
 using Forpost.Features.Catalogs.Products.ProductCompatibilities;
 using Microsoft.AspNetCore.Http;
@@ -12,18 +13,19 @@ public sealed class ProductCompatibilityController : ApiController
     /// Добавить совместимость для продукта
     /// </summary>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     public async Task<IActionResult> AddProductCompatibility(
         [FromBody] ProductCompatibilityRequest request, CancellationToken cancellationToken)
     {
         var result = await Sender.Send(new AddProductCompabilityCommand(request.ProductId, request.ParentProductId),
             cancellationToken);
-        return Ok(result);
+        return CreatedAtRoute("", result);
     }
     /// <summary>
     /// Получить список совместимых продуктов
     /// </summary>
-    [HttpGet("{productId}")]
+    [HttpGet("{productId:guid}")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<ProductCompatibilityModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProductCompatibilityByProductId(Guid productId,
         CancellationToken cancellationToken)
     {
@@ -33,9 +35,6 @@ public sealed class ProductCompatibilityController : ApiController
     /// <summary>
     /// Удаление позиции 
     /// </summary>
-    /// <param name="productCompabilityId"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     [HttpDelete("{productCompabilityId:guid}")]
     public async Task<IActionResult> DeleteProductCompabilityById(Guid productCompabilityId,
         CancellationToken cancellationToken)
