@@ -67,8 +67,11 @@ public sealed class ManufacturingOrderCompositionController : ApiController
         var result = await Sender.Send(new GetByIdManufacturingOrderCompositionQuery(id), cancellationToken);
         return Ok(result);
     }
-
+    /// <summary>
+    /// Получение продуктов не добавленных в заказ
+    /// </summary>
     [HttpGet("{manufacturingOrderId}/tracking-products")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<NotAddedProductsModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTrackingProductsAsync(Guid manufacturingOrderId, CancellationToken cancellationToken)
     {
         var result = await Sender.Send(new GetTrackingNotAddedProductsQuery(manufacturingOrderId), cancellationToken);
