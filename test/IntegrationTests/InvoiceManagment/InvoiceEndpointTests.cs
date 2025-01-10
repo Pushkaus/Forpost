@@ -1,11 +1,12 @@
 using Forpost.IntegrationTests.TestData;
 using Forpost.Web.Client.Implementations;
 
+
 namespace Forpost.IntegrationTests.InvoiceManagment;
 
 public sealed class InvoiceEndpointTests : BaseTest
 {
-    
+
     public InvoiceEndpointTests(TestApplication application) : base(application)
     {
     }
@@ -14,9 +15,7 @@ public sealed class InvoiceEndpointTests : BaseTest
     public async Task AddInvoice_ValidInput_ReturnGuid()
     {
         // Arrange
-        var product = ValidData.GetProduct();
-        DbContext.Add(product);
-        
+        var product = ValidData.GetProduct(); 
         var validProduct = new InvoiceProductCreate
         {
             ProductId = product.Id,
@@ -25,11 +24,8 @@ public sealed class InvoiceEndpointTests : BaseTest
 
         var products = new List<InvoiceProductCreate> { validProduct };
 
-        var contractor = ValidData.GetContractor();
-        DbContext.Add(contractor);
+        var contractor = ValidData.GetContractor(); 
         
-        await DbContext.SaveChangesAsync();
-
         var invoice = new InvoiceCreateRequest
         {
             Number = "Number10",
@@ -37,8 +33,8 @@ public sealed class InvoiceEndpointTests : BaseTest
             Description = "Description",
             Priority = 100,
             PaymentStatus = 100,
-            PaymentDeadline = TimeProvider.System.GetUtcNow().AddDays(7),
-            CreateDate = TimeProvider.System.GetUtcNow(),
+            PaymentDeadline = DateTime.UtcNow.AddDays(7), 
+            CreateDate = DateTime.UtcNow, 
             PaymentPercentage = 100,
             Products = products
         };
@@ -48,6 +44,6 @@ public sealed class InvoiceEndpointTests : BaseTest
         
         // Assert
         invoiceId.Should().NotBe(Guid.Empty);
-        invoiceId.Should<Guid>();
+        invoiceId.Should<Guid>(); 
     }
 }
