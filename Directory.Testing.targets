@@ -1,10 +1,10 @@
 <Project>
 
     <ItemGroup Condition=" '$(SignAssembly)' != 'True'">
-        <InternalsVisibleTo Include="Domain.UnitTests"/>
-        <InternalsVisibleTo Include="Application.IntegrationTests"/>
-        <InternalsVisibleTo Include="Application.UnitTests"/>
-        <InternalsVisibleTo Include="Solution.UnitTests"/>
+        <InternalsVisibleTo Include="$(CommonPrefix).Domain.UnitTests"/>
+        <InternalsVisibleTo Include="$(CommonPrefix).IntegrationTests"/>
+        <InternalsVisibleTo Include="$(CommonPrefix).Features.UnitTests"/>
+        <InternalsVisibleTo Include="$(CommonPrefix).Solution.UnitTests"/>
     </ItemGroup>
 
     <ItemGroup Condition="$(MSBuildProjectName.EndsWith(Tests))">

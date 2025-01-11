@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="AutoFixture" />
+    <PackageReference Include="AutoFixture.AutoMoq" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Features\Features.csproj" />
+  </ItemGroup>
+</Project>

@@ -1446,6 +1446,7 @@
         "tags": [
           "ManufacturingOrderComposition"
         ],
+        "summary": "Получение продуктов не добавленных в заказ",
         "operationId": "ManufacturingOrderComposition_GetTrackingProducts",
         "parameters": [
           {
@@ -1463,10 +1464,12 @@
           "200": {
             "description": "",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NotAddedProductsModel"
+                  }
                 }
               }
             }
@@ -6097,6 +6100,27 @@
           }
         }
       },
+      "NotAddedProductsModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "manufacturingOrderId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "guid"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "NotificationForUsersModel": {
         "type": "object",
         "additionalProperties": false,
@@ -7285,7 +7309,8 @@
           },
           "categoryId": {
             "type": "string",
-            "format": "guid"
+            "format": "guid",
+            "nullable": true
           }
         }
       },

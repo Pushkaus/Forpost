@@ -4033,12 +4033,18 @@ namespace Forpost.Web.Client.Implementations
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<ManufacturingOrderCompositionModel> ManufacturingOrderComposition_GetByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
+        /// <summary>
+        /// Получение продуктов не добавленных в заказ
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotAddedProductsModel>> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение продуктов не добавленных в заказ
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<FileResponse> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotAddedProductsModel>> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -4462,15 +4468,21 @@ namespace Forpost.Web.Client.Implementations
             }
         }
 
+        /// <summary>
+        /// Получение продуктов не добавленных в заказ
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<FileResponse> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotAddedProductsModel>> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId)
         {
             return ManufacturingOrderComposition_GetTrackingProductsAsync(manufacturingOrderId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Получение продуктов не добавленных в заказ
+        /// </summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<FileResponse> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<NotAddedProductsModel>> ManufacturingOrderComposition_GetTrackingProductsAsync(System.Guid manufacturingOrderId, System.Threading.CancellationToken cancellationToken)
         {
             if (manufacturingOrderId == null)
                 throw new System.ArgumentNullException("manufacturingOrderId");
@@ -4482,7 +4494,7 @@ namespace Forpost.Web.Client.Implementations
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                 
@@ -4514,12 +4526,14 @@ namespace Forpost.Web.Client.Implementations
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200 || status_ == 206)
+                        if (status_ == 200)
                         {
-                            var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await response_.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, null, response_);
-                            disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
-                            return fileResponse_;
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<NotAddedProductsModel>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -18552,6 +18566,24 @@ namespace Forpost.Web.Client.Implementations
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class NotAddedProductsModel
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("manufacturingOrderId")]
+        public System.Guid ManufacturingOrderId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productId")]
+        public System.Guid ProductId { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("productName")]
+        public string ProductName { get; set; } = default!;
+
+        [System.Text.Json.Serialization.JsonPropertyName("quantity")]
+        public int Quantity { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class NotificationForUsersModel
     {
 
@@ -19525,7 +19557,7 @@ namespace Forpost.Web.Client.Implementations
         public bool Purchased { get; set; } = default!;
 
         [System.Text.Json.Serialization.JsonPropertyName("categoryId")]
-        public System.Guid CategoryId { get; set; } = default!;
+        public System.Guid? CategoryId { get; set; } = default!;
 
     }
 

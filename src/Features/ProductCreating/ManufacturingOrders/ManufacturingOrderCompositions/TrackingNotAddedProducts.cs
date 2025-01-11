@@ -1,5 +1,6 @@
 using Forpost.Application.Contracts.CRM.InvoiceManagement.InvoiceProducts;
 using Forpost.Application.Contracts.ProductCreating.ManufacturingOrders.ManufacturingOrderCompositions;
+using Forpost.Common;
 using Forpost.Domain.ProductCreating.ManufacturingOrders.Contracts;
 using Mediator;
 
@@ -26,6 +27,7 @@ internal sealed class GetTrackingNotAddedProductsQueryHandler : IQueryHandler<Ge
         CancellationToken cancellationToken)
     {
         var order = await _manufacturingOrderDomainRepository.GetByIdAsync(query.ManufacturingOrderId, cancellationToken);
+        order.EnsureFoundBy(x => x.Id, query.ManufacturingOrderId);
 
         var invoiceProducts = await _invoiceProductReadRepository
             .GetProductsByInvoiceIdAsync(order.InvoiceId, cancellationToken);
