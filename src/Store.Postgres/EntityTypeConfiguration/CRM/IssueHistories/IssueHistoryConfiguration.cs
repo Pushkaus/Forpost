@@ -1,4 +1,4 @@
-using Forpost.Domain.CRM.IssueHistory;
+using Forpost.Domain.Crm.IssueHistory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

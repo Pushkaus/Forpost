@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.CRM.PriceLists;
+namespace Forpost.Domain.Crm.PriceLists;
 
 public sealed class PriceList: DomainAuditableEntity
 {

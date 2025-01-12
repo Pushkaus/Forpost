@@ -1,5 +1,5 @@
 using Forpost.Common.ApplicationNotifications;
-using Forpost.Domain.CRM.InvoiceManagement.Events;
+using Forpost.Domain.Crm.InvoiceManagement.Events;
 using Mediator;
 
 namespace Forpost.Features.Crm.InvoiceManagement.Invoices.Handlers;

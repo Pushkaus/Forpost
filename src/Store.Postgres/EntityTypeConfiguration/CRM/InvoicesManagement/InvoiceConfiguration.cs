@@ -1,5 +1,5 @@
 using Forpost.Domain.Catalogs.Contractors;
-using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Domain.Crm.InvoiceManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,4 +1,4 @@
-using Forpost.Domain.CRM.PriceLists;
+using Forpost.Domain.Crm.PriceLists;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

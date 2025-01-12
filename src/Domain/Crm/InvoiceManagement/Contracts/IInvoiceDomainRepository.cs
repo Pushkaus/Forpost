@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
 
-namespace Forpost.Domain.CRM.InvoiceManagement.Contracts;
+namespace Forpost.Domain.Crm.InvoiceManagement.Contracts;
 
 public interface IInvoiceDomainRepository : IDomainRepository<Invoice>
 {

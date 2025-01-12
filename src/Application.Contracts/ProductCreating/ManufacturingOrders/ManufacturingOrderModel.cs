@@ -1,4 +1,4 @@
-using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Domain.Crm.InvoiceManagement;
 using Forpost.Domain.ProductCreating.ManufacturingOrders;
 
 namespace Forpost.Application.Contracts.ProductCreating.ManufacturingOrders;

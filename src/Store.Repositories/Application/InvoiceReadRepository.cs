@@ -1,6 +1,6 @@
 using Forpost.Application.Contracts;
 using Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
-using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Domain.Crm.InvoiceManagement;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 

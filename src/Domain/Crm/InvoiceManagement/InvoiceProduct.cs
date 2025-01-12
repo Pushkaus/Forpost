@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.CRM.InvoiceManagement;
+namespace Forpost.Domain.Crm.InvoiceManagement;
 
 /// <summary>
 /// Состав счета

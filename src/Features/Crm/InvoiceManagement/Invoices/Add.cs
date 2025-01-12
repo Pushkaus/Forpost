@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using FluentValidation;
-using Forpost.Domain.CRM.InvoiceManagement;
-using Forpost.Domain.CRM.InvoiceManagement.Contracts;
+using Forpost.Domain.Crm.InvoiceManagement;
+using Forpost.Domain.Crm.InvoiceManagement.Contracts;
 using Mediator;
 using Microsoft.Extensions.Logging;
 

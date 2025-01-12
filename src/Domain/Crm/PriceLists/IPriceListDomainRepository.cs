@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
 
-namespace Forpost.Domain.CRM.PriceLists;
+namespace Forpost.Domain.Crm.PriceLists;
 
 public interface IPriceListDomainRepository: IDomainRepository<PriceList>
 {

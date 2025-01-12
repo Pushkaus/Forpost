@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.CRM.IssueHistory;
+using Forpost.Domain.Crm.IssueHistory;
 using Forpost.Store.Postgres;
 
 namespace Forpost.Store.Repositories.CRM.IssueHistories;

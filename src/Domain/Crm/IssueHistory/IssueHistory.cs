@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.CRM.IssueHistory;
+namespace Forpost.Domain.Crm.IssueHistory;
 
 public sealed class IssueHistory: DomainEntity
 {

@@ -1,7 +1,7 @@
-using Forpost.Domain.CRM.InvoiceManagement.Events;
+using Forpost.Domain.Crm.InvoiceManagement.Events;
 using Forpost.Domain.Primitives.EntityTemplates;
 
-namespace Forpost.Domain.CRM.InvoiceManagement;
+namespace Forpost.Domain.Crm.InvoiceManagement;
 
 /// <summary>
 /// Счет

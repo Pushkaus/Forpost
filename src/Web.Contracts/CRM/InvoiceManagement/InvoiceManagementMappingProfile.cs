@@ -1,6 +1,6 @@
 using AutoMapper;
 using Forpost.Application.Contracts.CRM.InvoiceManagement.InvoiceProducts;
-using Forpost.Domain.CRM.InvoiceManagement;
+using Forpost.Domain.Crm.InvoiceManagement;
 using Forpost.Web.Contracts.Crm.InvoiceManagement.InvoiceProducts;
 
 namespace Forpost.Web.Contracts.Crm.InvoiceManagement;

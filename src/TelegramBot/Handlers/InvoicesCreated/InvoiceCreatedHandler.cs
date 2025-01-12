@@ -1,5 +1,5 @@
 using Forpost.Application.Contracts.CRM.InvoiceManagement.Invoices;
-using Forpost.Domain.CRM.InvoiceManagement.Events;
+using Forpost.Domain.Crm.InvoiceManagement.Events;
 using Forpost.Domain.MessagesManagement.ApplicationNotifications;
 using Forpost.Domain.TelegramData;
 using Mediator;

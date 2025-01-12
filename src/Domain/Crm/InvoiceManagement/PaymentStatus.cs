@@ -1,6 +1,6 @@
 using Forpost.Domain.Primitives.DomainAbstractions;
 
-namespace Forpost.Domain.CRM.InvoiceManagement;
+namespace Forpost.Domain.Crm.InvoiceManagement;
 
 public sealed class PaymentStatus: SmartEnumeration<PaymentStatus>
 {

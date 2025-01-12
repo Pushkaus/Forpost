@@ -1,6 +1,6 @@
 using AutoMapper;
-using Forpost.Domain.CRM.InvoiceManagement;
-using Forpost.Domain.CRM.InvoiceManagement.Contracts;
+using Forpost.Domain.Crm.InvoiceManagement;
+using Forpost.Domain.Crm.InvoiceManagement.Contracts;
 using Forpost.Store.Postgres;
 using Microsoft.EntityFrameworkCore;
 

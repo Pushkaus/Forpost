@@ -1,5 +1,5 @@
 using AutoMapper;
-using Forpost.Domain.CRM.PriceLists;
+using Forpost.Domain.Crm.PriceLists;
 using Forpost.Store.Postgres;
 
 namespace Forpost.Store.Repositories.CRM.PriceListes;
