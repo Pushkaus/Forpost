@@ -30,4 +30,4 @@ jobs:
         run: dotnet build Forpost.sln --configuration Release --no-restore
 
       - name: Test 🧪
-        run: dotnet test Forpost.sln --configuration 
+        run: dotnet test Forpost.sln --configuration Release --no-restore
