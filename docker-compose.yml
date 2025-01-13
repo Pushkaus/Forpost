@@ -19,7 +19,7 @@ services:
 
   back:
     container_name: 'ForpostApi'
-    command: ["dotnet", "Forpost.Web.Host.dll", "--with-schema-migration", "--with-data-migration"]
+    command: ["dotnet", "Forpost.Host.dll", "--with-schema-migration", "--with-data-migration"]
     depends_on:
       db:
         condition: service_healthy
